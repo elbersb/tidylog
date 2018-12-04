@@ -1,0 +1,6 @@
+*.Rproj
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+data-raw/sc*

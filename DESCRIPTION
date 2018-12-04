@@ -1,0 +1,16 @@
+Package: tidylog
+Type: Package
+Title: Logging for dplyr functions
+Version: 0.1.0
+Authors@R: person("Benjamin", "Elbers", email = "elbersb@gmail.com",
+  role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5392-3448"))
+Description: This is a description.
+    This is a description.
+License: MIT + file LICENSE
+Imports: dplyr
+Suggests: testthat
+Encoding: UTF-8
+LazyData: true
+URL: http://github.com/tidylog/
+BugReports: http://github.com/tidylog/issues
+RoxygenNote: 6.1.1
