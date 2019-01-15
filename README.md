@@ -28,10 +28,12 @@ This can be especially helpful in longer pipes:
 
 ``` r
 summary <- mtcars %>%
+    select(mpg, cyl, hp) %>%
     filter(mpg > 15) %>%
     mutate(mpg_round = round(mpg)) %>%
     group_by(cyl, mpg_round) %>%
     tally()
+#> select: dropped 8 variables (disp, drat, wt, qsec, vs, …) 
 #> filter: removed 6 rows (19%) 
 #> mutate: new variable 'mpg_round' with 15 unique values 
 #> group_by: 17 groups [cyl, mpg_round]

@@ -35,6 +35,7 @@ This can be especially helpful in longer pipes:
 
 ```{r}
 summary <- mtcars %>%
+    select(mpg, cyl, hp) %>%
     filter(mpg > 15) %>%
     mutate(mpg_round = round(mpg)) %>%
     group_by(cyl, mpg_round) %>%
