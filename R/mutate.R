@@ -31,21 +31,28 @@ mutate_at <- function(.data, ...) {
 log_mutate <- function(.data, fun, funname, ...) {
     cols <- names(.data)
     newdata <- fun(.data, ...)
+    has_changed <- FALSE
     for (var in names(newdata)) {
+        # existing var
         if (var %in% cols) {
-            # existing var
-            compare <- newdata[[var]] != .data[[var]]
-            if (any(compare)) {
-                n <- sum(compare)
-                p <- round(100 * (n / length(compare)))
+            # use identical to account for missing values
+            different <- !identical(newdata[[var]], .data[[var]])
+            if (any(different)) {
+                n <- sum(different)
+                p <- round(100 * (n / length(different)))
                 cat(glue::glue("{funname}: changed {plural(n, 'value')} ({p}%) of '{var}'"), "\n")
+                has_changed <- TRUE
             }
+        # new var
         } else {
-            # new var
             n <- length(unique(newdata[[var]]))
             cat(glue::glue("{funname}: new variable '{var}' with {plural(n, 'value', 'unique ')}"),
                 "\n")
+            has_changed <- TRUE
         }
+    }
+    if (!has_changed) {
+        cat(glue::glue("{funname}: no changes"), "\n")
     }
     newdata
 }
