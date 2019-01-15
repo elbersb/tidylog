@@ -1,0 +1,48 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# tidylog
+
+The goal of tidylog is to provide feedback about basic dplyr operations. It provides simple wrapper functions for the most common functions, such as `filter`, `mutate`, `select`, and `group_by`.
+
+## Example
+
+Load `tidylog` after `dplyr`:
+
+```{r message=FALSE}
+library("dplyr")
+library("tidylog")
+```
+
+Tidylog will give you feedback, for instance when filtering a data frame:
+
+```{r}
+mtcars_filtered <- filter(mtcars, cyl == 4)
+```
+
+This can be especially helpful in longer pipes:
+
+```{r}
+summary <- mtcars %>%
+    filter(mpg > 15) %>%
+    mutate(mpg_round = round(mpg)) %>%
+    group_by(cyl, mpg_round) %>%
+    tally()
+```
+
+## Installation
+
+``` r
+devtools::install_github("elbersb/tidylog")
+```
