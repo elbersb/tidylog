@@ -4,10 +4,10 @@ Title: Logging for dplyr functions
 Version: 0.1.0
 Authors@R: person("Benjamin", "Elbers", email = "elbersb@gmail.com",
   role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5392-3448"))
-Description: This is a description.
-    This is a description.
+Description: The goal of tidylog is to provide feedback about basic dplyr operations. 
+    It provides simple wrapper functions for the most common functions
 License: MIT + file LICENSE
-Imports: dplyr
+Imports: dplyr, glue
 Suggests: testthat
 Encoding: UTF-8
 LazyData: true
