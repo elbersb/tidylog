@@ -66,7 +66,8 @@ log_mutate <- function(.data, fun, funname, ...) {
         # new var
         } else {
             n <- length(unique(newdata[[var]]))
-            cat(glue::glue("{funname}: new variable '{var}' with {plural(n, 'value', 'unique ')}"),
+            p_na <- percent(sum(is.na(newdata[[var]])), length(newdata[[var]]))
+            cat(glue::glue("{funname}: new variable '{var}' with {plural(n, 'value', 'unique ')} ({p_na} NA)"),
                 "\n")
             has_changed <- TRUE
         }
