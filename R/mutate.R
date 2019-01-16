@@ -58,8 +58,8 @@ log_mutate <- function(.data, fun, funname, ...) {
                     different[!is.na(new) & is.na(old)] <- TRUE
                     different[is.na(new) & is.na(old)] <- FALSE
                     n <- sum(different)
-                    p <- round(100 * (n / length(different)))
-                    cat(glue::glue("{funname}: changed {plural(n, 'value')} ({p}%) of '{var}'"), "\n")
+                    p <- percent(n, length(different))
+                    cat(glue::glue("{funname}: changed {plural(n, 'value')} ({p}) of '{var}'"), "\n")
                     has_changed <- TRUE
                 }
             }
