@@ -35,13 +35,33 @@ log_mutate <- function(.data, fun, funname, ...) {
     for (var in names(newdata)) {
         # existing var
         if (var %in% cols) {
-            # use identical to account for missing values
-            different <- !identical(newdata[[var]], .data[[var]])
-            if (any(different)) {
-                n <- sum(different)
-                p <- round(100 * (n / length(different)))
-                cat(glue::glue("{funname}: changed {plural(n, 'value')} ({p}%) of '{var}'"), "\n")
-                has_changed <- TRUE
+            # use identical to account for missing values - this is fast
+            if (!identical(newdata[[var]], .data[[var]])) {
+                old <- .data[[var]]
+                new <- newdata[[var]]
+
+                if (!is.factor(old) & is.factor(new)) {
+                    # converted to factor
+                    # TODO: message
+                    has_changed <- TRUE
+                } else if (is.factor(old) & !is.factor(new)) {
+                    # converted from factor
+                    # TODO: message
+                    has_changed <- TRUE
+                } else if (is.factor(old) & is.factor(new)) {
+                    # stayed factor
+                    # TODO: look at change in levels?
+                    has_changed <- TRUE
+                } else {
+                    different <- new != old
+                    different[is.na(new) & !is.na(old)] <- TRUE
+                    different[!is.na(new) & is.na(old)] <- TRUE
+                    different[is.na(new) & is.na(old)] <- FALSE
+                    n <- sum(different)
+                    p <- round(100 * (n / length(different)))
+                    cat(glue::glue("{funname}: changed {plural(n, 'value')} ({p}%) of '{var}'"), "\n")
+                    has_changed <- TRUE
+                }
             }
         # new var
         } else {
