@@ -20,11 +20,8 @@ Tidylog will give you feedback, for instance when filtering a data
 frame:
 
 ``` r
-subset1 <- filter(mtcars, cyl == 4)
+filtered <- filter(mtcars, cyl == 4)
 #> filter: removed 21 rows (66%)
-# accidentically filtered nothing:
-subset2 <- filter(mtcars, mpg > 10) 
-#> filter: no rows removed
 ```
 
 This can be especially helpful in longer pipes:
@@ -35,12 +32,17 @@ summary <- mtcars %>%
     filter(mpg > 15) %>%
     mutate(mpg_round = round(mpg)) %>%
     group_by(cyl, mpg_round) %>%
-    tally()
+    tally() %>%
+    filter(n >= 1)
 #> select: dropped 8 variables (disp, drat, wt, qsec, vs, …) 
 #> filter: removed 6 rows (19%) 
 #> mutate: new variable 'mpg_round' with 15 unique values (0% NA) 
-#> group_by: 17 groups [cyl, mpg_round]
+#> group_by: 17 groups [cyl, mpg_round] 
+#> filter: no rows removed
 ```
+
+Here, it might have been accidental that the last `filter` command had
+no effect.
 
 ## Installation
 
