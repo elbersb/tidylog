@@ -6,6 +6,21 @@ plural <- function(n_items, noun, mid = "") {
     }
 }
 
+percent <- function(n, total) {
+    p <- round(n / total * 100)
+    if (n == total) {
+        "100%"
+    } else if (p == 100) {
+        ">99%"
+    } else if (n == 0) {
+        "0%"
+    } else if (p == 0) {
+        "<1%"
+    } else {
+        paste0(p, "%")
+    }
+}
+
 format_list <- function(items) {
     if (length(items) <= 5) {
         paste0(items, collapse = ", ")
