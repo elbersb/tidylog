@@ -8,36 +8,42 @@
 #' @import dplyr
 #' @export
 filter <- function(.data, ...) {
-    log_filter(.data, dplyr::filter, ...)
+    log_filter(.data, dplyr::filter, "filter", ...)
 }
 
 #' @rdname filter
 #' @export
 filter_all <- function(.data, ...) {
-    log_filter(.data, dplyr::filter_all, ...)
+    log_filter(.data, dplyr::filter_all, "filter_all", ...)
 }
 
 #' @rdname filter
 #' @export
 filter_if <- function(.data, ...) {
-    log_filter(.data, dplyr::filter_if, ...)
+    log_filter(.data, dplyr::filter_if, "filter_if", ...)
 }
 
 #' @rdname filter
 #' @export
 filter_at <- function(.data, ...) {
-    log_filter(.data, dplyr::filter_at, ...)
+    log_filter(.data, dplyr::filter_at, "filter_at", ...)
 }
 
-log_filter <- function(.data, fun, ...) {
+#' @rdname filter
+#' @export
+distinct <- function(.data, ...) {
+    log_filter(.data, dplyr::distinct, "distinct", ...)
+}
+
+log_filter <- function(.data, fun, funname, ...) {
     newdata <- fun(.data, ...)
     n <- nrow(.data) - nrow(newdata)
     if (n == 0) {
-        cat(glue::glue("filter: no rows removed"), "\n")
+        cat(glue::glue("{funname}: no rows removed"), "\n")
     } else if (n == nrow(.data)) {
-        cat(glue::glue("filter: removed all rows (100%)"), "\n")
+        cat(glue::glue("{funname}: removed all rows (100%)"), "\n")
     } else {
-        cat(glue::glue("filter: removed {plural(n, 'row')} ({percent(n, nrow(.data))})"), "\n")
+        cat(glue::glue("{funname}: removed {plural(n, 'row')} ({percent(n, nrow(.data))})"), "\n")
     }
     newdata
 }

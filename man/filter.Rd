@@ -5,6 +5,7 @@
 \alias{filter_all}
 \alias{filter_if}
 \alias{filter_at}
+\alias{distinct}
 \title{Wrapper around dplyr::filter and related functions
 that prints information about the operation}
 \usage{
@@ -15,6 +16,8 @@ filter_all(.data, ...)
 filter_if(.data, ...)
 
 filter_at(.data, ...)
+
+distinct(.data, ...)
 }
 \arguments{
 \item{.data}{a tbl; see \link[dplyr]{filter}}
