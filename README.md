@@ -13,7 +13,7 @@ Load `tidylog` after `dplyr`:
 
 ``` r
 library("dplyr")
-library("tidylog")
+library("tidylog", warn.conflicts = FALSE)
 ```
 
 Tidylog will give you feedback, for instance when filtering a data
