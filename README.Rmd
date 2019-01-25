@@ -38,6 +38,8 @@ summary <- mtcars %>%
     select(mpg, cyl, hp) %>%
     filter(mpg > 15) %>%
     mutate(mpg_round = round(mpg)) %>%
+    mutate(mpg_round = ifelse(mpg_round > 30, NA, mpg_round)) %>%
+    filter(!is.na(mpg_round)) %>%
     group_by(cyl, mpg_round) %>%
     tally() %>%
     filter(n >= 1)
