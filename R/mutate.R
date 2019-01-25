@@ -31,6 +31,9 @@ mutate_at <- function(.data, ...) {
 log_mutate <- function(.data, fun, funname, ...) {
     cols <- names(.data)
     newdata <- fun(.data, ...)
+    if (!"data.frame" %in% class(.data)) {
+        return(newdata)
+    }
     has_changed <- FALSE
     for (var in names(newdata)) {
         # existing var

@@ -37,6 +37,9 @@ distinct <- function(.data, ...) {
 
 log_filter <- function(.data, fun, funname, ...) {
     newdata <- fun(.data, ...)
+    if (!"data.frame" %in% class(.data)) {
+        return(newdata)
+    }
     n <- nrow(.data) - nrow(newdata)
     if (n == 0) {
         cat(glue::glue("{funname}: no rows removed"), "\n")

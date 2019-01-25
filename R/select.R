@@ -31,6 +31,9 @@ select_at <- function(.data, ...) {
 log_select <- function(.data, fun, funname, ...) {
     cols <- names(.data)
     newdata <- fun(.data, ...)
+    if (!"data.frame" %in% class(.data)) {
+        return(newdata)
+    }
     dropped_vars <- setdiff(cols, names(newdata))
     n <- length(dropped_vars)
     if (length(dropped_vars) > 0) {

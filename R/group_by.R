@@ -30,6 +30,9 @@ group_by_at <- function(.data, ...) {
 
 log_group_by <- function(.data, fun, funname, ...) {
     newdata <- fun(.data, ...)
+    if (!"data.frame" %in% class(.data)) {
+        return(newdata)
+    }
     cat(glue::glue(
         "{funname}: {plural(length(attr(newdata, 'group_sizes')), 'group')} ",
         "[{format_list(attr(newdata, 'vars'))}]"), "\n")
