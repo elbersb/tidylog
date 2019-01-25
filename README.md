@@ -67,7 +67,7 @@ e <- distinct(mtcars)
 #> distinct: no rows removed
 ```
 
-### mutate
+### mutate / transmute
 
 ``` r
 a <- mutate(mtcars, new_var = 1)
@@ -87,6 +87,12 @@ g <- mutate(mtcars, am = ifelse(am == 1, NA, am))
 #> mutate: changed 13 values (41%) of 'am' (13 new NA)
 h <- mutate(mtcars, am = recode(am, `0` = "zero", `1` = NA_character_))
 #> mutate: converted 'am' from double to character (13 new NA)
+
+i <- transmute(mtcars, mpg = mpg * 2, gear = gear + 1, new_var = vs + am)
+#> transmute: dropped 9 variables (cyl, disp, hp, drat, wt, …) 
+#> transmute: changed 32 values (100%) of 'mpg' (0 new NA) 
+#> transmute: changed 32 values (100%) of 'gear' (0 new NA) 
+#> transmute: new variable 'new_var' with 3 unique values and 0% NA
 ```
 
 ### select
