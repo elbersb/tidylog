@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 ```
 # tidylog
 
-The goal of tidylog is to provide feedback about basic dplyr operations. It provides simple wrapper functions for the most common functions, such as `filter`, `mutate`, `select`, and `group_by`.
+The goal of tidylog is to provide feedback about basic dplyr operations. It provides simple wrapper functions for the most common functions, such as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
 
 ## Example
 
@@ -38,8 +38,6 @@ summary <- mtcars %>%
     select(mpg, cyl, hp) %>%
     filter(mpg > 15) %>%
     mutate(mpg_round = round(mpg)) %>%
-    mutate(mpg_round = ifelse(mpg_round > 30, NA, mpg_round)) %>%
-    filter(!is.na(mpg_round)) %>%
     group_by(cyl, mpg_round) %>%
     tally() %>%
     filter(n >= 1)
@@ -50,4 +48,45 @@ Here, it might have been accidental that the last `filter` command had no effect
 
 ``` r
 devtools::install_github("elbersb/tidylog")
+```
+
+## More examples
+
+### filter & distinct
+
+```{r}
+a <- filter(mtcars, mpg > 20)
+b <- filter(mtcars, mpg > 100)
+c <- filter(mtcars, mpg > 0)
+d <- filter_at(mtcars, vars(starts_with("d")), any_vars((. %% 2) == 0))
+e <- distinct(mtcars)
+```
+
+### mutate
+
+```{r}
+a <- mutate(mtcars, new_var = 1)
+b <- mutate(mtcars, new_var = runif(n()))
+c <- mutate(mtcars, new_var = NA)
+d <- mutate_at(mtcars, vars(mpg, gear, drat), round)
+e <- mutate(mtcars, am_factor = as.factor(am))
+f <- mutate(mtcars, am = as.factor(am))
+g <- mutate(mtcars, am = ifelse(am == 1, NA, am))
+h <- mutate(mtcars, am = recode(am, `0` = "zero", `1` = NA_character_))
+```
+
+### select
+
+```{r}
+a <- select(mtcars, mpg, wt)
+b <- select(mtcars, matches("a"))
+c <- select_if(mtcars, is.character)
+```
+
+### joins
+
+```{r}
+a <- band_members %>% left_join(band_instruments, by = "name")
+b <- band_members %>% full_join(band_instruments, by = "name")
+c <- band_members %>% anti_join(band_instruments, by = "name")
 ```
