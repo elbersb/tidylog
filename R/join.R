@@ -47,14 +47,18 @@ log_join <- function(.data, fun, funname, ...) {
         return(newdata)
     }
     n_rows <- nrow(newdata) - nrow(.data)
-    n_cols <- ncol(newdata) - ncol(.data)
     text_rows <- ifelse(n_rows >= 0, "added", "removed")
-    text_cols <- ifelse(n_cols >= 0, "added", "removed")
     n_rows <- abs(n_rows)
-    n_cols <- abs(n_cols)
 
-    cat(glue::glue("{funname}: {text_rows} {plural(n_rows, 'row')} and ",
-            "{text_cols} {plural(n_cols, 'column')}"), "\n")
+    cols <- setdiff(names(newdata), names(.data))
+
+    if (length(cols) == 0) {
+        cat(glue::glue("{funname}: {text_rows} {plural(n_rows, 'row')} and ",
+                "added no new columns"), "\n")
+    } else {
+        cat(glue::glue("{funname}: {text_rows} {plural(n_rows, 'row')} and ",
+                "added {plural(length(cols), 'column')} ({format_list(cols)})"), "\n")
+    }
 
     newdata
 }
