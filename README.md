@@ -1,23 +1,21 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+tidylog
+=======
 
-# tidylog
+The goal of tidylog is to provide feedback about basic dplyr operations. It provides simple wrapper functions for the most common functions, such as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
 
-The goal of tidylog is to provide feedback about basic dplyr operations.
-It provides simple wrapper functions for the most common functions, such
-as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
+Example
+-------
 
-## Example
-
-Load `tidylog` after `dplyr`:
+Load `tidylog` [*after*](https://github.com/elbersb/tidylog#namespace-conflicts) `dplyr`:
 
 ``` r
 library("dplyr")
 library("tidylog", warn.conflicts = FALSE)
 ```
 
-Tidylog will give you feedback, for instance when filtering a data
-frame:
+Tidylog will give you feedback, for instance when filtering a data frame:
 
 ``` r
 filtered <- filter(mtcars, cyl == 4)
@@ -41,16 +39,17 @@ summary <- mtcars %>%
 #> filter: no rows removed
 ```
 
-Here, it might have been accidental that the last `filter` command had
-no effect.
+Here, it might have been accidental that the last `filter` command had no effect.
 
-## Installation
+Installation
+------------
 
 ``` r
 devtools::install_github("elbersb/tidylog")
 ```
 
-## More examples
+More examples
+-------------
 
 ### filter & distinct
 
@@ -115,4 +114,20 @@ b <- band_members %>% full_join(band_instruments, by = "name")
 #> full_join: added one row and added one column (plays)
 c <- band_members %>% anti_join(band_instruments, by = "name")
 #> anti_join: removed 2 rows and added no new columns
+```
+
+Namespace conflicts
+===================
+
+Above, we recommended that users load `tidylog` *after* `dplyr`. This is because when two packages assign the same name to different functions, R gives precendence to the most recently loaded package. `tidylog` redefines several of the functions exported by `dplyr`, so it should be loaded last, otherwise the nice logs will not be printed.
+
+A safer and more explicit way to resolve such namespace conflicts is to use the [`conflicted` package](https://github.com/r-lib/conflicted):
+
+``` r
+library(tidylog)
+library(conflicted)
+tidylog_functions <- getNamespaceExports("tidylog")
+for (f in tidylog_functions) {
+    conflicted::conflict_prefer(f, 'tidylog', quiet = TRUE)
+}
 ```

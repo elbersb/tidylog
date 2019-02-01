@@ -18,7 +18,7 @@ The goal of tidylog is to provide feedback about basic dplyr operations. It prov
 
 ## Example
 
-Load `tidylog` after `dplyr`:
+Load `tidylog` [*after*](https://github.com/elbersb/tidylog#namespace-conflicts) `dplyr`:
 
 ```{r message=FALSE}
 library("dplyr")
@@ -91,4 +91,19 @@ c <- select_if(mtcars, is.character)
 a <- band_members %>% left_join(band_instruments, by = "name")
 b <- band_members %>% full_join(band_instruments, by = "name")
 c <- band_members %>% anti_join(band_instruments, by = "name")
+```
+
+# Namespace conflicts
+
+Above, we recommended that users load `tidylog` *after* `dplyr`. This is because when two packages assign the same name to different functions, R gives precendence to the most recently loaded package. `tidylog` redefines several of the functions exported by `dplyr`, so it should be loaded last, otherwise the nice logs will not be printed.
+
+A safer and more explicit way to resolve such namespace conflicts is to use the [`conflicted` package](https://github.com/r-lib/conflicted):
+
+```{r}
+library(tidylog)
+library(conflicted)
+tidylog_functions <- getNamespaceExports("tidylog")
+for (f in tidylog_functions) {
+    conflicted::conflict_prefer(f, 'tidylog', quiet = TRUE)
+}
 ```
