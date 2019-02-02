@@ -109,10 +109,26 @@ c <- select_if(mtcars, is.character)
 ### joins
 
 ``` r
-a <- band_members %>% left_join(band_instruments, by = "name")
+a <- left_join(band_members, band_instruments, by = "name")
 #> left_join: added 0 rows and added one column (plays)
-b <- band_members %>% full_join(band_instruments, by = "name")
+b <- full_join(band_members, band_instruments, by = "name")
 #> full_join: added one row and added one column (plays)
-c <- band_members %>% anti_join(band_instruments, by = "name")
+c <- anti_join(band_members, band_instruments, by = "name")
 #> anti_join: removed 2 rows and added no new columns
+```
+
+## Namespace conflicts
+
+Tidylog redefines several of the functions exported by dplyr, so it
+should be loaded last, otherwise there will be no output. A more
+explicit way to resolve namespace conflicts is to use the
+[conflicted](https://CRAN.R-project.org/package=conflicted) package:
+
+``` r
+library(dplyr)
+library(tidylog)
+library(conflicted)
+for (f in getNamespaceExports("tidylog")) {
+    conflicted::conflict_prefer(f, 'tidylog', quiet = TRUE)
+}
 ```
