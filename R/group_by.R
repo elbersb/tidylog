@@ -34,8 +34,8 @@ log_group_by <- function(.data, fun, funname, ...) {
         return(newdata)
     }
     groups <- get_groups(newdata)
-    cat(glue::glue(
+    display(glue::glue(
         "{funname}: {plural(groups[[1]], 'group')} ",
-        "({format_list(groups[[2]])})"), "\n")
+        "({format_list(groups[[2]])})"))
     newdata
 }

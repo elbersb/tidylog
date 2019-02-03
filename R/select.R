@@ -37,10 +37,10 @@ log_select <- function(.data, fun, funname, ...) {
     dropped_vars <- setdiff(cols, names(newdata))
     n <- length(dropped_vars)
     if (ncol(newdata) == 0) {
-        cat(glue::glue("{funname}: dropped all variables"), "\n")
+        display(glue::glue("{funname}: dropped all variables"))
     } else if (length(dropped_vars) > 0) {
-        cat(glue::glue("{funname}: dropped {plural(n, 'variable')}",
-                       " ({format_list(dropped_vars)})"), "\n")
+        display(glue::glue("{funname}: dropped {plural(n, 'variable')}",
+                       " ({format_list(dropped_vars)})"))
     }
     newdata
 }

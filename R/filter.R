@@ -42,11 +42,11 @@ log_filter <- function(.data, fun, funname, ...) {
     }
     n <- nrow(.data) - nrow(newdata)
     if (n == 0) {
-        cat(glue::glue("{funname}: no rows removed"), "\n")
+        display(glue::glue("{funname}: no rows removed"))
     } else if (n == nrow(.data)) {
-        cat(glue::glue("{funname}: removed all rows (100%)"), "\n")
+        display(glue::glue("{funname}: removed all rows (100%)"))
     } else {
-        cat(glue::glue("{funname}: removed {plural(n, 'row')} ({percent(n, nrow(.data))})"), "\n")
+        display(glue::glue("{funname}: removed {plural(n, 'row')} ({percent(n, nrow(.data))})"))
     }
     newdata
 }

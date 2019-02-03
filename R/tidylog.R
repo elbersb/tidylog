@@ -41,6 +41,10 @@ get_groups <- function(.data) {
     }
 }
 
+display <- function(text) {
+    message(text)
+}
+
 #' outputs some information about the data frame/tbl
 #'
 #' @param .data a tbl/data frame
@@ -60,7 +64,7 @@ tidylog <- function(.data) {
         return(.data)
     }
 
-    cat(glue::glue("tidylog: {type} with {plural(nrow(.data), 'row')} and ",
-        "{plural(ncol(.data), 'column')}"), "\n")
+    display(glue::glue("tidylog: {type} with {plural(nrow(.data), 'row')} and ",
+        "{plural(ncol(.data), 'column')}"))
     .data
 }

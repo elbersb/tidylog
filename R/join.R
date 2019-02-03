@@ -53,11 +53,11 @@ log_join <- function(.data, fun, funname, ...) {
     cols <- setdiff(names(newdata), names(.data))
 
     if (length(cols) == 0) {
-        cat(glue::glue("{funname}: {text_rows} {plural(n_rows, 'row')} and ",
-                "added no new columns"), "\n")
+        display(glue::glue("{funname}: {text_rows} {plural(n_rows, 'row')} and ",
+                "added no new columns"))
     } else {
-        cat(glue::glue("{funname}: {text_rows} {plural(n_rows, 'row')} and ",
-                "added {plural(length(cols), 'column')} ({format_list(cols)})"), "\n")
+        display(glue::glue("{funname}: {text_rows} {plural(n_rows, 'row')} and ",
+                "added {plural(length(cols), 'column')} ({format_list(cols)})"))
     }
 
     newdata
