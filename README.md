@@ -34,10 +34,10 @@ summary <- mtcars %>%
     group_by(cyl, mpg_round) %>%
     tally() %>%
     filter(n >= 1)
-#> select: dropped 8 variables (disp, drat, wt, qsec, vs, …) 
-#> filter: removed 6 rows (19%) 
-#> mutate: new variable 'mpg_round' with 15 unique values and 0% NA 
-#> group_by: 17 groups [cyl, mpg_round] 
+#> select: dropped 8 variables (disp, drat, wt, qsec, vs, …)
+#> filter: removed 6 rows (19%)
+#> mutate: new variable 'mpg_round' with 15 unique values and 0% NA
+#> group_by: 17 groups (cyl, mpg_round)
 #> filter: no rows removed
 ```
 
@@ -77,7 +77,7 @@ b <- mutate(mtcars, new_var = runif(n()))
 c <- mutate(mtcars, new_var = NA)
 #> mutate: new variable 'new_var' with one unique value and 100% NA
 d <- mutate_at(mtcars, vars(mpg, gear, drat), round)
-#> mutate_at: changed 28 values (88%) of 'mpg' (0 new NA) 
+#> mutate_at: changed 28 values (88%) of 'mpg' (0 new NA)
 #> mutate_at: changed 31 values (97%) of 'drat' (0 new NA)
 e <- mutate(mtcars, am_factor = as.factor(am))
 #> mutate: new variable 'am_factor' with 2 unique values and 0% NA
@@ -89,9 +89,9 @@ h <- mutate(mtcars, am = recode(am, `0` = "zero", `1` = NA_character_))
 #> mutate: converted 'am' from double to character (13 new NA)
 
 i <- transmute(mtcars, mpg = mpg * 2, gear = gear + 1, new_var = vs + am)
-#> transmute: dropped 9 variables (cyl, disp, hp, drat, wt, …) 
-#> transmute: changed 32 values (100%) of 'mpg' (0 new NA) 
-#> transmute: changed 32 values (100%) of 'gear' (0 new NA) 
+#> transmute: dropped 9 variables (cyl, disp, hp, drat, wt, …)
+#> transmute: changed 32 values (100%) of 'mpg' (0 new NA)
+#> transmute: changed 32 values (100%) of 'gear' (0 new NA)
 #> transmute: new variable 'new_var' with 3 unique values and 0% NA
 ```
 
@@ -115,6 +115,45 @@ b <- full_join(band_members, band_instruments, by = "name")
 #> full_join: added one row and added one column (plays)
 c <- anti_join(band_members, band_instruments, by = "name")
 #> anti_join: removed 2 rows and added no new columns
+```
+
+## Turning logging off, registering additional loggers
+
+To turn off the output for just a particular function call, you can
+simply call the dplyr functions directly, e.g. `dplyr::filter`.
+
+To turn off the output more permanently, set the global option
+`tidylog.display` to an empty list:
+
+``` r
+options("tidylog.display" = list())  # turn off
+a <- filter(mtcars, mpg > 20)
+
+options("tidylog.display" = NULL)    # turn on
+a <- filter(mtcars, mpg > 20)
+#> filter: removed 18 rows (56%)
+```
+
+This option can also be used to register additional loggers. The option
+`tidylog.display` expects a list of functions. By default (when
+`tidylog.display` is set to NULL), tidylog will use the `message`
+function to display the output, but if you prefer `print`, simply
+overwrite the option:
+
+``` r
+options("tidylog.display" = list(print))
+a <- filter(mtcars, mpg > 20)
+#> filter: removed 18 rows (56%)
+```
+
+To print the output both to the screen and to a file, you could
+use:
+
+``` r
+log_to_file <- function(text) cat(text, file = "log.txt", sep = "\n", append = TRUE)
+options("tidylog.display" = list(message, log_to_file))
+a <- filter(mtcars, mpg > 20)
+#> filter: removed 18 rows (56%)
 ```
 
 ## Namespace conflicts

@@ -42,7 +42,25 @@ get_groups <- function(.data) {
 }
 
 display <- function(text) {
-    message(text)
+    functions <- getOption("tidylog.display")
+    if (is.null(functions)) {
+        message(text)
+    } else if (is.list(functions)) {
+        for (f in functions) {
+            if (is.function(f)) {
+                f(text)
+            } else {
+                warning("tidylog.display needs to be set to either NULL or a list of functions")
+            }
+        }
+    } else {
+        warning("tidylog.display needs to be set to either NULL or a list of functions")
+    }
+}
+
+should_display <- function() {
+    is.null(getOption("tidylog.display")) |
+        (is.list(getOption("tidylog.display")) & length(getOption("tidylog.display")) > 0)
 }
 
 #' outputs some information about the data frame/tbl
@@ -51,6 +69,10 @@ display <- function(text) {
 #' @return same as .data
 #' @export
 tidylog <- function(.data) {
+    if (!"data.frame" %in% class(.data) | !should_display()) {
+        return(.data)
+    }
+
     if ("grouped_df" %in% class(.data)) {
         groups <- get_groups(.data)
         type <- glue::glue("grouped tibble ({groups[[1]]} groups: {format_list(groups[[2]])})")

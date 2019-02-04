@@ -30,7 +30,7 @@ group_by_at <- function(.data, ...) {
 
 log_group_by <- function(.data, fun, funname, ...) {
     newdata <- fun(.data, ...)
-    if (!"data.frame" %in% class(.data)) {
+    if (!"data.frame" %in% class(.data) | !should_display()) {
         return(newdata)
     }
     groups <- get_groups(newdata)

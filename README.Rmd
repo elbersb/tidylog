@@ -93,6 +93,39 @@ b <- full_join(band_members, band_instruments, by = "name")
 c <- anti_join(band_members, band_instruments, by = "name")
 ```
 
+## Turning logging off, registering additional loggers
+
+To turn off the output for just a particular function call, you can simply call the dplyr functions
+directly, e.g. `dplyr::filter`.
+
+To turn off the output more permanently, set the global option `tidylog.display` to an empty list:
+
+```{r}
+options("tidylog.display" = list())  # turn off
+a <- filter(mtcars, mpg > 20)
+
+options("tidylog.display" = NULL)    # turn on
+a <- filter(mtcars, mpg > 20)
+```
+
+This option can also be used to register additional loggers. The option `tidylog.display` expects
+a list of functions. By default (when `tidylog.display` is set to NULL), tidylog
+will use the `message` function to display the output, but if you prefer `print`,
+simply overwrite the option:
+
+```{r}
+options("tidylog.display" = list(print))
+a <- filter(mtcars, mpg > 20)
+```
+
+To print the output both to the screen and to a file, you could use:
+
+```{r}
+log_to_file <- function(text) cat(text, file = "log.txt", sep = "\n", append = TRUE)
+options("tidylog.display" = list(message, log_to_file))
+a <- filter(mtcars, mpg > 20)
+```
+
 ## Namespace conflicts
 
 Tidylog redefines several of the functions exported by dplyr, so it should be loaded last, otherwise there will be no output. A more explicit way to resolve namespace conflicts is to use the [conflicted](https://CRAN.R-project.org/package=conflicted) package:

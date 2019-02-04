@@ -43,7 +43,7 @@ semi_join <- function(.data, ...) {
 
 log_join <- function(.data, fun, funname, ...) {
     newdata <- fun(.data, ...)
-    if (!"data.frame" %in% class(.data)) {
+    if (!"data.frame" %in% class(.data) | !should_display()) {
         return(newdata)
     }
     n_rows <- nrow(newdata) - nrow(.data)

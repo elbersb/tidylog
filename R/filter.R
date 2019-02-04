@@ -37,7 +37,7 @@ distinct <- function(.data, ...) {
 
 log_filter <- function(.data, fun, funname, ...) {
     newdata <- fun(.data, ...)
-    if (!"data.frame" %in% class(.data)) {
+    if (!"data.frame" %in% class(.data) | !should_display()) {
         return(newdata)
     }
     n <- nrow(.data) - nrow(newdata)

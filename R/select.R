@@ -31,7 +31,7 @@ select_at <- function(.data, ...) {
 log_select <- function(.data, fun, funname, ...) {
     cols <- names(.data)
     newdata <- fun(.data, ...)
-    if (!"data.frame" %in% class(.data)) {
+    if (!"data.frame" %in% class(.data) | !should_display()) {
         return(newdata)
     }
     dropped_vars <- setdiff(cols, names(newdata))

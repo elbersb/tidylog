@@ -10,3 +10,4 @@
 ^render_README\.R$
 ^docs$
 ^\.lintr$
+^log.txt$
