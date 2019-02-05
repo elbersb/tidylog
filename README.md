@@ -21,7 +21,7 @@ frame:
 
 ``` r
 filtered <- filter(mtcars, cyl == 4)
-#> filter: removed 21 rows (66%)
+#> filter: removed 21 out of 32 rows (66%)
 ```
 
 This can be especially helpful in longer pipes:
@@ -35,7 +35,7 @@ summary <- mtcars %>%
     tally() %>%
     filter(n >= 1)
 #> select: dropped 8 variables (disp, drat, wt, qsec, vs, …)
-#> filter: removed 6 rows (19%)
+#> filter: removed 6 out of 32 rows (19%)
 #> mutate: new variable 'mpg_round' with 15 unique values and 0% NA
 #> group_by: 17 groups (cyl, mpg_round)
 #> filter: no rows removed
@@ -56,13 +56,13 @@ devtools::install_github("elbersb/tidylog")
 
 ``` r
 a <- filter(mtcars, mpg > 20)
-#> filter: removed 18 rows (56%)
+#> filter: removed 18 out of 32 rows (56%)
 b <- filter(mtcars, mpg > 100)
 #> filter: removed all rows (100%)
 c <- filter(mtcars, mpg > 0)
 #> filter: no rows removed
 d <- filter_at(mtcars, vars(starts_with("d")), any_vars((. %% 2) == 0))
-#> filter_at: removed 19 rows (59%)
+#> filter_at: removed 19 out of 32 rows (59%)
 e <- distinct(mtcars)
 #> distinct: no rows removed
 ```
@@ -120,7 +120,7 @@ c <- anti_join(band_members, band_instruments, by = "name")
 ## Turning logging off, registering additional loggers
 
 To turn off the output for just a particular function call, you can
-simply call the dplyr functions directly, e.g. `dplyr::filter`.
+simply call the dplyr functions directly, e.g. `dplyr::filter`.
 
 To turn off the output more permanently, set the global option
 `tidylog.display` to an empty list:
@@ -131,7 +131,7 @@ a <- filter(mtcars, mpg > 20)
 
 options("tidylog.display" = NULL)    # turn on
 a <- filter(mtcars, mpg > 20)
-#> filter: removed 18 rows (56%)
+#> filter: removed 18 out of 32 rows (56%)
 ```
 
 This option can also be used to register additional loggers. The option
@@ -143,7 +143,7 @@ overwrite the option:
 ``` r
 options("tidylog.display" = list(print))
 a <- filter(mtcars, mpg > 20)
-#> filter: removed 18 rows (56%)
+#> filter: removed 18 out of 32 rows (56%)
 ```
 
 To print the output both to the screen and to a file, you could
@@ -153,7 +153,7 @@ use:
 log_to_file <- function(text) cat(text, file = "log.txt", sep = "\n", append = TRUE)
 options("tidylog.display" = list(message, log_to_file))
 a <- filter(mtcars, mpg > 20)
-#> filter: removed 18 rows (56%)
+#> filter: removed 18 out of 32 rows (56%)
 ```
 
 ## Namespace conflicts
