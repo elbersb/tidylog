@@ -4,4 +4,4 @@ r_github_packages:
   - r-lib/covr
   - jimhester/lintr
 after_success:
-  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'covr::coveralls()'

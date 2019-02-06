@@ -7,7 +7,8 @@
 Version](https://www.r-pkg.org/badges/version/tidylog)](https://CRAN.R-project.org/package=tidylog)
 [![Build
 Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis-ci.org/elbersb/tidylog)
-[![codecov](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/gh/elbersb/tidylog)
+[![Coverage
+status](https://coveralls.io/repos/github/elbersb/tidylog/badge.svg)](https://coveralls.io/r/elbersb/tidylog?branch=master)
 
 The goal of tidylog is to provide feedback about basic dplyr operations.
 It provides simple wrapper functions for the most common functions, such
