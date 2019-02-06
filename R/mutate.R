@@ -84,7 +84,8 @@ log_mutate <- function(.data, fun, funname, ...) {
             has_changed <- TRUE
             n <- length(unique(newdata[[var]]))
             p_na <- percent(sum(is.na(newdata[[var]])), length(newdata[[var]]))
-            display(glue::glue("{funname}: new variable '{var}' with {plural(n, 'value', 'unique ')} and {p_na} NA"))
+            display(glue::glue("{funname}: new variable '{var}' ",
+                "with {plural(n, 'value', 'unique ')} and {p_na} NA"))
         } else {
             # new var
             # use identical to account for missing values - this is fast
@@ -109,9 +110,11 @@ log_mutate <- function(.data, fun, funname, ...) {
                 levels_different <- any(levels(old) != levels(new))
 
                 if (n > 0 & levels_different) {
-                    display(glue::glue("{funname}: changed {plural(n, 'value')} ({p}) of '{var}', factor levels updated"))
+                    display(glue::glue("{funname}: changed {plural(n, 'value')} ",
+                        "({p}) of '{var}', factor levels updated"))
                 } else if (n > 0 & !levels_different) {
-                    display(glue::glue("{funname}: changed {plural(n, 'value')} ({p}) of '{var}'"))
+                    display(glue::glue("{funname}: changed {plural(n, 'value')} ",
+                        "({p}) of '{var}'"))
                 } else if (n == 0 & levels_different) {
                     display(glue::glue("{funname}: factor levels of '{var}' changed"))
                 }
@@ -124,14 +127,17 @@ log_mutate <- function(.data, fun, funname, ...) {
                 n <- sum(different)
                 p <- percent(n, length(different))
                 new_na <- sum(is.na(new)) - sum(is.na(old))
-                display(glue::glue("{funname}: changed {plural(n, 'value')} ({p}) of '{var}' ({new_na} new NA)"))
+                display(glue::glue("{funname}: changed {plural(n, 'value')} ",
+                    "({p}) of '{var}' ({new_na} new NA)"))
             } else {
                 # different type
                 new_na <- sum(is.na(new)) - sum(is.na(old))
                 if (new_na == length(new)) {
-                    display(glue::glue("{funname}: converted '{var}' from {typeold} to {typenew} (now 100% NA)"))
+                    display(glue::glue("{funname}: converted '{var}' from {typeold} ",
+                        "to {typenew} (now 100% NA)"))
                 } else {
-                    display(glue::glue("{funname}: converted '{var}' from {typeold} to {typenew} ({new_na} new NA)"))
+                    display(glue::glue("{funname}: converted '{var}' from {typeold} ",
+                        "to {typenew} ({new_na} new NA)"))
                 }
             }
         }
