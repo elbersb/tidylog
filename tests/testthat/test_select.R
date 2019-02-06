@@ -9,7 +9,7 @@ test_that("select", {
     expect_equal(ncol(out), ncol(dplyr::select(mtcars, mpg, cyl)))
 
     expect_message({
-        out <- select(mtcars, -(mpg:carb))
+        out <- select(mtcars, - (mpg:carb))
     })
     expect_equal(ncol(out), 0)
 

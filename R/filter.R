@@ -47,7 +47,8 @@ log_filter <- function(.data, fun, funname, ...) {
         display(glue::glue("{funname}: removed all rows (100%)"))
     } else {
         total <- nrow(.data)
-        display(glue::glue("{funname}: removed {n} out of {plural(total, 'row')} ({percent(n, {total})})"))
+        display(glue::glue("{funname}: removed {n} out of {plural(total, 'row')} ",
+            "({percent(n, {total})})"))
     }
     newdata
 }
