@@ -3,6 +3,12 @@
 
 # tidylog
 
+[![CRAN
+Version](https://www.r-pkg.org/badges/version/tidylog)](https://CRAN.R-project.org/package=tidylog)
+[![Build
+Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis-ci.org/elbersb/tidylog)
+[![codecov](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/gh/elbersb/tidylog)
+
 The goal of tidylog is to provide feedback about basic dplyr operations.
 It provides simple wrapper functions for the most common functions, such
 as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
@@ -120,7 +126,7 @@ c <- anti_join(band_members, band_instruments, by = "name")
 ## Turning logging off, registering additional loggers
 
 To turn off the output for just a particular function call, you can
-simply call the dplyr functions directly, e.g. `dplyr::filter`.
+simply call the dplyr functions directly, e.g. `dplyr::filter`.
 
 To turn off the output more permanently, set the global option
 `tidylog.display` to an empty list:
