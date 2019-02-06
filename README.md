@@ -45,7 +45,7 @@ summary <- mtcars %>%
 #> filter: removed 6 out of 32 rows (19%)
 #> mutate: new variable 'mpg_round' with 15 unique values and 0% NA
 #> group_by: 17 groups (cyl, mpg_round)
-#> filter (grouped): no rows removed
+#> filter(grouped): no rows removed
 ```
 
 Here, it might have been accidental that the last `filter` command had

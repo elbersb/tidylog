@@ -66,8 +66,8 @@ log_mutate <- function(.data, fun, funname, ...) {
         return(newdata)
     }
     
-    group_status <- ifelse(get_groups(newdata)[[1]] == 0, '', ' (grouped)')
-    
+    group_status <- ifelse(dplyr::is.grouped_df(newdata), "(grouped)", "")
+
     if (grepl("transmute", funname)) {
         dropped_vars <- setdiff(names(.data), names(newdata))
         n <- length(dropped_vars)
