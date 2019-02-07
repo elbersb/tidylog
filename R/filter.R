@@ -40,9 +40,9 @@ log_filter <- function(.data, fun, funname, ...) {
     if (!"data.frame" %in% class(.data) | !should_display()) {
         return(newdata)
     }
-    
+
     group_status <- ifelse(dplyr::is.grouped_df(newdata), " (grouped)", "")
-    
+
     n <- nrow(.data) - nrow(newdata)
     if (n == 0) {
         display(glue::glue("{funname}{group_status}: no rows removed"))
