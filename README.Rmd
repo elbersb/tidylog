@@ -97,6 +97,22 @@ b <- full_join(band_members, band_instruments, by = "name")
 c <- anti_join(band_members, band_instruments, by = "name")
 ```
 
+### summarize
+
+```{r}
+a <- mtcars %>%
+  group_by(cyl, carb) %>%
+  summarize(total_weight = sum(wt))
+
+b <- mtcars %>%
+  group_by(cyl) %>%
+  summarise(total_weight = sum(wt))
+
+c <- iris %>%
+  group_by(Species) %>%
+  summarize_all(funs(min, max))
+```
+
 ## Turning logging off, registering additional loggers
 
 To turn off the output for just a particular function call, you can simply call the dplyr functions

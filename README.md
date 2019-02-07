@@ -124,6 +124,28 @@ c <- anti_join(band_members, band_instruments, by = "name")
 #> anti_join: removed 2 rows and added no new columns
 ```
 
+### summarize
+
+``` r
+a <- mtcars %>%
+  group_by(cyl, carb) %>%
+  summarize(total_weight = sum(wt))
+#> group_by: 9 groups (cyl, carb)
+#> summarize: one group remaining (cyl)
+
+b <- mtcars %>%
+  group_by(cyl) %>%
+  summarise(total_weight = sum(wt))
+#> group_by: 3 groups (cyl)
+#> summarise: 0 groups remaining
+
+c <- iris %>%
+  group_by(Species) %>%
+  summarize_all(funs(min, max))
+#> group_by: 3 groups (Species)
+#> summarize_all: 0 groups remaining
+```
+
 ## Turning logging off, registering additional loggers
 
 To turn off the output for just a particular function call, you can
