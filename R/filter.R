@@ -41,7 +41,7 @@ log_filter <- function(.data, fun, funname, ...) {
         return(newdata)
     }
     
-    group_status <- ifelse(dplyr::is.grouped_df(newdata), "(grouped)", "")
+    group_status <- ifelse(dplyr::is.grouped_df(newdata), " (grouped)", "")
     
     n <- nrow(.data) - nrow(newdata)
     if (n == 0) {
