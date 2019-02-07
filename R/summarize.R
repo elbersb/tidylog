@@ -85,8 +85,7 @@ log_summarize <- function(.data, fun, funname, ...){
             "({format_list(group_names)})"))
     } else {
         display(glue::glue(
-            "{funname}: {plural(group_length, 'group')} remaining ",
-            "{format_list(group_names)}"))
+            "{funname}: {plural(group_length, 'group')} remaining"))
     }
 
     newdata
