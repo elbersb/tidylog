@@ -31,9 +31,9 @@ mutate_at <- function(.data, ...) {
 #' Wrapper around dplyr::transmute and related functions
 #' that prints information about the operation
 #'
-#' @param .data a tbl; see \link[dplyr:mutate]{dplyr::transmute()}
-#' @param ... see \link[dplyr:mutate]{dplyr::transmute()}
-#' @return see \link[dplyr:mutate]{dplyr::transmute()}
+#' @param .data a tbl; see \link[dplyr:mutate]{transmute}
+#' @param ... see \link[dplyr:mutate]{transmute}
+#' @return see \link[dplyr:mutate]{transmute}
 #' @import dplyr
 #' @export
 transmute <- function(.data, ...) {
