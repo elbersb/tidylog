@@ -61,13 +61,13 @@ transmute_at <- function(.data, ...) {
 log_mutate <- function(.data, fun, funname, ...) {
     cols <- names(.data)
     newdata <- fun(.data, ...)
-    
+
     if (!"data.frame" %in% class(.data) | !should_display()) {
         return(newdata)
     }
-    
-    group_status <- ifelse(get_groups(newdata)[[1]] == 0, '', ' (grouped)')
-    
+
+    group_status <- ifelse(dplyr::is.grouped_df(newdata), " (grouped)", "")
+
     if (grepl("transmute", funname)) {
         dropped_vars <- setdiff(names(.data), names(newdata))
         n <- length(dropped_vars)
