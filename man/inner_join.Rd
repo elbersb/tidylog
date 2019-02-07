@@ -23,12 +23,12 @@ anti_join(x, ...)
 semi_join(x, ...)
 }
 \arguments{
-\item{x}{a tbl; see \link[dplyr]{inner_join}}
+\item{x}{a tbl; see \link[dplyr-join]{inner_join}}
 
-\item{...}{see \link[dplyr]{inner_join}}
+\item{...}{see \link[dplyr-join]{inner_join}}
 }
 \value{
-see \link[dplyr]{inner_join}
+see \link[dplyr-join]{inner_join}
 }
 \description{
 Wrapper around dplyr::inner_join and related functions

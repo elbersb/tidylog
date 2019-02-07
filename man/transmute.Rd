@@ -17,12 +17,12 @@ transmute_if(.data, ...)
 transmute_at(.data, ...)
 }
 \arguments{
-\item{.data}{a tbl; see \link[dplyr]{transmute}}
+\item{.data}{a tbl; see \link[dplyr-transmute]{transmute}}
 
-\item{...}{see \link[dplyr]{transmute}}
+\item{...}{see \link[dplyr-transmute]{transmute}}
 }
 \value{
-see \link[dplyr]{transmute}
+see \link[dplyr-transmute]{transmute}
 }
 \description{
 Wrapper around dplyr::transmute and related functions
