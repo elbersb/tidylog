@@ -40,14 +40,17 @@ log_filter <- function(.data, fun, funname, ...) {
     if (!"data.frame" %in% class(.data) | !should_display()) {
         return(newdata)
     }
+
+    group_status <- ifelse(dplyr::is.grouped_df(newdata), " (grouped)", "")
+
     n <- nrow(.data) - nrow(newdata)
     if (n == 0) {
-        display(glue::glue("{funname}: no rows removed"))
+        display(glue::glue("{funname}{group_status}: no rows removed"))
     } else if (n == nrow(.data)) {
-        display(glue::glue("{funname}: removed all rows (100%)"))
+        display(glue::glue("{funname}{group_status}: removed all rows (100%)"))
     } else {
         total <- nrow(.data)
-        display(glue::glue("{funname}: removed {n} out of {plural(total, 'row')} ",
+        display(glue::glue("{funname}{group_status}: removed {n} out of {plural(total, 'row')} ",
             "({percent(n, {total})})"))
     }
     newdata
