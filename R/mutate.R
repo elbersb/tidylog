@@ -61,18 +61,21 @@ transmute_at <- function(.data, ...) {
 log_mutate <- function(.data, fun, funname, ...) {
     cols <- names(.data)
     newdata <- fun(.data, ...)
+
     if (!"data.frame" %in% class(.data) | !should_display()) {
         return(newdata)
     }
+
+    group_status <- ifelse(dplyr::is.grouped_df(newdata), " (grouped)", "")
 
     if (grepl("transmute", funname)) {
         dropped_vars <- setdiff(names(.data), names(newdata))
         n <- length(dropped_vars)
         if (ncol(newdata) == 0) {
-            display(glue::glue("{funname}: dropped all variables"))
+            display(glue::glue("{funname}{group_status}: dropped all variables"))
             return(newdata)
         } else if (length(dropped_vars) > 0) {
-            display(glue::glue("{funname}: dropped {plural(n, 'variable')}",
+            display(glue::glue("{funname}{group_status}: dropped {plural(n, 'variable')}",
                            " ({format_list(dropped_vars)})"))
         }
     }
@@ -84,7 +87,7 @@ log_mutate <- function(.data, fun, funname, ...) {
             has_changed <- TRUE
             n <- length(unique(newdata[[var]]))
             p_na <- percent(sum(is.na(newdata[[var]])), length(newdata[[var]]))
-            display(glue::glue("{funname}: new variable '{var}' ",
+            display(glue::glue("{funname}{group_status}: new variable '{var}' ",
                 "with {plural(n, 'value', 'unique ')} and {p_na} NA"))
         } else {
             # new var
@@ -110,13 +113,13 @@ log_mutate <- function(.data, fun, funname, ...) {
                 levels_different <- any(levels(old) != levels(new))
 
                 if (n > 0 & levels_different) {
-                    display(glue::glue("{funname}: changed {plural(n, 'value')} ",
+                    display(glue::glue("{funname}{group_status}: changed {plural(n, 'value')} ",
                         "({p}) of '{var}', factor levels updated"))
                 } else if (n > 0 & !levels_different) {
-                    display(glue::glue("{funname}: changed {plural(n, 'value')} ",
+                    display(glue::glue("{funname}{group_status}: changed {plural(n, 'value')} ",
                         "({p}) of '{var}'"))
                 } else if (n == 0 & levels_different) {
-                    display(glue::glue("{funname}: factor levels of '{var}' changed"))
+                    display(glue::glue("{funname}{group_status}: factor levels of '{var}' changed"))
                 }
             } else if (typeold == typenew) {
                 # same type (except factor)
@@ -127,16 +130,16 @@ log_mutate <- function(.data, fun, funname, ...) {
                 n <- sum(different)
                 p <- percent(n, length(different))
                 new_na <- sum(is.na(new)) - sum(is.na(old))
-                display(glue::glue("{funname}: changed {plural(n, 'value')} ",
+                display(glue::glue("{funname}{group_status}: changed {plural(n, 'value')} ",
                     "({p}) of '{var}' ({new_na} new NA)"))
             } else {
                 # different type
                 new_na <- sum(is.na(new)) - sum(is.na(old))
                 if (new_na == length(new)) {
-                    display(glue::glue("{funname}: converted '{var}' from {typeold} ",
+                    display(glue::glue("{funname}{group_status}: converted '{var}' from {typeold} ",
                         "to {typenew} (now 100% NA)"))
                 } else {
-                    display(glue::glue("{funname}: converted '{var}' from {typeold} ",
+                    display(glue::glue("{funname}{group_status}: converted '{var}' from {typeold} ",
                         "to {typenew} ({new_na} new NA)"))
                 }
             }
@@ -144,7 +147,7 @@ log_mutate <- function(.data, fun, funname, ...) {
     }
 
     if (!has_changed) {
-        display(glue::glue("{funname}: no changes"))
+        display(glue::glue("{funname}{group_status}: no changes"))
     }
     newdata
 }

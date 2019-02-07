@@ -45,7 +45,7 @@ summary <- mtcars %>%
 #> filter: removed 6 out of 32 rows (19%)
 #> mutate: new variable 'mpg_round' with 15 unique values and 0% NA
 #> group_by: 17 groups (cyl, mpg_round)
-#> filter: no rows removed
+#> filter (grouped): no rows removed
 ```
 
 Here, it might have been accidental that the last `filter` command had
@@ -127,7 +127,7 @@ c <- anti_join(band_members, band_instruments, by = "name")
 ## Turning logging off, registering additional loggers
 
 To turn off the output for just a particular function call, you can
-simply call the dplyr functions directly, e.g. `dplyr::filter`.
+simply call the dplyr functions directly, e.g. `dplyr::filter`.
 
 To turn off the output more permanently, set the global option
 `tidylog.display` to an empty list:
