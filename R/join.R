@@ -2,9 +2,9 @@
 #' that prints information about the operation
 #'
 #'
-#' @param x a tbl; see \link[dplyr-join]{inner_join}
-#' @param ... see \link[dplyr-join]{inner_join}
-#' @return see \link[dplyr-join]{inner_join}
+#' @param x a tbl; see \link[dplyr:join]{inner_join}
+#' @param ... see \link[dplyr:join]{inner_join}
+#' @return see \link[dplyr:join]{inner_join}
 #' @import dplyr
 #' @export
 inner_join <- function(x, ...) {
