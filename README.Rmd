@@ -101,16 +101,12 @@ c <- anti_join(band_members, band_instruments, by = "name")
 
 ```{r}
 a <- mtcars %>%
-  group_by(cyl, carb) %>%
-  summarize(total_weight = sum(wt))
+    group_by(cyl, carb) %>%
+    summarize(total_weight = sum(wt))
 
-b <- mtcars %>%
-  group_by(cyl) %>%
-  summarise(total_weight = sum(wt))
-
-c <- iris %>%
-  group_by(Species) %>%
-  summarize_all(funs(min, max))
+b <- iris %>%
+    group_by(Species) %>%
+    summarize_all(funs(min, max))
 ```
 
 ## Turning logging off, registering additional loggers
