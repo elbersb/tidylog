@@ -4,7 +4,6 @@
 \alias{summarize}
 \alias{summarize_all}
 \alias{summarize_at}
-\alias{summarize_each}
 \alias{summarize_if}
 \title{Wrapper around dplyr::summarize and related functions
 that prints information about the operation}
@@ -14,8 +13,6 @@ summarize(.data, ...)
 summarize_all(.data, ...)
 
 summarize_at(.data, ...)
-
-summarize_each(.data, ...)
 
 summarize_if(.data, ...)
 }
