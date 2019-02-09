@@ -24,12 +24,6 @@ summarize_at <- function(.data, ...) {
 
 #' @rdname summarize
 #' @export
-summarize_each <- function(.data, ...) {
-    log_summarize(.data, dplyr::summarize_each, "summarize_each", ...)
-}
-
-#' @rdname summarize
-#' @export
 summarize_if <- function(.data, ...) {
     log_summarize(.data, dplyr::summarize_if, "summarize_if", ...)
 }
@@ -56,12 +50,6 @@ summarise_all <- function(.data, ...) {
 #' @export
 summarise_at <- function(.data, ...) {
     log_summarize(.data, dplyr::summarise_at, "summarise_at", ...)
-}
-
-#' @rdname summarise
-#' @export
-summarise_each <- function(.data, ...) {
-    log_summarize(.data, dplyr::summarise_each, "summarise_each", ...)
 }
 
 #' @rdname summarise
