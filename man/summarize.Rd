@@ -5,6 +5,10 @@
 \alias{summarize_all}
 \alias{summarize_at}
 \alias{summarize_if}
+\alias{summarise}
+\alias{summarise_all}
+\alias{summarise_at}
+\alias{summarise_if}
 \title{Wrapper around dplyr::summarize and related functions
 that prints information about the operation}
 \usage{
@@ -15,6 +19,14 @@ summarize_all(.data, ...)
 summarize_at(.data, ...)
 
 summarize_if(.data, ...)
+
+summarise(.data, ...)
+
+summarise_all(.data, ...)
+
+summarise_at(.data, ...)
+
+summarise_if(.data, ...)
 }
 \arguments{
 \item{.data}{a tbl; see \link[dplyr]{summarize}}

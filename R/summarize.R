@@ -28,31 +28,25 @@ summarize_if <- function(.data, ...) {
     log_summarize(.data, dplyr::summarize_if, "summarize_if", ...)
 }
 
-#' Wrapper around dplyr::summarise and related functions
-#' that prints information about the operation
-#'
-#' @param .data a tbl; see \link[dplyr]{summarise}
-#' @param ... see \link[dplyr]{summarise}
-#' @return see \link[dplyr]{summarise}
-#' @import dplyr
+#' @rdname summarize
 #' @export
 summarise <- function(.data, ...) {
     log_summarize(.data, dplyr::summarise, "summarise", ...)
 }
 
-#' @rdname summarise
+#' @rdname summarize
 #' @export
 summarise_all <- function(.data, ...) {
     log_summarize(.data, dplyr::summarise_all, "summarise_all", ...)
 }
 
-#' @rdname summarise
+#' @rdname summarize
 #' @export
 summarise_at <- function(.data, ...) {
     log_summarize(.data, dplyr::summarise_at, "summarise_at", ...)
 }
 
-#' @rdname summarise
+#' @rdname summarize
 #' @export
 summarise_if <- function(.data, ...) {
     log_summarize(.data, dplyr::summarise_if, "summarise_if", ...)

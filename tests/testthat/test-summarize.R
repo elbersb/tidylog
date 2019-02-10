@@ -15,6 +15,12 @@ test_that("summarize", {
     })
     expect_equal(nrow(out), 9)
 
+    expect_silent({
+        out <- dplyr::summarise(mtcars)
+    })
+})
+
+test_that("summarize: scoped variants", {
     expect_message({
         out <- summarise_all(mtcars, max)
     })
@@ -23,17 +29,9 @@ test_that("summarize", {
     expect_message({
         out <- summarise_at(mtcars, c("mpg", "hp"), mean)
     })
-
-    expect_silent({
-        out <- dplyr::summarise(mtcars)
-    })
 })
 
-test_that("filter: scoped variants", {
-
-})
-
-test_that("filter: argument order", {
+test_that("summarize: argument order", {
     expect_message({
         out <- summarize(avg = mean(mpg), .data = mtcars)
     })
