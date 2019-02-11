@@ -6,6 +6,10 @@
 \alias{filter_if}
 \alias{filter_at}
 \alias{distinct}
+\alias{distinct_all}
+\alias{distinct_if}
+\alias{distinct_at}
+\alias{top_n}
 \title{Wrapper around dplyr::filter and related functions
 that prints information about the operation}
 \usage{
@@ -18,6 +22,14 @@ filter_if(.data, ...)
 filter_at(.data, ...)
 
 distinct(.data, ...)
+
+distinct_all(.data, ...)
+
+distinct_if(.data, ...)
+
+distinct_at(.data, ...)
+
+top_n(.data, ...)
 }
 \arguments{
 \item{.data}{a tbl; see \link[dplyr]{filter}}

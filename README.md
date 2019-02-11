@@ -72,6 +72,10 @@ d <- filter_at(mtcars, vars(starts_with("d")), any_vars((. %% 2) == 0))
 #> filter_at: removed 19 out of 32 rows (59%)
 e <- distinct(mtcars)
 #> distinct: no rows removed
+f <- distinct_at(mtcars, vars(vs:carb))
+#> distinct_at: removed 18 out of 32 rows (56%)
+g <- top_n(mtcars, 2, am)
+#> top_n: removed 19 out of 32 rows (59%)
 ```
 
 ### mutate / transmute
@@ -135,7 +139,7 @@ a <- mtcars %>%
 
 b <- iris %>%
     group_by(Species) %>%
-    summarize_all(funs(min, max))
+    summarize_all(list(~min, ~max))
 #> group_by: 3 groups (Species)
 #> summarize_all: now 3 rows and 9 columns, 0 groups remaining
 ```
@@ -143,7 +147,7 @@ b <- iris %>%
 ## Turning logging off, registering additional loggers
 
 To turn off the output for just a particular function call, you can
-simply call the dplyr functions directly, e.g. `dplyr::filter`.
+simply call the dplyr functions directly, e.g. `dplyr::filter`.
 
 To turn off the output more permanently, set the global option
 `tidylog.display` to an empty list:

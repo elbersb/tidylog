@@ -35,6 +35,31 @@ distinct <- function(.data, ...) {
     log_filter(.data, dplyr::distinct, "distinct", ...)
 }
 
+#' @rdname filter
+#' @export
+distinct_all <- function(.data, ...) {
+    log_filter(.data, dplyr::distinct_all, "distinct_all", ...)
+}
+
+#' @rdname filter
+#' @export
+distinct_if <- function(.data, ...) {
+    log_filter(.data, dplyr::distinct_if, "distinct_if", ...)
+}
+
+#' @rdname filter
+#' @export
+distinct_at <- function(.data, ...) {
+    log_filter(.data, dplyr::distinct_at, "distinct_at", ...)
+}
+
+#' @rdname filter
+#' @export
+top_n <- function(.data, ...) {
+    log_filter(.data, dplyr::top_n, "top_n", ...)
+}
+
+
 log_filter <- function(.data, fun, funname, ...) {
     newdata <- fun(.data, ...)
     if (!"data.frame" %in% class(.data) | !should_display()) {

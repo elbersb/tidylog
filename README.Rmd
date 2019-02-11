@@ -64,6 +64,8 @@ b <- filter(mtcars, mpg > 100)
 c <- filter(mtcars, mpg > 0)
 d <- filter_at(mtcars, vars(starts_with("d")), any_vars((. %% 2) == 0))
 e <- distinct(mtcars)
+f <- distinct_at(mtcars, vars(vs:carb))
+g <- top_n(mtcars, 2, am)
 ```
 
 ### mutate / transmute
@@ -106,7 +108,7 @@ a <- mtcars %>%
 
 b <- iris %>%
     group_by(Species) %>%
-    summarize_all(funs(min, max))
+    summarize_all(list(~min, ~max))
 ```
 
 ## Turning logging off, registering additional loggers
