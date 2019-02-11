@@ -1,17 +1,17 @@
 library("dplyr")
 library("tidylog")
-context("test-summarize")
+context("test_summarize")
 
 test_that("summarize", {
     expect_message({
-        out <- summarize(mtcars, test = TRUE)
+        out <- tidylog::summarize(mtcars, test = TRUE)
     })
     expect_equal(nrow(out), 1)
 
     expect_message({
         out <- mtcars %>%
-            group_by(cyl, carb) %>%
-            summarize(avg_mpg = mean(mpg))
+            tidylog::group_by(cyl, carb) %>%
+            tidylog::summarize(avg_mpg = mean(mpg))
     })
     expect_equal(nrow(out), 9)
 
@@ -22,18 +22,18 @@ test_that("summarize", {
 
 test_that("summarize: scoped variants", {
     expect_message({
-        out <- summarise_all(mtcars, max)
+        out <- tidylog::summarise_all(mtcars, max)
     })
     expect_equal(nrow(out), 1)
 
     expect_message({
-        out <- summarise_at(mtcars, c("mpg", "hp"), mean)
+        out <- tidylog::summarise_at(mtcars, c("mpg", "hp"), mean)
     })
 })
 
 test_that("summarize: argument order", {
     expect_message({
-        out <- summarize(avg = mean(mpg), .data = mtcars)
+        out <- tidylog::summarize(avg = mean(mpg), .data = mtcars)
     })
     expect_equal(nrow(out), 1)
 })
