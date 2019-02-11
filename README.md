@@ -45,6 +45,7 @@ summary <- mtcars %>%
 #> filter: removed 6 out of 32 rows (19%)
 #> mutate: new variable 'mpg_round' with 15 unique values and 0% NA
 #> group_by: 17 groups (cyl, mpg_round)
+#> tally: now 17 rows and 3 columns, one group remaining (cyl)
 #> filter (grouped): no rows removed
 ```
 
@@ -59,7 +60,7 @@ devtools::install_github("elbersb/tidylog")
 
 ## More examples
 
-### filter & distinct
+### filter, distinct
 
 ``` r
 a <- filter(mtcars, mpg > 20)
@@ -78,7 +79,7 @@ g <- top_n(mtcars, 2, am)
 #> top_n: removed 19 out of 32 rows (59%)
 ```
 
-### mutate / transmute
+### mutate, transmute
 
 ``` r
 a <- mutate(mtcars, new_var = 1)
@@ -142,6 +143,22 @@ b <- iris %>%
     summarize_all(list(~min, ~max))
 #> group_by: 3 groups (Species)
 #> summarize_all: now 3 rows and 9 columns, 0 groups remaining
+```
+
+### tally, count, add\_tally, add\_count
+
+``` r
+a <- mtcars %>% group_by(gear, carb) %>% tally
+#> group_by: 11 groups (gear, carb)
+#> tally: now 11 rows and 3 columns, one group remaining (gear)
+b <- mtcars %>% group_by(gear, carb) %>% add_tally()
+#> group_by: 11 groups (gear, carb)
+#> add_tally (grouped): new variable 'n' with 5 unique values and 0% NA
+
+c <- mtcars %>% count(gear, carb)
+#> count: now 11 rows and 3 columns, 0 groups remaining
+d <- mtcars %>% add_count(gear, carb, name = "count")
+#> add_count: new variable 'count' with 5 unique values and 0% NA
 ```
 
 ## Turning logging off, registering additional loggers

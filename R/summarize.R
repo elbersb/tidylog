@@ -52,6 +52,18 @@ summarise_if <- function(.data, ...) {
     log_summarize(.data, dplyr::summarise_if, "summarise_if", ...)
 }
 
+#' @rdname summarize
+#' @export
+tally <- function(.data, ...) {
+    log_summarize(.data, dplyr::tally, "tally", ...)
+}
+
+#' @rdname summarize
+#' @export
+count <- function(.data, ...) {
+    log_summarize(.data, dplyr::count, "count", ...)
+}
+
 log_summarize <- function(.data, fun, funname, ...) {
     newdata <- fun(.data, ...)
 

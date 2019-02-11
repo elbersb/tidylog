@@ -58,6 +58,18 @@ transmute_at <- function(.data, ...) {
     log_mutate(.data, dplyr::transmute_at, "transmute_at", ...)
 }
 
+#' @rdname mutate
+#' @export
+add_tally <- function(.data, ...) {
+    log_mutate(.data, dplyr::add_tally, "add_tally", ...)
+}
+
+#' @rdname mutate
+#' @export
+add_count <- function(.data, ...) {
+    log_mutate(.data, dplyr::add_count, "add_count", ...)
+}
+
 log_mutate <- function(.data, fun, funname, ...) {
     cols <- names(.data)
     newdata <- fun(.data, ...)

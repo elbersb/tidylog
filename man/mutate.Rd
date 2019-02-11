@@ -5,6 +5,8 @@
 \alias{mutate_all}
 \alias{mutate_if}
 \alias{mutate_at}
+\alias{add_tally}
+\alias{add_count}
 \title{Wrapper around dplyr::mutate and related functions
 that prints information about the operation}
 \usage{
@@ -15,6 +17,10 @@ mutate_all(.data, ...)
 mutate_if(.data, ...)
 
 mutate_at(.data, ...)
+
+add_tally(.data, ...)
+
+add_count(.data, ...)
 }
 \arguments{
 \item{.data}{a tbl; see \link[dplyr]{mutate}}
