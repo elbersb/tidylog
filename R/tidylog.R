@@ -33,11 +33,10 @@ get_groups <- function(.data) {
     if (!is.null(attr(.data, "groups"))) {
         # support for dplyr >= 0.8
         groups <- attr(.data, "groups")
-        list(nrow(groups), utils::head(names(groups), -1))
+        return(utils::head(names(groups), -1))
     } else {
         # support for dplyr < 0.8
-        list(length(attr(.data, "group_sizes")),
-            attr(.data, "vars"))
+        return(attr(.data, "vars"))
     }
 }
 

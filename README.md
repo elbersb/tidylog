@@ -35,17 +35,17 @@ This can be especially helpful in longer pipes:
 
 ``` r
 summary <- mtcars %>%
-    select(mpg, cyl, hp) %>%
+    select(mpg, cyl, hp, am) %>%
     filter(mpg > 15) %>%
     mutate(mpg_round = round(mpg)) %>%
-    group_by(cyl, mpg_round) %>%
+    group_by(cyl, mpg_round, am) %>%
     tally() %>%
     filter(n >= 1)
-#> select: dropped 8 variables (disp, drat, wt, qsec, vs, …)
+#> select: dropped 7 variables (disp, drat, wt, qsec, vs, …)
 #> filter: removed 6 out of 32 rows (19%)
 #> mutate: new variable 'mpg_round' with 15 unique values and 0% NA
-#> group_by: 17 groups (cyl, mpg_round)
-#> tally: now 17 rows and 3 columns, one group remaining (cyl)
+#> group_by: 3 grouping variables (cyl, mpg_round, am)
+#> tally: now 20 rows and 4 columns, 2 group variables remaining (cyl, mpg_round)
 #> filter (grouped): no rows removed
 ```
 
@@ -135,28 +135,28 @@ c <- anti_join(band_members, band_instruments, by = "name")
 a <- mtcars %>%
     group_by(cyl, carb) %>%
     summarize(total_weight = sum(wt))
-#> group_by: 9 groups (cyl, carb)
-#> summarize: now 9 rows and 3 columns, one group remaining (cyl)
+#> group_by: 2 grouping variables (cyl, carb)
+#> summarize: now 9 rows and 3 columns, one group variable remaining (cyl)
 
 b <- iris %>%
     group_by(Species) %>%
     summarize_all(list(~min, ~max))
-#> group_by: 3 groups (Species)
-#> summarize_all: now 3 rows and 9 columns, 0 groups remaining
+#> group_by: one grouping variable (Species)
+#> summarize_all: now 3 rows and 9 columns, ungrouped
 ```
 
 ### tally, count, add\_tally, add\_count
 
 ``` r
 a <- mtcars %>% group_by(gear, carb) %>% tally
-#> group_by: 11 groups (gear, carb)
-#> tally: now 11 rows and 3 columns, one group remaining (gear)
+#> group_by: 2 grouping variables (gear, carb)
+#> tally: now 11 rows and 3 columns, one group variable remaining (gear)
 b <- mtcars %>% group_by(gear, carb) %>% add_tally()
-#> group_by: 11 groups (gear, carb)
+#> group_by: 2 grouping variables (gear, carb)
 #> add_tally (grouped): new variable 'n' with 5 unique values and 0% NA
 
 c <- mtcars %>% count(gear, carb)
-#> count: now 11 rows and 3 columns, 0 groups remaining
+#> count: now 11 rows and 3 columns, ungrouped
 d <- mtcars %>% add_count(gear, carb, name = "count")
 #> add_count: new variable 'count' with 5 unique values and 0% NA
 ```

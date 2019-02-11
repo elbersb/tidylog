@@ -33,9 +33,9 @@ log_group_by <- function(.data, fun, funname, ...) {
     if (!"data.frame" %in% class(.data) | !should_display()) {
         return(newdata)
     }
-    groups <- get_groups(newdata)
+    group_vars <- get_groups(newdata)
     display(glue::glue(
-        "{funname}: {plural(groups[[1]], 'group')} ",
-        "({format_list(groups[[2]])})"))
+        "{funname}: {plural(length(group_vars), 'grouping variable')} ",
+        "({format_list(group_vars)})"))
     newdata
 }

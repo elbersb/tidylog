@@ -71,19 +71,18 @@ log_summarize <- function(.data, fun, funname, ...) {
         return(newdata)
     }
 
-    group_names <- get_groups(newdata)[[2]]
-    group_length <- length(group_names)
+    group_vars <- get_groups(newdata)
+    group_length <- length(group_vars)
     if (group_length > 0) {
         display(glue::glue(
             "{funname}: now {plural(nrow(newdata), 'row')} and ",
             "{plural(ncol(newdata), 'column')}, ",
-            "{plural(group_length, 'group')} remaining ",
-            "({format_list(group_names)})"))
+            "{plural(group_length, 'group variable')} remaining ",
+            "({format_list(group_vars)})"))
     } else {
         display(glue::glue(
             "{funname}: now {plural(nrow(newdata), 'row')} and ",
-            "{plural(ncol(newdata), 'column')}, ",
-            "{plural(group_length, 'group')} remaining"))
+            "{plural(ncol(newdata), 'column')}, ungrouped"))
     }
 
     newdata
