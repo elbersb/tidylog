@@ -9,6 +9,11 @@ test_that("summarize", {
     expect_equal(nrow(out), 1)
 
     expect_message({
+        out <- tidylog::summarise(mtcars, test = TRUE)
+    })
+    expect_equal(nrow(out), 1)
+
+    expect_message({
         out <- mtcars %>%
             tidylog::group_by(cyl, carb) %>%
             tidylog::summarize(avg_mpg = mean(mpg))
@@ -18,6 +23,26 @@ test_that("summarize", {
     expect_silent({
         out <- dplyr::summarise(mtcars)
     })
+})
+
+test_that("tally", {
+    expect_message({
+        out <- mtcars %>%
+            tidylog::group_by(cyl) %>%
+            tidylog::tally()
+    })
+    expect_equal(nrow(out), 3)
+    expect_equal(ncol(out), 2)
+})
+
+test_that("count", {
+    expect_message({
+        out <- mtcars %>%
+            tidylog::group_by(gear) %>%
+            tidylog::count(carb)
+    })
+    expect_equal(nrow(out), 11)
+    expect_equal(ncol(out), 3)
 })
 
 test_that("summarize: scoped variants", {
