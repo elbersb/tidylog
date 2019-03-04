@@ -1,6 +1,6 @@
 Package: tidylog
 Type: Package
-Title: Logging for dplyr functions
+Title: Logging for Dplyr Functions
 Version: 0.1.0
 Authors@R: person("Benjamin", "Elbers", email = "elbersb@gmail.com",
   role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5392-3448"))
@@ -11,6 +11,6 @@ Imports: dplyr, glue
 Suggests: testthat, covr, lintr
 Encoding: UTF-8
 LazyData: true
-URL: http://github.com/tidylog/
-BugReports: http://github.com/tidylog/issues
+URL: https://github.com/elbersb/tidylog/
+BugReports: https://github.com/elbersb/tidylog/issues
 RoxygenNote: 6.1.1
