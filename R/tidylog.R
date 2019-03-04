@@ -77,10 +77,8 @@ tidylog <- function(.data) {
         type <- "tibble"
     } else if ("data.table" %in% class(.data)) {
         type <- "data.table"
-    } else if ("data.frame" %in% class(.data)) {
-        type <- "data.frame"
     } else {
-        return(.data)
+        type <- "data.frame"
     }
 
     display(glue::glue("tidylog: {type} with {plural(nrow(.data), 'row')} and ",
