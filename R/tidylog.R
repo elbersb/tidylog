@@ -73,8 +73,7 @@ tidylog <- function(.data) {
     }
 
     if ("grouped_df" %in% class(.data)) {
-        groups <- get_groups(.data)
-        type <- glue::glue("grouped tibble ({groups[[1]]} groups: {format_list(groups[[2]])})")
+        type <- glue::glue("grouped tibble")
     } else if ("tbl" %in% class(.data)) {
         type <- "tibble"
     } else if ("data.table" %in% class(.data)) {
