@@ -94,7 +94,7 @@ log_mutate <- function(.data, fun, funname, ...) {
 
     has_changed <- FALSE
     for (var in names(newdata)) {
-        # existing var
+        # new var
         if (!var %in% cols) {
             has_changed <- TRUE
             n <- length(unique(newdata[[var]]))
@@ -102,7 +102,7 @@ log_mutate <- function(.data, fun, funname, ...) {
             display(glue::glue("{funname}{group_status}: new variable '{var}' ",
                 "with {plural(n, 'value', 'unique ')} and {p_na} NA"))
         } else {
-            # new var
+            # existing var
             # use identical to account for missing values - this is fast
             if (identical(newdata[[var]], .data[[var]])) {
                 next
@@ -114,27 +114,14 @@ log_mutate <- function(.data, fun, funname, ...) {
             typenew <- ifelse(is.factor(new), "factor", typeof(new))
 
             if (typeold == "factor" & typenew == "factor") {
-                # stayed factor
-                different <- as.numeric(old) != as.numeric(new)
-                different[is.na(new) & !is.na(old)] <- TRUE
-                different[!is.na(new) & is.na(old)] <- TRUE
-                different[is.na(new) & is.na(old)] <- FALSE
-                n <- sum(different)
-                p <- percent(n, length(different))
+                # when factor, compare based on character values
+                # this will include both changes in the factor levels and recodes
+                old <- as.character(old)
+                new <- as.character(new)
+            }
 
-                levels_different <- any(levels(old) != levels(new))
-
-                if (n > 0 & levels_different) {
-                    display(glue::glue("{funname}{group_status}: changed {plural(n, 'value')} ",
-                        "({p}) of '{var}', factor levels updated"))
-                } else if (n > 0 & !levels_different) {
-                    display(glue::glue("{funname}{group_status}: changed {plural(n, 'value')} ",
-                        "({p}) of '{var}'"))
-                } else if (n == 0 & levels_different) {
-                    display(glue::glue("{funname}{group_status}: factor levels of '{var}' changed"))
-                }
-            } else if (typeold == typenew) {
-                # same type (except factor)
+            if (typeold == typenew) {
+                # same type
                 different <- new != old
                 different[is.na(new) & !is.na(old)] <- TRUE
                 different[!is.na(new) & is.na(old)] <- TRUE
