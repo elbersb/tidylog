@@ -19,6 +19,22 @@ test_that("select", {
 })
 
 test_that("select: scoped variants", {
+    is_whole <- function(x) all(floor(x) == x)
+
+    expect_message({
+        out <- tidylog::select_all(mtcars, toupper)
+    })
+    expect_equal(out, dplyr::select_all(mtcars, toupper))
+
+    expect_message({
+        out <- tidylog::select_if(mtcars, is_whole, toupper)
+    })
+    expect_equal(out, dplyr::select_if(mtcars, is_whole, toupper))
+
+    expect_message({
+        out <- tidylog::select_at(mtcars, vars(-everything()))
+    })
+    expect_equal(out, dplyr::select_at(mtcars, vars(-everything())))
 
 })
 

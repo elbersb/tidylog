@@ -27,15 +27,50 @@ test_that("distinct", {
     expect_message({
         out <- tidylog::distinct(mtcars, mpg)
     })
-    expect_equal(nrow(out), nrow(dplyr::distinct(mtcars, mpg)))
+    expect_equal(out, dplyr::distinct(mtcars, mpg))
+})
+
+test_that("top_n", {
+    expect_message({
+        out <- tidylog::top_n(mtcars, 3, carb)
+    })
+    expect_equal(out, dplyr::top_n(mtcars, 3, carb))
 })
 
 test_that("filter: scoped variants", {
+    expect_message({
+        out <- tidylog::filter_all(mtcars, all_vars(. > 150))
+    })
+    expect_equal(out, dplyr::filter_all(mtcars, all_vars(. > 150)))
 
+    expect_message({
+        out <- tidylog::filter_if(mtcars, ~ all(floor(.) == .), all_vars(. != 0))
+    })
+    expect_equal(out, dplyr::filter_if(mtcars, ~ all(floor(.) == .), all_vars(. != 0)))
+
+    expect_message({
+        out <- tidylog::filter_at(mtcars, vars(starts_with("d")), any_vars( (. %% 2) == 0))
+    })
+    expect_equal(out, dplyr::filter_at(mtcars, vars(starts_with("d")), any_vars( (. %% 2) == 0)))
 })
 
 test_that("distinct: scoped variants", {
+    df <- tibble(x = rep(2:5, each = 2) / 2, y = rep(2:3, each = 4) / 2)
 
+    expect_message({
+        out <- tidylog::distinct_all(df)
+    })
+    expect_equal(out, dplyr::distinct_all(df))
+
+    expect_message({
+        out <- tidylog::distinct_if(df, is.numeric)
+    })
+    expect_equal(out, dplyr::distinct_if(df, is.numeric))
+
+    expect_message({
+        out <- tidylog::distinct_at(df, vars(x, y))
+    })
+    expect_equal(out, dplyr::distinct_at(df, vars(x, y)))
 })
 
 test_that("filter: argument order", {

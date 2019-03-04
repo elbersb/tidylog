@@ -22,13 +22,34 @@ test_that("summarize", {
 
 test_that("summarize: scoped variants", {
     expect_message({
+        out <- tidylog::summarize_all(mtcars, max)
+    })
+    expect_equal(out, dplyr::summarize_all(mtcars, max))
+
+    expect_message({
         out <- tidylog::summarise_all(mtcars, max)
     })
-    expect_equal(nrow(out), 1)
+    expect_equal(out, dplyr::summarise_all(mtcars, max))
+
+    expect_message({
+        out <- tidylog::summarize_if(mtcars, is.numeric, mean, na.rm = TRUE)
+    })
+    expect_equal(out, dplyr::summarize_if(mtcars, is.numeric, mean, na.rm = TRUE))
+
+    expect_message({
+        out <- tidylog::summarise_if(mtcars, is.numeric, mean, na.rm = TRUE)
+    })
+    expect_equal(out, dplyr::summarise_if(mtcars, is.numeric, mean, na.rm = TRUE))
+
+    expect_message({
+        out <- tidylog::summarize_at(mtcars, c("mpg", "hp"), mean)
+    })
+    expect_equal(out, dplyr::summarize_at(mtcars, c("mpg", "hp"), mean))
 
     expect_message({
         out <- tidylog::summarise_at(mtcars, c("mpg", "hp"), mean)
     })
+    expect_equal(out, dplyr::summarise_at(mtcars, c("mpg", "hp"), mean))
 })
 
 test_that("summarize: argument order", {
