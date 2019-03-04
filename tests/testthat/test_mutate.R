@@ -29,6 +29,10 @@ test_that("mutate", {
     f <- function() tidylog::mutate(iris, Species = as.character(Species))
     expect_message(f(), "from factor to character.*0 new NA")
 
+    # factor to 100% missing
+    f <- function() tidylog::mutate(iris, Species = NA)
+    expect_message(f(), "now 100% NA")
+
     # double to character
     f <- function() tidylog::mutate(iris, Sepal.Length = as.character(Sepal.Length))
     expect_message(f(), "from double to character.*0 new NA")
