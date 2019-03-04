@@ -8,23 +8,28 @@ test_that("mutate", {
     })
     expect_equal(all(out$test), TRUE)
 
-    # factor -> factor
+    # factor to factor
     f <- function() tidylog::mutate(iris, Species = recode(Species, "virginica" = "v"))
+    expect_message(f(), "changed 50 values.*0 new NA")
 
-    # numeric -> numeric
+    # factor to factor, with missings
+    f <- function() tidylog::mutate(iris, Species = na_if(Species, "virginica"))
+    expect_message(f(), "changed 50 values.*50 new NA")
+
+    # numeric to numeric
     f <- function() tidylog::mutate(iris, Sepal.Length = round(Sepal.Length))
     expect_message(f(), "changed 133 values.*0 new NA")
 
-    # character -> character
+    # character to character
     iris2 <- dplyr::mutate(iris, Species = as.character(Species))
     f <- function() tidylog::mutate(iris2, Species = ifelse(Species == "virginica", "v", Species))
     expect_message(f(), "changed 50 values.*0 new NA")
 
-    # factor -> character
+    # factor to character
     f <- function() tidylog::mutate(iris, Species = as.character(Species))
     expect_message(f(), "from factor to character.*0 new NA")
 
-    # double -> character
+    # double to character
     f <- function() tidylog::mutate(iris, Sepal.Length = as.character(Sepal.Length))
     expect_message(f(), "from double to character.*0 new NA")
 })
