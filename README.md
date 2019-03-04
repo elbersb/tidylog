@@ -181,11 +181,13 @@ a <- filter(mtcars, mpg > 20)
 This option can also be used to register additional loggers. The option
 `tidylog.display` expects a list of functions. By default (when
 `tidylog.display` is set to NULL), tidylog will use the `message`
-function to display the output, but if you prefer `print`, simply
-overwrite the option:
+function to display the output, but if you prefer a more colorful
+output, simply overwrite the option:
 
 ``` r
-options("tidylog.display" = list(print))
+library("crayon")  # for terminal colors
+crayon <- function(x) cat(red$bold(x), sep = "\n") 
+options("tidylog.display" = list(crayon))
 a <- filter(mtcars, mpg > 20)
 #> filter: removed 18 out of 32 rows (56%)
 ```
