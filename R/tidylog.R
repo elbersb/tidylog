@@ -58,8 +58,7 @@ display <- function(text) {
 }
 
 should_display <- function() {
-    is.null(getOption("tidylog.display")) |
-        (is.list(getOption("tidylog.display")) & length(getOption("tidylog.display")) > 0)
+    is.null(getOption("tidylog.display")) | length(getOption("tidylog.display")) > 0
 }
 
 #' outputs some information about the data frame/tbl
