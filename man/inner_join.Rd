@@ -34,3 +34,9 @@ see \link[dplyr:join]{inner_join}
 Wrapper around dplyr::inner_join and related functions
 that prints information about the operation
 }
+\examples{
+left_join(dplyr::band_members, dplyr::band_instruments, by = "name")
+#> left_join: added 0 rows and added one column (plays)
+full_join(dplyr::band_members, dplyr::band_instruments, by = "name")
+#> full_join: added one row and added one column (plays)
+}

@@ -5,6 +5,11 @@
 #' @param x a tbl; see \link[dplyr:join]{inner_join}
 #' @param ... see \link[dplyr:join]{inner_join}
 #' @return see \link[dplyr:join]{inner_join}
+#' @examples
+#' left_join(dplyr::band_members, dplyr::band_instruments, by = "name")
+#' #> left_join: added 0 rows and added one column (plays)
+#' full_join(dplyr::band_members, dplyr::band_instruments, by = "name")
+#' #> full_join: added one row and added one column (plays)
 #' @import dplyr
 #' @export
 inner_join <- function(x, ...) {

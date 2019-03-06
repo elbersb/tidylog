@@ -43,3 +43,9 @@ see \link[dplyr]{filter}
 Wrapper around dplyr::filter and related functions
 that prints information about the operation
 }
+\examples{
+filter(mtcars, mpg > 20)
+#> filter: removed 18 out of 32 rows (56\%)
+filter(mtcars, mpg > 100)
+#> filter: removed all rows (100\%)
+}

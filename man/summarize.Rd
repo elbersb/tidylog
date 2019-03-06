@@ -46,3 +46,7 @@ see \link[dplyr]{summarize}
 Wrapper around dplyr::summarize and related functions
 that prints information about the operation
 }
+\examples{
+summarize_all(mtcars, mean)
+#> summarize_all: now one row and 11 columns, ungrouped
+}

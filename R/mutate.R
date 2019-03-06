@@ -4,6 +4,11 @@
 #' @param .data a tbl; see \link[dplyr]{mutate}
 #' @param ... see \link[dplyr]{mutate}
 #' @return see \link[dplyr]{mutate}
+#' @examples
+#' mutate(mtcars, new_var = 1)
+#' #> mutate: new variable 'new_var' with one unique value and 0% NA
+#' mutate(mtcars, new_var = NA)
+#> #> mutate: new variable 'new_var' with one unique value and 100% NA
 #' @import dplyr
 #' @export
 mutate <- function(.data, ...) {
@@ -34,6 +39,10 @@ mutate_at <- function(.data, ...) {
 #' @param .data a tbl; see \link[dplyr:mutate]{transmute}
 #' @param ... see \link[dplyr:mutate]{transmute}
 #' @return see \link[dplyr:mutate]{transmute}
+#' @examples
+#' transmute(mtcars, mpg = mpg * 2)
+#' #> transmute: dropped 10 variables (cyl, disp, hp, drat, wt, …)
+#' #> transmute: changed 32 values (100%) of 'mpg' (0 new NA)
 #' @import dplyr
 #' @export
 transmute <- function(.data, ...) {

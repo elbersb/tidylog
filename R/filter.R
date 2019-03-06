@@ -5,6 +5,11 @@
 #' @param .data a tbl; see \link[dplyr]{filter}
 #' @param ... see \link[dplyr]{filter}
 #' @return see \link[dplyr]{filter}
+#' @examples
+#' filter(mtcars, mpg > 20)
+#' #> filter: removed 18 out of 32 rows (56%)
+#' filter(mtcars, mpg > 100)
+#' #> filter: removed all rows (100%)
 #' @import dplyr
 #' @export
 filter <- function(.data, ...) {

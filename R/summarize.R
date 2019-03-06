@@ -4,6 +4,9 @@
 #' @param .data a tbl; see \link[dplyr]{summarize}
 #' @param ... see \link[dplyr]{summarize}
 #' @return see \link[dplyr]{summarize}
+#' @examples
+#' summarize_all(mtcars, mean)
+#' #> summarize_all: now one row and 11 columns, ungrouped
 #' @import dplyr
 #' @export
 summarize <- function(.data, ...) {

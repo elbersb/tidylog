@@ -34,3 +34,8 @@ see \link[dplyr]{mutate}
 Wrapper around dplyr::mutate and related functions
 that prints information about the operation
 }
+\examples{
+mutate(mtcars, new_var = 1)
+#> mutate: new variable 'new_var' with one unique value and 0\% NA
+mutate(mtcars, new_var = NA)
+}

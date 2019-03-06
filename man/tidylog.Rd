@@ -15,3 +15,7 @@ same as .data
 \description{
 outputs some information about the data frame/tbl
 }
+\examples{
+tidylog(mtcars)
+#> tidylog: data.frame with 32 rows and 11 columns
+}

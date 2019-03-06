@@ -65,6 +65,9 @@ should_display <- function() {
 #'
 #' @param .data a tbl/data frame
 #' @return same as .data
+#' @examples
+#' tidylog(mtcars)
+#' #> tidylog: data.frame with 32 rows and 11 columns
 #' @export
 tidylog <- function(.data) {
     if (!"data.frame" %in% class(.data) | !should_display()) {

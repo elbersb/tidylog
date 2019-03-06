@@ -28,3 +28,7 @@ see \link[dplyr]{group_by}
 Wrapper around dplyr::group_by and related functions
 that prints information about the operation
 }
+\examples{
+group_by(mtcars, am, cyl)
+#> group_by: 2 grouping variables (am, cyl)
+}

@@ -4,6 +4,9 @@
 #' @param .data a tbl; see \link[dplyr]{group_by}
 #' @param ... see \link[dplyr]{group_by}
 #' @return see \link[dplyr]{group_by}
+#' @examples
+#' group_by(mtcars, am, cyl)
+#' #> group_by: 2 grouping variables (am, cyl)
 #' @import dplyr
 #' @export
 group_by <- function(.data, ...) {
