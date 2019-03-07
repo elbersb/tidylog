@@ -1,3 +1,8 @@
+This is a resubmit.
+
+* changed package name formatting in DESCRIPTION
+* added examples
+
 ## Test environments
 
 * local OS X, R 3.5.1

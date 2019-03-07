@@ -1,3 +1,4 @@
+^CRAN-RELEASE$
 ^.*\.Rproj$
 ^.*\.rhistory$
 ^\.Rproj\.user$

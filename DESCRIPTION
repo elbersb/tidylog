@@ -1,11 +1,10 @@
 Package: tidylog
 Type: Package
-Title: Logging for Dplyr Functions
+Title: Logging for 'dplyr' Functions
 Version: 0.1.0
 Authors@R: person("Benjamin", "Elbers", email = "elbersb@gmail.com",
   role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5392-3448"))
-Description: The goal of tidylog is to provide feedback about basic dplyr operations. 
-    It provides simple wrapper functions for the most common functions.
+Description: Provides feedback about basic 'dplyr' operations.
 License: MIT + file LICENSE
 Imports: dplyr, glue
 Suggests: testthat, covr, lintr
