@@ -50,6 +50,14 @@ Here, it might have been accidental that the last `filter` command had no effect
 
 ## Installation
 
+Download from CRAN:
+
+``` r
+install.packages("tidylog")
+```
+
+Or install the development version:
+
 ``` r
 devtools::install_github("elbersb/tidylog")
 ```

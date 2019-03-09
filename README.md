@@ -54,6 +54,14 @@ no effect.
 
 ## Installation
 
+Download from CRAN:
+
+``` r
+install.packages("tidylog")
+```
+
+Or install the development version:
+
 ``` r
 devtools::install_github("elbersb/tidylog")
 ```
