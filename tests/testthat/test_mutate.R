@@ -38,6 +38,36 @@ test_that("mutate", {
     expect_message(f(), "from double to character.*0 new NA")
 })
 
+test_that("missings", {
+    # same type, increase missings
+    f <- function() tidylog::mutate(iris, Sepal.Length = ifelse(Sepal.Length > 5, NA, Sepal.Length))
+    expect_message(f(), "changed.*(118 new NA)")
+
+    # same type, reduce missings
+    iris2 <- dplyr::mutate(iris, Sepal.Length = ifelse(Sepal.Length > 5, NA, Sepal.Length))
+    f <- function() tidylog::mutate(iris2, Sepal.Length = 1)
+    expect_message(f(), "changed.*(118 fewer NA)")
+
+    # same type, same missings
+    f <- function() tidylog::mutate(iris, Sepal.Length = sample(Sepal.Length))
+    expect_message(f(), "changed.*(0 new NA)")
+
+    # double to integer, increase missings
+    f <- function() tidylog::mutate(iris,
+        Sepal.Length = as.integer(ifelse(Sepal.Length > 5, NA, Sepal.Length)))
+    expect_message(f(), "converted.*to integer.*(118 new NA)")
+
+    # double to integer, reduce missings
+    iris2 <- dplyr::mutate(iris, Sepal.Length = ifelse(Sepal.Length > 5, NA, Sepal.Length))
+    f <- function() tidylog::mutate(iris2, Sepal.Length = as.integer(1))
+    expect_message(f(), "converted.*to integer.*(118 fewer NA)")
+
+    # double to integer, same missings
+    f <- function() tidylog::mutate(iris,
+        Sepal.Length = as.integer(sample(Sepal.Length)))
+    expect_message(f(), "converted.*to integer.*(0 new NA)")
+})
+
 test_that("transmute", {
     expect_message({
         out <- tidylog::transmute(mtcars, test = TRUE)

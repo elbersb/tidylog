@@ -49,9 +49,9 @@ test_that("filter: scoped variants", {
     expect_equal(out, dplyr::filter_if(mtcars, ~ all(floor(.) == .), all_vars(. != 0)))
 
     expect_message({
-        out <- tidylog::filter_at(mtcars, vars(starts_with("d")), any_vars((. %% 2) == 0))
+        out <- tidylog::filter_at(mtcars, vars(starts_with("d")), any_vars(. %% 2 == 0))
     })
-    expect_equal(out, dplyr::filter_at(mtcars, vars(starts_with("d")), any_vars((. %% 2) == 0)))
+    expect_equal(out, dplyr::filter_at(mtcars, vars(starts_with("d")), any_vars(. %% 2 == 0)))
 })
 
 test_that("distinct: scoped variants", {

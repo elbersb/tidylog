@@ -138,8 +138,10 @@ log_mutate <- function(.data, fun, funname, ...) {
                 n <- sum(different)
                 p <- percent(n, length(different))
                 new_na <- sum(is.na(new)) - sum(is.na(old))
+                na_text <- glue::glue("{abs(new_na)} ",
+                                      ifelse(new_na >= 0, "new", "fewer"), " NA")
                 display(glue::glue("{funname}{group_status}: changed {plural(n, 'value')} ",
-                    "({p}) of '{var}' ({new_na} new NA)"))
+                    "({p}) of '{var}' ({na_text})"))
             } else {
                 # different type
                 new_na <- sum(is.na(new)) - sum(is.na(old))
@@ -147,8 +149,10 @@ log_mutate <- function(.data, fun, funname, ...) {
                     display(glue::glue("{funname}{group_status}: converted '{var}' from {typeold} ",
                         "to {typenew} (now 100% NA)"))
                 } else {
+                    na_text <- glue::glue("{abs(new_na)} ",
+                                          ifelse(new_na >= 0, "new", "fewer"), " NA")
                     display(glue::glue("{funname}{group_status}: converted '{var}' from {typeold} ",
-                        "to {typenew} ({new_na} new NA)"))
+                        "to {typenew} ({na_text})"))
                 }
             }
         }
