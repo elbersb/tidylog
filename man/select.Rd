@@ -30,7 +30,7 @@ that prints information about the operation
 }
 \examples{
 select(mtcars, mpg, wt)
-#> select: dropped 9 variables (cyl, disp, hp, drat, qsec, …)
+#> select: dropped 9 variables (cyl, disp, hp, drat, qsec, ...)
 select(mtcars, dplyr::matches("a"))
-#> select: dropped 7 variables (mpg, cyl, disp, hp, wt, …)
+#> select: dropped 7 variables (mpg, cyl, disp, hp, wt, ...)
 }

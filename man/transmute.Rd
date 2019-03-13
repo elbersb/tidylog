@@ -30,6 +30,6 @@ that prints information about the operation
 }
 \examples{
 transmute(mtcars, mpg = mpg * 2)
-#> transmute: dropped 10 variables (cyl, disp, hp, drat, wt, …)
+#> transmute: dropped 10 variables (cyl, disp, hp, drat, wt, ...)
 #> transmute: changed 32 values (100\%) of 'mpg' (0 new NA)
 }
