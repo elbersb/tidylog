@@ -7,7 +7,7 @@
 #' @return see \link[dplyr]{filter}
 #' @examples
 #' filter(mtcars, mpg > 20)
-#' #> filter: removed 18 out of 32 rows (56%)
+#' #> filter: removed 18 rows (56%), 14 remaining
 #' filter(mtcars, mpg > 100)
 #' #> filter: removed all rows (100%)
 #' @import dplyr
@@ -80,8 +80,8 @@ log_filter <- function(.data, fun, funname, ...) {
         display(glue::glue("{funname}{group_status}: removed all rows (100%)"))
     } else {
         total <- nrow(.data)
-        display(glue::glue("{funname}{group_status}: removed {n} out of {plural(total, 'row')} ",
-            "({percent(n, {total})})"))
+        display(glue::glue("{funname}{group_status}: removed {n} rows ",
+            "({percent(n, {total})}), {nrow(newdata)} remaining"))
     }
     newdata
 }
