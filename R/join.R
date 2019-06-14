@@ -13,41 +13,41 @@
 #' @import dplyr
 #' @export
 inner_join <- function(x, ...) {
-    log_join(x, dplyr::inner_join, "inner_join", ...)
+    log_join(x, .fun = dplyr::inner_join, .funname = "inner_join", ...)
 }
 
 #' @rdname inner_join
 #' @export
 full_join <- function(x, ...) {
-    log_join(x, dplyr::full_join, "full_join", ...)
+    log_join(x, .fun = dplyr::full_join, .funname = "full_join", ...)
 }
 
 #' @rdname inner_join
 #' @export
 left_join <- function(x, ...) {
-    log_join(x, dplyr::left_join, "left_join", ...)
+    log_join(x, .fun = dplyr::left_join, .funname = "left_join", ...)
 }
 
 #' @rdname inner_join
 #' @export
 right_join <- function(x, ...) {
-    log_join(x, dplyr::right_join, "right_join", ...)
+    log_join(x, .fun = dplyr::right_join, .funname = "right_join", ...)
 }
 
 #' @rdname inner_join
 #' @export
 anti_join <- function(x, ...) {
-    log_join(x, dplyr::anti_join, "anti_join", ...)
+    log_join(x, .fun = dplyr::anti_join, .funname = "anti_join", ...)
 }
 
 #' @rdname inner_join
 #' @export
 semi_join <- function(x, ...) {
-    log_join(x, dplyr::semi_join, "semi_join", ...)
+    log_join(x, .fun = dplyr::semi_join, .funname = "semi_join", ...)
 }
 
-log_join <- function(x, fun, funname, ...) {
-    newdata <- fun(x, ...)
+log_join <- function(x, .fun, .funname, ...) {
+    newdata <- .fun(x, ...)
     if (!"data.frame" %in% class(x) | !should_display()) {
         return(newdata)
     }
@@ -58,10 +58,10 @@ log_join <- function(x, fun, funname, ...) {
     cols <- setdiff(names(newdata), names(x))
 
     if (length(cols) == 0) {
-        display(glue::glue("{funname}: {text_rows} {plural(n_rows, 'row')} and ",
+        display(glue::glue("{.funname}: {text_rows} {plural(n_rows, 'row')} and ",
                 "added no new columns"))
     } else {
-        display(glue::glue("{funname}: {text_rows} {plural(n_rows, 'row')} and ",
+        display(glue::glue("{.funname}: {text_rows} {plural(n_rows, 'row')} and ",
                 "added {plural(length(cols), 'column')} ({format_list(cols)})"))
     }
 

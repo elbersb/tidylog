@@ -12,25 +12,25 @@
 #' @import dplyr
 #' @export
 mutate <- function(.data, ...) {
-    log_mutate(.data, dplyr::mutate, "mutate", ...)
+    log_mutate(.data, .fun = dplyr::mutate, .funname = "mutate", ...)
 }
 
 #' @rdname mutate
 #' @export
 mutate_all <- function(.data, ...) {
-    log_mutate(.data, dplyr::mutate_all, "mutate_all", ...)
+    log_mutate(.data, .fun = dplyr::mutate_all, .funname = "mutate_all", ...)
 }
 
 #' @rdname mutate
 #' @export
 mutate_if <- function(.data, ...) {
-    log_mutate(.data, dplyr::mutate_if, "mutate_if", ...)
+    log_mutate(.data, .fun = dplyr::mutate_if, .funname = "mutate_if", ...)
 }
 
 #' @rdname mutate
 #' @export
 mutate_at <- function(.data, ...) {
-    log_mutate(.data, dplyr::mutate_at, "mutate_at", ...)
+    log_mutate(.data, .fun = dplyr::mutate_at, .funname = "mutate_at", ...)
 }
 
 #' Wrapper around dplyr::transmute and related functions
@@ -46,42 +46,42 @@ mutate_at <- function(.data, ...) {
 #' @import dplyr
 #' @export
 transmute <- function(.data, ...) {
-    log_mutate(.data, dplyr::transmute, "transmute", ...)
+    log_mutate(.data, .fun = dplyr::transmute, .funname = "transmute", ...)
 }
 
 #' @rdname transmute
 #' @export
 transmute_all <- function(.data, ...) {
-    log_mutate(.data, dplyr::transmute_all, "transmute_all", ...)
+    log_mutate(.data, .fun = dplyr::transmute_all, .funname = "transmute_all", ...)
 }
 
 #' @rdname transmute
 #' @export
 transmute_if <- function(.data, ...) {
-    log_mutate(.data, dplyr::transmute_if, "transmute_if", ...)
+    log_mutate(.data, .fun = dplyr::transmute_if, .funname = "transmute_if", ...)
 }
 
 #' @rdname transmute
 #' @export
 transmute_at <- function(.data, ...) {
-    log_mutate(.data, dplyr::transmute_at, "transmute_at", ...)
+    log_mutate(.data, .fun = dplyr::transmute_at, .funname = "transmute_at", ...)
 }
 
 #' @rdname mutate
 #' @export
 add_tally <- function(.data, ...) {
-    log_mutate(.data, dplyr::add_tally, "add_tally", ...)
+    log_mutate(.data, .fun = dplyr::add_tally, .funname = "add_tally", ...)
 }
 
 #' @rdname mutate
 #' @export
 add_count <- function(.data, ...) {
-    log_mutate(.data, dplyr::add_count, "add_count", ...)
+    log_mutate(.data, .fun = dplyr::add_count, .funname = "add_count", ...)
 }
 
-log_mutate <- function(.data, fun, funname, ...) {
+log_mutate <- function(.data, .fun, .funname, ...) {
     cols <- names(.data)
-    newdata <- fun(.data, ...)
+    newdata <- .fun(.data, ...)
 
     if (!"data.frame" %in% class(.data) | !should_display()) {
         return(newdata)
@@ -89,14 +89,14 @@ log_mutate <- function(.data, fun, funname, ...) {
 
     group_status <- ifelse(dplyr::is.grouped_df(newdata), " (grouped)", "")
 
-    if (grepl("transmute", funname)) {
+    if (grepl("transmute", .funname)) {
         dropped_vars <- setdiff(names(.data), names(newdata))
         n <- length(dropped_vars)
         if (ncol(newdata) == 0) {
-            display(glue::glue("{funname}{group_status}: dropped all variables"))
+            display(glue::glue("{.funname}{group_status}: dropped all variables"))
             return(newdata)
         } else if (length(dropped_vars) > 0) {
-            display(glue::glue("{funname}{group_status}: dropped {plural(n, 'variable')}",
+            display(glue::glue("{.funname}{group_status}: dropped {plural(n, 'variable')}",
                            " ({format_list(dropped_vars)})"))
         }
     }
@@ -108,7 +108,7 @@ log_mutate <- function(.data, fun, funname, ...) {
             has_changed <- TRUE
             n <- length(unique(newdata[[var]]))
             p_na <- percent(sum(is.na(newdata[[var]])), length(newdata[[var]]))
-            display(glue::glue("{funname}{group_status}: new variable '{var}' ",
+            display(glue::glue("{.funname}{group_status}: new variable '{var}' ",
                 "with {plural(n, 'value', 'unique ')} and {p_na} NA"))
         } else {
             # existing var
@@ -140,26 +140,26 @@ log_mutate <- function(.data, fun, funname, ...) {
                 new_na <- sum(is.na(new)) - sum(is.na(old))
                 na_text <- glue::glue("{abs(new_na)} ",
                                       ifelse(new_na >= 0, "new", "fewer"), " NA")
-                display(glue::glue("{funname}{group_status}: changed {plural(n, 'value')} ",
+                display(glue::glue("{.funname}{group_status}: changed {plural(n, 'value')} ",
                     "({p}) of '{var}' ({na_text})"))
             } else {
                 # different type
                 new_na <- sum(is.na(new)) - sum(is.na(old))
                 if (new_na == length(new)) {
-                    display(glue::glue("{funname}{group_status}: converted '{var}' from {typeold} ",
-                        "to {typenew} (now 100% NA)"))
+                    display(glue::glue("{.funname}{group_status}: converted '{var}' from {typeold}",
+                        " to {typenew} (now 100% NA)"))
                 } else {
                     na_text <- glue::glue("{abs(new_na)} ",
                                           ifelse(new_na >= 0, "new", "fewer"), " NA")
-                    display(glue::glue("{funname}{group_status}: converted '{var}' from {typeold} ",
-                        "to {typenew} ({na_text})"))
+                    display(glue::glue("{.funname}{group_status}: converted '{var}' from {typeold}",
+                        " to {typenew} ({na_text})"))
                 }
             }
         }
     }
 
     if (!has_changed) {
-        display(glue::glue("{funname}{group_status}: no changes"))
+        display(glue::glue("{.funname}{group_status}: no changes"))
     }
     newdata
 }

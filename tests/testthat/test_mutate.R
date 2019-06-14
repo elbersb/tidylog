@@ -173,3 +173,10 @@ test_that("transmute: argument order", {
     expect_equal(all(out$test), TRUE)
     expect_equal(ncol(out), 1)
 })
+
+test_that("mutate/transmute: partial matching", {
+    f <- function() tidylog::mutate(mtcars, f = 1)
+    expect_message(f(), "new variable 'f'")
+    f <- function() tidylog::transmute(mtcars, fun = 1)
+    expect_message(f(), "new variable 'fun'")
+})

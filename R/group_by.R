@@ -10,35 +10,35 @@
 #' @import dplyr
 #' @export
 group_by <- function(.data, ...) {
-    log_group_by(.data, dplyr::group_by, "group_by", ...)
+    log_group_by(.data, .fun = dplyr::group_by, .funname = "group_by", ...)
 }
 
 #' @rdname group_by
 #' @export
 group_by_all <- function(.data, ...) {
-    log_group_by(.data, dplyr::group_by_all, "group_by_all", ...)
+    log_group_by(.data, .fun = dplyr::group_by_all, .funname = "group_by_all", ...)
 }
 
 #' @rdname group_by
 #' @export
 group_by_if <- function(.data, ...) {
-    log_group_by(.data, dplyr::group_by_if, "group_by_if", ...)
+    log_group_by(.data, .fun = dplyr::group_by_if, .funname = "group_by_if", ...)
 }
 
 #' @rdname group_by
 #' @export
 group_by_at <- function(.data, ...) {
-    log_group_by(.data, dplyr::group_by_at, "group_by_at", ...)
+    log_group_by(.data, .fun = dplyr::group_by_at, .funname = "group_by_at", ...)
 }
 
-log_group_by <- function(.data, fun, funname, ...) {
-    newdata <- fun(.data, ...)
+log_group_by <- function(.data, .fun, .funname, ...) {
+    newdata <- .fun(.data, ...)
     if (!"data.frame" %in% class(.data) | !should_display()) {
         return(newdata)
     }
     group_vars <- get_groups(newdata)
     display(glue::glue(
-        "{funname}: {plural(length(group_vars), 'grouping variable')} ",
+        "{.funname}: {plural(length(group_vars), 'grouping variable')} ",
         "({format_list(group_vars)})"))
     newdata
 }

@@ -13,60 +13,60 @@
 #' @import dplyr
 #' @export
 filter <- function(.data, ...) {
-    log_filter(.data, dplyr::filter, "filter", ...)
+    log_filter(.data, .fun = dplyr::filter, .funname = "filter", ...)
 }
 
 #' @rdname filter
 #' @export
 filter_all <- function(.data, ...) {
-    log_filter(.data, dplyr::filter_all, "filter_all", ...)
+    log_filter(.data, .fun = dplyr::filter_all, .funname = "filter_all", ...)
 }
 
 #' @rdname filter
 #' @export
 filter_if <- function(.data, ...) {
-    log_filter(.data, dplyr::filter_if, "filter_if", ...)
+    log_filter(.data, .fun = dplyr::filter_if, .funname = "filter_if", ...)
 }
 
 #' @rdname filter
 #' @export
 filter_at <- function(.data, ...) {
-    log_filter(.data, dplyr::filter_at, "filter_at", ...)
+    log_filter(.data, .fun = dplyr::filter_at, .funname = "filter_at", ...)
 }
 
 #' @rdname filter
 #' @export
 distinct <- function(.data, ...) {
-    log_filter(.data, dplyr::distinct, "distinct", ...)
+    log_filter(.data, .fun = dplyr::distinct, .funname = "distinct", ...)
 }
 
 #' @rdname filter
 #' @export
 distinct_all <- function(.data, ...) {
-    log_filter(.data, dplyr::distinct_all, "distinct_all", ...)
+    log_filter(.data, .fun = dplyr::distinct_all, .funname = "distinct_all", ...)
 }
 
 #' @rdname filter
 #' @export
 distinct_if <- function(.data, ...) {
-    log_filter(.data, dplyr::distinct_if, "distinct_if", ...)
+    log_filter(.data, .fun = dplyr::distinct_if, .funname = "distinct_if", ...)
 }
 
 #' @rdname filter
 #' @export
 distinct_at <- function(.data, ...) {
-    log_filter(.data, dplyr::distinct_at, "distinct_at", ...)
+    log_filter(.data, .fun = dplyr::distinct_at, .funname = "distinct_at", ...)
 }
 
 #' @rdname filter
 #' @export
 top_n <- function(.data, ...) {
-    log_filter(.data, dplyr::top_n, "top_n", ...)
+    log_filter(.data, .fun = dplyr::top_n, .funname = "top_n", ...)
 }
 
 
-log_filter <- function(.data, fun, funname, ...) {
-    newdata <- fun(.data, ...)
+log_filter <- function(.data, .fun, .funname, ...) {
+    newdata <- .fun(.data, ...)
     if (!"data.frame" %in% class(.data) | !should_display()) {
         return(newdata)
     }
@@ -75,12 +75,12 @@ log_filter <- function(.data, fun, funname, ...) {
 
     n <- nrow(.data) - nrow(newdata)
     if (n == 0) {
-        display(glue::glue("{funname}{group_status}: no rows removed"))
+        display(glue::glue("{.funname}{group_status}: no rows removed"))
     } else if (n == nrow(.data)) {
-        display(glue::glue("{funname}{group_status}: removed all rows (100%)"))
+        display(glue::glue("{.funname}{group_status}: removed all rows (100%)"))
     } else {
         total <- nrow(.data)
-        display(glue::glue("{funname}{group_status}: removed {n} rows ",
+        display(glue::glue("{.funname}{group_status}: removed {n} rows ",
             "({percent(n, {total})}), {nrow(newdata)} remaining"))
     }
     newdata
