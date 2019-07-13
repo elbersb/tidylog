@@ -28,7 +28,7 @@ frame:
 
 ``` r
 filtered <- filter(mtcars, cyl == 4)
-#> filter: removed 21 rows (66%), 11 remaining
+#> filter: removed 21 rows (66%), 11 rows remaining
 ```
 
 This can be especially helpful in longer pipes:
@@ -42,7 +42,7 @@ summary <- mtcars %>%
     tally() %>%
     filter(n >= 1)
 #> select: dropped 7 variables (disp, drat, wt, qsec, vs, …)
-#> filter: removed 6 rows (19%), 26 remaining
+#> filter: removed 6 rows (19%), 26 rows remaining
 #> mutate: new variable 'mpg_round' with 15 unique values and 0% NA
 #> group_by: 3 grouping variables (cyl, mpg_round, am)
 #> tally: now 20 rows and 4 columns, 2 group variables remaining (cyl, mpg_round)
@@ -72,19 +72,19 @@ devtools::install_github("elbersb/tidylog")
 
 ``` r
 a <- filter(mtcars, mpg > 20)
-#> filter: removed 18 rows (56%), 14 remaining
+#> filter: removed 18 rows (56%), 14 rows remaining
 b <- filter(mtcars, mpg > 100)
 #> filter: removed all rows (100%)
 c <- filter(mtcars, mpg > 0)
 #> filter: no rows removed
 d <- filter_at(mtcars, vars(starts_with("d")), any_vars((. %% 2) == 0))
-#> filter_at: removed 19 rows (59%), 13 remaining
+#> filter_at: removed 19 rows (59%), 13 rows remaining
 e <- distinct(mtcars)
 #> distinct: no rows removed
 f <- distinct_at(mtcars, vars(vs:carb))
-#> distinct_at: removed 18 rows (56%), 14 remaining
+#> distinct_at: removed 18 rows (56%), 14 rows remaining
 g <- top_n(mtcars, 2, am)
-#> top_n: removed 19 rows (59%), 13 remaining
+#> top_n: removed 19 rows (59%), 13 rows remaining
 ```
 
 ### mutate, transmute
@@ -183,7 +183,7 @@ a <- filter(mtcars, mpg > 20)
 
 options("tidylog.display" = NULL)    # turn on
 a <- filter(mtcars, mpg > 20)
-#> filter: removed 18 rows (56%), 14 remaining
+#> filter: removed 18 rows (56%), 14 rows remaining
 ```
 
 This option can also be used to register additional loggers. The option
@@ -197,7 +197,7 @@ library("crayon")  # for terminal colors
 crayon <- function(x) cat(red$bold(x), sep = "\n") 
 options("tidylog.display" = list(crayon))
 a <- filter(mtcars, mpg > 20)
-#> filter: removed 18 rows (56%), 14 remaining
+#> filter: removed 18 rows (56%), 14 rows remaining
 ```
 
 To print the output both to the screen and to a file, you could use:
@@ -206,7 +206,7 @@ To print the output both to the screen and to a file, you could use:
 log_to_file <- function(text) cat(text, file = "log.txt", sep = "\n", append = TRUE)
 options("tidylog.display" = list(message, log_to_file))
 a <- filter(mtcars, mpg > 20)
-#> filter: removed 18 rows (56%), 14 remaining
+#> filter: removed 18 rows (56%), 14 rows remaining
 ```
 
 ## Namespace conflicts

@@ -80,8 +80,9 @@ log_filter <- function(.data, .fun, .funname, ...) {
         display(glue::glue("{.funname}{group_status}: removed all rows (100%)"))
     } else {
         total <- nrow(.data)
-        display(glue::glue("{.funname}{group_status}: removed {n} rows ",
-            "({percent(n, {total})}), {nrow(newdata)} remaining"))
+        display(glue::glue("{.funname}{group_status}: ",
+            "removed {plural(n, 'row')} ",
+            "({percent(n, {total})}), {plural(nrow(newdata), 'row')} remaining"))
     }
     newdata
 }
