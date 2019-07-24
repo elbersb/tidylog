@@ -27,11 +27,11 @@ log_gather <- function(.data, .fun, .funname, ...) {
     oldcols <- setdiff(names(.data), names(newdata))
 
     display(glue::glue(
-        "{.funname}: was {plural(nrow(.data), 'row')} and ",
-        "{plural(ncol(.data), 'column')}",
-        "; now {plural(nrow(newdata), 'row')} and ",
-        "{plural(ncol(newdata), 'column')}; ",
-        "reorganized data from ({format_list(oldcols)}) into ({format_list(newcols)})"
+        "{.funname}: ",
+        "reorganized ({format_list(oldcols)}) ",
+        "into ({format_list(newcols)}) ",
+        "[was {nrow(.data)}x{ncol(.data)}, ",
+        "now {nrow(newdata)}x{ncol(newdata)}]"
     ))
 
     newdata
