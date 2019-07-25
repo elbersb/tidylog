@@ -7,7 +7,7 @@ Authors@R: person("Benjamin", "Elbers", email = "elbersb@gmail.com",
 Description: Provides feedback about basic 'dplyr' operations.
 License: MIT + file LICENSE
 Imports: dplyr, tidyr, glue, clisymbols
-Suggests: testthat, covr, lintr
+Suggests: testthat, covr, lintr, nycflights13
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/elbersb/tidylog/

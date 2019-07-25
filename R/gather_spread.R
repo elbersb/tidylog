@@ -75,4 +75,3 @@ log_spread <- function(.data, .fun, .funname, ...) {
 
     newdata
 }
-

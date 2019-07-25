@@ -10,20 +10,24 @@
 \title{Wrapper around dplyr::inner_join and related functions
 that prints information about the operation}
 \usage{
-inner_join(x, ...)
+inner_join(x, y, by = NULL, ...)
 
-full_join(x, ...)
+full_join(x, y, by = NULL, ...)
 
-left_join(x, ...)
+left_join(x, y, by = NULL, ...)
 
-right_join(x, ...)
+right_join(x, y, by = NULL, ...)
 
-anti_join(x, ...)
+anti_join(x, y, by = NULL, ...)
 
-semi_join(x, ...)
+semi_join(x, y, by = NULL, ...)
 }
 \arguments{
 \item{x}{a tbl; see \link[dplyr:join]{inner_join}}
+
+\item{y}{a tbl; see \link[dplyr:join]{inner_join}}
+
+\item{by}{a vector; see \link[dplyr:join]{inner_join}}
 
 \item{...}{see \link[dplyr:join]{inner_join}}
 }
