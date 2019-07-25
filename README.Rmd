@@ -129,6 +129,16 @@ c <- mtcars %>% count(gear, carb)
 d <- mtcars %>% add_count(gear, carb, name = "count")
 ```
 
+### gather, spread (tidyr)
+
+```{r}
+long <- mtcars %>%
+    mutate(id = 1:n()) %>%
+    gather("col", "data", -id)
+wide <- long %>%
+    spread(col, data)
+```
+
 ## Turning logging off, registering additional loggers
 
 To turn off the output for just a particular function call, you can simply call the dplyr functions
