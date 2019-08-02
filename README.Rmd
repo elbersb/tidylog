@@ -24,7 +24,7 @@ The goal of tidylog is to provide feedback about basic dplyr and tidyr operation
 
 Load `tidylog` after `dplyr` and/or `tidyr`:
 
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 library("dplyr")
 library("tidyr")
 library("tidylog", warn.conflicts = FALSE)

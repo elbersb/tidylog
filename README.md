@@ -1,30 +1,24 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+tidylog
+=======
 
-# tidylog
+[![CRAN Version](https://www.r-pkg.org/badges/version/tidylog)](https://CRAN.R-project.org/package=tidylog) [![Build Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis-ci.org/elbersb/tidylog) [![Coverage status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
 
-[![CRAN
-Version](https://www.r-pkg.org/badges/version/tidylog)](https://CRAN.R-project.org/package=tidylog)
-[![Build
-Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis-ci.org/elbersb/tidylog)
-[![Coverage
-status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
+The goal of tidylog is to provide feedback about basic dplyr and tidyr operations. It provides simple wrapper functions for the most common functions, such as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
 
-The goal of tidylog is to provide feedback about basic dplyr operations.
-It provides simple wrapper functions for the most common functions, such
-as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
+Example
+-------
 
-## Example
-
-Load `tidylog` after `dplyr`:
+Load `tidylog` after `dplyr` and/or `tidyr`:
 
 ``` r
 library("dplyr")
+library("tidyr")
 library("tidylog", warn.conflicts = FALSE)
 ```
 
-Tidylog will give you feedback, for instance when filtering a data
-frame:
+Tidylog will give you feedback, for instance when filtering a data frame:
 
 ``` r
 filtered <- filter(mtcars, cyl == 4)
@@ -49,10 +43,10 @@ summary <- mtcars %>%
 #> filter (grouped): no rows removed
 ```
 
-Here, it might have been accidental that the last `filter` command had
-no effect.
+Here, it might have been accidental that the last `filter` command had no effect.
 
-## Installation
+Installation
+------------
 
 Download from CRAN:
 
@@ -66,9 +60,10 @@ Or install the development version:
 devtools::install_github("elbersb/tidylog")
 ```
 
-## More examples
+More examples
+-------------
 
-### filter, distinct
+### filter, distinct, drop\_na (tidyr)
 
 ``` r
 a <- filter(mtcars, mpg > 20)
@@ -85,6 +80,11 @@ f <- distinct_at(mtcars, vars(vs:carb))
 #> distinct_at: removed 18 rows (56%), 14 rows remaining
 g <- top_n(mtcars, 2, am)
 #> top_n: removed 19 rows (59%), 13 rows remaining
+
+h <- drop_na(airquality)
+#> drop_na: removed 42 rows (27%), 111 rows remaining
+i <- drop_na(airquality, Ozone)
+#> drop_na: removed 37 rows (24%), 116 rows remaining
 ```
 
 ### mutate, transmute
@@ -182,13 +182,12 @@ wide <- long %>%
 #> spread: reorganized (col, data) into (am, carb, cyl, disp, drat, …) [was 352x3, now 32x12]
 ```
 
-## Turning logging off, registering additional loggers
+Turning logging off, registering additional loggers
+---------------------------------------------------
 
-To turn off the output for just a particular function call, you can
-simply call the dplyr functions directly, e.g. `dplyr::filter`.
+To turn off the output for just a particular function call, you can simply call the dplyr and tidyr functions directly, e.g. `dplyr::filter` and `tidyr::drop_na`.
 
-To turn off the output more permanently, set the global option
-`tidylog.display` to an empty list:
+To turn off the output more permanently, set the global option `tidylog.display` to an empty list:
 
 ``` r
 options("tidylog.display" = list())  # turn off
@@ -199,11 +198,7 @@ a <- filter(mtcars, mpg > 20)
 #> filter: removed 18 rows (56%), 14 rows remaining
 ```
 
-This option can also be used to register additional loggers. The option
-`tidylog.display` expects a list of functions. By default (when
-`tidylog.display` is set to NULL), tidylog will use the `message`
-function to display the output, but if you prefer a more colorful
-output, simply overwrite the option:
+This option can also be used to register additional loggers. The option `tidylog.display` expects a list of functions. By default (when `tidylog.display` is set to NULL), tidylog will use the `message` function to display the output, but if you prefer a more colorful output, simply overwrite the option:
 
 ``` r
 library("crayon")  # for terminal colors
@@ -222,15 +217,14 @@ a <- filter(mtcars, mpg > 20)
 #> filter: removed 18 rows (56%), 14 rows remaining
 ```
 
-## Namespace conflicts
+Namespace conflicts
+-------------------
 
-Tidylog redefines several of the functions exported by dplyr, so it
-should be loaded last, otherwise there will be no output. A more
-explicit way to resolve namespace conflicts is to use the
-[conflicted](https://CRAN.R-project.org/package=conflicted) package:
+Tidylog redefines several of the functions exported by dplyr and tidyr, so it should be loaded last, otherwise there will be no output. A more explicit way to resolve namespace conflicts is to use the [conflicted](https://CRAN.R-project.org/package=conflicted) package:
 
 ``` r
 library(dplyr)
+library(tidyr)
 library(tidylog)
 library(conflicted)
 for (f in getNamespaceExports("tidylog")) {
