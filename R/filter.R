@@ -11,11 +11,10 @@
 #' filter(mtcars, mpg > 100)
 #' #> filter: removed all rows (100%)
 #'
-#' df <- tibble::tibble(a = c(NA, NA, 2, 4), b = c(3, 5, NA, 2))
-#' df %>% drop_na()
-#' #> drop_na: removed 3 rows (75%), one row remaining
-#' df %>% drop_na(a)
-#' #> drop_na: removed 2 rows (50%), 2 rows remaining
+#' drop_na(airquality)
+#' #> drop_na: removed 42 rows (27%), 111 rows remaining
+#' drop_na(airquality, Ozone)
+#' #> drop_na: removed 37 rows (24%), 116 rows remaining
 #' @import dplyr
 #' @import tidyr
 #' @export
