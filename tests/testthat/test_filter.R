@@ -105,6 +105,6 @@ test_that("drop_na", {
     expect_message({
         out <- tidylog::drop_na(airquality, Solar.R)
     })
-    expect_equal(out, 146)
+    expect_equal(nrow(out), 146)
 
 })
