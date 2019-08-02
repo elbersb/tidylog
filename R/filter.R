@@ -10,7 +10,14 @@
 #' #> filter: removed 18 rows (56%), 14 remaining
 #' filter(mtcars, mpg > 100)
 #' #> filter: removed all rows (100%)
+#'
+#' df <- tibble::tibble(a = c(NA, NA, 2, 4), b = c(3, 5, NA, 2))
+#' df %>% drop_na()
+#' #> drop_na: removed 3 rows (75%), one row remaining
+#' df %>% drop_na(a)
+#' #> drop_na: removed 2 rows (50%), 2 rows remaining
 #' @import dplyr
+#' @import tidyr
 #' @export
 filter <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::filter, .funname = "filter", ...)
@@ -62,6 +69,12 @@ distinct_at <- function(.data, ...) {
 #' @export
 top_n <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::top_n, .funname = "top_n", ...)
+}
+
+#' @rdname filter
+#' @export
+drop_na <- function(.data, ...) {
+    log_filter(.data, .fun = tidyr::drop_na, .funname = "drop_na", ...)
 }
 
 
