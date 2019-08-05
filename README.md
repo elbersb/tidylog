@@ -1,14 +1,21 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-tidylog
-=======
 
-[![CRAN Version](https://www.r-pkg.org/badges/version/tidylog)](https://CRAN.R-project.org/package=tidylog) [![Build Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis-ci.org/elbersb/tidylog) [![Coverage status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
+# tidylog
 
-The goal of tidylog is to provide feedback about basic dplyr and tidyr operations. It provides simple wrapper functions for the most common functions, such as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
+[![CRAN
+Version](https://www.r-pkg.org/badges/version/tidylog)](https://CRAN.R-project.org/package=tidylog)
+[![Build
+Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis-ci.org/elbersb/tidylog)
+[![Coverage
+status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
 
-Example
--------
+The goal of tidylog is to provide feedback about basic dplyr and tidyr
+operations. It provides simple wrapper functions for the most common
+functions, such as `filter`, `mutate`, `select`, `full_join`, and
+`group_by`.
+
+## Example
 
 Load `tidylog` after `dplyr` and/or `tidyr`:
 
@@ -18,7 +25,8 @@ library("tidyr")
 library("tidylog", warn.conflicts = FALSE)
 ```
 
-Tidylog will give you feedback, for instance when filtering a data frame:
+Tidylog will give you feedback, for instance when filtering a data
+frame:
 
 ``` r
 filtered <- filter(mtcars, cyl == 4)
@@ -43,10 +51,10 @@ summary <- mtcars %>%
 #> filter (grouped): no rows removed
 ```
 
-Here, it might have been accidental that the last `filter` command had no effect.
+Here, it might have been accidental that the last `filter` command had
+no effect.
 
-Installation
-------------
+## Installation
 
 Download from CRAN:
 
@@ -60,8 +68,7 @@ Or install the development version:
 devtools::install_github("elbersb/tidylog")
 ```
 
-More examples
--------------
+## More examples
 
 ### filter, distinct, drop\_na (tidyr)
 
@@ -184,12 +191,14 @@ wide <- long %>%
 #> spread: reorganized (col, data) into (am, carb, cyl, disp, drat, …) [was 352x3, now 32x12]
 ```
 
-Turning logging off, registering additional loggers
----------------------------------------------------
+## Turning logging off, registering additional loggers
 
-To turn off the output for just a particular function call, you can simply call the dplyr and tidyr functions directly, e.g. `dplyr::filter` and `tidyr::drop_na`.
+To turn off the output for just a particular function call, you can
+simply call the dplyr and tidyr functions directly, e.g. `dplyr::filter`
+and `tidyr::drop_na`.
 
-To turn off the output more permanently, set the global option `tidylog.display` to an empty list:
+To turn off the output more permanently, set the global option
+`tidylog.display` to an empty list:
 
 ``` r
 options("tidylog.display" = list())  # turn off
@@ -200,7 +209,11 @@ a <- filter(mtcars, mpg > 20)
 #> filter: removed 18 rows (56%), 14 rows remaining
 ```
 
-This option can also be used to register additional loggers. The option `tidylog.display` expects a list of functions. By default (when `tidylog.display` is set to NULL), tidylog will use the `message` function to display the output, but if you prefer a more colorful output, simply overwrite the option:
+This option can also be used to register additional loggers. The option
+`tidylog.display` expects a list of functions. By default (when
+`tidylog.display` is set to NULL), tidylog will use the `message`
+function to display the output, but if you prefer a more colorful
+output, simply overwrite the option:
 
 ``` r
 library("crayon")  # for terminal colors
@@ -219,10 +232,12 @@ a <- filter(mtcars, mpg > 20)
 #> filter: removed 18 rows (56%), 14 rows remaining
 ```
 
-Namespace conflicts
--------------------
+## Namespace conflicts
 
-Tidylog redefines several of the functions exported by dplyr and tidyr, so it should be loaded last, otherwise there will be no output. A more explicit way to resolve namespace conflicts is to use the [conflicted](https://CRAN.R-project.org/package=conflicted) package:
+Tidylog redefines several of the functions exported by dplyr and tidyr,
+so it should be loaded last, otherwise there will be no output. A more
+explicit way to resolve namespace conflicts is to use the
+[conflicted](https://CRAN.R-project.org/package=conflicted) package:
 
 ``` r
 library(dplyr)
