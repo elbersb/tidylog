@@ -78,6 +78,7 @@ g <- top_n(mtcars, 2, am)
 
 h <- drop_na(airquality)
 i <- drop_na(airquality, Ozone)
+k <- drop_na(airquality, Wind, Temp, Month, Day)
 ```
 
 ### mutate, transmute

@@ -85,6 +85,8 @@ h <- drop_na(airquality)
 #> drop_na: removed 42 rows (27%), 111 rows remaining
 i <- drop_na(airquality, Ozone)
 #> drop_na: removed 37 rows (24%), 116 rows remaining
+k <- drop_na(airquality, Wind, Temp, Month, Day)
+#> drop_na: no rows removed
 ```
 
 ### mutate, transmute
