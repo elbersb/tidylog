@@ -10,7 +10,7 @@ Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis
 [![Coverage
 status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
 
-The goal of tidylog is to provide feedback about basic dplyr and tidyr
+The goal of tidylog is to provide feedback about dplyr and tidyr
 operations. It provides simple wrapper functions for the most common
 functions, such as `filter`, `mutate`, `select`, `full_join`, and
 `group_by`.
@@ -70,7 +70,7 @@ devtools::install_github("elbersb/tidylog")
 
 ## More examples
 
-### filter, distinct, drop\_na (tidyr)
+### filter, distinct, drop\_na
 
 ``` r
 a <- filter(mtcars, mpg > 20)
@@ -178,7 +178,7 @@ d <- mtcars %>% add_count(gear, carb, name = "count")
 #> add_count: new variable 'count' with 5 unique values and 0% NA
 ```
 
-### gather, spread (tidyr)
+### gather, spread
 
 ``` r
 long <- mtcars %>%
@@ -195,7 +195,7 @@ wide <- long %>%
 
 To turn off the output for just a particular function call, you can
 simply call the dplyr and tidyr functions directly, e.g. `dplyr::filter`
-and `tidyr::drop_na`.
+or `tidyr::drop_na`.
 
 To turn off the output more permanently, set the global option
 `tidylog.display` to an empty list:
@@ -217,7 +217,7 @@ output, simply overwrite the option:
 
 ``` r
 library("crayon")  # for terminal colors
-crayon <- function(x) cat(red$bold(x), sep = "\n") 
+crayon <- function(x) cat(red$bold(x), sep = "\n")
 options("tidylog.display" = list(crayon))
 a <- filter(mtcars, mpg > 20)
 #> filter: removed 18 rows (56%), 14 rows remaining
@@ -240,11 +240,11 @@ explicit way to resolve namespace conflicts is to use the
 [conflicted](https://CRAN.R-project.org/package=conflicted) package:
 
 ``` r
-library(dplyr)
-library(tidyr)
-library(tidylog)
-library(conflicted)
+library("dplyr")
+library("tidyr")
+library("tidylog")
+library("conflicted")
 for (f in getNamespaceExports("tidylog")) {
-    conflicted::conflict_prefer(f, 'tidylog', quiet = TRUE)
+    conflicted::conflict_prefer(f, "tidylog", quiet = TRUE)
 }
 ```

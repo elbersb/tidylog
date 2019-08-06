@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 [![Build Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis-ci.org/elbersb/tidylog)
 [![Coverage status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
 
-The goal of tidylog is to provide feedback about basic dplyr and tidyr operations. It provides simple wrapper functions for the most common functions, such as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
+The goal of tidylog is to provide feedback about dplyr and tidyr operations. It provides simple wrapper functions for the most common functions, such as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
 
 ## Example
 
@@ -65,7 +65,7 @@ devtools::install_github("elbersb/tidylog")
 
 ## More examples
 
-### filter, distinct, drop_na (tidyr)
+### filter, distinct, drop_na
 
 ```{r}
 a <- filter(mtcars, mpg > 20)
@@ -134,7 +134,7 @@ c <- mtcars %>% count(gear, carb)
 d <- mtcars %>% add_count(gear, carb, name = "count")
 ```
 
-### gather, spread (tidyr)
+### gather, spread
 
 ```{r}
 long <- mtcars %>%
@@ -147,7 +147,7 @@ wide <- long %>%
 ## Turning logging off, registering additional loggers
 
 To turn off the output for just a particular function call, you can simply call the dplyr and tidyr functions
-directly, e.g. `dplyr::filter` and `tidyr::drop_na`.
+directly, e.g. `dplyr::filter` or `tidyr::drop_na`.
 
 To turn off the output more permanently, set the global option `tidylog.display` to an empty list:
 
@@ -166,7 +166,7 @@ simply overwrite the option:
 
 ```{r}
 library("crayon")  # for terminal colors
-crayon <- function(x) cat(red$bold(x), sep = "\n") 
+crayon <- function(x) cat(red$bold(x), sep = "\n")
 options("tidylog.display" = list(crayon))
 a <- filter(mtcars, mpg > 20)
 ```
@@ -184,11 +184,11 @@ a <- filter(mtcars, mpg > 20)
 Tidylog redefines several of the functions exported by dplyr and tidyr, so it should be loaded last, otherwise there will be no output. A more explicit way to resolve namespace conflicts is to use the [conflicted](https://CRAN.R-project.org/package=conflicted) package:
 
 ``` r
-library(dplyr)
-library(tidyr)
-library(tidylog)
-library(conflicted)
+library("dplyr")
+library("tidyr")
+library("tidylog")
+library("conflicted")
 for (f in getNamespaceExports("tidylog")) {
-    conflicted::conflict_prefer(f, 'tidylog', quiet = TRUE)
+    conflicted::conflict_prefer(f, "tidylog", quiet = TRUE)
 }
 ```
