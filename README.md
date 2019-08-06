@@ -10,16 +10,18 @@ Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis
 [![Coverage
 status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
 
-The goal of tidylog is to provide feedback about basic dplyr operations.
-It provides simple wrapper functions for the most common functions, such
-as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
+The goal of tidylog is to provide feedback about basic dplyr and tidyr
+operations. It provides simple wrapper functions for the most common
+functions, such as `filter`, `mutate`, `select`, `full_join`, and
+`group_by`.
 
 ## Example
 
-Load `tidylog` after `dplyr`:
+Load `tidylog` after `dplyr` and/or `tidyr`:
 
 ``` r
 library("dplyr")
+library("tidyr")
 library("tidylog", warn.conflicts = FALSE)
 ```
 
@@ -68,7 +70,7 @@ devtools::install_github("elbersb/tidylog")
 
 ## More examples
 
-### filter, distinct
+### filter, distinct, drop\_na (tidyr)
 
 ``` r
 a <- filter(mtcars, mpg > 20)
@@ -85,6 +87,13 @@ f <- distinct_at(mtcars, vars(vs:carb))
 #> distinct_at: removed 18 rows (56%), 14 rows remaining
 g <- top_n(mtcars, 2, am)
 #> top_n: removed 19 rows (59%), 13 rows remaining
+
+h <- drop_na(airquality)
+#> drop_na: removed 42 rows (27%), 111 rows remaining
+i <- drop_na(airquality, Ozone)
+#> drop_na: removed 37 rows (24%), 116 rows remaining
+k <- drop_na(airquality, Wind, Temp, Month, Day)
+#> drop_na: no rows removed
 ```
 
 ### mutate, transmute
@@ -185,7 +194,8 @@ wide <- long %>%
 ## Turning logging off, registering additional loggers
 
 To turn off the output for just a particular function call, you can
-simply call the dplyr functions directly, e.g. `dplyr::filter`.
+simply call the dplyr and tidyr functions directly, e.g. `dplyr::filter`
+and `tidyr::drop_na`.
 
 To turn off the output more permanently, set the global option
 `tidylog.display` to an empty list:
@@ -224,13 +234,14 @@ a <- filter(mtcars, mpg > 20)
 
 ## Namespace conflicts
 
-Tidylog redefines several of the functions exported by dplyr, so it
-should be loaded last, otherwise there will be no output. A more
+Tidylog redefines several of the functions exported by dplyr and tidyr,
+so it should be loaded last, otherwise there will be no output. A more
 explicit way to resolve namespace conflicts is to use the
 [conflicted](https://CRAN.R-project.org/package=conflicted) package:
 
 ``` r
 library(dplyr)
+library(tidyr)
 library(tidylog)
 library(conflicted)
 for (f in getNamespaceExports("tidylog")) {

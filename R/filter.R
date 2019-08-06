@@ -10,7 +10,13 @@
 #' #> filter: removed 18 rows (56%), 14 remaining
 #' filter(mtcars, mpg > 100)
 #' #> filter: removed all rows (100%)
+#'
+#' drop_na(airquality)
+#' #> drop_na: removed 42 rows (27%), 111 rows remaining
+#' drop_na(airquality, Ozone)
+#' #> drop_na: removed 37 rows (24%), 116 rows remaining
 #' @import dplyr
+#' @import tidyr
 #' @export
 filter <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::filter, .funname = "filter", ...)
@@ -62,6 +68,12 @@ distinct_at <- function(.data, ...) {
 #' @export
 top_n <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::top_n, .funname = "top_n", ...)
+}
+
+#' @rdname filter
+#' @export
+drop_na <- function(.data, ...) {
+    log_filter(.data, .fun = tidyr::drop_na, .funname = "drop_na", ...)
 }
 
 

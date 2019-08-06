@@ -10,6 +10,7 @@
 \alias{distinct_if}
 \alias{distinct_at}
 \alias{top_n}
+\alias{drop_na}
 \title{Wrapper around dplyr::filter and related functions
 that prints information about the operation}
 \usage{
@@ -30,6 +31,8 @@ distinct_if(.data, ...)
 distinct_at(.data, ...)
 
 top_n(.data, ...)
+
+drop_na(.data, ...)
 }
 \arguments{
 \item{.data}{a tbl; see \link[dplyr]{filter}}
@@ -48,4 +51,9 @@ filter(mtcars, mpg > 20)
 #> filter: removed 18 rows (56\%), 14 remaining
 filter(mtcars, mpg > 100)
 #> filter: removed all rows (100\%)
+
+drop_na(airquality)
+#> drop_na: removed 42 rows (27\%), 111 rows remaining
+drop_na(airquality, Ozone)
+#> drop_na: removed 37 rows (24\%), 116 rows remaining
 }

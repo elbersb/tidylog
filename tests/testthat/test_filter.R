@@ -1,4 +1,5 @@
 library("dplyr")
+library("tidyr")
 library("tidylog")
 context("test_filter")
 
@@ -83,4 +84,27 @@ test_that("filter: argument order", {
         out <- tidylog::distinct(mpg, .data = mtcars)
     })
     expect_equal(nrow(out), nrow(dplyr::distinct(mtcars, mpg)))
+})
+
+test_that("drop_na", {
+    expect_message({
+        out <- tidylog::drop_na(airquality, Ozone)
+    })
+    expect_equal(nrow(out), nrow(tidyr::drop_na(airquality, Ozone)))
+
+    expect_message({
+        out <- tidylog::drop_na(airquality, Wind, Temp, Month, Day)
+    })
+    expect_equal(nrow(out), nrow(airquality))
+
+    expect_message({
+        out <- tidylog::drop_na(airquality)
+    })
+    expect_equal(nrow(out), nrow(na.omit(airquality)))
+
+    expect_message({
+        out <- tidylog::drop_na(airquality, Solar.R)
+    })
+    expect_equal(nrow(out), 146)
+
 })
