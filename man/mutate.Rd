@@ -7,6 +7,8 @@
 \alias{mutate_at}
 \alias{add_tally}
 \alias{add_count}
+\alias{replace_na}
+\alias{fill}
 \title{Wrapper around dplyr::mutate and related functions
 that prints information about the operation}
 \usage{
@@ -21,6 +23,10 @@ mutate_at(.data, ...)
 add_tally(.data, ...)
 
 add_count(.data, ...)
+
+replace_na(.data, ...)
+
+fill(.data, ...)
 }
 \arguments{
 \item{.data}{a tbl; see \link[dplyr]{mutate}}

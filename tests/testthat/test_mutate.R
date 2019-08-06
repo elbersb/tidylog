@@ -180,3 +180,24 @@ test_that("mutate/transmute: partial matching", {
     f <- function() tidylog::transmute(mtcars, fun = 1)
     expect_message(f(), "new variable 'fun'")
 })
+
+test_that("tidyr::replace_na", {
+    df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
+
+    expect_message({
+        out <- tidylog::replace_na(df, list(x = 0, y = "unknown"))
+    })
+    # with vector
+    expect_silent(dplyr::mutate(df, x = replace_na(x, 0)))
+
+    expect_equal(tidyr::replace_na(df, list(x = 0, y = "unknown")), out)
+})
+
+test_that("tidyr::fill", {
+    df <- data.frame(Month = 1:12, Year = c(2000, rep(NA, 11)))
+    expect_message({
+        out <- tidylog::fill(df, Year)
+    })
+
+    expect_equal(tidyr::fill(df, Year), out)
+})

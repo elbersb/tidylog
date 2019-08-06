@@ -96,7 +96,7 @@ k <- drop_na(airquality, Wind, Temp, Month, Day)
 #> drop_na: no rows removed
 ```
 
-### mutate, transmute
+### mutate, transmute, replace\_na, fill
 
 ``` r
 a <- mutate(mtcars, new_var = 1)
@@ -122,6 +122,11 @@ i <- transmute(mtcars, mpg = mpg * 2, gear = gear + 1, new_var = vs + am)
 #> transmute: changed 32 values (100%) of 'mpg' (0 new NA)
 #> transmute: changed 32 values (100%) of 'gear' (0 new NA)
 #> transmute: new variable 'new_var' with 3 unique values and 0% NA
+
+j <- replace_na(airquality, list(Solar.R = 1))
+#> replace_na: converted 'Solar.R' from integer to double (7 fewer NA)
+k <- fill(airquality, Ozone)
+#> fill: changed 37 values (24%) of 'Ozone' (37 fewer NA)
 ```
 
 ### select

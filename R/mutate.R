@@ -10,6 +10,7 @@
 #' mutate(mtcars, new_var = NA)
 #> #> mutate: new variable 'new_var' with one unique value and 100% NA
 #' @import dplyr
+#' @import tidyr
 #' @export
 mutate <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::mutate, .funname = "mutate", ...)
@@ -77,6 +78,18 @@ add_tally <- function(.data, ...) {
 #' @export
 add_count <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::add_count, .funname = "add_count", ...)
+}
+
+#' @rdname mutate
+#' @export
+replace_na <- function(.data, ...) {
+    log_mutate(.data, .fun = tidyr::replace_na, .funname = "replace_na", ...)
+}
+
+#' @rdname mutate
+#' @export
+fill <- function(.data, ...) {
+    log_mutate(.data, .fun = tidyr::fill, .funname = "fill", ...)
 }
 
 log_mutate <- function(.data, .fun, .funname, ...) {

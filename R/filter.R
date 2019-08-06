@@ -10,11 +10,6 @@
 #' #> filter: removed 18 rows (56%), 14 remaining
 #' filter(mtcars, mpg > 100)
 #' #> filter: removed all rows (100%)
-#'
-#' drop_na(airquality)
-#' #> drop_na: removed 42 rows (27%), 111 rows remaining
-#' drop_na(airquality, Ozone)
-#' #> drop_na: removed 37 rows (24%), 116 rows remaining
 #' @import dplyr
 #' @import tidyr
 #' @export
