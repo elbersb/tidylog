@@ -68,28 +68,42 @@ log_join <- function(x, y, by, .fun, .funname, ...) {
     cols_x <- x[, keys$x]
     cols_y <- y[, keys$y]
 
+    only_in_x = suppressMessages(dplyr::anti_join(cols_x, cols_y,
+                                                  by = stats::setNames(keys$y, keys$x)))
+    only_in_y = suppressMessages(dplyr::anti_join(cols_y, cols_x,
+                                                  by = stats::setNames(keys$x, keys$y)))
+
     stats <- list(
-        only_in_x = nrow(suppressMessages(dplyr::anti_join(cols_x, cols_y,
-                                                           by = stats::setNames(keys$y, keys$x)))),
-        only_in_y = nrow(suppressMessages(dplyr::anti_join(cols_y, cols_x,
-                                                           by = stats::setNames(keys$x, keys$y)))),
+        only_in_x = nrow(only_in_x),
+        only_in_y = nrow(only_in_y),
         total = nrow(newdata)
     )
 
-    # figure out matched
+    # figure out matched & duplicates
+    duplicates <- ""
     if (.funname %in% c("inner_join", "semi_join")) {
         stats$matched <- stats$total
-    }
-    else if (.funname == "full_join") {
+    } else if (.funname == "full_join") {
         stats$matched <- stats$total - stats$only_in_x - stats$only_in_y
-    }
-    else if (.funname == "left_join") {
+    } else if (.funname == "left_join") {
         stats$matched <- stats$total - stats$only_in_x
-    }
-    else if (.funname == "right_join") {
+        # there are duplicates
+        if (nrow(newdata) > nrow(x)) {
+            # matched_keys <- dplyr::anti_join(cols_y, only_in_y, by = keys$y)
+            # n_dupl <- nrow(matched_keys) - nrow(dplyr::distinct(matched_keys))
+            n_dupl <- nrow(newdata) - nrow(x)
+            duplicates <- glue::glue("   ({plural(n_dupl, 'row')} added because of duplicates in y)")
+        }
+    } else if (.funname == "right_join") {
         stats$matched <- stats$total - stats$only_in_y
-    }
-    else if (.funname == "anti_join") {
+        # there are duplicates
+        if (nrow(newdata) > nrow(y)) {
+            # matched_keys <- dplyr::anti_join(cols_x, only_in_x, by = keys$x)
+            # n_dupl <- nrow(matched_keys) - nrow(dplyr::distinct(matched_keys))
+            n_dupl <- nrow(newdata) - nrow(y)
+            duplicates <- glue::glue("   ({plural(n_dupl, 'row')} added because of duplicates in x)")
+        }
+    } else if (.funname == "anti_join") {
         stats$matched <- nrow(x) - stats$total
     }
 
@@ -113,7 +127,7 @@ log_join <- function(x, y, by, .fun, .funname, ...) {
     if (.funname == "anti_join") {
         display(glue::glue("{ws}  matched rows    ({stats_str$matched})"))
     } else {
-        display(glue::glue("{ws}  matched rows     {stats_str$matched}"))
+        display(glue::glue("{ws}  matched rows     {stats_str$matched}{duplicates}"))
     }
     display(glue::glue("{ws}                  ={paste0(rep('=', max_n), collapse = '')}="))
     display(glue::glue("{ws}  rows total       {stats_str$total}"))
