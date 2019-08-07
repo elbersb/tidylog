@@ -40,7 +40,10 @@ that prints information about the operation
 }
 \examples{
 left_join(dplyr::band_members, dplyr::band_instruments, by = "name")
-#> left_join: added 0 rows and added one column (plays)
-full_join(dplyr::band_members, dplyr::band_instruments, by = "name")
-#> full_join: added one row and added one column (plays)
+#> left_join: added one column (plays)
+#>            > rows only in x   1
+#>            > rows only in y  (1)
+#>            > matched rows     2
+#>            >                 ===
+#>            > rows total       3
 }

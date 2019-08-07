@@ -9,9 +9,12 @@
 #' @return see \link[dplyr:join]{inner_join}
 #' @examples
 #' left_join(dplyr::band_members, dplyr::band_instruments, by = "name")
-#' #> left_join: added 0 rows and added one column (plays)
-#' full_join(dplyr::band_members, dplyr::band_instruments, by = "name")
-#' #> full_join: added one row and added one column (plays)
+#' #> left_join: added one column (plays)
+#' #>            > rows only in x   1
+#' #>            > rows only in y  (1)
+#' #>            > matched rows     2
+#' #>            >                 ===
+#' #>            > rows total       3
 #' @import dplyr
 #' @export
 inner_join <- function(x, y, by = NULL, ...) {
@@ -68,9 +71,9 @@ log_join <- function(x, y, by, .fun, .funname, ...) {
     cols_x <- x[, keys$x, drop = FALSE]
     cols_y <- y[, keys$y, drop = FALSE]
 
-    only_in_x = suppressMessages(dplyr::anti_join(cols_x, cols_y,
+    only_in_x <- suppressMessages(dplyr::anti_join(cols_x, cols_y,
                                                   by = stats::setNames(keys$y, keys$x)))
-    only_in_y = suppressMessages(dplyr::anti_join(cols_y, cols_x,
+    only_in_y <- suppressMessages(dplyr::anti_join(cols_y, cols_x,
                                                   by = stats::setNames(keys$x, keys$y)))
 
     stats <- list(
@@ -136,4 +139,3 @@ log_join <- function(x, y, by, .fun, .funname, ...) {
 
     newdata
 }
-
