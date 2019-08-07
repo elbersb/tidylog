@@ -107,7 +107,7 @@ c <- mutate(mtcars, new_var = NA)
 #> mutate: new variable 'new_var' with one unique value and 100% NA
 d <- mutate_at(mtcars, vars(mpg, gear, drat), round)
 #> mutate_at: changed 28 values (88%) of 'mpg' (0 new NA)
-#> mutate_at: changed 31 values (97%) of 'drat' (0 new NA)
+#>            changed 31 values (97%) of 'drat' (0 new NA)
 e <- mutate(mtcars, am_factor = as.factor(am))
 #> mutate: new variable 'am_factor' with 2 unique values and 0% NA
 f <- mutate(mtcars, am = as.factor(am))
@@ -119,9 +119,9 @@ h <- mutate(mtcars, am = recode(am, `0` = "zero", `1` = NA_character_))
 
 i <- transmute(mtcars, mpg = mpg * 2, gear = gear + 1, new_var = vs + am)
 #> transmute: dropped 9 variables (cyl, disp, hp, drat, wt, …)
-#> transmute: changed 32 values (100%) of 'mpg' (0 new NA)
-#> transmute: changed 32 values (100%) of 'gear' (0 new NA)
-#> transmute: new variable 'new_var' with 3 unique values and 0% NA
+#>            changed 32 values (100%) of 'mpg' (0 new NA)
+#>            changed 32 values (100%) of 'gear' (0 new NA)
+#>            new variable 'new_var' with 3 unique values and 0% NA
 
 j <- replace_na(airquality, list(Solar.R = 1))
 #> replace_na: converted 'Solar.R' from integer to double (7 fewer NA)
