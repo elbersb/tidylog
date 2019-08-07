@@ -25,15 +25,33 @@ library("tidyr")
 library("tidylog", warn.conflicts = FALSE)
 ```
 
-Tidylog will give you feedback, for instance when filtering a data
-frame:
+Tidylog will give you feedback, for instance when filtering a data frame
+or adding a new variable:
 
 ``` r
 filtered <- filter(mtcars, cyl == 4)
 #> filter: removed 21 rows (66%), 11 rows remaining
+mutated <- mutate(mtcars, new_var = wt ** 2)
+#> mutate: new variable 'new_var' with 29 unique values and 0% NA
 ```
 
-This can be especially helpful in longer pipes:
+Tidylog reports detailed information for joins:
+
+``` r
+joined <- left_join(nycflights13::flights, nycflights13::weather,
+    by = c("year", "month", "day", "origin", "hour", "time_hour"))
+#> left_join: added 9 columns (temp, dewp, humid, wind_dir, wind_speed, …)
+#>            > rows only in x     1,556
+#>            > rows only in y  (  6,737)
+#>            > matched rows     335,220
+#>            >                 =========
+#>            > rows total       336,776
+```
+
+In this case, we see that 1,556 rows from the `flights` dataset do not
+have weather information.
+
+Tidylog can be especially helpful in longer pipes:
 
 ``` r
 summary <- mtcars %>%
@@ -129,6 +147,57 @@ k <- fill(airquality, Ozone)
 #> fill: changed 37 values (24%) of 'Ozone' (37 fewer NA)
 ```
 
+### joins
+
+For joins, tidylog provides more detailed information. For any join,
+tidylog will show the number of rows that are only present in x (the
+first dataframe), only present in y (the second dataframe), and rows
+that have been matched. Numbers in parantheses indicate that these rows
+are not included in the result. Tidylog will also indicate whether any
+rows were duplicated (which is often unintentional):
+
+``` r
+x <- tibble(a = 1:2)
+y <- tibble(a = c(1, 1, 2), b = 1:3) # 1 is duplicated
+j <- left_join(x, y, by = "a")
+#> left_join: added one column (b)
+#>            > rows only in x   0
+#>            > rows only in y  (0)
+#>            > matched rows     3    (includes duplicates)
+#>            >                 ===
+#>            > rows total       3
+```
+
+More examples:
+
+``` r
+a <- left_join(band_members, band_instruments, by = "name")
+#> left_join: added one column (plays)
+#>            > rows only in x   1
+#>            > rows only in y  (1)
+#>            > matched rows     2
+#>            >                 ===
+#>            > rows total       3
+b <- full_join(band_members, band_instruments, by = "name")
+#> full_join: added one column (plays)
+#>            > rows only in x   1
+#>            > rows only in y   1
+#>            > matched rows     2
+#>            >                 ===
+#>            > rows total       4
+c <- anti_join(band_members, band_instruments, by = "name")
+#> anti_join: added no columns
+#>            > rows only in x   1
+#>            > rows only in y  (1)
+#>            > matched rows    (2)
+#>            >                 ===
+#>            > rows total       1
+```
+
+Because tidylog needs to perform two additional joins behind the scenes
+to report this information, the overhead will be larger than for the
+other tidylog functions (especially with large datasets).
+
 ### select
 
 ``` r
@@ -138,17 +207,6 @@ b <- select(mtcars, matches("a"))
 #> select: dropped 7 variables (mpg, cyl, disp, hp, wt, …)
 c <- select_if(mtcars, is.character)
 #> select_if: dropped all variables
-```
-
-### joins
-
-``` r
-a <- left_join(band_members, band_instruments, by = "name")
-#> left_join: added 0 rows and added one column (plays)
-b <- full_join(band_members, band_instruments, by = "name")
-#> full_join: added one row and added one column (plays)
-c <- anti_join(band_members, band_instruments, by = "name")
-#> anti_join: removed 2 rows and added no new columns
 ```
 
 ### summarize

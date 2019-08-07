@@ -30,13 +30,23 @@ library("tidyr")
 library("tidylog", warn.conflicts = FALSE)
 ```
 
-Tidylog will give you feedback, for instance when filtering a data frame:
+Tidylog will give you feedback, for instance when filtering a data frame or adding a new variable:
 
 ```{r}
 filtered <- filter(mtcars, cyl == 4)
+mutated <- mutate(mtcars, new_var = wt ** 2)
 ```
 
-This can be especially helpful in longer pipes:
+Tidylog reports detailed information for joins:
+
+```{r}
+joined <- left_join(nycflights13::flights, nycflights13::weather,
+    by = c("year", "month", "day", "origin", "hour", "time_hour"))
+```
+
+In this case, we see that 1,556 rows from the `flights` dataset do not have weather information.
+
+Tidylog can be especially helpful in longer pipes:
 
 ```{r}
 summary <- mtcars %>%
@@ -99,6 +109,32 @@ j <- replace_na(airquality, list(Solar.R = 1))
 k <- fill(airquality, Ozone)
 ```
 
+### joins
+
+For joins, tidylog provides more detailed information. For any join,
+tidylog will show the number of rows
+that are only present in x (the first dataframe), only present in y (the second dataframe),
+and rows that have been matched. Numbers in parantheses indicate that these rows are not
+included in the result. Tidylog will also indicate whether any rows were duplicated
+(which is often unintentional):
+
+```{r}
+x <- tibble(a = 1:2)
+y <- tibble(a = c(1, 1, 2), b = 1:3) # 1 is duplicated
+j <- left_join(x, y, by = "a")
+```
+
+More examples:
+
+```{r}
+a <- left_join(band_members, band_instruments, by = "name")
+b <- full_join(band_members, band_instruments, by = "name")
+c <- anti_join(band_members, band_instruments, by = "name")
+```
+
+Because tidylog needs to perform two additional joins behind the scenes to report this information,
+the overhead will be larger than for the other tidylog functions (especially with large datasets).
+
 ### select
 
 ```{r}
@@ -107,13 +143,6 @@ b <- select(mtcars, matches("a"))
 c <- select_if(mtcars, is.character)
 ```
 
-### joins
-
-```{r}
-a <- left_join(band_members, band_instruments, by = "name")
-b <- full_join(band_members, band_instruments, by = "name")
-c <- anti_join(band_members, band_instruments, by = "name")
-```
 
 ### summarize
 
