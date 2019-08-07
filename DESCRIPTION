@@ -1,10 +1,10 @@
 Package: tidylog
 Type: Package
-Title: Logging for 'dplyr' Functions
+Title: Logging for 'dplyr' and 'tidyr' Functions
 Version: 0.1.0.9000
 Authors@R: person("Benjamin", "Elbers", email = "elbersb@gmail.com",
   role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5392-3448"))
-Description: Provides feedback about basic 'dplyr' operations.
+Description: Provides feedback about 'dplyr' and 'tidyr' operations.
 License: MIT + file LICENSE
 Imports: dplyr, tidyr, glue, clisymbols
 Suggests: testthat, covr, lintr, nycflights13

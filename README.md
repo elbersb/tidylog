@@ -10,16 +10,18 @@ Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis
 [![Coverage
 status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
 
-The goal of tidylog is to provide feedback about basic dplyr operations.
-It provides simple wrapper functions for the most common functions, such
-as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
+The goal of tidylog is to provide feedback about dplyr and tidyr
+operations. It provides simple wrapper functions for the most common
+functions, such as `filter`, `mutate`, `select`, `full_join`, and
+`group_by`.
 
 ## Example
 
-Load `tidylog` after `dplyr`:
+Load `tidylog` after `dplyr` and/or `tidyr`:
 
 ``` r
 library("dplyr")
+library("tidyr")
 library("tidylog", warn.conflicts = FALSE)
 ```
 
@@ -68,7 +70,7 @@ devtools::install_github("elbersb/tidylog")
 
 ## More examples
 
-### filter, distinct
+### filter, distinct, drop\_na
 
 ``` r
 a <- filter(mtcars, mpg > 20)
@@ -85,9 +87,16 @@ f <- distinct_at(mtcars, vars(vs:carb))
 #> distinct_at: removed 18 rows (56%), 14 rows remaining
 g <- top_n(mtcars, 2, am)
 #> top_n: removed 19 rows (59%), 13 rows remaining
+
+h <- drop_na(airquality)
+#> drop_na: removed 42 rows (27%), 111 rows remaining
+i <- drop_na(airquality, Ozone)
+#> drop_na: removed 37 rows (24%), 116 rows remaining
+k <- drop_na(airquality, Wind, Temp, Month, Day)
+#> drop_na: no rows removed
 ```
 
-### mutate, transmute
+### mutate, transmute, replace\_na, fill
 
 ``` r
 a <- mutate(mtcars, new_var = 1)
@@ -98,7 +107,7 @@ c <- mutate(mtcars, new_var = NA)
 #> mutate: new variable 'new_var' with one unique value and 100% NA
 d <- mutate_at(mtcars, vars(mpg, gear, drat), round)
 #> mutate_at: changed 28 values (88%) of 'mpg' (0 new NA)
-#> mutate_at: changed 31 values (97%) of 'drat' (0 new NA)
+#>            changed 31 values (97%) of 'drat' (0 new NA)
 e <- mutate(mtcars, am_factor = as.factor(am))
 #> mutate: new variable 'am_factor' with 2 unique values and 0% NA
 f <- mutate(mtcars, am = as.factor(am))
@@ -110,9 +119,14 @@ h <- mutate(mtcars, am = recode(am, `0` = "zero", `1` = NA_character_))
 
 i <- transmute(mtcars, mpg = mpg * 2, gear = gear + 1, new_var = vs + am)
 #> transmute: dropped 9 variables (cyl, disp, hp, drat, wt, …)
-#> transmute: changed 32 values (100%) of 'mpg' (0 new NA)
-#> transmute: changed 32 values (100%) of 'gear' (0 new NA)
-#> transmute: new variable 'new_var' with 3 unique values and 0% NA
+#>            changed 32 values (100%) of 'mpg' (0 new NA)
+#>            changed 32 values (100%) of 'gear' (0 new NA)
+#>            new variable 'new_var' with 3 unique values and 0% NA
+
+j <- replace_na(airquality, list(Solar.R = 1))
+#> replace_na: converted 'Solar.R' from integer to double (7 fewer NA)
+k <- fill(airquality, Ozone)
+#> fill: changed 37 values (24%) of 'Ozone' (37 fewer NA)
 ```
 
 ### select
@@ -169,7 +183,7 @@ d <- mtcars %>% add_count(gear, carb, name = "count")
 #> add_count: new variable 'count' with 5 unique values and 0% NA
 ```
 
-### gather, spread (tidyr)
+### gather, spread
 
 ``` r
 long <- mtcars %>%
@@ -185,7 +199,8 @@ wide <- long %>%
 ## Turning logging off, registering additional loggers
 
 To turn off the output for just a particular function call, you can
-simply call the dplyr functions directly, e.g. `dplyr::filter`.
+simply call the dplyr and tidyr functions directly, e.g. `dplyr::filter`
+or `tidyr::drop_na`.
 
 To turn off the output more permanently, set the global option
 `tidylog.display` to an empty list:
@@ -207,7 +222,7 @@ output, simply overwrite the option:
 
 ``` r
 library("crayon")  # for terminal colors
-crayon <- function(x) cat(red$bold(x), sep = "\n") 
+crayon <- function(x) cat(red$bold(x), sep = "\n")
 options("tidylog.display" = list(crayon))
 a <- filter(mtcars, mpg > 20)
 #> filter: removed 18 rows (56%), 14 rows remaining
@@ -224,16 +239,17 @@ a <- filter(mtcars, mpg > 20)
 
 ## Namespace conflicts
 
-Tidylog redefines several of the functions exported by dplyr, so it
-should be loaded last, otherwise there will be no output. A more
+Tidylog redefines several of the functions exported by dplyr and tidyr,
+so it should be loaded last, otherwise there will be no output. A more
 explicit way to resolve namespace conflicts is to use the
 [conflicted](https://CRAN.R-project.org/package=conflicted) package:
 
 ``` r
-library(dplyr)
-library(tidylog)
-library(conflicted)
+library("dplyr")
+library("tidyr")
+library("tidylog")
+library("conflicted")
 for (f in getNamespaceExports("tidylog")) {
-    conflicted::conflict_prefer(f, 'tidylog', quiet = TRUE)
+    conflicted::conflict_prefer(f, "tidylog", quiet = TRUE)
 }
 ```

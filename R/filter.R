@@ -11,6 +11,7 @@
 #' filter(mtcars, mpg > 100)
 #' #> filter: removed all rows (100%)
 #' @import dplyr
+#' @import tidyr
 #' @export
 filter <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::filter, .funname = "filter", ...)
@@ -62,6 +63,12 @@ distinct_at <- function(.data, ...) {
 #' @export
 top_n <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::top_n, .funname = "top_n", ...)
+}
+
+#' @rdname filter
+#' @export
+drop_na <- function(.data, ...) {
+    log_filter(.data, .fun = tidyr::drop_na, .funname = "drop_na", ...)
 }
 
 

@@ -10,6 +10,7 @@
 #' mutate(mtcars, new_var = NA)
 #> #> mutate: new variable 'new_var' with one unique value and 100% NA
 #' @import dplyr
+#' @import tidyr
 #' @export
 mutate <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::mutate, .funname = "mutate", ...)
@@ -79,6 +80,18 @@ add_count <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::add_count, .funname = "add_count", ...)
 }
 
+#' @rdname mutate
+#' @export
+replace_na <- function(.data, ...) {
+    log_mutate(.data, .fun = tidyr::replace_na, .funname = "replace_na", ...)
+}
+
+#' @rdname mutate
+#' @export
+fill <- function(.data, ...) {
+    log_mutate(.data, .fun = tidyr::fill, .funname = "fill", ...)
+}
+
 log_mutate <- function(.data, .fun, .funname, ...) {
     cols <- names(.data)
     newdata <- .fun(.data, ...)
@@ -87,17 +100,22 @@ log_mutate <- function(.data, .fun, .funname, ...) {
         return(newdata)
     }
 
-    group_status <- ifelse(dplyr::is.grouped_df(newdata), " (grouped)", "")
+    # add group status
+    prefix <- ifelse(dplyr::is.grouped_df(newdata),
+        glue::glue("{.funname} (grouped):"),
+        glue::glue("{.funname}:"))
 
     if (grepl("transmute", .funname)) {
         dropped_vars <- setdiff(names(.data), names(newdata))
         n <- length(dropped_vars)
         if (ncol(newdata) == 0) {
-            display(glue::glue("{.funname}{group_status}: dropped all variables"))
+            display(glue::glue("{prefix} dropped all variables"))
             return(newdata)
         } else if (length(dropped_vars) > 0) {
-            display(glue::glue("{.funname}{group_status}: dropped {plural(n, 'variable')}",
+            display(glue::glue("{prefix} dropped {plural(n, 'variable')}",
                            " ({format_list(dropped_vars)})"))
+            # replace by spaces
+            prefix <- paste0(rep(" ", nchar(prefix)), collapse = "")
         }
     }
 
@@ -108,8 +126,10 @@ log_mutate <- function(.data, .fun, .funname, ...) {
             has_changed <- TRUE
             n <- length(unique(newdata[[var]]))
             p_na <- percent(sum(is.na(newdata[[var]])), length(newdata[[var]]))
-            display(glue::glue("{.funname}{group_status}: new variable '{var}' ",
+            display(glue::glue("{prefix} new variable '{var}' ",
                 "with {plural(n, 'value', 'unique ')} and {p_na} NA"))
+            # replace by spaces
+            prefix <- paste0(rep(" ", nchar(prefix)), collapse = "")
         } else {
             # existing var
             # use identical to account for missing values - this is fast
@@ -140,26 +160,32 @@ log_mutate <- function(.data, .fun, .funname, ...) {
                 new_na <- sum(is.na(new)) - sum(is.na(old))
                 na_text <- glue::glue("{abs(new_na)} ",
                                       ifelse(new_na >= 0, "new", "fewer"), " NA")
-                display(glue::glue("{.funname}{group_status}: changed {plural(n, 'value')} ",
+                display(glue::glue("{prefix} changed {plural(n, 'value')} ",
                     "({p}) of '{var}' ({na_text})"))
+                # replace by spaces
+                prefix <- paste0(rep(" ", nchar(prefix)), collapse = "")
             } else {
                 # different type
                 new_na <- sum(is.na(new)) - sum(is.na(old))
                 if (new_na == length(new)) {
-                    display(glue::glue("{.funname}{group_status}: converted '{var}' from {typeold}",
+                    display(glue::glue("{prefix} converted '{var}' from {typeold}",
                         " to {typenew} (now 100% NA)"))
+                    # replace by spaces
+                    prefix <- paste0(rep(" ", nchar(prefix)), collapse = "")
                 } else {
                     na_text <- glue::glue("{abs(new_na)} ",
                                           ifelse(new_na >= 0, "new", "fewer"), " NA")
-                    display(glue::glue("{.funname}{group_status}: converted '{var}' from {typeold}",
+                    display(glue::glue("{prefix} converted '{var}' from {typeold}",
                         " to {typenew} ({na_text})"))
+                    # replace by spaces
+                    prefix <- paste0(rep(" ", nchar(prefix)), collapse = "")
                 }
             }
         }
     }
 
     if (!has_changed) {
-        display(glue::glue("{.funname}{group_status}: no changes"))
+        display(glue::glue("{prefix} no changes"))
     }
     newdata
 }

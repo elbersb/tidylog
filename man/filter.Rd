@@ -10,6 +10,7 @@
 \alias{distinct_if}
 \alias{distinct_at}
 \alias{top_n}
+\alias{drop_na}
 \title{Wrapper around dplyr::filter and related functions
 that prints information about the operation}
 \usage{
@@ -30,6 +31,8 @@ distinct_if(.data, ...)
 distinct_at(.data, ...)
 
 top_n(.data, ...)
+
+drop_na(.data, ...)
 }
 \arguments{
 \item{.data}{a tbl; see \link[dplyr]{filter}}

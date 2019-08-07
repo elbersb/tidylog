@@ -21,6 +21,8 @@ test_that("logging on/off", {
     expect_silent(tidylog::left_join(band_members, band_instruments, by = "name"))
     expect_silent(tidylog::mutate(mtcars, test = TRUE))
     expect_silent(tidylog::summarize(mtcars, test = TRUE))
+    expect_silent(tidylog::gather(mtcars))
+    expect_silent(tidylog::spread(mtcars, cyl, hp))
     expect_silent(tidylog::tidylog(mtcars))
 
     # warnings
