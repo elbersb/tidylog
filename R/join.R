@@ -57,7 +57,7 @@ log_join <- function(x, y, by, .fun, .funname, ...) {
     # columns
     cols <- setdiff(names(newdata), names(x))
     if (length(cols) == 0) {
-        display(glue::glue("{.funname}: added no new columns"))
+        display(glue::glue("{.funname}: added no columns"))
     } else {
         display(glue::glue("{.funname}: ",
             "added {plural(length(cols), 'column')} ({format_list(cols)})"))
@@ -65,8 +65,8 @@ log_join <- function(x, y, by, .fun, .funname, ...) {
 
     # figure out matched in rows
     keys <- suppressMessages(dplyr::common_by(by = by, x = x, y = y))
-    cols_x <- x[, keys$x]
-    cols_y <- y[, keys$y]
+    cols_x <- x[, keys$x, drop = FALSE]
+    cols_y <- y[, keys$y, drop = FALSE]
 
     only_in_x = suppressMessages(dplyr::anti_join(cols_x, cols_y,
                                                   by = stats::setNames(keys$y, keys$x)))
@@ -81,30 +81,32 @@ log_join <- function(x, y, by, .fun, .funname, ...) {
 
     # figure out matched & duplicates
     duplicates <- ""
-    if (.funname %in% c("inner_join", "semi_join")) {
+    if (.funname == "inner_join") {
         stats$matched <- stats$total
+
+        if (stats$matched > (nrow(x) - stats$only_in_x))
+            duplicates <- "    (includes duplicates)"
     } else if (.funname == "full_join") {
         stats$matched <- stats$total - stats$only_in_x - stats$only_in_y
+
+        if (stats$matched > (nrow(x) - stats$only_in_x))
+            duplicates <- "    (includes duplicates)"
     } else if (.funname == "left_join") {
         stats$matched <- stats$total - stats$only_in_x
-        # there are duplicates
-        if (nrow(newdata) > nrow(x)) {
-            # matched_keys <- dplyr::anti_join(cols_y, only_in_y, by = keys$y)
-            # n_dupl <- nrow(matched_keys) - nrow(dplyr::distinct(matched_keys))
-            n_dupl <- nrow(newdata) - nrow(x)
-            duplicates <- glue::glue("   ({plural(n_dupl, 'row')} added because of duplicates in y)")
-        }
+
+        if (stats$matched > (nrow(x) - stats$only_in_x))
+            duplicates <- "    (includes duplicates)"
     } else if (.funname == "right_join") {
         stats$matched <- stats$total - stats$only_in_y
-        # there are duplicates
-        if (nrow(newdata) > nrow(y)) {
-            # matched_keys <- dplyr::anti_join(cols_x, only_in_x, by = keys$x)
-            # n_dupl <- nrow(matched_keys) - nrow(dplyr::distinct(matched_keys))
-            n_dupl <- nrow(newdata) - nrow(y)
-            duplicates <- glue::glue("   ({plural(n_dupl, 'row')} added because of duplicates in x)")
-        }
+
+        if (stats$matched > (nrow(y) - stats$only_in_y))
+            duplicates <- "    (includes duplicates)"
     } else if (.funname == "anti_join") {
         stats$matched <- nrow(x) - stats$total
+        # by definition, no duplicates
+    } else if (.funname == "semi_join") {
+        stats$matched <- stats$total
+        # by definition, no duplicates
     }
 
     # format to same width
@@ -115,22 +117,23 @@ log_join <- function(x, y, by, .fun, .funname, ...) {
     ws <- paste0(rep(" ", nchar(.funname)), collapse = "")
 
     if (.funname %in% c("right_join", "inner_join", "semi_join")) {
-        display(glue::glue("{ws}  rows only in x  ({stats_str$only_in_x})"))
+        display(glue::glue("{ws}  > rows only in x  ({stats_str$only_in_x})"))
     } else {
-        display(glue::glue("{ws}  rows only in x   {stats_str$only_in_x}"))
+        display(glue::glue("{ws}  > rows only in x   {stats_str$only_in_x}"))
     }
     if (.funname %in% c("left_join", "inner_join", "semi_join", "anti_join")) {
-        display(glue::glue("{ws}  rows only in y  ({stats_str$only_in_y})"))
+        display(glue::glue("{ws}  > rows only in y  ({stats_str$only_in_y})"))
     } else {
-        display(glue::glue("{ws}  rows only in y   {stats_str$only_in_y}"))
+        display(glue::glue("{ws}  > rows only in y   {stats_str$only_in_y}"))
     }
     if (.funname == "anti_join") {
-        display(glue::glue("{ws}  matched rows    ({stats_str$matched})"))
+        display(glue::glue("{ws}  > matched rows    ({stats_str$matched})"))
     } else {
-        display(glue::glue("{ws}  matched rows     {stats_str$matched}{duplicates}"))
+        display(glue::glue("{ws}  > matched rows     {stats_str$matched}{duplicates}"))
     }
-    display(glue::glue("{ws}                  ={paste0(rep('=', max_n), collapse = '')}="))
-    display(glue::glue("{ws}  rows total       {stats_str$total}"))
+    display(glue::glue("{ws}  >                 ={paste0(rep('=', max_n), collapse = '')}="))
+    display(glue::glue("{ws}  > rows total       {stats_str$total}"))
 
     newdata
 }
+
