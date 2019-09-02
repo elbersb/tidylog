@@ -1,13 +1,10 @@
-This is a resubmit.
-
-* changed package name formatting in DESCRIPTION
-* added examples
+This is the submission for version 0.2.0.
 
 ## Test environments
 
-* local OS X, R 3.5.1
-* CRAN win-builder, R-devel and R-release
-* ubuntu 14.04 (on travis-ci), R 3.5.2
+* local OS X, R 3.6.1
+* CRAN win-builder: R-devel and R-release
+* ubuntu 14.04 (on travis-ci), R 3.6.1
 
 ## R CMD check results
 
