@@ -201,3 +201,24 @@ test_that("tidyr::fill", {
 
     expect_equal(tidyr::fill(df, Year), out)
 })
+
+test_that("mutate: list columns", {
+    df <- tibble(x = list(1, 2))
+    # from list to scalar
+    expect_message({
+        out <- tidylog::mutate(df, x = 1)
+    }, "converted.*from list to")
+    # from list to identical list
+    expect_message({
+        out <- tidylog::mutate(df, x = list(1, 2))
+    }, "no changes")
+    # from list to different list
+    expect_message({
+        out <- tidylog::mutate(df, x = lapply(x, function(v) v * 100))
+    }, "changed 2 values")
+    # from scalar to list
+    df <- tibble(x = 1:2)
+    expect_message({
+        out <- tidylog::mutate(df, x = as.list(x))
+    }, "converted.*from integer to list")
+})
