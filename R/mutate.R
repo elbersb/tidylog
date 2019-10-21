@@ -151,10 +151,15 @@ log_mutate <- function(.data, .fun, .funname, ...) {
 
             if (typeold == typenew) {
                 # same type
-                different <- new != old
-                different[is.na(new) & !is.na(old)] <- TRUE
-                different[!is.na(new) & is.na(old)] <- TRUE
-                different[is.na(new) & is.na(old)] <- FALSE
+                if (typeold == "list") {
+                    different <- sapply(seq_len(length(new)),
+                                        function(i) !identical(new[[i]], old[[i]]))
+                } else {
+                    different <- new != old
+                    different[is.na(new) & !is.na(old)] <- TRUE
+                    different[!is.na(new) & is.na(old)] <- TRUE
+                    different[is.na(new) & is.na(old)] <- FALSE
+                }
                 n <- sum(different)
                 p <- percent(n, length(different))
                 new_na <- sum(is.na(new)) - sum(is.na(old))
