@@ -5,6 +5,7 @@
 \alias{group_by_all}
 \alias{group_by_if}
 \alias{group_by_at}
+\alias{ungroup}
 \title{Wrapper around dplyr::group_by and related functions
 that prints information about the operation}
 \usage{
@@ -15,6 +16,8 @@ group_by_all(.data, ...)
 group_by_if(.data, ...)
 
 group_by_at(.data, ...)
+
+ungroup(.data, ...)
 }
 \arguments{
 \item{.data}{a tbl; see \link[dplyr]{group_by}}
@@ -29,6 +32,8 @@ Wrapper around dplyr::group_by and related functions
 that prints information about the operation
 }
 \examples{
-group_by(mtcars, am, cyl)
+mtcars <- group_by(mtcars, am, cyl)
 #> group_by: 2 grouping variables (am, cyl)
+mtcars <- ungroup(mtcars)
+#> ungroup: no grouping variables left
 }
