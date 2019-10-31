@@ -72,8 +72,8 @@ summary <- mtcars %>%
 #> ungroup: no grouping variables left
 ```
 
-Here, it might have been accidental that the `filter` command had no
-effect.
+Here, it might have been accidental that the last `filter` command had
+no effect.
 
 ## Installation
 
