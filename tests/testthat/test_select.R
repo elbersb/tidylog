@@ -1,4 +1,6 @@
 context("test_select")
+library("dplyr")
+library("tidylog")
 
 test_that("select", {
     expect_message({

@@ -1,4 +1,7 @@
 context("test_filter")
+library("dplyr")
+library("tidyr")
+library("tidylog")
 
 test_that("filter", {
     expect_message({

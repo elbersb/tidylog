@@ -1,4 +1,7 @@
 context("test_gather")
+library("dplyr")
+library("tidyr")
+library("tidylog")
 
 test_that("gather", {
     expect_message({

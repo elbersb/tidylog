@@ -1,4 +1,6 @@
 context("test_mutate")
+library("dplyr")
+library("tidylog")
 
 test_that("mutate", {
     expect_message({

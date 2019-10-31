@@ -1,4 +1,6 @@
 context("test_tidylog")
+library("dplyr")
+library("tidylog")
 
 test_that("tidylog", {
     f <- function() tidylog::tidylog(mtcars)

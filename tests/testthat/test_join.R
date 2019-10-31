@@ -1,4 +1,6 @@
 context("test_group_by")
+library("dplyr")
+library("tidylog")
 
 test_that("join", {
 
