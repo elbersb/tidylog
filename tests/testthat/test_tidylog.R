@@ -16,7 +16,7 @@ test_that("logging on/off", {
     expect_silent(tidylog::filter(mtcars, mpg > 20))
     expect_silent(tidylog::select(mtcars, mpg))
     expect_silent(tidylog::group_by(mtcars, mpg))
-    expect_silent(tidylog::left_join(band_members, band_instruments, by = "name"))
+    expect_silent(tidylog::left_join(dplyr::band_members, dplyr::band_instruments, by = "name"))
     expect_silent(tidylog::mutate(mtcars, test = TRUE))
     expect_silent(tidylog::summarize(mtcars, test = TRUE))
     expect_silent(tidylog::gather(mtcars))
