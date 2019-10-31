@@ -1,6 +1,6 @@
 Package: tidylog
 Type: Package
-Title: Logging for 'dplyr' and 'tidyr' Functions
+Title: Logging for 'dplyr' and 'tidyr' functions
 Version: 0.2.0.9000
 Authors@R: person("Benjamin", "Elbers", email = "elbersb@gmail.com",
   role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5392-3448"))
