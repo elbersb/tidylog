@@ -155,7 +155,7 @@ a <- mtcars %>%
 
 b <- iris %>%
     group_by(Species) %>%
-    summarize_all(list(~min, ~max))
+    summarize_all(list(min, max))
 ```
 
 ### tally, count, add_tally, add_count
