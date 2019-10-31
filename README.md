@@ -61,17 +61,19 @@ summary <- mtcars %>%
     mutate(mpg_round = round(mpg)) %>%
     group_by(cyl, mpg_round, am) %>%
     tally() %>%
-    filter(n >= 1)
+    filter(n >= 1) %>%
+    ungroup()
 #> select: dropped 7 variables (disp, drat, wt, qsec, vs, …)
 #> filter: removed 6 rows (19%), 26 rows remaining
 #> mutate: new variable 'mpg_round' with 15 unique values and 0% NA
 #> group_by: 3 grouping variables (cyl, mpg_round, am)
 #> tally: now 20 rows and 4 columns, 2 group variables remaining (cyl, mpg_round)
 #> filter (grouped): no rows removed
+#> ungroup: no grouping variables left
 ```
 
-Here, it might have been accidental that the last `filter` command had
-no effect.
+Here, it might have been accidental that the `filter` command had no
+effect.
 
 ## Installation
 
@@ -221,7 +223,7 @@ a <- mtcars %>%
 
 b <- iris %>%
     group_by(Species) %>%
-    summarize_all(list(~min, ~max))
+    summarize_all(list(min, max))
 #> group_by: one grouping variable (Species)
 #> summarize_all: now 3 rows and 9 columns, ungrouped
 ```
@@ -258,7 +260,7 @@ wide <- long %>%
 ## Turning logging off, registering additional loggers
 
 To turn off the output for just a particular function call, you can
-simply call the dplyr and tidyr functions directly, e.g. `dplyr::filter`
+simply call the dplyr and tidyr functions directly, e.g. `dplyr::filter`
 or `tidyr::drop_na`.
 
 To turn off the output more permanently, set the global option
@@ -287,7 +289,8 @@ a <- filter(mtcars, mpg > 20)
 #> filter: removed 18 rows (56%), 14 rows remaining
 ```
 
-To print the output both to the screen and to a file, you could use:
+To print the output both to the screen and to a file, you could
+use:
 
 ``` r
 log_to_file <- function(text) cat(text, file = "log.txt", sep = "\n", append = TRUE)
