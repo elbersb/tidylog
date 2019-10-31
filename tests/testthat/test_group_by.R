@@ -43,4 +43,9 @@ test_that("ungroup", {
     expect_silent({
         out <- dplyr::ungroup(mtcars, mpg)
     })
+    expect_silent({
+        options("tidylog.display" = list())  # turn off
+        out <- tidylog::ungroup(mtcars, mpg)
+    })
+    options("tidylog.display" = NULL)  # turn on
 })
