@@ -1,5 +1,3 @@
-library("dplyr")
-library("tidylog")
 context("test_mutate")
 
 test_that("mutate", {

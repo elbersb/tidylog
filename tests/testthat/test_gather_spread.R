@@ -1,6 +1,3 @@
-library("dplyr")
-library("tidyr")
-library("tidylog")
 context("test_gather")
 
 test_that("gather", {

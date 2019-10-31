@@ -1,5 +1,3 @@
-library("dplyr")
-library("tidylog")
 context("test_summarize")
 
 test_that("summarize", {

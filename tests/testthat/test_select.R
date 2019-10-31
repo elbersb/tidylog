@@ -1,5 +1,3 @@
-library("dplyr")
-library("tidylog")
 context("test_select")
 
 test_that("select", {
