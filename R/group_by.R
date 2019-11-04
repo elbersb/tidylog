@@ -50,7 +50,7 @@ log_group_by <- function(.data, .fun, .funname, ...) {
         "{.funname}: {plural(length(group_vars), 'grouping variable')} ",
         "({format_list(group_vars)})"))
     } else {
-        display(glue::glue("{.funname}: no grouping variables."))
+        display(glue::glue("{.funname}: no grouping variables"))
     }
     newdata
 }
