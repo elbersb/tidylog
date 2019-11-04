@@ -244,18 +244,20 @@ d <- mtcars %>% add_count(gear, carb, name = "count")
 #> add_count: new variable 'count' with 5 unique values and 0% NA
 ```
 
-### gather, spread
+### pivot\_longer, pivot\_wider
 
 ``` r
-long <- mtcars %>%
+longer <- mtcars %>%
     mutate(id = 1:n()) %>%
-    gather("col", "data", -id)
+    pivot_longer(-id, names_to = "var", values_to = "value")
 #> mutate: new variable 'id' with 32 unique values and 0% NA
-#> gather: reorganized (mpg, cyl, disp, hp, drat, …) into (col, data) [was 32x12, now 352x3]
-wide <- long %>%
-    spread(col, data)
-#> spread: reorganized (col, data) into (am, carb, cyl, disp, drat, …) [was 352x3, now 32x12]
+#> pivot_longer: reorganized (mpg, cyl, disp, hp, drat, …) into (var, value) [was 32x12, now 352x3]
+wider <- longer %>%
+    pivot_wider(names_from = var, values_from = value)
+#> pivot_wider: reorganized (var, value) into (mpg, cyl, disp, hp, drat, …) [was 352x3, now 32x12]
 ```
+
+Tidylog also supports `gather` and `spread`.
 
 ## Turning logging off, registering additional loggers
 

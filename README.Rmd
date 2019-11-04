@@ -168,15 +168,17 @@ c <- mtcars %>% count(gear, carb)
 d <- mtcars %>% add_count(gear, carb, name = "count")
 ```
 
-### gather, spread
+### pivot_longer, pivot_wider
 
 ```{r}
-long <- mtcars %>%
+longer <- mtcars %>%
     mutate(id = 1:n()) %>%
-    gather("col", "data", -id)
-wide <- long %>%
-    spread(col, data)
+    pivot_longer(-id, names_to = "var", values_to = "value")
+wider <- longer %>%
+    pivot_wider(names_from = var, values_from = value)
 ```
+
+Tidylog also supports `gather` and `spread`.
 
 ## Turning logging off, registering additional loggers
 
