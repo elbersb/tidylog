@@ -33,31 +33,24 @@ group_by_at <- function(.data, ...) {
     log_group_by(.data, .fun = dplyr::group_by_at, .funname = "group_by_at", ...)
 }
 
+#' @rdname group_by
+#' @export
+ungroup <- function(.data, ...) {
+    log_group_by(.data, .fun = dplyr::ungroup, .funname = "ungroup", ...)
+}
+
 log_group_by <- function(.data, .fun, .funname, ...) {
     newdata <- .fun(.data, ...)
     if (!"data.frame" %in% class(.data) | !should_display()) {
         return(newdata)
     }
     group_vars <- get_groups(newdata)
+    if (!is.null(group_vars)) {
     display(glue::glue(
         "{.funname}: {plural(length(group_vars), 'grouping variable')} ",
         "({format_list(group_vars)})"))
-    newdata
-}
-
-#' @rdname group_by
-#' @export
-ungroup <- function(.data, ...) {
-    log_ungroup(.data, .fun = dplyr::ungroup, .funname = "ungroup", ...)
-}
-
-
-log_ungroup <- function(.data, .fun, .funname, ...) {
-    newdata <- .fun(.data, ...)
-    if (!"data.frame" %in% class(.data) | !should_display()) {
-        return(newdata)
+    } else {
+        display(glue::glue("{.funname}: no grouping variables."))
     }
-    display(glue::glue(
-        "{.funname}: no grouping variables left"))
     newdata
 }
