@@ -56,8 +56,7 @@ summary <- mtcars %>%
     mutate(mpg_round = round(mpg)) %>%
     group_by(cyl, mpg_round, am) %>%
     tally() %>%
-    filter(n >= 1) %>%
-    ungroup()
+    filter(n >= 1)
 ```
 Here, it might have been accidental that the last `filter` command had no effect.
 

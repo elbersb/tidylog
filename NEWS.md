@@ -1,6 +1,7 @@
 # 0.2.0.9000
 
 - support for pivot_longer, pivot_wider
+- support for ungroup (thanks @damianooldoni)
 
 # 0.2.0
 - added detailed merge information for joins (#25)
