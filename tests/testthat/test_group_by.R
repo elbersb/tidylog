@@ -1,6 +1,6 @@
+context("test_group_by")
 library("dplyr")
 library("tidylog")
-context("test_group_by")
 
 test_that("group_by", {
     expect_message({
@@ -32,4 +32,20 @@ test_that("group_by: argument order", {
         out <- tidylog::group_by(mpg, .data = mtcars)
     })
     expect_equal(is.grouped_df(out), TRUE)
+})
+
+test_that("ungroup", {
+    expect_message({
+        out <- tidylog::ungroup(mtcars, mpg)
+    })
+    expect_equal(dplyr::is.grouped_df(out), FALSE)
+
+    expect_silent({
+        out <- dplyr::ungroup(mtcars, mpg)
+    })
+    expect_silent({
+        options("tidylog.display" = list())  # turn off
+        out <- tidylog::ungroup(mtcars, mpg)
+    })
+    options("tidylog.display" = NULL)  # turn on
 })

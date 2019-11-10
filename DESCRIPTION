@@ -2,8 +2,12 @@ Package: tidylog
 Type: Package
 Title: Logging for 'dplyr' and 'tidyr' Functions
 Version: 0.2.0.9000
-Authors@R: person("Benjamin", "Elbers", email = "elbersb@gmail.com",
-  role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5392-3448"))
+Authors@R: c(
+    person("Benjamin", "Elbers", email = "elbersb@gmail.com",
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5392-3448")),
+    person("Damiano", "Oldoni", email = "damiano.oldoni@inbo.be",
+    role = c("ctb"), comment = c(ORCID = "0000-0003-3445-7562"))
+    )
 Description: Provides feedback about 'dplyr' and 'tidyr' operations.
 License: MIT + file LICENSE
 Imports: dplyr, tidyr, glue, clisymbols

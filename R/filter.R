@@ -1,7 +1,6 @@
 #' Wrapper around dplyr::filter and related functions
 #' that prints information about the operation
 #'
-#'
 #' @param .data a tbl; see \link[dplyr]{filter}
 #' @param ... see \link[dplyr]{filter}
 #' @return see \link[dplyr]{filter}

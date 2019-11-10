@@ -1,6 +1,6 @@
+context("test_summarize")
 library("dplyr")
 library("tidylog")
-context("test_summarize")
 
 test_that("summarize", {
     expect_message({
