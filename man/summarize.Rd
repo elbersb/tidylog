@@ -11,6 +11,7 @@
 \alias{summarise_if}
 \alias{tally}
 \alias{count}
+\alias{uncount}
 \title{Wrapper around dplyr::summarize and related functions
 that prints information about the operation}
 \usage{
@@ -33,6 +34,8 @@ summarise_if(.data, ...)
 tally(.data, ...)
 
 count(.data, ...)
+
+uncount(.data, ...)
 }
 \arguments{
 \item{.data}{a tbl; see \link[dplyr]{summarize}}

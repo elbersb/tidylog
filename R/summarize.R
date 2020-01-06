@@ -67,6 +67,12 @@ count <- function(.data, ...) {
     log_summarize(.data, .fun = dplyr::count, .funname = "count", ...)
 }
 
+#' @rdname summarize
+#' @export
+uncount <- function(.data, ...) {
+    log_summarize(.data, .fun = tidyr::uncount, .funname = "uncount", ...)
+}
+
 log_summarize <- function(.data, .fun, .funname, ...) {
     newdata <- .fun(.data, ...)
 

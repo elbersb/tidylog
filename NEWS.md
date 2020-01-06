@@ -1,9 +1,10 @@
 # 0.2.0.9000
 
-- support for pivot_longer, pivot_wider
-- support for ungroup (thanks @damianooldoni)
-- support for rename_* (#27)
-- support for top_frac, sample_n, sample_frac, slice
+- tidyr: support for pivot_longer, pivot_wider
+- dplyr: support for ungroup (thanks @damianooldoni)
+- dplyr: support for rename_* (#27)
+- dplyr: support for top_frac, sample_n, sample_frac, slice
+- tidyr: support for uncount
 
 # 0.2.0
 - added detailed merge information for joins (#25)
