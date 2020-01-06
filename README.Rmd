@@ -86,10 +86,10 @@ d <- filter_at(mtcars, vars(starts_with("d")), any_vars((. %% 2) == 0))
 e <- distinct(mtcars)
 f <- distinct_at(mtcars, vars(vs:carb))
 g <- top_n(mtcars, 2, am)
+i <- sample_frac(mtcars, 0.5)
 
-h <- drop_na(airquality)
-i <- drop_na(airquality, Ozone)
-k <- drop_na(airquality, Wind, Temp, Month, Day)
+j <- drop_na(airquality)
+k <- drop_na(airquality, Ozone)
 ```
 
 ### mutate, transmute, replace_na, fill

@@ -43,6 +43,29 @@ test_that("top_n, top_frac", {
     expect_equal(out, dplyr::top_frac(mtcars, .5, carb))
 })
 
+test_that("sample_n, sample_frac", {
+    expect_message({
+        set.seed(1)
+        out <- tidylog::sample_n(mtcars, 3)
+    })
+    set.seed(1)
+    expect_equal(out, dplyr::sample_n(mtcars, 3))
+
+    expect_message({
+        set.seed(1)
+        out <- tidylog::sample_frac(mtcars, .5)
+    })
+    set.seed(1)
+    expect_equal(out, dplyr::sample_frac(mtcars, .5))
+})
+
+test_that("slice", {
+    expect_message({
+        out <- tidylog::slice(mtcars, 5:n())
+    })
+    expect_equal(out, dplyr::slice(mtcars, 5:n()))
+})
+
 test_that("filter: scoped variants", {
     expect_message({
         out <- tidylog::filter_all(mtcars, all_vars(. > 150))

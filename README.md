@@ -106,13 +106,13 @@ f <- distinct_at(mtcars, vars(vs:carb))
 #> distinct_at: removed 18 rows (56%), 14 rows remaining
 g <- top_n(mtcars, 2, am)
 #> top_n: removed 19 rows (59%), 13 rows remaining
+i <- sample_frac(mtcars, 0.5)
+#> sample_frac: removed 16 rows (50%), 16 rows remaining
 
-h <- drop_na(airquality)
+j <- drop_na(airquality)
 #> drop_na: removed 42 rows (27%), 111 rows remaining
-i <- drop_na(airquality, Ozone)
+k <- drop_na(airquality, Ozone)
 #> drop_na: removed 37 rows (24%), 116 rows remaining
-k <- drop_na(airquality, Wind, Temp, Month, Day)
-#> drop_na: no rows removed
 ```
 
 ### mutate, transmute, replace\_na, fill

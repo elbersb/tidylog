@@ -3,7 +3,7 @@
 - support for pivot_longer, pivot_wider
 - support for ungroup (thanks @damianooldoni)
 - support for rename_* (#27)
-- support for top_frac
+- support for top_frac, sample_n, sample_frac, slice
 
 # 0.2.0
 - added detailed merge information for joins (#25)

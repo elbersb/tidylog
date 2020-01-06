@@ -72,10 +72,27 @@ top_frac <- function(.data, ...) {
 
 #' @rdname filter
 #' @export
+sample_n <- function(.data, ...) {
+    log_filter(.data, .fun = dplyr::sample_n, .funname = "sample_n", ...)
+}
+
+#' @rdname filter
+#' @export
+sample_frac <- function(.data, ...) {
+    log_filter(.data, .fun = dplyr::sample_frac, .funname = "sample_frac", ...)
+}
+
+#' @rdname filter
+#' @export
+slice <- function(.data, ...) {
+    log_filter(.data, .fun = dplyr::slice, .funname = "slice", ...)
+}
+
+#' @rdname filter
+#' @export
 drop_na <- function(.data, ...) {
     log_filter(.data, .fun = tidyr::drop_na, .funname = "drop_na", ...)
 }
-
 
 log_filter <- function(.data, .fun, .funname, ...) {
     newdata <- .fun(.data, ...)
