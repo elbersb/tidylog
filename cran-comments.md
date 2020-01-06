@@ -1,4 +1,4 @@
-This is the submission for version 0.2.0.
+This is the submission for version 1.0.0.
 
 ## Test environments
 

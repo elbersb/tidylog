@@ -1,4 +1,4 @@
-# 0.2.0.9000
+# 1.0.0
 
 - tidyr: support for pivot_longer, pivot_wider
 - dplyr: support for ungroup (thanks @damianooldoni)
