@@ -136,14 +136,16 @@ c <- anti_join(band_members, band_instruments, by = "name")
 Because tidylog needs to perform two additional joins behind the scenes to report this information,
 the overhead will be larger than for the other tidylog functions (especially with large datasets).
 
-### select
+### select, rename
 
 ```{r}
 a <- select(mtcars, mpg, wt)
 b <- select(mtcars, matches("a"))
 c <- select_if(mtcars, is.character)
-```
 
+d <- rename(mtcars, miles_per_gallon = mpg)
+e <- rename_all(mtcars, toupper)
+```
 
 ### summarize
 

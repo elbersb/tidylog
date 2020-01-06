@@ -2,6 +2,7 @@
 
 - support for pivot_longer, pivot_wider
 - support for ungroup (thanks @damianooldoni)
+- support for rename_* (#27)
 
 # 0.2.0
 - added detailed merge information for joins (#25)

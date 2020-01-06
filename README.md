@@ -199,7 +199,7 @@ Because tidylog needs to perform two additional joins behind the scenes
 to report this information, the overhead will be larger than for the
 other tidylog functions (especially with large datasets).
 
-### select
+### select, rename
 
 ``` r
 a <- select(mtcars, mpg, wt)
@@ -208,6 +208,11 @@ b <- select(mtcars, matches("a"))
 #> select: dropped 7 variables (mpg, cyl, disp, hp, wt, …)
 c <- select_if(mtcars, is.character)
 #> select_if: dropped all variables
+
+d <- rename(mtcars, miles_per_gallon = mpg)
+#> rename: renamed one variable (miles_per_gallon)
+e <- rename_all(mtcars, toupper)
+#> rename_all: renamed 11 variables (MPG, CYL, DISP, HP, DRAT, …)
 ```
 
 ### summarize
