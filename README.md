@@ -153,7 +153,7 @@ k <- fill(airquality, Ozone)
 For joins, tidylog provides more detailed information. For any join,
 tidylog will show the number of rows that are only present in x (the
 first dataframe), only present in y (the second dataframe), and rows
-that have been matched. Numbers in parantheses indicate that these rows
+that have been matched. Numbers in parentheses indicate that these rows
 are not included in the result. Tidylog will also indicate whether any
 rows were duplicated (which is often unintentional):
 
