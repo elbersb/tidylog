@@ -66,6 +66,12 @@ top_n <- function(.data, ...) {
 
 #' @rdname filter
 #' @export
+top_frac <- function(.data, ...) {
+    log_filter(.data, .fun = dplyr::top_frac, .funname = "top_frac", ...)
+}
+
+#' @rdname filter
+#' @export
 drop_na <- function(.data, ...) {
     log_filter(.data, .fun = tidyr::drop_na, .funname = "drop_na", ...)
 }

@@ -31,11 +31,16 @@ test_that("distinct", {
     expect_equal(out, dplyr::distinct(mtcars, mpg))
 })
 
-test_that("top_n", {
+test_that("top_n, top_frac", {
     expect_message({
         out <- tidylog::top_n(mtcars, 3, carb)
     })
     expect_equal(out, dplyr::top_n(mtcars, 3, carb))
+
+    expect_message({
+        out <- tidylog::top_frac(mtcars, .5, carb)
+    })
+    expect_equal(out, dplyr::top_frac(mtcars, .5, carb))
 })
 
 test_that("filter: scoped variants", {

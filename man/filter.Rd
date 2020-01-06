@@ -10,6 +10,7 @@
 \alias{distinct_if}
 \alias{distinct_at}
 \alias{top_n}
+\alias{top_frac}
 \alias{drop_na}
 \title{Wrapper around dplyr::filter and related functions
 that prints information about the operation}
@@ -31,6 +32,8 @@ distinct_if(.data, ...)
 distinct_at(.data, ...)
 
 top_n(.data, ...)
+
+top_frac(.data, ...)
 
 drop_na(.data, ...)
 }
