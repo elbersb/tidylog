@@ -30,6 +30,18 @@ format_list <- function(items) {
     }
 }
 
+get_type <- function(v) {
+    if (is.ordered(v)) {
+        "ordered factor"
+    } else if (is.factor(v)) {
+        "factor"
+    } else if (inherits(v, "Date")) {
+        "Date"
+    } else {
+        typeof(v)
+    }
+}
+
 get_groups <- function(.data) {
     if (!is.null(attr(.data, "groups"))) {
         # support for dplyr >= 0.8

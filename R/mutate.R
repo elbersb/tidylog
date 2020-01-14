@@ -139,8 +139,8 @@ log_mutate <- function(.data, .fun, .funname, ...) {
             has_changed <- TRUE
             old <- .data[[var]]
             new <- newdata[[var]]
-            typeold <- ifelse(is.factor(old), "factor", typeof(old))
-            typenew <- ifelse(is.factor(new), "factor", typeof(new))
+            typeold <- get_type(old)
+            typenew <- get_type(new)
 
             if (typeold == "factor" & typenew == "factor") {
                 # when factor, compare based on character values
