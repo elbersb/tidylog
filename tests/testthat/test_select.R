@@ -3,16 +3,38 @@ library("dplyr")
 library("tidylog")
 
 test_that("select", {
-    expect_message({
-        out <- tidylog::select(mtcars, mpg, cyl)
-    })
-    expect_equal(ncol(out), ncol(dplyr::select(mtcars, mpg, cyl)))
+    # no changes
+    f <- function() tidylog::select(mtcars, everything())
+    expect_message(out <- f(), "no changes")
+    expect_equal(out, dplyr::select(mtcars, everything()))
 
-    expect_message({
-        out <- tidylog::select(mtcars, - (mpg:carb))
-    })
-    expect_equal(ncol(out), 0)
+    # only order changed
+    f <- function() tidylog::select(mtcars, hp, everything())
+    expect_message(out <- f(), "columns reordered")
+    expect_equal(out, dplyr::select(mtcars, hp, everything()))
 
+    # dropped some
+    f <- function() tidylog::select(mtcars, -mpg, -cyl, -disp)
+    expect_message(out <- f(), "dropped 3")
+    expect_equal(out, dplyr::select(mtcars, -mpg, -cyl, -disp))
+
+    # dropped all
+    f <- function() tidylog::select(mtcars, -everything())
+    expect_message(out <- f(), "dropped all variables")
+    expect_equal(out, dplyr::select(mtcars, -everything()))
+
+    # renamed
+    small_mtcars <- dplyr::select(mtcars, mpg, cyl, hp)
+    f <- function() tidylog::select(small_mtcars, a = mpg, b = cyl, c = hp)
+    expect_message(out <- f(), "renamed 3")
+    expect_equal(out, dplyr::select(small_mtcars, a = mpg, b = cyl, c = hp))
+
+    # dropped and renamed
+    f <- function() tidylog::select(small_mtcars, a = mpg, b = cyl)
+    expect_message(out <- f(), "renamed 2.*dropped one")
+    expect_equal(out, dplyr::select(small_mtcars, a = mpg, b = cyl))
+
+    # dplyr call is silent
     expect_silent({
         out <- dplyr::select(mtcars, mpg, cyl)
     })

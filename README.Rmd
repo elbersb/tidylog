@@ -140,11 +140,12 @@ the overhead will be larger than for the other tidylog functions (especially wit
 
 ```{r}
 a <- select(mtcars, mpg, wt)
-b <- select(mtcars, matches("a"))
-c <- select_if(mtcars, is.character)
+b <- select_if(mtcars, is.character)
+c <- select(mtcars, hp, everything())
+d <- select(mtcars, a = wt, b = mpg)
 
-d <- rename(mtcars, miles_per_gallon = mpg)
-e <- rename_all(mtcars, toupper)
+e <- rename(mtcars, miles_per_gallon = mpg)
+f <- rename_all(mtcars, toupper)
 ```
 
 ### summarize
