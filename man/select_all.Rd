@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::select_all
 that prints information about the operation}
 \usage{
-select_all(.data, ...)
+select_all(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{select_all}}
+\item{.tbl}{see \link[dplyr]{select_all}}
 
 \item{...}{see \link[dplyr]{select_all}}
 }

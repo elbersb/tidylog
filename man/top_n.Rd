@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::top_n
 that prints information about the operation}
 \usage{
-top_n(.data, ...)
+top_n(x, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{top_n}}
+\item{x}{see \link[dplyr]{top_n}}
 
 \item{...}{see \link[dplyr]{top_n}}
 }

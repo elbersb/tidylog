@@ -3,10 +3,10 @@
 \title{Wrapper around tidyr::spread
 that prints information about the operation}
 \usage{
-spread(.data, ...)
+spread(data, ...)
 }
 \arguments{
-\item{.data}{see \link[tidyr]{spread}}
+\item{data}{see \link[tidyr]{spread}}
 
 \item{...}{see \link[tidyr]{spread}}
 }

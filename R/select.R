@@ -4,18 +4,18 @@ select <- function(.data, ...) {
 }
 
 #' @export
-select_all <- function(.data, ...) {
-    log_select(.data, .fun = dplyr::select_all, .funname = "select_all", ...)
+select_all <- function(.tbl, ...) {
+    log_select(.tbl, .fun = dplyr::select_all, .funname = "select_all", ...)
 }
 
 #' @export
-select_if <- function(.data, ...) {
-    log_select(.data, .fun = dplyr::select_if, .funname = "select_if", ...)
+select_if <- function(.tbl, ...) {
+    log_select(.tbl, .fun = dplyr::select_if, .funname = "select_if", ...)
 }
 
 #' @export
-select_at <- function(.data, ...) {
-    log_select(.data, .fun = dplyr::select_at, .funname = "select_at", ...)
+select_at <- function(.tbl, ...) {
+    log_select(.tbl, .fun = dplyr::select_at, .funname = "select_at", ...)
 }
 
 log_select <- function(.data, .fun, .funname, ...) {

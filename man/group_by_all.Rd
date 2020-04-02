@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::group_by_all
 that prints information about the operation}
 \usage{
-group_by_all(.data, ...)
+group_by_all(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{group_by_all}}
+\item{.tbl}{see \link[dplyr]{group_by_all}}
 
 \item{...}{see \link[dplyr]{group_by_all}}
 }

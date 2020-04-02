@@ -4,18 +4,18 @@ rename <- function(.data, ...) {
 }
 
 #' @export
-rename_all <- function(.data, ...) {
-    log_rename(.data, .fun = dplyr::rename_all, .funname = "rename_all", ...)
+rename_all <- function(.tbl, ...) {
+    log_rename(.tbl, .fun = dplyr::rename_all, .funname = "rename_all", ...)
 }
 
 #' @export
-rename_if <- function(.data, ...) {
-    log_rename(.data, .fun = dplyr::rename_if, .funname = "rename_if", ...)
+rename_if <- function(.tbl, ...) {
+    log_rename(.tbl, .fun = dplyr::rename_if, .funname = "rename_if", ...)
 }
 
 #' @export
-rename_at <- function(.data, ...) {
-    log_rename(.data, .fun = dplyr::rename_at, .funname = "rename_at", ...)
+rename_at <- function(.tbl, ...) {
+    log_rename(.tbl, .fun = dplyr::rename_at, .funname = "rename_at", ...)
 }
 
 log_rename <- function(.data, .fun, .funname, ...) {

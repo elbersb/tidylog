@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::transmute_if
 that prints information about the operation}
 \usage{
-transmute_if(.data, ...)
+transmute_if(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{transmute_if}}
+\item{.tbl}{see \link[dplyr]{transmute_if}}
 
 \item{...}{see \link[dplyr]{transmute_if}}
 }

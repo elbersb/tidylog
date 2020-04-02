@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::top_frac
 that prints information about the operation}
 \usage{
-top_frac(.data, ...)
+top_frac(x, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{top_frac}}
+\item{x}{see \link[dplyr]{top_frac}}
 
 \item{...}{see \link[dplyr]{top_frac}}
 }

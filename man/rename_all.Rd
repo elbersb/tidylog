@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::rename_all
 that prints information about the operation}
 \usage{
-rename_all(.data, ...)
+rename_all(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{rename_all}}
+\item{.tbl}{see \link[dplyr]{rename_all}}
 
 \item{...}{see \link[dplyr]{rename_all}}
 }

@@ -3,10 +3,10 @@
 \title{Wrapper around tidyr::fill
 that prints information about the operation}
 \usage{
-fill(.data, ...)
+fill(data, ...)
 }
 \arguments{
-\item{.data}{see \link[tidyr]{fill}}
+\item{data}{see \link[tidyr]{fill}}
 
 \item{...}{see \link[tidyr]{fill}}
 }

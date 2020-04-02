@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::tally
 that prints information about the operation}
 \usage{
-tally(.data, ...)
+tally(x, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{tally}}
+\item{x}{see \link[dplyr]{tally}}
 
 \item{...}{see \link[dplyr]{tally}}
 }

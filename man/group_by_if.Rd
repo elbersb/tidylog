@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::group_by_if
 that prints information about the operation}
 \usage{
-group_by_if(.data, ...)
+group_by_if(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{group_by_if}}
+\item{.tbl}{see \link[dplyr]{group_by_if}}
 
 \item{...}{see \link[dplyr]{group_by_if}}
 }

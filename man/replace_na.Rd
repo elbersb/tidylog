@@ -3,10 +3,10 @@
 \title{Wrapper around tidyr::replace_na
 that prints information about the operation}
 \usage{
-replace_na(.data, ...)
+replace_na(data, ...)
 }
 \arguments{
-\item{.data}{see \link[tidyr]{replace_na}}
+\item{data}{see \link[tidyr]{replace_na}}
 
 \item{...}{see \link[tidyr]{replace_na}}
 }

@@ -3,10 +3,10 @@
 \title{Wrapper around tidyr::gather
 that prints information about the operation}
 \usage{
-gather(.data, ...)
+gather(data, ...)
 }
 \arguments{
-\item{.data}{see \link[tidyr]{gather}}
+\item{data}{see \link[tidyr]{gather}}
 
 \item{...}{see \link[tidyr]{gather}}
 }

@@ -3,10 +3,10 @@
 \title{Wrapper around tidyr::pivot_longer
 that prints information about the operation}
 \usage{
-pivot_longer(.data, ...)
+pivot_longer(data, ...)
 }
 \arguments{
-\item{.data}{see \link[tidyr]{pivot_longer}}
+\item{data}{see \link[tidyr]{pivot_longer}}
 
 \item{...}{see \link[tidyr]{pivot_longer}}
 }

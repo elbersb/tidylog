@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::summarise_if
 that prints information about the operation}
 \usage{
-summarise_if(.data, ...)
+summarise_if(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{summarise_if}}
+\item{.tbl}{see \link[dplyr]{summarise_if}}
 
 \item{...}{see \link[dplyr]{summarise_if}}
 }

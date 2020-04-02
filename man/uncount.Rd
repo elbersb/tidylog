@@ -3,10 +3,10 @@
 \title{Wrapper around tidyr::uncount
 that prints information about the operation}
 \usage{
-uncount(.data, ...)
+uncount(data, ...)
 }
 \arguments{
-\item{.data}{see \link[tidyr]{uncount}}
+\item{data}{see \link[tidyr]{uncount}}
 
 \item{...}{see \link[tidyr]{uncount}}
 }

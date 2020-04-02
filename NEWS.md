@@ -1,6 +1,7 @@
 # 1.0.0.9000
 
 - autogenerate documentation
+- data argument now has same name as in tidyr/dplyr (#43)
 
 # 1.0.0
 

@@ -4,18 +4,18 @@ mutate <- function(.data, ...) {
 }
 
 #' @export
-mutate_all <- function(.data, ...) {
-    log_mutate(.data, .fun = dplyr::mutate_all, .funname = "mutate_all", ...)
+mutate_all <- function(.tbl, ...) {
+    log_mutate(.tbl, .fun = dplyr::mutate_all, .funname = "mutate_all", ...)
 }
 
 #' @export
-mutate_if <- function(.data, ...) {
-    log_mutate(.data, .fun = dplyr::mutate_if, .funname = "mutate_if", ...)
+mutate_if <- function(.tbl, ...) {
+    log_mutate(.tbl, .fun = dplyr::mutate_if, .funname = "mutate_if", ...)
 }
 
 #' @export
-mutate_at <- function(.data, ...) {
-    log_mutate(.data, .fun = dplyr::mutate_at, .funname = "mutate_at", ...)
+mutate_at <- function(.tbl, ...) {
+    log_mutate(.tbl, .fun = dplyr::mutate_at, .funname = "mutate_at", ...)
 }
 
 #' @export
@@ -24,38 +24,38 @@ transmute <- function(.data, ...) {
 }
 
 #' @export
-transmute_all <- function(.data, ...) {
-    log_mutate(.data, .fun = dplyr::transmute_all, .funname = "transmute_all", ...)
+transmute_all <- function(.tbl, ...) {
+    log_mutate(.tbl, .fun = dplyr::transmute_all, .funname = "transmute_all", ...)
 }
 
 #' @export
-transmute_if <- function(.data, ...) {
-    log_mutate(.data, .fun = dplyr::transmute_if, .funname = "transmute_if", ...)
+transmute_if <- function(.tbl, ...) {
+    log_mutate(.tbl, .fun = dplyr::transmute_if, .funname = "transmute_if", ...)
 }
 
 #' @export
-transmute_at <- function(.data, ...) {
-    log_mutate(.data, .fun = dplyr::transmute_at, .funname = "transmute_at", ...)
+transmute_at <- function(.tbl, ...) {
+    log_mutate(.tbl, .fun = dplyr::transmute_at, .funname = "transmute_at", ...)
 }
 
 #' @export
-add_tally <- function(.data, ...) {
-    log_mutate(.data, .fun = dplyr::add_tally, .funname = "add_tally", ...)
+add_tally <- function(x, ...) {
+    log_mutate(x, .fun = dplyr::add_tally, .funname = "add_tally", ...)
 }
 
 #' @export
-add_count <- function(.data, ...) {
-    log_mutate(.data, .fun = dplyr::add_count, .funname = "add_count", ...)
+add_count <- function(x, ...) {
+    log_mutate(x, .fun = dplyr::add_count, .funname = "add_count", ...)
 }
 
 #' @export
-replace_na <- function(.data, ...) {
-    log_mutate(.data, .fun = tidyr::replace_na, .funname = "replace_na", ...)
+replace_na <- function(data, ...) {
+    log_mutate(data, .fun = tidyr::replace_na, .funname = "replace_na", ...)
 }
 
 #' @export
-fill <- function(.data, ...) {
-    log_mutate(.data, .fun = tidyr::fill, .funname = "fill", ...)
+fill <- function(data, ...) {
+    log_mutate(data, .fun = tidyr::fill, .funname = "fill", ...)
 }
 
 log_mutate <- function(.data, .fun, .funname, ...) {

@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::select_at
 that prints information about the operation}
 \usage{
-select_at(.data, ...)
+select_at(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{select_at}}
+\item{.tbl}{see \link[dplyr]{select_at}}
 
 \item{...}{see \link[dplyr]{select_at}}
 }

@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::mutate_all
 that prints information about the operation}
 \usage{
-mutate_all(.data, ...)
+mutate_all(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{mutate_all}}
+\item{.tbl}{see \link[dplyr]{mutate_all}}
 
 \item{...}{see \link[dplyr]{mutate_all}}
 }

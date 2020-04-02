@@ -4,23 +4,23 @@ group_by <- function(.data, ...) {
 }
 
 #' @export
-group_by_all <- function(.data, ...) {
-    log_group_by(.data, .fun = dplyr::group_by_all, .funname = "group_by_all", ...)
+group_by_all <- function(.tbl, ...) {
+    log_group_by(.tbl, .fun = dplyr::group_by_all, .funname = "group_by_all", ...)
 }
 
 #' @export
-group_by_if <- function(.data, ...) {
-    log_group_by(.data, .fun = dplyr::group_by_if, .funname = "group_by_if", ...)
+group_by_if <- function(.tbl, ...) {
+    log_group_by(.tbl, .fun = dplyr::group_by_if, .funname = "group_by_if", ...)
 }
 
 #' @export
-group_by_at <- function(.data, ...) {
-    log_group_by(.data, .fun = dplyr::group_by_at, .funname = "group_by_at", ...)
+group_by_at <- function(.tbl, ...) {
+    log_group_by(.tbl, .fun = dplyr::group_by_at, .funname = "group_by_at", ...)
 }
 
 #' @export
-ungroup <- function(.data, ...) {
-    log_group_by(.data, .fun = dplyr::ungroup, .funname = "ungroup", ...)
+ungroup <- function(x, ...) {
+    log_group_by(x, .fun = dplyr::ungroup, .funname = "ungroup", ...)
 }
 
 log_group_by <- function(.data, .fun, .funname, ...) {

@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::count
 that prints information about the operation}
 \usage{
-count(.data, ...)
+count(x, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{count}}
+\item{x}{see \link[dplyr]{count}}
 
 \item{...}{see \link[dplyr]{count}}
 }

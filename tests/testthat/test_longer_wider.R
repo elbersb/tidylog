@@ -25,11 +25,11 @@ test_that("pivot_longer: argument order", {
 
     expect_message({
         out_ab <- tidylog::pivot_longer(names_to = "var", values_to = "value",
-            .data = mtcars, cols = -id)
+            data = mtcars, cols = -id)
     })
 
     expect_message({
-        out_ba <- tidylog::pivot_longer(.data = mtcars, cols = -id,
+        out_ba <- tidylog::pivot_longer(data = mtcars, cols = -id,
             names_to = "var", values_to = "value")
     })
 
@@ -52,7 +52,7 @@ test_that("pivot_wider", {
 
 test_that("pivot_wider: argument order", {
     expect_message({
-        out_ab <- tidylog::pivot_wider(names_from = vs, values_from = cyl, .data = mtcars)
+        out_ab <- tidylog::pivot_wider(names_from = vs, values_from = cyl, data = mtcars)
     })
 
     expect_message({
@@ -79,11 +79,11 @@ test_that("gather", {
 
 test_that("gather: argument order", {
     expect_message({
-        out_ab <- tidylog::gather(.data = mtcars, carb)
+        out_ab <- tidylog::gather(data = mtcars, carb)
     })
 
     expect_message({
-        out_ba <- tidylog::gather(carb, .data = mtcars)
+        out_ba <- tidylog::gather(carb, data = mtcars)
     })
 
     expect_equal(out_ab, out_ba)
@@ -106,11 +106,11 @@ test_that("spread", {
 
 test_that("spread: argument order", {
     expect_message({
-        out_ab <- tidylog::spread(.data = mtcars, hp, carb)
+        out_ab <- tidylog::spread(data = mtcars, hp, carb)
     })
 
     expect_message({
-        out_ba <- tidylog::spread(hp, carb, .data = mtcars)
+        out_ba <- tidylog::spread(hp, carb, data = mtcars)
     })
 
     expect_equal(out_ab, out_ba)

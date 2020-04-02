@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::mutate_at
 that prints information about the operation}
 \usage{
-mutate_at(.data, ...)
+mutate_at(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{mutate_at}}
+\item{.tbl}{see \link[dplyr]{mutate_at}}
 
 \item{...}{see \link[dplyr]{mutate_at}}
 }

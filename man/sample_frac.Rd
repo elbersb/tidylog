@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::sample_frac
 that prints information about the operation}
 \usage{
-sample_frac(.data, ...)
+sample_frac(tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{sample_frac}}
+\item{tbl}{see \link[dplyr]{sample_frac}}
 
 \item{...}{see \link[dplyr]{sample_frac}}
 }

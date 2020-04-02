@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::filter_if
 that prints information about the operation}
 \usage{
-filter_if(.data, ...)
+filter_if(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{filter_if}}
+\item{.tbl}{see \link[dplyr]{filter_if}}
 
 \item{...}{see \link[dplyr]{filter_if}}
 }

@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::distinct_at
 that prints information about the operation}
 \usage{
-distinct_at(.data, ...)
+distinct_at(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{distinct_at}}
+\item{.tbl}{see \link[dplyr]{distinct_at}}
 
 \item{...}{see \link[dplyr]{distinct_at}}
 }

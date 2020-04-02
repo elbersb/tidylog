@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::group_by_at
 that prints information about the operation}
 \usage{
-group_by_at(.data, ...)
+group_by_at(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{group_by_at}}
+\item{.tbl}{see \link[dplyr]{group_by_at}}
 
 \item{...}{see \link[dplyr]{group_by_at}}
 }

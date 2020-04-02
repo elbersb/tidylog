@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::rename_if
 that prints information about the operation}
 \usage{
-rename_if(.data, ...)
+rename_if(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{rename_if}}
+\item{.tbl}{see \link[dplyr]{rename_if}}
 
 \item{...}{see \link[dplyr]{rename_if}}
 }

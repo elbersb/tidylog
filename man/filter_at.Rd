@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::filter_at
 that prints information about the operation}
 \usage{
-filter_at(.data, ...)
+filter_at(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{filter_at}}
+\item{.tbl}{see \link[dplyr]{filter_at}}
 
 \item{...}{see \link[dplyr]{filter_at}}
 }

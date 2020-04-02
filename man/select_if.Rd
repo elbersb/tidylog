@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::select_if
 that prints information about the operation}
 \usage{
-select_if(.data, ...)
+select_if(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{select_if}}
+\item{.tbl}{see \link[dplyr]{select_if}}
 
 \item{...}{see \link[dplyr]{select_if}}
 }

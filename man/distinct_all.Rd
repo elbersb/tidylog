@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::distinct_all
 that prints information about the operation}
 \usage{
-distinct_all(.data, ...)
+distinct_all(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{distinct_all}}
+\item{.tbl}{see \link[dplyr]{distinct_all}}
 
 \item{...}{see \link[dplyr]{distinct_all}}
 }

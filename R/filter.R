@@ -6,18 +6,18 @@ filter <- function(.data, ...) {
 }
 
 #' @export
-filter_all <- function(.data, ...) {
-    log_filter(.data, .fun = dplyr::filter_all, .funname = "filter_all", ...)
+filter_all <- function(.tbl, ...) {
+    log_filter(.tbl, .fun = dplyr::filter_all, .funname = "filter_all", ...)
 }
 
 #' @export
-filter_if <- function(.data, ...) {
-    log_filter(.data, .fun = dplyr::filter_if, .funname = "filter_if", ...)
+filter_if <- function(.tbl, ...) {
+    log_filter(.tbl, .fun = dplyr::filter_if, .funname = "filter_if", ...)
 }
 
 #' @export
-filter_at <- function(.data, ...) {
-    log_filter(.data, .fun = dplyr::filter_at, .funname = "filter_at", ...)
+filter_at <- function(.tbl, ...) {
+    log_filter(.tbl, .fun = dplyr::filter_at, .funname = "filter_at", ...)
 }
 
 #' @export
@@ -26,38 +26,38 @@ distinct <- function(.data, ...) {
 }
 
 #' @export
-distinct_all <- function(.data, ...) {
-    log_filter(.data, .fun = dplyr::distinct_all, .funname = "distinct_all", ...)
+distinct_all <- function(.tbl, ...) {
+    log_filter(.tbl, .fun = dplyr::distinct_all, .funname = "distinct_all", ...)
 }
 
 #' @export
-distinct_if <- function(.data, ...) {
-    log_filter(.data, .fun = dplyr::distinct_if, .funname = "distinct_if", ...)
+distinct_if <- function(.tbl, ...) {
+    log_filter(.tbl, .fun = dplyr::distinct_if, .funname = "distinct_if", ...)
 }
 
 #' @export
-distinct_at <- function(.data, ...) {
-    log_filter(.data, .fun = dplyr::distinct_at, .funname = "distinct_at", ...)
+distinct_at <- function(.tbl, ...) {
+    log_filter(.tbl, .fun = dplyr::distinct_at, .funname = "distinct_at", ...)
 }
 
 #' @export
-top_n <- function(.data, ...) {
-    log_filter(.data, .fun = dplyr::top_n, .funname = "top_n", ...)
+top_n <- function(x, ...) {
+    log_filter(x, .fun = dplyr::top_n, .funname = "top_n", ...)
 }
 
 #' @export
-top_frac <- function(.data, ...) {
-    log_filter(.data, .fun = dplyr::top_frac, .funname = "top_frac", ...)
+top_frac <- function(x, ...) {
+    log_filter(x, .fun = dplyr::top_frac, .funname = "top_frac", ...)
 }
 
 #' @export
-sample_n <- function(.data, ...) {
-    log_filter(.data, .fun = dplyr::sample_n, .funname = "sample_n", ...)
+sample_n <- function(tbl, ...) {
+    log_filter(tbl, .fun = dplyr::sample_n, .funname = "sample_n", ...)
 }
 
 #' @export
-sample_frac <- function(.data, ...) {
-    log_filter(.data, .fun = dplyr::sample_frac, .funname = "sample_frac", ...)
+sample_frac <- function(tbl, ...) {
+    log_filter(tbl, .fun = dplyr::sample_frac, .funname = "sample_frac", ...)
 }
 
 #' @export
@@ -66,8 +66,8 @@ slice <- function(.data, ...) {
 }
 
 #' @export
-drop_na <- function(.data, ...) {
-    log_filter(.data, .fun = tidyr::drop_na, .funname = "drop_na", ...)
+drop_na <- function(data, ...) {
+    log_filter(data, .fun = tidyr::drop_na, .funname = "drop_na", ...)
 }
 
 log_filter <- function(.data, .fun, .funname, ...) {

@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::transmute_at
 that prints information about the operation}
 \usage{
-transmute_at(.data, ...)
+transmute_at(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{transmute_at}}
+\item{.tbl}{see \link[dplyr]{transmute_at}}
 
 \item{...}{see \link[dplyr]{transmute_at}}
 }

@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::sample_n
 that prints information about the operation}
 \usage{
-sample_n(.data, ...)
+sample_n(tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{sample_n}}
+\item{tbl}{see \link[dplyr]{sample_n}}
 
 \item{...}{see \link[dplyr]{sample_n}}
 }

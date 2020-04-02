@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::summarize_all
 that prints information about the operation}
 \usage{
-summarize_all(.data, ...)
+summarize_all(.tbl, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{summarize_all}}
+\item{.tbl}{see \link[dplyr]{summarize_all}}
 
 \item{...}{see \link[dplyr]{summarize_all}}
 }

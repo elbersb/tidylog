@@ -3,10 +3,10 @@
 \title{Wrapper around tidyr::drop_na
 that prints information about the operation}
 \usage{
-drop_na(.data, ...)
+drop_na(data, ...)
 }
 \arguments{
-\item{.data}{see \link[tidyr]{drop_na}}
+\item{data}{see \link[tidyr]{drop_na}}
 
 \item{...}{see \link[tidyr]{drop_na}}
 }

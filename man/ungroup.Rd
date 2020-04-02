@@ -3,10 +3,10 @@
 \title{Wrapper around dplyr::ungroup
 that prints information about the operation}
 \usage{
-ungroup(.data, ...)
+ungroup(x, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{ungroup}}
+\item{x}{see \link[dplyr]{ungroup}}
 
 \item{...}{see \link[dplyr]{ungroup}}
 }

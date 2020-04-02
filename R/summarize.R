@@ -4,18 +4,18 @@ summarize <- function(.data, ...) {
 }
 
 #' @export
-summarize_all <- function(.data, ...) {
-    log_summarize(.data, .fun = dplyr::summarize_all, .funname = "summarize_all", ...)
+summarize_all <- function(.tbl, ...) {
+    log_summarize(.tbl, .fun = dplyr::summarize_all, .funname = "summarize_all", ...)
 }
 
 #' @export
-summarize_at <- function(.data, ...) {
-    log_summarize(.data, .fun = dplyr::summarize_at, .funname = "summarize_at", ...)
+summarize_at <- function(.tbl, ...) {
+    log_summarize(.tbl, .fun = dplyr::summarize_at, .funname = "summarize_at", ...)
 }
 
 #' @export
-summarize_if <- function(.data, ...) {
-    log_summarize(.data, .fun = dplyr::summarize_if, .funname = "summarize_if", ...)
+summarize_if <- function(.tbl, ...) {
+    log_summarize(.tbl, .fun = dplyr::summarize_if, .funname = "summarize_if", ...)
 }
 
 #' @export
@@ -24,33 +24,33 @@ summarise <- function(.data, ...) {
 }
 
 #' @export
-summarise_all <- function(.data, ...) {
-    log_summarize(.data, .fun = dplyr::summarise_all, .funname = "summarise_all", ...)
+summarise_all <- function(.tbl, ...) {
+    log_summarize(.tbl, .fun = dplyr::summarise_all, .funname = "summarise_all", ...)
 }
 
 #' @export
-summarise_at <- function(.data, ...) {
-    log_summarize(.data, .fun = dplyr::summarise_at, .funname = "summarise_at", ...)
+summarise_at <- function(.tbl, ...) {
+    log_summarize(.tbl, .fun = dplyr::summarise_at, .funname = "summarise_at", ...)
 }
 
 #' @export
-summarise_if <- function(.data, ...) {
-    log_summarize(.data, .fun = dplyr::summarise_if, .funname = "summarise_if", ...)
+summarise_if <- function(.tbl, ...) {
+    log_summarize(.tbl, .fun = dplyr::summarise_if, .funname = "summarise_if", ...)
 }
 
 #' @export
-tally <- function(.data, ...) {
-    log_summarize(.data, .fun = dplyr::tally, .funname = "tally", ...)
+tally <- function(x, ...) {
+    log_summarize(x, .fun = dplyr::tally, .funname = "tally", ...)
 }
 
 #' @export
-count <- function(.data, ...) {
-    log_summarize(.data, .fun = dplyr::count, .funname = "count", ...)
+count <- function(x, ...) {
+    log_summarize(x, .fun = dplyr::count, .funname = "count", ...)
 }
 
 #' @export
-uncount <- function(.data, ...) {
-    log_summarize(.data, .fun = tidyr::uncount, .funname = "uncount", ...)
+uncount <- function(data, ...) {
+    log_summarize(data, .fun = tidyr::uncount, .funname = "uncount", ...)
 }
 
 log_summarize <- function(.data, .fun, .funname, ...) {
