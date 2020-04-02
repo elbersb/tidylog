@@ -36,16 +36,16 @@ test_that("group_by: argument order", {
 
 test_that("ungroup", {
     expect_message({
-        out <- tidylog::ungroup(mtcars, mpg)
+        out <- tidylog::ungroup(mtcars)
     })
     expect_equal(dplyr::is.grouped_df(out), FALSE)
 
     expect_silent({
-        out <- dplyr::ungroup(mtcars, mpg)
+        out <- dplyr::ungroup(mtcars)
     })
     expect_silent({
         options("tidylog.display" = list())  # turn off
-        out <- tidylog::ungroup(mtcars, mpg)
+        out <- tidylog::ungroup(mtcars)
     })
     options("tidylog.display" = NULL)  # turn on
 })

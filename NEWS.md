@@ -3,6 +3,7 @@
 - autogenerate documentation
 - data argument now has same name as in tidyr/dplyr (#43)
 - fixes #42
+- fixes "ungroup" bug in tests (found by revdep check for dplyr 1.0.0)
 
 # 1.0.0
 
