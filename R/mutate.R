@@ -108,7 +108,8 @@ log_mutate <- function(.data, .fun, .funname, ...) {
             typeold <- get_type(old)
             typenew <- get_type(new)
 
-            if (typeold == "factor" & typenew == "factor") {
+            if (typeold %in% c("factor", "ordered factor") &
+                typenew %in% c("factor", "ordered factor")) {
                 # when factor, compare based on character values
                 # this will include both changes in the factor levels and recodes
                 old <- as.character(old)

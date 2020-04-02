@@ -237,3 +237,21 @@ test_that("mutate: list columns", {
         out <- tidylog::mutate(df, x = as.list(x))
     }, "converted.*from integer to list")
 })
+
+test_that("mutate: ordered factors", {
+    df <- tibble(x = ordered(c("apple", "bear", "banana", "dear")))
+    rec <- forcats::fct_recode(df$x, fruit = "apple", fruit = "banana")
+    # new variable
+    expect_message({
+        new <- tidylog::mutate(df,
+                    y = forcats::fct_recode(x, fruit = "apple", fruit = "banana"))
+    }, "new variable 'y' with 3 unique values")
+    expect_true(all(new$y == rec))
+
+    # overwriting
+    expect_message({
+        new <- tidylog::mutate(df,
+                    x = forcats::fct_recode(x, fruit = "apple", fruit = "banana"))
+    }, "changed 2 values")
+    expect_true(all(new$x == rec))
+})

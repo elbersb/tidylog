@@ -11,7 +11,7 @@ Authors@R: c(
 Description: Provides feedback about 'dplyr' and 'tidyr' operations.
 License: MIT + file LICENSE
 Imports: dplyr, tidyr, glue, clisymbols
-Suggests: testthat, covr
+Suggests: testthat, covr, forcats
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/elbersb/tidylog/

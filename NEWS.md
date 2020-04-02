@@ -2,6 +2,7 @@
 
 - autogenerate documentation
 - data argument now has same name as in tidyr/dplyr (#43)
+- fixes #42
 
 # 1.0.0
 
