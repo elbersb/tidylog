@@ -12,3 +12,4 @@
 ^docs$
 ^\.lintr$
 ^log.txt$
+^generate_docs.R$

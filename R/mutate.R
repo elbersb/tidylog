@@ -1,92 +1,58 @@
-#' Wrapper around dplyr::mutate and related functions
-#' that prints information about the operation
-#'
-#' @param .data a tbl; see \link[dplyr]{mutate}
-#' @param ... see \link[dplyr]{mutate}
-#' @return see \link[dplyr]{mutate}
-#' @examples
-#' mutate(mtcars, new_var = 1)
-#' #> mutate: new variable 'new_var' with one unique value and 0% NA
-#' mutate(mtcars, new_var = NA)
-#> #> mutate: new variable 'new_var' with one unique value and 100% NA
-#' @import dplyr
-#' @import tidyr
 #' @export
 mutate <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::mutate, .funname = "mutate", ...)
 }
 
-#' @rdname mutate
 #' @export
 mutate_all <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::mutate_all, .funname = "mutate_all", ...)
 }
 
-#' @rdname mutate
 #' @export
 mutate_if <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::mutate_if, .funname = "mutate_if", ...)
 }
 
-#' @rdname mutate
 #' @export
 mutate_at <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::mutate_at, .funname = "mutate_at", ...)
 }
 
-#' Wrapper around dplyr::transmute and related functions
-#' that prints information about the operation
-#'
-#' @param .data a tbl; see \link[dplyr:mutate]{transmute}
-#' @param ... see \link[dplyr:mutate]{transmute}
-#' @return see \link[dplyr:mutate]{transmute}
-#' @examples
-#' transmute(mtcars, mpg = mpg * 2)
-#' #> transmute: dropped 10 variables (cyl, disp, hp, drat, wt, ...)
-#' #> transmute: changed 32 values (100%) of 'mpg' (0 new NA)
-#' @import dplyr
 #' @export
 transmute <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::transmute, .funname = "transmute", ...)
 }
 
-#' @rdname transmute
 #' @export
 transmute_all <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::transmute_all, .funname = "transmute_all", ...)
 }
 
-#' @rdname transmute
 #' @export
 transmute_if <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::transmute_if, .funname = "transmute_if", ...)
 }
 
-#' @rdname transmute
 #' @export
 transmute_at <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::transmute_at, .funname = "transmute_at", ...)
 }
 
-#' @rdname mutate
 #' @export
 add_tally <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::add_tally, .funname = "add_tally", ...)
 }
 
-#' @rdname mutate
 #' @export
 add_count <- function(.data, ...) {
     log_mutate(.data, .fun = dplyr::add_count, .funname = "add_count", ...)
 }
 
-#' @rdname mutate
 #' @export
 replace_na <- function(.data, ...) {
     log_mutate(.data, .fun = tidyr::replace_na, .funname = "replace_na", ...)
 }
 
-#' @rdname mutate
 #' @export
 fill <- function(.data, ...) {
     log_mutate(.data, .fun = tidyr::fill, .funname = "fill", ...)

@@ -1,33 +1,18 @@
-#' Wrapper around dplyr::select and related functions
-#' that prints information about the operation
-#'
-#' @param .data a tbl; see \link[dplyr]{select}
-#' @param ... see \link[dplyr]{select}
-#' @return see \link[dplyr]{select}
-#' @examples
-#' select(mtcars, mpg, wt)
-#' #> select: dropped 9 variables (cyl, disp, hp, drat, qsec, ...)
-#' select(mtcars, dplyr::matches("a"))
-#' #> select: dropped 7 variables (mpg, cyl, disp, hp, wt, ...)
-#' @import dplyr
 #' @export
 select <- function(.data, ...) {
     log_select(.data, .fun = dplyr::select, .funname = "select", ...)
 }
 
-#' @rdname select
 #' @export
 select_all <- function(.data, ...) {
     log_select(.data, .fun = dplyr::select_all, .funname = "select_all", ...)
 }
 
-#' @rdname select
 #' @export
 select_if <- function(.data, ...) {
     log_select(.data, .fun = dplyr::select_if, .funname = "select_if", ...)
 }
 
-#' @rdname select
 #' @export
 select_at <- function(.data, ...) {
     log_select(.data, .fun = dplyr::select_at, .funname = "select_at", ...)

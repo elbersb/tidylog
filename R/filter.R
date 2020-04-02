@@ -1,14 +1,3 @@
-#' Wrapper around dplyr::filter and related functions
-#' that prints information about the operation
-#'
-#' @param .data a tbl; see \link[dplyr]{filter}
-#' @param ... see \link[dplyr]{filter}
-#' @return see \link[dplyr]{filter}
-#' @examples
-#' filter(mtcars, mpg > 20)
-#' #> filter: removed 18 rows (56%), 14 remaining
-#' filter(mtcars, mpg > 100)
-#' #> filter: removed all rows (100%)
 #' @import dplyr
 #' @import tidyr
 #' @export
@@ -16,79 +5,66 @@ filter <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::filter, .funname = "filter", ...)
 }
 
-#' @rdname filter
 #' @export
 filter_all <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::filter_all, .funname = "filter_all", ...)
 }
 
-#' @rdname filter
 #' @export
 filter_if <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::filter_if, .funname = "filter_if", ...)
 }
 
-#' @rdname filter
 #' @export
 filter_at <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::filter_at, .funname = "filter_at", ...)
 }
 
-#' @rdname filter
 #' @export
 distinct <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::distinct, .funname = "distinct", ...)
 }
 
-#' @rdname filter
 #' @export
 distinct_all <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::distinct_all, .funname = "distinct_all", ...)
 }
 
-#' @rdname filter
 #' @export
 distinct_if <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::distinct_if, .funname = "distinct_if", ...)
 }
 
-#' @rdname filter
 #' @export
 distinct_at <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::distinct_at, .funname = "distinct_at", ...)
 }
 
-#' @rdname filter
 #' @export
 top_n <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::top_n, .funname = "top_n", ...)
 }
 
-#' @rdname filter
 #' @export
 top_frac <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::top_frac, .funname = "top_frac", ...)
 }
 
-#' @rdname filter
 #' @export
 sample_n <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::sample_n, .funname = "sample_n", ...)
 }
 
-#' @rdname filter
 #' @export
 sample_frac <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::sample_frac, .funname = "sample_frac", ...)
 }
 
-#' @rdname filter
 #' @export
 slice <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::slice, .funname = "slice", ...)
 }
 
-#' @rdname filter
 #' @export
 drop_na <- function(.data, ...) {
     log_filter(.data, .fun = tidyr::drop_na, .funname = "drop_na", ...)

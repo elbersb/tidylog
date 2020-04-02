@@ -1,73 +1,53 @@
-#' Wrapper around dplyr::summarize and related functions
-#' that prints information about the operation
-#'
-#' @param .data a tbl; see \link[dplyr]{summarize}
-#' @param ... see \link[dplyr]{summarize}
-#' @return see \link[dplyr]{summarize}
-#' @examples
-#' summarize_all(mtcars, mean)
-#' #> summarize_all: now one row and 11 columns, ungrouped
-#' @import dplyr
 #' @export
 summarize <- function(.data, ...) {
     log_summarize(.data, .fun = dplyr::summarize, .funname = "summarize", ...)
 }
 
-#' @rdname summarize
 #' @export
 summarize_all <- function(.data, ...) {
     log_summarize(.data, .fun = dplyr::summarize_all, .funname = "summarize_all", ...)
 }
 
-#' @rdname summarize
 #' @export
 summarize_at <- function(.data, ...) {
     log_summarize(.data, .fun = dplyr::summarize_at, .funname = "summarize_at", ...)
 }
 
-#' @rdname summarize
 #' @export
 summarize_if <- function(.data, ...) {
     log_summarize(.data, .fun = dplyr::summarize_if, .funname = "summarize_if", ...)
 }
 
-#' @rdname summarize
 #' @export
 summarise <- function(.data, ...) {
     log_summarize(.data, .fun = dplyr::summarise, .funname = "summarise", ...)
 }
 
-#' @rdname summarize
 #' @export
 summarise_all <- function(.data, ...) {
     log_summarize(.data, .fun = dplyr::summarise_all, .funname = "summarise_all", ...)
 }
 
-#' @rdname summarize
 #' @export
 summarise_at <- function(.data, ...) {
     log_summarize(.data, .fun = dplyr::summarise_at, .funname = "summarise_at", ...)
 }
 
-#' @rdname summarize
 #' @export
 summarise_if <- function(.data, ...) {
     log_summarize(.data, .fun = dplyr::summarise_if, .funname = "summarise_if", ...)
 }
 
-#' @rdname summarize
 #' @export
 tally <- function(.data, ...) {
     log_summarize(.data, .fun = dplyr::tally, .funname = "tally", ...)
 }
 
-#' @rdname summarize
 #' @export
 count <- function(.data, ...) {
     log_summarize(.data, .fun = dplyr::count, .funname = "count", ...)
 }
 
-#' @rdname summarize
 #' @export
 uncount <- function(.data, ...) {
     log_summarize(.data, .fun = tidyr::uncount, .funname = "uncount", ...)
