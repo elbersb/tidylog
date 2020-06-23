@@ -2,6 +2,7 @@
 
 - add a short benchmarking vignette
 - report type for new variables (#45)
+- add relocate, rename_with, slice_* from dplyr 1.0.0
 
 # 1.0.1
 

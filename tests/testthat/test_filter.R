@@ -59,13 +59,6 @@ test_that("sample_n, sample_frac", {
     expect_equal(out, dplyr::sample_frac(mtcars, .5))
 })
 
-test_that("slice", {
-    expect_message({
-        out <- tidylog::slice(mtcars, 5:n())
-    })
-    expect_equal(out, dplyr::slice(mtcars, 5:n()))
-})
-
 test_that("filter: scoped variants", {
     expect_message({
         out <- tidylog::filter_all(mtcars, all_vars(. > 150))
@@ -135,4 +128,52 @@ test_that("drop_na", {
     })
     expect_equal(nrow(out), 146)
 
+})
+
+test_that("slice_*", {
+    expect_message({
+        out <- tidylog::slice(mtcars, 5:n())
+    })
+    expect_equal(out, dplyr::slice(mtcars, 5:n()))
+
+    expect_message({
+        out <- tidylog::slice_head(mtcars, n = 5)
+    })
+    expect_equal(out, dplyr::slice_head(mtcars, n = 5))
+
+    expect_message({
+        out <- tidylog::slice_tail(mtcars, n = 3)
+    })
+    expect_equal(out, dplyr::slice_tail(mtcars, n = 3))
+
+    expect_message({
+        out <- tidylog::slice_min(mtcars, mpg, n = 5)
+    })
+    expect_equal(out, dplyr::slice_min(mtcars, mpg, n = 5))
+
+    expect_message({
+        out <- tidylog::slice_max(mtcars, mpg, n = 3)
+    })
+    expect_equal(out, dplyr::slice_max(mtcars, mpg, n = 3))
+
+    expect_message({
+        set.seed(1)
+        out <- tidylog::slice_sample(mtcars, n = 5)
+    })
+    set.seed(1)
+    expect_equal(out, dplyr::slice_sample(mtcars, n = 5))
+
+    expect_message({
+        set.seed(1)
+        out <- tidylog::slice_sample(mtcars, n = 5, replace = TRUE)
+    })
+    set.seed(1)
+    expect_equal(out, dplyr::slice_sample(mtcars, n = 5, replace = TRUE)  )
+
+    expect_message({
+        set.seed(1)
+        out <- tidylog::slice_sample(mtcars, weight_by = wt, n = 5)
+    })
+    set.seed(1)
+    expect_equal(out, dplyr::slice_sample(mtcars, weight_by = wt, n = 5))
 })

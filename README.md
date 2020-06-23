@@ -12,9 +12,9 @@ Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis
 status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
 
 The goal of tidylog is to provide feedback about dplyr and tidyr
-operations. It provides simple wrapper functions for the most common
-functions, such as `filter`, `mutate`, `select`, `full_join`, and
-`group_by`.
+operations. It provides simple wrapper functions for almost all dplyr
+and tidyr functions, such as `filter`, `mutate`, `select`, `full_join`,
+and `group_by`.
 
 ## Example
 
@@ -33,7 +33,7 @@ or adding a new variable:
 filtered <- filter(mtcars, cyl == 4)
 #> filter: removed 21 rows (66%), 11 rows remaining
 mutated <- mutate(mtcars, new_var = wt ** 2)
-#> mutate: new variable 'new_var' with 29 unique values and 0% NA
+#> mutate: new variable 'new_var' (double) with 29 unique values and 0% NA
 ```
 
 Tidylog reports detailed information for joins:
@@ -64,7 +64,7 @@ summary <- mtcars %>%
     filter(n >= 1)
 #> select: dropped 7 variables (disp, drat, wt, qsec, vs, …)
 #> filter: removed 6 rows (19%), 26 rows remaining
-#> mutate: new variable 'mpg_round' with 15 unique values and 0% NA
+#> mutate: new variable 'mpg_round' (double) with 15 unique values and 0% NA
 #> group_by: 3 grouping variables (cyl, mpg_round, am)
 #> tally: now 20 rows and 4 columns, 2 group variables remaining (cyl, mpg_round)
 #> filter (grouped): no rows removed
@@ -119,16 +119,16 @@ k <- drop_na(airquality, Ozone)
 
 ``` r
 a <- mutate(mtcars, new_var = 1)
-#> mutate: new variable 'new_var' with one unique value and 0% NA
+#> mutate: new variable 'new_var' (double) with one unique value and 0% NA
 b <- mutate(mtcars, new_var = runif(n()))
-#> mutate: new variable 'new_var' with 32 unique values and 0% NA
+#> mutate: new variable 'new_var' (double) with 32 unique values and 0% NA
 c <- mutate(mtcars, new_var = NA)
-#> mutate: new variable 'new_var' with one unique value and 100% NA
+#> mutate: new variable 'new_var' (logical) with one unique value and 100% NA
 d <- mutate_at(mtcars, vars(mpg, gear, drat), round)
 #> mutate_at: changed 28 values (88%) of 'mpg' (0 new NA)
 #>            changed 31 values (97%) of 'drat' (0 new NA)
 e <- mutate(mtcars, am_factor = as.factor(am))
-#> mutate: new variable 'am_factor' with 2 unique values and 0% NA
+#> mutate: new variable 'am_factor' (factor) with 2 unique values and 0% NA
 f <- mutate(mtcars, am = as.ordered(am))
 #> mutate: converted 'am' from double to ordered factor (0 new NA)
 g <- mutate(mtcars, am = ifelse(am == 1, NA, am))
@@ -140,7 +140,7 @@ i <- transmute(mtcars, mpg = mpg * 2, gear = gear + 1, new_var = vs + am)
 #> transmute: dropped 9 variables (cyl, disp, hp, drat, wt, …)
 #>            changed 32 values (100%) of 'mpg' (0 new NA)
 #>            changed 32 values (100%) of 'gear' (0 new NA)
-#>            new variable 'new_var' with 3 unique values and 0% NA
+#>            new variable 'new_var' (double) with 3 unique values and 0% NA
 
 j <- replace_na(airquality, list(Solar.R = 1))
 #> replace_na: converted 'Solar.R' from integer to double (7 fewer NA)
@@ -241,12 +241,12 @@ a <- mtcars %>% group_by(gear, carb) %>% tally
 #> tally: now 11 rows and 3 columns, one group variable remaining (gear)
 b <- mtcars %>% group_by(gear, carb) %>% add_tally()
 #> group_by: 2 grouping variables (gear, carb)
-#> add_tally (grouped): new variable 'n' with 5 unique values and 0% NA
+#> add_tally (grouped): new variable 'n' (integer) with 5 unique values and 0% NA
 
 c <- mtcars %>% count(gear, carb)
 #> count: now 11 rows and 3 columns, one group variable remaining (gear)
 d <- mtcars %>% add_count(gear, carb, name = "count")
-#> add_count: new variable 'count' with 5 unique values and 0% NA
+#> add_count: new variable 'count' (integer) with 5 unique values and 0% NA
 ```
 
 ### pivot\_longer, pivot\_wider
@@ -255,7 +255,7 @@ d <- mtcars %>% add_count(gear, carb, name = "count")
 longer <- mtcars %>%
     mutate(id = 1:n()) %>%
     pivot_longer(-id, names_to = "var", values_to = "value")
-#> mutate: new variable 'id' with 32 unique values and 0% NA
+#> mutate: new variable 'id' (integer) with 32 unique values and 0% NA
 #> pivot_longer: reorganized (mpg, cyl, disp, hp, drat, …) into (var, value) [was 32x12, now 352x3]
 wider <- longer %>%
     pivot_wider(names_from = var, values_from = value)

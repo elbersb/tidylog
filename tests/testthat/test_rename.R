@@ -39,3 +39,10 @@ test_that("rename: argument order", {
     })
     expect_equal(ncol(out), ncol(dplyr::rename(mtcars, MPG = mpg, CYL = cyl)))
 })
+
+test_that("rename_with", {
+    expect_message({
+        out <- tidylog::rename_with(iris, toupper)
+    })
+    expect_equal(out, dplyr::rename_with(iris, toupper))
+})

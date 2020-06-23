@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 [![Build Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis-ci.org/elbersb/tidylog)
 [![Coverage status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
 
-The goal of tidylog is to provide feedback about dplyr and tidyr operations. It provides simple wrapper functions for the most common functions, such as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
+The goal of tidylog is to provide feedback about dplyr and tidyr operations. It provides simple wrapper functions for almost all dplyr and tidyr functions, such as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
 
 ## Example
 

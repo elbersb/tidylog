@@ -22,7 +22,7 @@ The benchmarks below give some impression of how large the overhead is.
 
 
 ```{r message = FALSE, warning = FALSE}
-library("tidyverse")
+library("dplyr")
 library("tidylog", warn.conflicts = FALSE)
 library("bench")
 library("knitr")

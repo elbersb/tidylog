@@ -66,3 +66,18 @@ test_that("select: argument order", {
     })
     expect_equal(ncol(out), ncol(dplyr::select(mtcars, mpg, cyl)))
 })
+
+test_that("relocate", {
+    df <- tibble(a = 1, b = 1, c = 1, d = "a", e = "a", f = "a")
+
+    expect_message({
+        out <- tidylog::relocate(df, f)
+    }, "columns reordered")
+    expect_equal(out, dplyr::relocate(df, f))
+
+    expect_message({
+        out <- tidylog::relocate(df, where(is.character))
+    }, "columns reordered")
+    expect_equal(out, dplyr::relocate(df, where(is.character)))
+})
+
