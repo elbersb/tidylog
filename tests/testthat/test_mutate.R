@@ -245,7 +245,7 @@ test_that("mutate: ordered factors", {
     expect_message({
         new <- tidylog::mutate(df,
                     y = forcats::fct_recode(x, fruit = "apple", fruit = "banana"))
-    }, "new variable 'y' with 3 unique values")
+    }, "new variable 'y' (ordered factor) with 3 unique values", fixed = TRUE)
     expect_true(all(new$y == rec))
 
     # overwriting
@@ -254,4 +254,18 @@ test_that("mutate: ordered factors", {
                     x = forcats::fct_recode(x, fruit = "apple", fruit = "banana"))
     }, "changed 2 values")
     expect_true(all(new$x == rec))
+})
+
+test_that("mutate: variable type", {
+    expect_message({
+        tidylog::mutate(tibble(x = 1:10), y = 1)
+    }, "new variable 'y' (double)", fixed = TRUE)
+
+    expect_message({
+        tidylog::mutate(tibble(x = 1:10), y = "a")
+    }, "new variable 'y' (character)", fixed = TRUE)
+
+    expect_message({
+        tidylog::mutate(tibble(x = 1:10), y = as.factor("a"))
+    }, "new variable 'y' (factor)", fixed = TRUE)
 })

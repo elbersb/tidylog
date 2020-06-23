@@ -92,7 +92,7 @@ log_mutate <- function(.data, .fun, .funname, ...) {
             has_changed <- TRUE
             n <- length(unique(newdata[[var]]))
             p_na <- percent(sum(is.na(newdata[[var]])), length(newdata[[var]]))
-            display(glue::glue("{prefix} new variable '{var}' ",
+            display(glue::glue("{prefix} new variable '{var}' ({get_type(newdata[[var]])}) ",
                 "with {plural(n, 'value', 'unique ')} and {p_na} NA"))
             # replace by spaces
             prefix <- paste0(rep(" ", nchar(prefix)), collapse = "")

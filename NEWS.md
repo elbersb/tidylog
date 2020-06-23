@@ -1,6 +1,7 @@
 # 1.0.1.9000
 
 - add a short benchmarking vignette
+- report type for new variables (#45)
 
 # 1.0.1
 
