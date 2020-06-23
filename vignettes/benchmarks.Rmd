@@ -1,0 +1,113 @@
+---
+title: "Benchmarks"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{benchmarks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Using `tidylog` adds a small overhead to each function call. For instance, because tidylog needs
+to figure out how many rows were dropped when you use `tidylog::filter`,
+this call will be a bit slower than using `dplyr::filter` directly.
+The overhead is usually not noticeable, but can be for larger datasets, especially when using joins.
+The benchmarks below give some impression of how large the overhead is.
+
+
+```{r message = FALSE, warning = FALSE}
+library("tidyverse")
+library("tidylog", warn.conflicts = FALSE)
+library("bench")
+library("knitr")
+```
+
+## filter
+
+On a small dataset:
+
+```{r message = FALSE}
+bench::mark(
+    dplyr::filter(mtcars, cyl == 4),
+    tidylog::filter(mtcars, cyl == 4), iterations = 100
+) %>%
+    dplyr::select(expression, min, median, n_itr) %>%
+    kable()
+```
+
+On a larger dataset:
+
+```{r message = FALSE}
+df <- tibble(x = rnorm(1000000))
+
+bench::mark(
+    dplyr::filter(df, x > 0),
+    tidylog::filter(df, x > 0), iterations = 100
+) %>%
+    dplyr::select(expression, min, median, n_itr) %>%
+    kable()
+```
+
+## mutate
+
+On a small dataset:
+
+```{r message = FALSE}
+bench::mark(
+    dplyr::mutate(mtcars, cyl = as.factor(cyl)),
+    tidylog::mutate(mtcars, cyl = as.factor(cyl)), iterations = 100
+) %>%
+    dplyr::select(expression, min, median, n_itr) %>%
+    kable()
+```
+
+On a larger dataset:
+
+```{r message = FALSE}
+df <- tibble(x = round(runif(10000) * 10))
+
+bench::mark(
+    dplyr::mutate(df, x = as.factor(x)),
+    tidylog::mutate(df, x = as.factor(x)), iterations = 100
+) %>%
+    dplyr::select(expression, min, median, n_itr) %>%
+    kable()
+```
+
+## joins
+
+Joins are the most expensive operation, as tidylog has to do
+two additional joins behind the scenes.
+
+On a small dataset:
+
+```{r message = FALSE}
+bench::mark(
+    dplyr::inner_join(band_members, band_instruments, by = "name"),
+    tidylog::inner_join(band_members, band_instruments, by = "name"), iterations = 100
+) %>%
+    dplyr::select(expression, min, median, n_itr) %>%
+    kable()
+```
+
+On a larger dataset (with many row duplications):
+
+```{r message = FALSE}
+N <- 10000
+df1 <- tibble(x1 = rnorm(N), key = round(runif(N) * 10))
+df2 <- tibble(x2 = rnorm(N), key = round(runif(N) * 10))
+
+bench::mark(
+    dplyr::inner_join(df1, df2, by = "key"),
+    tidylog::inner_join(df1, df2, by = "key"), iterations = 100
+) %>%
+    dplyr::select(expression, min, median, n_itr) %>%
+    kable()
+```
+

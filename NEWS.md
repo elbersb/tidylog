@@ -1,4 +1,8 @@
-# 1.0.0.9000
+# 1.0.1.9000
+
+- add a short benchmarking vignette
+
+# 1.0.1
 
 - autogenerate documentation
 - data argument now has same name as in tidyr/dplyr (#43)
