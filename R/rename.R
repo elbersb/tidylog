@@ -18,6 +18,11 @@ rename_at <- function(.tbl, ...) {
     log_rename(.tbl, .fun = dplyr::rename_at, .funname = "rename_at", ...)
 }
 
+#' @export
+rename_with <- function(.data, ...) {
+    log_rename(.data, .fun = dplyr::rename_with, .funname = "rename_with", ...)
+}
+
 log_rename <- function(.data, .fun, .funname, ...) {
     cols <- names(.data)
     newdata <- .fun(.data, ...)

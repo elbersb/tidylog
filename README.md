@@ -199,22 +199,22 @@ Because tidylog needs to perform two additional joins behind the scenes
 to report this information, the overhead will be larger than for the
 other tidylog functions (especially with large datasets).
 
-### select, rename
+### select, relocate, rename
 
 ``` r
 a <- select(mtcars, mpg, wt)
 #> select: dropped 9 variables (cyl, disp, hp, drat, qsec, …)
 b <- select_if(mtcars, is.character)
 #> select_if: dropped all variables
-c <- select(mtcars, hp, everything())
-#> select: columns reordered (hp, mpg, cyl, disp, drat, …)
+c <- relocate(mtcars, hp)
+#> relocate: columns reordered (hp, mpg, cyl, disp, drat, …)
 d <- select(mtcars, a = wt, b = mpg)
 #> select: renamed 2 variables (a, b) and dropped 9 variables
 
 e <- rename(mtcars, miles_per_gallon = mpg)
 #> rename: renamed one variable (miles_per_gallon)
-f <- rename_all(mtcars, toupper)
-#> rename_all: renamed 11 variables (MPG, CYL, DISP, HP, DRAT, …)
+f <- rename_with(mtcars, toupper)
+#> rename_with: renamed 11 variables (MPG, CYL, DISP, HP, DRAT, …)
 ```
 
 ### summarize
@@ -244,7 +244,7 @@ b <- mtcars %>% group_by(gear, carb) %>% add_tally()
 #> add_tally (grouped): new variable 'n' with 5 unique values and 0% NA
 
 c <- mtcars %>% count(gear, carb)
-#> count: now 11 rows and 3 columns, ungrouped
+#> count: now 11 rows and 3 columns, one group variable remaining (gear)
 d <- mtcars %>% add_count(gear, carb, name = "count")
 #> add_count: new variable 'count' with 5 unique values and 0% NA
 ```

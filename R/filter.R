@@ -66,6 +66,31 @@ slice <- function(.data, ...) {
 }
 
 #' @export
+slice_head <- function(.data, ...) {
+    log_filter(.data, .fun = dplyr::slice_head, .funname = "slice_head", ...)
+}
+
+#' @export
+slice_tail <- function(.data, ...) {
+    log_filter(.data, .fun = dplyr::slice_tail, .funname = "slice_tail", ...)
+}
+
+#' @export
+slice_min <- function(.data, ...) {
+    log_filter(.data, .fun = dplyr::slice_min, .funname = "slice_min", ...)
+}
+
+#' @export
+slice_max <- function(.data, ...) {
+    log_filter(.data, .fun = dplyr::slice_max, .funname = "slice_max", ...)
+}
+
+#' @export
+slice_sample <- function(.data, ...) {
+    log_filter(.data, .fun = dplyr::slice_sample, .funname = "slice_sample", ...)
+}
+
+#' @export
 drop_na <- function(data, ...) {
     log_filter(data, .fun = tidyr::drop_na, .funname = "drop_na", ...)
 }

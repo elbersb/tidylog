@@ -18,6 +18,11 @@ select_at <- function(.tbl, ...) {
     log_select(.tbl, .fun = dplyr::select_at, .funname = "select_at", ...)
 }
 
+#' @export
+relocate <- function(.data, ...) {
+    log_select(.data, .fun = dplyr::relocate, .funname = "relocate", ...)
+}
+
 log_select <- function(.data, .fun, .funname, ...) {
     cols <- names(.data)
     newdata <- .fun(.data, ...)
