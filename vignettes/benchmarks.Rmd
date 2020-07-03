@@ -44,7 +44,7 @@ bench::mark(
 On a larger dataset:
 
 ```{r message = FALSE}
-df <- tibble(x = rnorm(1000000))
+df <- tibble(x = rnorm(100000))
 
 bench::mark(
     dplyr::filter(df, x > 0),
@@ -99,7 +99,7 @@ bench::mark(
 On a larger dataset (with many row duplications):
 
 ```{r message = FALSE}
-N <- 10000
+N <- 1000
 df1 <- tibble(x1 = rnorm(N), key = round(runif(N) * 10))
 df2 <- tibble(x2 = rnorm(N), key = round(runif(N) * 10))
 
