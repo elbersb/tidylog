@@ -6,12 +6,12 @@ that prints information about the operation}
 distinct(.data, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{distinct}}
+\item{.data}{see \link[dplyr:distinct]{distinct}}
 
-\item{...}{see \link[dplyr]{distinct}}
+\item{...}{see \link[dplyr:distinct]{distinct}}
 }
 \value{
-see \link[dplyr]{distinct}
+see \link[dplyr:distinct]{distinct}
 }
 \description{
 Wrapper around dplyr::distinct

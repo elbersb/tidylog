@@ -6,16 +6,16 @@ that prints information about the operation}
 inner_join(x, y, by, ...)
 }
 \arguments{
-\item{x}{see \link[dplyr]{inner_join}}
+\item{x}{see \link[dplyr:mutate-joins]{inner_join}}
 
-\item{y}{see \link[dplyr]{inner_join}}
+\item{y}{see \link[dplyr:mutate-joins]{inner_join}}
 
-\item{by}{see \link[dplyr]{inner_join}}
+\item{by}{see \link[dplyr:mutate-joins]{inner_join}}
 
-\item{...}{see \link[dplyr]{inner_join}}
+\item{...}{see \link[dplyr:mutate-joins]{inner_join}}
 }
 \value{
-see \link[dplyr]{inner_join}
+see \link[dplyr:mutate-joins]{inner_join}
 }
 \description{
 Wrapper around dplyr::inner_join

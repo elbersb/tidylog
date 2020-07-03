@@ -6,12 +6,12 @@ that prints information about the operation}
 slice_head(.data, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{slice_head}}
+\item{.data}{see \link[dplyr:slice]{slice_head}}
 
-\item{...}{see \link[dplyr]{slice_head}}
+\item{...}{see \link[dplyr:slice]{slice_head}}
 }
 \value{
-see \link[dplyr]{slice_head}
+see \link[dplyr:slice]{slice_head}
 }
 \description{
 Wrapper around dplyr::slice_head

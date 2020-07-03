@@ -6,12 +6,12 @@ that prints information about the operation}
 filter_if(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{filter_if}}
+\item{.tbl}{see \link[dplyr:filter_all]{filter_if}}
 
-\item{...}{see \link[dplyr]{filter_if}}
+\item{...}{see \link[dplyr:filter_all]{filter_if}}
 }
 \value{
-see \link[dplyr]{filter_if}
+see \link[dplyr:filter_all]{filter_if}
 }
 \description{
 Wrapper around dplyr::filter_if

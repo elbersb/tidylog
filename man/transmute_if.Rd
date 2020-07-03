@@ -6,12 +6,12 @@ that prints information about the operation}
 transmute_if(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{transmute_if}}
+\item{.tbl}{see \link[dplyr:mutate_all]{transmute_if}}
 
-\item{...}{see \link[dplyr]{transmute_if}}
+\item{...}{see \link[dplyr:mutate_all]{transmute_if}}
 }
 \value{
-see \link[dplyr]{transmute_if}
+see \link[dplyr:mutate_all]{transmute_if}
 }
 \description{
 Wrapper around dplyr::transmute_if

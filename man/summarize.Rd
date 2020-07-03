@@ -6,12 +6,12 @@ that prints information about the operation}
 summarize(.data, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{summarize}}
+\item{.data}{see \link[dplyr:summarise]{summarize}}
 
-\item{...}{see \link[dplyr]{summarize}}
+\item{...}{see \link[dplyr:summarise]{summarize}}
 }
 \value{
-see \link[dplyr]{summarize}
+see \link[dplyr:summarise]{summarize}
 }
 \description{
 Wrapper around dplyr::summarize

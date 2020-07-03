@@ -6,12 +6,12 @@ that prints information about the operation}
 distinct_all(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{distinct_all}}
+\item{.tbl}{see \link[dplyr:distinct_all]{distinct_all}}
 
-\item{...}{see \link[dplyr]{distinct_all}}
+\item{...}{see \link[dplyr:distinct_all]{distinct_all}}
 }
 \value{
-see \link[dplyr]{distinct_all}
+see \link[dplyr:distinct_all]{distinct_all}
 }
 \description{
 Wrapper around dplyr::distinct_all

@@ -6,12 +6,12 @@ that prints information about the operation}
 ungroup(x, ...)
 }
 \arguments{
-\item{x}{see \link[dplyr]{ungroup}}
+\item{x}{see \link[dplyr:group_by]{ungroup}}
 
-\item{...}{see \link[dplyr]{ungroup}}
+\item{...}{see \link[dplyr:group_by]{ungroup}}
 }
 \value{
-see \link[dplyr]{ungroup}
+see \link[dplyr:group_by]{ungroup}
 }
 \description{
 Wrapper around dplyr::ungroup

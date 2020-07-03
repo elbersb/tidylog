@@ -6,16 +6,16 @@ that prints information about the operation}
 semi_join(x, y, by, ...)
 }
 \arguments{
-\item{x}{see \link[dplyr]{semi_join}}
+\item{x}{see \link[dplyr:filter-joins]{semi_join}}
 
-\item{y}{see \link[dplyr]{semi_join}}
+\item{y}{see \link[dplyr:filter-joins]{semi_join}}
 
-\item{by}{see \link[dplyr]{semi_join}}
+\item{by}{see \link[dplyr:filter-joins]{semi_join}}
 
-\item{...}{see \link[dplyr]{semi_join}}
+\item{...}{see \link[dplyr:filter-joins]{semi_join}}
 }
 \value{
-see \link[dplyr]{semi_join}
+see \link[dplyr:filter-joins]{semi_join}
 }
 \description{
 Wrapper around dplyr::semi_join

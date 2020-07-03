@@ -6,12 +6,12 @@ that prints information about the operation}
 transmute_at(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{transmute_at}}
+\item{.tbl}{see \link[dplyr:mutate_all]{transmute_at}}
 
-\item{...}{see \link[dplyr]{transmute_at}}
+\item{...}{see \link[dplyr:mutate_all]{transmute_at}}
 }
 \value{
-see \link[dplyr]{transmute_at}
+see \link[dplyr:mutate_all]{transmute_at}
 }
 \description{
 Wrapper around dplyr::transmute_at

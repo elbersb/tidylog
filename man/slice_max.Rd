@@ -6,12 +6,12 @@ that prints information about the operation}
 slice_max(.data, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{slice_max}}
+\item{.data}{see \link[dplyr:slice]{slice_max}}
 
-\item{...}{see \link[dplyr]{slice_max}}
+\item{...}{see \link[dplyr:slice]{slice_max}}
 }
 \value{
-see \link[dplyr]{slice_max}
+see \link[dplyr:slice]{slice_max}
 }
 \description{
 Wrapper around dplyr::slice_max

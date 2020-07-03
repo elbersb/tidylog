@@ -6,12 +6,12 @@ that prints information about the operation}
 select_if(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{select_if}}
+\item{.tbl}{see \link[dplyr:select_all]{select_if}}
 
-\item{...}{see \link[dplyr]{select_if}}
+\item{...}{see \link[dplyr:select_all]{select_if}}
 }
 \value{
-see \link[dplyr]{select_if}
+see \link[dplyr:select_all]{select_if}
 }
 \description{
 Wrapper around dplyr::select_if

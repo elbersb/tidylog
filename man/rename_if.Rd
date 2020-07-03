@@ -6,12 +6,12 @@ that prints information about the operation}
 rename_if(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{rename_if}}
+\item{.tbl}{see \link[dplyr:select_all]{rename_if}}
 
-\item{...}{see \link[dplyr]{rename_if}}
+\item{...}{see \link[dplyr:select_all]{rename_if}}
 }
 \value{
-see \link[dplyr]{rename_if}
+see \link[dplyr:select_all]{rename_if}
 }
 \description{
 Wrapper around dplyr::rename_if

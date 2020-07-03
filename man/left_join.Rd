@@ -6,16 +6,16 @@ that prints information about the operation}
 left_join(x, y, by, ...)
 }
 \arguments{
-\item{x}{see \link[dplyr]{left_join}}
+\item{x}{see \link[dplyr:mutate-joins]{left_join}}
 
-\item{y}{see \link[dplyr]{left_join}}
+\item{y}{see \link[dplyr:mutate-joins]{left_join}}
 
-\item{by}{see \link[dplyr]{left_join}}
+\item{by}{see \link[dplyr:mutate-joins]{left_join}}
 
-\item{...}{see \link[dplyr]{left_join}}
+\item{...}{see \link[dplyr:mutate-joins]{left_join}}
 }
 \value{
-see \link[dplyr]{left_join}
+see \link[dplyr:mutate-joins]{left_join}
 }
 \description{
 Wrapper around dplyr::left_join

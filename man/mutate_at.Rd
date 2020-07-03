@@ -6,12 +6,12 @@ that prints information about the operation}
 mutate_at(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{mutate_at}}
+\item{.tbl}{see \link[dplyr:mutate_all]{mutate_at}}
 
-\item{...}{see \link[dplyr]{mutate_at}}
+\item{...}{see \link[dplyr:mutate_all]{mutate_at}}
 }
 \value{
-see \link[dplyr]{mutate_at}
+see \link[dplyr:mutate_all]{mutate_at}
 }
 \description{
 Wrapper around dplyr::mutate_at

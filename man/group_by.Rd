@@ -6,12 +6,12 @@ that prints information about the operation}
 group_by(.data, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{group_by}}
+\item{.data}{see \link[dplyr:group_by]{group_by}}
 
-\item{...}{see \link[dplyr]{group_by}}
+\item{...}{see \link[dplyr:group_by]{group_by}}
 }
 \value{
-see \link[dplyr]{group_by}
+see \link[dplyr:group_by]{group_by}
 }
 \description{
 Wrapper around dplyr::group_by

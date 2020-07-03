@@ -6,12 +6,12 @@ that prints information about the operation}
 slice(.data, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{slice}}
+\item{.data}{see \link[dplyr:slice]{slice}}
 
-\item{...}{see \link[dplyr]{slice}}
+\item{...}{see \link[dplyr:slice]{slice}}
 }
 \value{
-see \link[dplyr]{slice}
+see \link[dplyr:slice]{slice}
 }
 \description{
 Wrapper around dplyr::slice

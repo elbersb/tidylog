@@ -6,12 +6,12 @@ that prints information about the operation}
 select_all(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{select_all}}
+\item{.tbl}{see \link[dplyr:select_all]{select_all}}
 
-\item{...}{see \link[dplyr]{select_all}}
+\item{...}{see \link[dplyr:select_all]{select_all}}
 }
 \value{
-see \link[dplyr]{select_all}
+see \link[dplyr:select_all]{select_all}
 }
 \description{
 Wrapper around dplyr::select_all

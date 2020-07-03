@@ -6,16 +6,16 @@ that prints information about the operation}
 anti_join(x, y, by, ...)
 }
 \arguments{
-\item{x}{see \link[dplyr]{anti_join}}
+\item{x}{see \link[dplyr:filter-joins]{anti_join}}
 
-\item{y}{see \link[dplyr]{anti_join}}
+\item{y}{see \link[dplyr:filter-joins]{anti_join}}
 
-\item{by}{see \link[dplyr]{anti_join}}
+\item{by}{see \link[dplyr:filter-joins]{anti_join}}
 
-\item{...}{see \link[dplyr]{anti_join}}
+\item{...}{see \link[dplyr:filter-joins]{anti_join}}
 }
 \value{
-see \link[dplyr]{anti_join}
+see \link[dplyr:filter-joins]{anti_join}
 }
 \description{
 Wrapper around dplyr::anti_join

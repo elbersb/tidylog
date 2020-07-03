@@ -6,12 +6,12 @@ that prints information about the operation}
 slice_sample(.data, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{slice_sample}}
+\item{.data}{see \link[dplyr:slice]{slice_sample}}
 
-\item{...}{see \link[dplyr]{slice_sample}}
+\item{...}{see \link[dplyr:slice]{slice_sample}}
 }
 \value{
-see \link[dplyr]{slice_sample}
+see \link[dplyr:slice]{slice_sample}
 }
 \description{
 Wrapper around dplyr::slice_sample

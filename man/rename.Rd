@@ -6,12 +6,12 @@ that prints information about the operation}
 rename(.data, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{rename}}
+\item{.data}{see \link[dplyr:rename]{rename}}
 
-\item{...}{see \link[dplyr]{rename}}
+\item{...}{see \link[dplyr:rename]{rename}}
 }
 \value{
-see \link[dplyr]{rename}
+see \link[dplyr:rename]{rename}
 }
 \description{
 Wrapper around dplyr::rename

@@ -6,12 +6,12 @@ that prints information about the operation}
 rename_at(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{rename_at}}
+\item{.tbl}{see \link[dplyr:select_all]{rename_at}}
 
-\item{...}{see \link[dplyr]{rename_at}}
+\item{...}{see \link[dplyr:select_all]{rename_at}}
 }
 \value{
-see \link[dplyr]{rename_at}
+see \link[dplyr:select_all]{rename_at}
 }
 \description{
 Wrapper around dplyr::rename_at

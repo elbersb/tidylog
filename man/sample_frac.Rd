@@ -6,12 +6,12 @@ that prints information about the operation}
 sample_frac(tbl, ...)
 }
 \arguments{
-\item{tbl}{see \link[dplyr]{sample_frac}}
+\item{tbl}{see \link[dplyr:sample_n]{sample_frac}}
 
-\item{...}{see \link[dplyr]{sample_frac}}
+\item{...}{see \link[dplyr:sample_n]{sample_frac}}
 }
 \value{
-see \link[dplyr]{sample_frac}
+see \link[dplyr:sample_n]{sample_frac}
 }
 \description{
 Wrapper around dplyr::sample_frac

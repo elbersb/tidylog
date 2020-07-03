@@ -6,12 +6,12 @@ that prints information about the operation}
 summarize_if(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{summarize_if}}
+\item{.tbl}{see \link[dplyr:summarise_all]{summarize_if}}
 
-\item{...}{see \link[dplyr]{summarize_if}}
+\item{...}{see \link[dplyr:summarise_all]{summarize_if}}
 }
 \value{
-see \link[dplyr]{summarize_if}
+see \link[dplyr:summarise_all]{summarize_if}
 }
 \description{
 Wrapper around dplyr::summarize_if

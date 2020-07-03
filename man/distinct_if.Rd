@@ -6,12 +6,12 @@ that prints information about the operation}
 distinct_if(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{distinct_if}}
+\item{.tbl}{see \link[dplyr:distinct_all]{distinct_if}}
 
-\item{...}{see \link[dplyr]{distinct_if}}
+\item{...}{see \link[dplyr:distinct_all]{distinct_if}}
 }
 \value{
-see \link[dplyr]{distinct_if}
+see \link[dplyr:distinct_all]{distinct_if}
 }
 \description{
 Wrapper around dplyr::distinct_if

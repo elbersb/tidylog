@@ -6,12 +6,12 @@ that prints information about the operation}
 summarize_all(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{summarize_all}}
+\item{.tbl}{see \link[dplyr:summarise_all]{summarize_all}}
 
-\item{...}{see \link[dplyr]{summarize_all}}
+\item{...}{see \link[dplyr:summarise_all]{summarize_all}}
 }
 \value{
-see \link[dplyr]{summarize_all}
+see \link[dplyr:summarise_all]{summarize_all}
 }
 \description{
 Wrapper around dplyr::summarize_all

@@ -6,12 +6,12 @@ that prints information about the operation}
 slice_min(.data, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{slice_min}}
+\item{.data}{see \link[dplyr:slice]{slice_min}}
 
-\item{...}{see \link[dplyr]{slice_min}}
+\item{...}{see \link[dplyr:slice]{slice_min}}
 }
 \value{
-see \link[dplyr]{slice_min}
+see \link[dplyr:slice]{slice_min}
 }
 \description{
 Wrapper around dplyr::slice_min

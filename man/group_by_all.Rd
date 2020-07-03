@@ -6,12 +6,12 @@ that prints information about the operation}
 group_by_all(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{group_by_all}}
+\item{.tbl}{see \link[dplyr:group_by_all]{group_by_all}}
 
-\item{...}{see \link[dplyr]{group_by_all}}
+\item{...}{see \link[dplyr:group_by_all]{group_by_all}}
 }
 \value{
-see \link[dplyr]{group_by_all}
+see \link[dplyr:group_by_all]{group_by_all}
 }
 \description{
 Wrapper around dplyr::group_by_all

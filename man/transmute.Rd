@@ -6,12 +6,12 @@ that prints information about the operation}
 transmute(.data, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{transmute}}
+\item{.data}{see \link[dplyr:mutate]{transmute}}
 
-\item{...}{see \link[dplyr]{transmute}}
+\item{...}{see \link[dplyr:mutate]{transmute}}
 }
 \value{
-see \link[dplyr]{transmute}
+see \link[dplyr:mutate]{transmute}
 }
 \description{
 Wrapper around dplyr::transmute

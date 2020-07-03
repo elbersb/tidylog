@@ -6,12 +6,12 @@ that prints information about the operation}
 top_n(x, ...)
 }
 \arguments{
-\item{x}{see \link[dplyr]{top_n}}
+\item{x}{see \link[dplyr:top_n]{top_n}}
 
-\item{...}{see \link[dplyr]{top_n}}
+\item{...}{see \link[dplyr:top_n]{top_n}}
 }
 \value{
-see \link[dplyr]{top_n}
+see \link[dplyr:top_n]{top_n}
 }
 \description{
 Wrapper around dplyr::top_n

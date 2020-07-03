@@ -6,12 +6,12 @@ that prints information about the operation}
 mutate(.data, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{mutate}}
+\item{.data}{see \link[dplyr:mutate]{mutate}}
 
-\item{...}{see \link[dplyr]{mutate}}
+\item{...}{see \link[dplyr:mutate]{mutate}}
 }
 \value{
-see \link[dplyr]{mutate}
+see \link[dplyr:mutate]{mutate}
 }
 \description{
 Wrapper around dplyr::mutate

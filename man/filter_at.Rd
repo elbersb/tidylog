@@ -6,12 +6,12 @@ that prints information about the operation}
 filter_at(.tbl, ...)
 }
 \arguments{
-\item{.tbl}{see \link[dplyr]{filter_at}}
+\item{.tbl}{see \link[dplyr:filter_all]{filter_at}}
 
-\item{...}{see \link[dplyr]{filter_at}}
+\item{...}{see \link[dplyr:filter_all]{filter_at}}
 }
 \value{
-see \link[dplyr]{filter_at}
+see \link[dplyr:filter_all]{filter_at}
 }
 \description{
 Wrapper around dplyr::filter_at

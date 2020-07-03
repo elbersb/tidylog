@@ -6,12 +6,12 @@ that prints information about the operation}
 relocate(.data, ...)
 }
 \arguments{
-\item{.data}{see \link[dplyr]{relocate}}
+\item{.data}{see \link[dplyr:relocate]{relocate}}
 
-\item{...}{see \link[dplyr]{relocate}}
+\item{...}{see \link[dplyr:relocate]{relocate}}
 }
 \value{
-see \link[dplyr]{relocate}
+see \link[dplyr:relocate]{relocate}
 }
 \description{
 Wrapper around dplyr::relocate

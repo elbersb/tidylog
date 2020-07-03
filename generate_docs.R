@@ -5,6 +5,7 @@ library(glue)
 library(tidylog)
 library(dplyr)
 library(tidyr)
+library(stringr)
 
 # get tidylog functions (not very elegant...)
 conn <- file("NAMESPACE")
@@ -28,7 +29,7 @@ that prints information about the operation}
 <args>
 }
 \\value{
-see \\link[<package>]{<f>}
+see \\link[<package><topic>]{<f>}
 }
 \\description{
 Wrapper around <package>::<f>
@@ -36,6 +37,7 @@ that prints information about the operation
 }"
 
 tidylog_env <- environment(tidylog::tidylog)
+html_links <- tools::findHTMLlinks(level = 0:5)
 
 for (f in functions) {
     if (f %in% functions_dplyr) {
@@ -45,9 +47,18 @@ for (f in functions) {
     } else {
         next
     }
+    # find topic
+    topic <- html_links[str_detect(html_links, package) & names(html_links) == f]
+    topic <- str_match(topic, "/([^/]*)\\.html")[, 2]
+    if (length(topic) == 0) {
+        topic <- ""
+    } else {
+        topic <- paste0(":", topic)
+    }
+
     args_list <- names(formals(f, tidylog_env))
     usage <- glue("{f}({paste(args_list, collapse = ', ')})")
-    args <- glue("\\item{<args_list>}{see \\link[<package>]{<f>}}", .open = "<", .close = ">")
+    args <- glue("\\item{<args_list>}{see \\link[<package><topic>]{<f>}}", .open = "<", .close = ">")
     args <- paste0(args, collapse = "\n\n")
 
     doc <- glue(template, .open = "<", .close = ">")

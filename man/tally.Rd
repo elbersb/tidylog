@@ -6,12 +6,12 @@ that prints information about the operation}
 tally(x, ...)
 }
 \arguments{
-\item{x}{see \link[dplyr]{tally}}
+\item{x}{see \link[dplyr:count]{tally}}
 
-\item{...}{see \link[dplyr]{tally}}
+\item{...}{see \link[dplyr:count]{tally}}
 }
 \value{
-see \link[dplyr]{tally}
+see \link[dplyr:count]{tally}
 }
 \description{
 Wrapper around dplyr::tally
