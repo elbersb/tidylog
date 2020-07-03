@@ -1,5 +1,4 @@
-This is a resubmission for version 1.0.2.
-Documentation issues have been fixed.
+This is a submission for version 1.0.2.
 
 ## Test environments
 
