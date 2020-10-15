@@ -22,5 +22,5 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/elbersb/tidylog/
 BugReports: https://github.com/elbersb/tidylog/issues
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 VignetteBuilder: knitr
