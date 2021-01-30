@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 [![CRAN Version](https://www.r-pkg.org/badges/version/tidylog)](https://CRAN.R-project.org/package=tidylog)
 [![Downloads](http://cranlogs.r-pkg.org/badges/tidylog)](https://CRAN.R-project.org/package=tidylog)
-[![Build Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis-ci.org/elbersb/tidylog)
+[![R-CMD-check](https://github.com/elbersb/tidylog/workflows/R-CMD-check/badge.svg)](https://github.com/elbersb/tidylog/actions)
 [![Coverage status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
 
 The goal of tidylog is to provide feedback about dplyr and tidyr operations. It provides simple wrapper functions for almost all dplyr and tidyr functions, such as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
@@ -76,7 +76,7 @@ devtools::install_github("elbersb/tidylog")
 
 ## Benchmarks
 
-Tidylog will add a small overhead to each function call. This can be relevant for very large datasets and especially for joins. If you want to switch off tidylog for a single long-running command, simply prefix `dplyr::` or `tidyr::`, such as in `dplyr::left_join`. See [this vignette](https://cran.r-project.org/web/packages/tidylog/vignettes/benchmarks.html) for more information. 
+Tidylog will add a small overhead to each function call. This can be relevant for very large datasets and especially for joins. If you want to switch off tidylog for a single long-running command, simply prefix `dplyr::` or `tidyr::`, such as in `dplyr::left_join`. See [this vignette](https://cran.r-project.org/web/packages/tidylog/vignettes/benchmarks.html) for more information.
 
 ## More examples
 

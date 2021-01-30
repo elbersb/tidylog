@@ -6,8 +6,7 @@
 [![CRAN
 Version](https://www.r-pkg.org/badges/version/tidylog)](https://CRAN.R-project.org/package=tidylog)
 [![Downloads](http://cranlogs.r-pkg.org/badges/tidylog)](https://CRAN.R-project.org/package=tidylog)
-[![Build
-Status](https://travis-ci.org/elbersb/tidylog.svg?branch=master)](https://travis-ci.org/elbersb/tidylog)
+[![R-CMD-check](https://github.com/elbersb/tidylog/workflows/R-CMD-check/badge.svg)](https://github.com/elbersb/tidylog/actions)
 [![Coverage
 status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
 
@@ -253,7 +252,7 @@ b <- mtcars %>% group_by(gear, carb) %>% add_tally()
 #> add_tally (grouped): new variable 'n' (integer) with 5 unique values and 0% NA
 
 c <- mtcars %>% count(gear, carb)
-#> count: now 11 rows and 3 columns, one group variable remaining (gear)
+#> count: now 11 rows and 3 columns, ungrouped
 d <- mtcars %>% add_count(gear, carb, name = "count")
 #> add_count: new variable 'count' (integer) with 5 unique values and 0% NA
 ```

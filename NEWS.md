@@ -1,5 +1,6 @@
 # 1.0.2.9000
 
+- switch to Github Actions for CI
 
 # 1.0.2
 

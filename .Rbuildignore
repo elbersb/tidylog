@@ -7,9 +7,9 @@
 ^README-.*\.png$
 ^cran-comments\.md$
 ^codecov\.yml$
-^\.travis\.yml$
 ^render_README\.R$
 ^docs$
 ^\.lintr$
 ^log.txt$
 ^generate_docs.R$
+^\.github$
