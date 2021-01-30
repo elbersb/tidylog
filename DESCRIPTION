@@ -14,6 +14,7 @@ Imports: dplyr, tidyr, glue, clisymbols, rlang (>= 0.4.3)
 Suggests:
     testthat,
     units,
+    nycflights13,
     covr,
     forcats,
     knitr,

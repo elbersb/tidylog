@@ -111,9 +111,9 @@ test_that("univariate inner join has all columns, repeated matching rows", {
     })
 
     # one row from x not included
-    expect_match(msg, "rows only in x\\s*\\(1\\)", all = FALSE)
+    expect_match(msg, "rows only in a\\s*\\(1\\)", all = FALSE)
     # one row from y not included
-    expect_match(msg, "rows only in y\\s*\\(1\\)", all = FALSE)
+    expect_match(msg, "rows only in b\\s*\\(1\\)", all = FALSE)
     # four rows matched, including duplicates
     expect_match(msg, "matched rows\\s*4", all = FALSE)
     expect_match(msg, "duplicate", all = FALSE)
@@ -127,9 +127,9 @@ test_that("univariate semi join has x columns, matching rows", {
     })
 
     # one row from x not included
-    expect_match(msg, "rows only in x\\s*\\(1\\)", all = FALSE)
+    expect_match(msg, "rows only in a\\s*\\(1\\)", all = FALSE)
     # one row from y not included
-    expect_match(msg, "rows only in y\\s*\\(1\\)", all = FALSE)
+    expect_match(msg, "rows only in b\\s*\\(1\\)", all = FALSE)
     # three rows matched, no duplication
     expect_match(msg, "matched rows\\s*3", all = FALSE)
     expect_true(!any(grepl("duplicate", msg)))
@@ -143,9 +143,9 @@ test_that("univariate full join has all columns, all rows", {
     })
 
     # one row from x included
-    expect_match(msg, "rows only in x\\s*1", all = FALSE)
+    expect_match(msg, "rows only in a\\s*1", all = FALSE)
     # one row from y included
-    expect_match(msg, "rows only in y\\s*1", all = FALSE)
+    expect_match(msg, "rows only in b\\s*1", all = FALSE)
     # four rows matched, including duplicates
     expect_match(msg, "matched rows\\s*4", all = FALSE)
     expect_match(msg, "duplicate", all = FALSE)
@@ -159,9 +159,9 @@ test_that("univariate left join has all columns, all rows", {
     })
 
     # one row from x included
-    expect_match(msg, "rows only in x\\s*1", all = FALSE)
+    expect_match(msg, "rows only in a\\s*1", all = FALSE)
     # one row from y not included
-    expect_match(msg, "rows only in y\\s*\\(1\\)", all = FALSE)
+    expect_match(msg, "rows only in b\\s*\\(1\\)", all = FALSE)
     # four rows matched, including duplicates
     expect_match(msg, "matched rows\\s*4", all = FALSE)
     expect_match(msg, "duplicate", all = FALSE)
@@ -175,9 +175,9 @@ test_that("univariate right join has all columns, all rows", {
     })
 
     # one row from x not included
-    expect_match(msg, "rows only in x\\s*\\(1\\)", all = FALSE)
+    expect_match(msg, "rows only in a\\s*\\(1\\)", all = FALSE)
     # one row from y included
-    expect_match(msg, "rows only in y\\s*1", all = FALSE)
+    expect_match(msg, "rows only in b\\s*1", all = FALSE)
     # four rows matched, including duplicates
     expect_match(msg, "matched rows\\s*4", all = FALSE)
     expect_match(msg, "duplicate", all = FALSE)
@@ -191,9 +191,9 @@ test_that("univariate anti join has x columns, missing rows", {
     })
 
     # one row from x included
-    expect_match(msg, "rows only in x\\s*1", all = FALSE)
+    expect_match(msg, "rows only in a\\s*1", all = FALSE)
     # one row from y not included
-    expect_match(msg, "rows only in y\\s*\\(1\\)", all = FALSE)
+    expect_match(msg, "rows only in b\\s*\\(1\\)", all = FALSE)
     # three matched rows not included
     expect_match(msg, "matched rows\\s*\\(3\\)", all = FALSE)
     # total rows
@@ -212,4 +212,58 @@ test_that("no duplication", {
     expect_true(!any(grepl("duplicate", msg)))
     msg <- capture_messages(tidylog::left_join(a, b, "x"))
     expect_true(!any(grepl("duplicate", msg)))
+})
+
+get_indices <- function(msg) {
+    matched <- gregexpr(pattern =',', msg[c(2, 3, 4, 6)])
+    unique(sapply(matched, function(x) x[[1]]))
+}
+
+test_that("correct alignment", {
+    msg <- function(fun) {
+        capture_messages({
+            j <- fun(nycflights13::flights, nycflights13::weather,
+                by = c("year", "month", "day", "origin", "hour", "time_hour"))
+        })
+    }
+
+    expect_equal(length(get_indices(msg(inner_join))), 1)
+    expect_equal(length(get_indices(msg(semi_join))), 1)
+    expect_equal(length(get_indices(msg(left_join))), 1)
+    expect_equal(length(get_indices(msg(right_join))), 1)
+    expect_equal(length(get_indices(msg(full_join))), 1)
+    expect_equal(length(get_indices(msg(anti_join))), 1)
+})
+
+
+test_that("correct alignment -- long df name", {
+    msg <- function(fun) {
+        capture_messages({
+            verylongnameverylongnameverylongname <- nycflights13::flights
+            j <- fun(verylongnameverylongnameverylongname, nycflights13::weather,
+                by = c("year", "month", "day", "origin", "hour", "time_hour"))
+        })
+    }
+
+    expect_equal(length(get_indices(msg(inner_join))), 1)
+    expect_equal(length(get_indices(msg(semi_join))), 1)
+    expect_equal(length(get_indices(msg(left_join))), 1)
+    expect_equal(length(get_indices(msg(right_join))), 1)
+    expect_equal(length(get_indices(msg(full_join))), 1)
+    expect_equal(length(get_indices(msg(anti_join))), 1)
+
+    msg <- function(fun) {
+        capture_messages({
+            verylongnameverylongnameverylongname <- nycflights13::weather
+            j <- fun(nycflights13::flights, verylongnameverylongnameverylongname,
+                by = c("year", "month", "day", "origin", "hour", "time_hour"))
+        })
+    }
+
+    expect_equal(length(get_indices(msg(inner_join))), 1)
+    expect_equal(length(get_indices(msg(semi_join))), 1)
+    expect_equal(length(get_indices(msg(left_join))), 1)
+    expect_equal(length(get_indices(msg(right_join))), 1)
+    expect_equal(length(get_indices(msg(full_join))), 1)
+    expect_equal(length(get_indices(msg(anti_join))), 1)
 })

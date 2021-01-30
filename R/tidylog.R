@@ -6,6 +6,14 @@ plural <- function(n_items, noun, mid = "") {
     }
 }
 
+shorten <- function(str) {
+    if (nchar(str) > 25) {
+        paste0(substr(str, 1, 23), "..")
+    } else {
+        str
+    }
+}
+
 percent <- function(n, total) {
     p <- round(n / total * 100)
     if (n == total) {

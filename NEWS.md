@@ -4,6 +4,7 @@
 - units package now supported (#51)
 - mutate: fix formatting issues for NAs (#48)
 - use rlang::inform instead of message (#41)
+- include dataset names in join messages (#46)
 
 # 1.0.2
 

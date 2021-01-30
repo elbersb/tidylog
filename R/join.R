@@ -1,34 +1,46 @@
 #' @export
 inner_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by, .fun = dplyr::inner_join, .funname = "inner_join", ...)
+    log_join(x, y, by,
+        .fun = dplyr::inner_join, .funname = "inner_join",
+        .name_x = deparse(substitute(x)), .name_y = deparse(substitute(y)), ...)
 }
 
 #' @export
 full_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by, .fun = dplyr::full_join, .funname = "full_join", ...)
+    log_join(x, y, by,
+        .fun = dplyr::full_join, .funname = "full_join",
+        .name_x = deparse(substitute(x)), .name_y = deparse(substitute(y)), ...)
 }
 
 #' @export
 left_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by, .fun = dplyr::left_join, .funname = "left_join", ...)
+    log_join(x, y, by,
+        .fun = dplyr::left_join, .funname = "left_join",
+        .name_x = deparse(substitute(x)), .name_y = deparse(substitute(y)), ...)
 }
 
 #' @export
 right_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by, .fun = dplyr::right_join, .funname = "right_join", ...)
+    log_join(x, y, by,
+        .fun = dplyr::right_join, .funname = "right_join",
+        .name_x = deparse(substitute(x)), .name_y = deparse(substitute(y)), ...)
 }
 
 #' @export
 anti_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by, .fun = dplyr::anti_join, .funname = "anti_join", ...)
+    log_join(x, y, by,
+        .fun = dplyr::anti_join, .funname = "anti_join",
+        .name_x = deparse(substitute(x)), .name_y = deparse(substitute(y)), ...)
 }
 
 #' @export
 semi_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by, .fun = dplyr::semi_join, .funname = "semi_join", ...)
+    log_join(x, y, by,
+        .fun = dplyr::semi_join, .funname = "semi_join",
+        .name_x = deparse(substitute(x)), .name_y = deparse(substitute(y)), ...)
 }
 
-log_join <- function(x, y, by, .fun, .funname, ...) {
+log_join <- function(x, y, by, .fun, .funname, .name_x, .name_y, ...) {
     newdata <- .fun(x, y, by, ...)
     if (!"data.frame" %in% class(x) | !should_display()) {
         return(newdata)
@@ -93,26 +105,33 @@ log_join <- function(x, y, by, .fun, .funname, ...) {
     stats_str <- lapply(stats, function(x) formatC(x, big.mark = ","))
     max_n <- max(sapply(stats_str, nchar))
     stats_str <- lapply(stats_str, function(x) format(x, justify = "right", width = max_n))
+    # data set names
+    .name_x <- ifelse(.name_x == ".", "x", shorten(.name_x))
+    .name_y <- ifelse(.name_y == ".", "y", shorten(.name_y))
+    names_length <- max(nchar(.name_x), nchar(.name_y))
+    .name_x <- format(.name_x, justify = "left", width = names_length)
+    .name_y <- format(.name_y, justify = "left", width = names_length)
     # white space
-    ws <- paste0(rep(" ", nchar(.funname)), collapse = "")
+    ws_pre <- paste0(rep(" ", nchar(.funname)), collapse = "")
+    ws_post <- paste0(rep(" ", names_length), collapse = "")
 
     if (.funname %in% c("right_join", "inner_join", "semi_join")) {
-        display(glue::glue("{ws}  > rows only in x  ({stats_str$only_in_x})"))
+        display(glue::glue("{ws_pre}  > rows only in {.name_x} ({stats_str$only_in_x})"))
     } else {
-        display(glue::glue("{ws}  > rows only in x   {stats_str$only_in_x}"))
+        display(glue::glue("{ws_pre}  > rows only in {.name_x}  {stats_str$only_in_x}"))
     }
     if (.funname %in% c("left_join", "inner_join", "semi_join", "anti_join")) {
-        display(glue::glue("{ws}  > rows only in y  ({stats_str$only_in_y})"))
+        display(glue::glue("{ws_pre}  > rows only in {.name_y} ({stats_str$only_in_y})"))
     } else {
-        display(glue::glue("{ws}  > rows only in y   {stats_str$only_in_y}"))
+        display(glue::glue("{ws_pre}  > rows only in {.name_y}  {stats_str$only_in_y}"))
     }
     if (.funname == "anti_join") {
-        display(glue::glue("{ws}  > matched rows    ({stats_str$matched})"))
+        display(glue::glue("{ws_pre}  > matched rows{ws_post}  ({stats_str$matched})"))
     } else {
-        display(glue::glue("{ws}  > matched rows     {stats_str$matched}{duplicates}"))
+        display(glue::glue("{ws_pre}  > matched rows{ws_post}   {stats_str$matched}{duplicates}"))
     }
-    display(glue::glue("{ws}  >                 ={paste0(rep('=', max_n), collapse = '')}="))
-    display(glue::glue("{ws}  > rows total       {stats_str$total}"))
+    display(glue::glue("{ws_pre}  >{ws_post}               ={paste0(rep('=', max_n), collapse = '')}="))
+    display(glue::glue("{ws_pre}  > rows total{ws_post}     {stats_str$total}"))
 
     newdata
 }

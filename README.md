@@ -41,11 +41,11 @@ Tidylog reports detailed information for joins:
 joined <- left_join(nycflights13::flights, nycflights13::weather,
     by = c("year", "month", "day", "origin", "hour", "time_hour"))
 #> left_join: added 9 columns (temp, dewp, humid, wind_dir, wind_speed, …)
-#>            > rows only in x     1,556
-#>            > rows only in y  (  6,737)
-#>            > matched rows     335,220
-#>            >                 =========
-#>            > rows total       336,776
+#>            > rows only in nycflights13::flights    1,556
+#>            > rows only in nycflights13::weather (  6,737)
+#>            > matched rows                        335,220
+#>            >                                    =========
+#>            > rows total                          336,776
 ```
 
 In this case, we see that 1,556 rows from the `flights` dataset do not
@@ -170,11 +170,11 @@ x <- tibble(a = 1:2)
 y <- tibble(a = c(1, 1, 2), b = 1:3) # 1 is duplicated
 j <- left_join(x, y, by = "a")
 #> left_join: added one column (b)
-#>            > rows only in x   0
-#>            > rows only in y  (0)
-#>            > matched rows     3    (includes duplicates)
-#>            >                 ===
-#>            > rows total       3
+#>            > rows only in x  0
+#>            > rows only in y (0)
+#>            > matched rows    3    (includes duplicates)
+#>            >                ===
+#>            > rows total      3
 ```
 
 More examples:
@@ -182,25 +182,25 @@ More examples:
 ``` r
 a <- left_join(band_members, band_instruments, by = "name")
 #> left_join: added one column (plays)
-#>            > rows only in x   1
-#>            > rows only in y  (1)
-#>            > matched rows     2
-#>            >                 ===
-#>            > rows total       3
+#>            > rows only in band_members      1
+#>            > rows only in band_instruments (1)
+#>            > matched rows                   2
+#>            >                               ===
+#>            > rows total                     3
 b <- full_join(band_members, band_instruments, by = "name")
 #> full_join: added one column (plays)
-#>            > rows only in x   1
-#>            > rows only in y   1
-#>            > matched rows     2
-#>            >                 ===
-#>            > rows total       4
+#>            > rows only in band_members      1
+#>            > rows only in band_instruments  1
+#>            > matched rows                   2
+#>            >                               ===
+#>            > rows total                     4
 c <- anti_join(band_members, band_instruments, by = "name")
 #> anti_join: added no columns
-#>            > rows only in x   1
-#>            > rows only in y  (1)
-#>            > matched rows    (2)
-#>            >                 ===
-#>            > rows total       1
+#>            > rows only in band_members      1
+#>            > rows only in band_instruments (1)
+#>            > matched rows                  (2)
+#>            >                               ===
+#>            > rows total                     1
 ```
 
 Because tidylog needs to perform two additional joins behind the scenes
