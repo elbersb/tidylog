@@ -275,3 +275,21 @@ test_that("mutate: units", {
         mutate(tibble(a = 1:2), a = units::set_units(a, mg))
     }, "mutate: converted 'a' from integer to units (0 new NA)", fixed = TRUE)
 })
+
+test_that("mutate: formatting", {
+    expect_message({
+        mutate(tibble(x = rep(NA_real_, 1000000)), x = 1)
+    }, "mutate: changed 1,000,000 values (100%) of 'x' (1,000,000 fewer NAs)", fixed = TRUE)
+
+    expect_message({
+        mutate(tibble(x = rep(NA_real_, 1000000)), x = ifelse(row_number() == 1, 1, x))
+    }, "mutate: changed one value (<1%) of 'x' (one fewer NA)", fixed = TRUE)
+
+    expect_message({
+        mutate(tibble(x = 1:10000), x = ifelse(row_number() == 1, NA, x))
+    }, "mutate: changed one value (<1%) of 'x' (one new NA)", fixed = TRUE)
+
+    expect_message({
+        mutate(tibble(x = 1:10000), x = ifelse(row_number() <= 2, NA, x))
+    }, "mutate: changed 2 values (<1%) of 'x' (2 new NAs)", fixed = TRUE)
+})

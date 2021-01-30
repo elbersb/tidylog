@@ -2,7 +2,7 @@ plural <- function(n_items, noun, mid = "") {
     if (n_items == 1) {
         paste0("one ", mid, noun)
     } else {
-        paste0(formatC(n_items, big.mark = ","), " ", mid, noun, "s")
+        paste0(format(n_items, big.mark = ",", scientific = FALSE), " ", mid, noun, "s")
     }
 }
 

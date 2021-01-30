@@ -2,6 +2,7 @@
 
 - switch to Github Actions for CI
 - units package now supported (#51)
+- mutate: fix formatting issues for NAs (#48)
 
 # 1.0.2
 

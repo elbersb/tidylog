@@ -130,8 +130,7 @@ log_mutate <- function(.data, .fun, .funname, ...) {
                 n <- sum(different)
                 p <- percent(n, length(different))
                 new_na <- sum(is.na(new)) - sum(is.na(old))
-                na_text <- glue::glue("{abs(new_na)} ",
-                                      ifelse(new_na >= 0, "new", "fewer"), " NA")
+                na_text <- plural(abs(new_na), "NA", mid = ifelse(new_na >= 0, "new ", "fewer "))
                 display(glue::glue("{prefix} changed {plural(n, 'value')} ",
                     "({p}) of '{var}' ({na_text})"))
                 # replace by spaces

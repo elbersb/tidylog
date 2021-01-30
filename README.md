@@ -133,27 +133,27 @@ b <- mutate(mtcars, new_var = runif(n()))
 c <- mutate(mtcars, new_var = NA)
 #> mutate: new variable 'new_var' (logical) with one unique value and 100% NA
 d <- mutate_at(mtcars, vars(mpg, gear, drat), round)
-#> mutate_at: changed 28 values (88%) of 'mpg' (0 new NA)
-#>            changed 31 values (97%) of 'drat' (0 new NA)
+#> mutate_at: changed 28 values (88%) of 'mpg' (0 new NAs)
+#>            changed 31 values (97%) of 'drat' (0 new NAs)
 e <- mutate(mtcars, am_factor = as.factor(am))
 #> mutate: new variable 'am_factor' (factor) with 2 unique values and 0% NA
 f <- mutate(mtcars, am = as.ordered(am))
 #> mutate: converted 'am' from double to ordered factor (0 new NA)
 g <- mutate(mtcars, am = ifelse(am == 1, NA, am))
-#> mutate: changed 13 values (41%) of 'am' (13 new NA)
+#> mutate: changed 13 values (41%) of 'am' (13 new NAs)
 h <- mutate(mtcars, am = recode(am, `0` = "zero", `1` = NA_character_))
 #> mutate: converted 'am' from double to character (13 new NA)
 
 i <- transmute(mtcars, mpg = mpg * 2, gear = gear + 1, new_var = vs + am)
 #> transmute: dropped 9 variables (cyl, disp, hp, drat, wt, …)
-#>            changed 32 values (100%) of 'mpg' (0 new NA)
-#>            changed 32 values (100%) of 'gear' (0 new NA)
+#>            changed 32 values (100%) of 'mpg' (0 new NAs)
+#>            changed 32 values (100%) of 'gear' (0 new NAs)
 #>            new variable 'new_var' (double) with 3 unique values and 0% NA
 
 j <- replace_na(airquality, list(Solar.R = 1))
 #> replace_na: converted 'Solar.R' from integer to double (7 fewer NA)
 k <- fill(airquality, Ozone)
-#> fill: changed 37 values (24%) of 'Ozone' (37 fewer NA)
+#> fill: changed 37 values (24%) of 'Ozone' (37 fewer NAs)
 ```
 
 ### joins
