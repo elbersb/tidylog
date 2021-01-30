@@ -55,10 +55,11 @@ get_groups <- function(.data) {
     }
 }
 
+#' @import rlang
 display <- function(text) {
     functions <- getOption("tidylog.display")
     if (is.null(functions)) {
-        message(text)
+        rlang::inform(text)
     } else if (is.list(functions)) {
         for (f in functions) {
             if (is.function(f)) {
