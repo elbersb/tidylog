@@ -269,3 +269,9 @@ test_that("mutate: variable type", {
         tidylog::mutate(tibble(x = 1:10), y = as.factor("a"))
     }, "new variable 'y' (factor)", fixed = TRUE)
 })
+
+test_that("mutate: units", {
+    expect_message({
+        mutate(tibble(a = 1:2), a = units::set_units(a, mg))
+    }, "mutate: converted 'a' from integer to units (0 new NA)", fixed = TRUE)
+})

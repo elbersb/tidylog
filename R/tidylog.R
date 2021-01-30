@@ -37,6 +37,8 @@ get_type <- function(v) {
         "factor"
     } else if (inherits(v, "Date")) {
         "Date"
+    } else if (inherits(v, "units")) {
+        "units"
     } else {
         typeof(v)
     }
