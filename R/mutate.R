@@ -86,6 +86,15 @@ log_mutate <- function(.data, .fun, .funname, ...) {
     }
 
     has_changed <- FALSE
+
+    dropped_vars <- setdiff(cols, names(newdata))
+    if (length(dropped_vars) > 0) {
+        # dropped only
+        display(glue::glue("{.funname}: dropped {plural(length(dropped_vars), 'variable')}",
+                           " ({format_list(dropped_vars)})"))
+        has_changed = TRUE
+    }
+
     for (var in names(newdata)) {
         # new var
         if (!var %in% cols) {

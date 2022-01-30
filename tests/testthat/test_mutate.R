@@ -293,3 +293,9 @@ test_that("mutate: formatting", {
         mutate(tibble(x = 1:10000), x = ifelse(row_number() <= 2, NA, x))
     }, "mutate: changed 2 values (<1%) of 'x' (2 new NAs)", fixed = TRUE)
 })
+
+test_that("mutate: drop column", {
+    d <- tibble(a = 1, b = 2, c = 3)
+    expect_message(mutate(d, a = NULL), "dropped")
+    expect_message(mutate(d, a = NULL, b = 10), "dropped")
+})
