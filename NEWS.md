@@ -5,6 +5,8 @@
 - mutate: fix formatting issues for NAs (#48)
 - use rlang::inform instead of message (#41)
 - include dataset names in join messages (#46)
+- mutate now reports dropped columns (#53)
+- filter reports the number of groups (#52)
 
 # 1.0.2
 

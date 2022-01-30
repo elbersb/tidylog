@@ -177,3 +177,13 @@ test_that("slice_*", {
     set.seed(1)
     expect_equal(out, dplyr::slice_sample(mtcars, weight_by = wt, n = 5))
 })
+
+test_that("filter on grouped data", {
+    gb <- group_by(mtcars, gear)
+    expect_message({
+        out <- tidylog::filter(gb, am == 0)
+    }, "grouped")
+    expect_message({
+        out <- tidylog::filter(gb, am == 0)
+    }, "removed one group, 2 groups remaining")
+})

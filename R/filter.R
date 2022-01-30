@@ -101,7 +101,14 @@ log_filter <- function(.data, .fun, .funname, ...) {
         return(newdata)
     }
 
-    group_status <- ifelse(dplyr::is.grouped_df(newdata), " (grouped)", "")
+    if (dplyr::is.grouped_df(newdata) == TRUE) {
+        group_status <- " (grouped)"
+        groups_diff <- dplyr::n_groups(.data) - dplyr::n_groups(newdata)
+        group_desc <- glue::glue(" (removed {plural(groups_diff, 'group')}, {plural(dplyr::n_groups(newdata), 'group')} remaining)")
+    } else {
+        group_status <- ""
+        group_desc <- ""
+    }
 
     n <- nrow(.data) - nrow(newdata)
     if (n == 0) {
@@ -112,7 +119,7 @@ log_filter <- function(.data, .fun, .funname, ...) {
         total <- nrow(.data)
         display(glue::glue("{.funname}{group_status}: ",
             "removed {plural(n, 'row')} ",
-            "({percent(n, {total})}), {plural(nrow(newdata), 'row')} remaining"))
+            "({percent(n, {total})}), {plural(nrow(newdata), 'row')} remaining{group_desc}"))
     }
     newdata
 }
