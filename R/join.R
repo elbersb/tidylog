@@ -56,7 +56,16 @@ log_join <- function(x, y, by, .fun, .funname, .name_x, .name_y, ...) {
     }
 
     # figure out matched in rows
-    keys <- suppressMessages(dplyr::common_by(by = by, x = x, y = y))
+    if ("dplyr_join_by" %in% class(by)) {
+        if (all(by$condition == "==")) {
+            keys <- by
+        } else {
+            return(newdata)
+        }
+
+    } else {
+        keys <- suppressMessages(dplyr::common_by(by = by, x = x, y = y))
+    }
     cols_x <- x[, keys$x, drop = FALSE]
     cols_y <- y[, keys$y, drop = FALSE]
 
