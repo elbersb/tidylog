@@ -7,6 +7,7 @@
 - include dataset names in join messages (#46)
 - mutate now reports dropped columns (#53)
 - filter reports the number of groups (#52)
+- fix bug with new dplyr::join_by syntax (#58)
 
 # 1.0.2
 
