@@ -61,3 +61,24 @@ test_tidyr_fun(
     mtcars, hp, carb,
     expected_nrow = 32, expected_ncol = 31
 )
+
+test_tidyr_fun(
+    "separate_wider_delim", tidylog::separate_wider_delim, tidyr::separate_wider_delim,
+    mtcars_with_name, name, " ", names=c("A", "B"),
+    too_few = "align_start", too_many = "merge",
+    expected_nrow = 32, expected_ncol = 13
+)
+
+test_tidyr_fun(
+    "separate_wider_position", tidylog::separate_wider_position, tidyr::separate_wider_position,
+    mtcars_with_name, name, c("A" = 3, "B" = 4),
+    too_few = "align_start", too_many = "drop",
+    expected_nrow = 32, expected_ncol = 13
+)
+
+test_tidyr_fun(
+    "separate_wider_regex", tidylog::separate_wider_regex, tidyr::separate_wider_regex,
+    mtcars_with_name, name, c("A" = "\\w+", "\\s", "B" = ".*"),
+    too_few = "align_start",
+    expected_nrow = 32, expected_ncol = 13
+)
