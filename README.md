@@ -92,7 +92,7 @@ Tidylog will add a small overhead to each function call. This can be
 relevant for very large datasets and especially for joins. If you want
 to switch off tidylog for a single long-running command, simply prefix
 `dplyr::` or `tidyr::`, such as in `dplyr::left_join`. See [this
-vignette](https://cran.r-project.org/web/packages/tidylog/vignettes/benchmarks.html)
+vignette](https://cran.r-project.org/package=tidylog/vignettes/benchmarks.html)
 for more information.
 
 ## More examples

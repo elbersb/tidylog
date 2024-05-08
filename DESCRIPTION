@@ -21,7 +21,6 @@ Suggests:
     rmarkdown,
     bench
 Encoding: UTF-8
-LazyData: true
 URL: https://github.com/elbersb/tidylog/
 BugReports: https://github.com/elbersb/tidylog/issues
 RoxygenNote: 7.3.1
