@@ -1,3 +1,5 @@
+# tidylog (development version)
+
 # 1.1.0
 
 - switch to Github Actions for CI
