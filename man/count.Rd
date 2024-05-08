@@ -6,12 +6,12 @@ that prints information about the operation}
 count(x, ...)
 }
 \arguments{
-\item{x}{see \link[dplyr]{count}}
+\item{x}{see \link[dplyr:count]{count}}
 
-\item{...}{see \link[dplyr]{count}}
+\item{...}{see \link[dplyr:count]{count}}
 }
 \value{
-see \link[dplyr]{count}
+see \link[dplyr:count]{count}
 }
 \description{
 Wrapper around dplyr::count

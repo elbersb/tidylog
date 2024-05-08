@@ -6,12 +6,12 @@ that prints information about the operation}
 replace_na(data, ...)
 }
 \arguments{
-\item{data}{see \link[tidyr]{replace_na}}
+\item{data}{see \link[tidyr:replace_na]{replace_na}}
 
-\item{...}{see \link[tidyr]{replace_na}}
+\item{...}{see \link[tidyr:replace_na]{replace_na}}
 }
 \value{
-see \link[tidyr]{replace_na}
+see \link[tidyr:replace_na]{replace_na}
 }
 \description{
 Wrapper around tidyr::replace_na

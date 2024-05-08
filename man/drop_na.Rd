@@ -6,12 +6,12 @@ that prints information about the operation}
 drop_na(data, ...)
 }
 \arguments{
-\item{data}{see \link[tidyr]{drop_na}}
+\item{data}{see \link[tidyr:drop_na]{drop_na}}
 
-\item{...}{see \link[tidyr]{drop_na}}
+\item{...}{see \link[tidyr:drop_na]{drop_na}}
 }
 \value{
-see \link[tidyr]{drop_na}
+see \link[tidyr:drop_na]{drop_na}
 }
 \description{
 Wrapper around tidyr::drop_na

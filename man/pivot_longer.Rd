@@ -6,12 +6,12 @@ that prints information about the operation}
 pivot_longer(data, ...)
 }
 \arguments{
-\item{data}{see \link[tidyr]{pivot_longer}}
+\item{data}{see \link[tidyr:pivot_longer]{pivot_longer}}
 
-\item{...}{see \link[tidyr]{pivot_longer}}
+\item{...}{see \link[tidyr:pivot_longer]{pivot_longer}}
 }
 \value{
-see \link[tidyr]{pivot_longer}
+see \link[tidyr:pivot_longer]{pivot_longer}
 }
 \description{
 Wrapper around tidyr::pivot_longer

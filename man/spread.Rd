@@ -6,12 +6,12 @@ that prints information about the operation}
 spread(data, ...)
 }
 \arguments{
-\item{data}{see \link[tidyr]{spread}}
+\item{data}{see \link[tidyr:spread]{spread}}
 
-\item{...}{see \link[tidyr]{spread}}
+\item{...}{see \link[tidyr:spread]{spread}}
 }
 \value{
-see \link[tidyr]{spread}
+see \link[tidyr:spread]{spread}
 }
 \description{
 Wrapper around tidyr::spread

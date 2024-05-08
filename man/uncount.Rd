@@ -6,12 +6,12 @@ that prints information about the operation}
 uncount(data, ...)
 }
 \arguments{
-\item{data}{see \link[tidyr]{uncount}}
+\item{data}{see \link[tidyr:uncount]{uncount}}
 
-\item{...}{see \link[tidyr]{uncount}}
+\item{...}{see \link[tidyr:uncount]{uncount}}
 }
 \value{
-see \link[tidyr]{uncount}
+see \link[tidyr:uncount]{uncount}
 }
 \description{
 Wrapper around tidyr::uncount

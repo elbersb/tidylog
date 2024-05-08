@@ -6,12 +6,12 @@ that prints information about the operation}
 gather(data, ...)
 }
 \arguments{
-\item{data}{see \link[tidyr]{gather}}
+\item{data}{see \link[tidyr:gather]{gather}}
 
-\item{...}{see \link[tidyr]{gather}}
+\item{...}{see \link[tidyr:gather]{gather}}
 }
 \value{
-see \link[tidyr]{gather}
+see \link[tidyr:gather]{gather}
 }
 \description{
 Wrapper around tidyr::gather
