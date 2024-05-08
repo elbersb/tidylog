@@ -8,6 +8,7 @@
 - mutate now reports dropped columns (#53)
 - filter reports the number of groups (#52)
 - fix bug with new dplyr::join_by syntax (#58)
+- tidyr: support for separate_wider_* functions (#62)
 
 # 1.0.2
 
