@@ -8,7 +8,7 @@ Version](https://www.r-pkg.org/badges/version/tidylog)](https://CRAN.R-project.o
 [![Downloads](http://cranlogs.r-pkg.org/badges/tidylog)](https://CRAN.R-project.org/package=tidylog)
 [![R-CMD-check](https://github.com/elbersb/tidylog/workflows/R-CMD-check/badge.svg)](https://github.com/elbersb/tidylog/actions)
 [![Coverage
-status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
+status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://app.codecov.io/github/elbersb/tidylog?branch=master)
 
 The goal of tidylog is to provide feedback about dplyr and tidyr
 operations. It provides simple wrapper functions for almost all dplyr
@@ -97,7 +97,7 @@ for more information.
 
 ## More examples
 
-### filter, distinct, drop\_na
+### filter, distinct, drop_na
 
 ``` r
 a <- filter(mtcars, mpg > 20)
@@ -123,7 +123,7 @@ k <- drop_na(airquality, Ozone)
 #> drop_na: removed 37 rows (24%), 116 rows remaining
 ```
 
-### mutate, transmute, replace\_na, fill
+### mutate, transmute, replace_na, fill
 
 ``` r
 a <- mutate(mtcars, new_var = 1)
@@ -146,12 +146,13 @@ h <- mutate(mtcars, am = recode(am, `0` = "zero", `1` = NA_character_))
 
 i <- transmute(mtcars, mpg = mpg * 2, gear = gear + 1, new_var = vs + am)
 #> transmute: dropped 9 variables (cyl, disp, hp, drat, wt, …)
+#> transmute: dropped 9 variables (cyl, disp, hp, drat, wt, …)
 #>            changed 32 values (100%) of 'mpg' (0 new NAs)
 #>            changed 32 values (100%) of 'gear' (0 new NAs)
 #>            new variable 'new_var' (double) with 3 unique values and 0% NA
 
 j <- replace_na(airquality, list(Solar.R = 1))
-#> replace_na: converted 'Solar.R' from integer to double (7 fewer NA)
+#> replace_na: changed 7 values (5%) of 'Solar.R' (7 fewer NAs)
 k <- fill(airquality, Ozone)
 #> fill: changed 37 values (24%) of 'Ozone' (37 fewer NAs)
 ```
@@ -241,7 +242,7 @@ b <- iris %>%
 #> summarize_all: now 3 rows and 9 columns, ungrouped
 ```
 
-### tally, count, add\_tally, add\_count
+### tally, count, add_tally, add_count
 
 ``` r
 a <- mtcars %>% group_by(gear, carb) %>% tally
@@ -257,7 +258,7 @@ d <- mtcars %>% add_count(gear, carb, name = "count")
 #> add_count: new variable 'count' (integer) with 5 unique values and 0% NA
 ```
 
-### pivot\_longer, pivot\_wider
+### pivot_longer, pivot_wider
 
 ``` r
 longer <- mtcars %>%
@@ -267,7 +268,8 @@ longer <- mtcars %>%
 #> pivot_longer: reorganized (mpg, cyl, disp, hp, drat, …) into (var, value) [was 32x12, now 352x3]
 wider <- longer %>%
     pivot_wider(names_from = var, values_from = value)
-#> pivot_wider: reorganized (var, value) into (mpg, cyl, disp, hp, drat, …) [was 352x3, now 32x12]
+#> pivot_wider: reorganized (var, value) into (mpg, cyl, disp, hp, drat, …) [was
+#> 352x3, now 32x12]
 ```
 
 Tidylog also supports `gather` and `spread`.

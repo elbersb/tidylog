@@ -1,12 +1,13 @@
-This is a submission for version 1.0.2.
-
 ## Test environments
 
-* local OS X, R 3.6.1
-* CRAN win-builder: R-devel and R-release
-* R-Hub: rhub::check_for_cran()
-* ubuntu 14.04 (on travis-ci), R 3.6.1
+* local OS X, R 4.2.0
+* CRAN win-builder: R-devel
+* GitHub Actions: macos, win, linux
 
 ## R CMD check results
 
-No ERRORs, WARNINGSs, or NOTES.
+No ERRORs or WARNINGSs.
+
+1 NOTE:
+* Error: CRAN URL not in canonical form vignette](https://cran.r-project.org/web/packages/tidylog/vignettes/benchmarks.html)
+> this is spurious as the link is not to a package but to a vignette.

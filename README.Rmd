@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 [![CRAN Version](https://www.r-pkg.org/badges/version/tidylog)](https://CRAN.R-project.org/package=tidylog)
 [![Downloads](http://cranlogs.r-pkg.org/badges/tidylog)](https://CRAN.R-project.org/package=tidylog)
 [![R-CMD-check](https://github.com/elbersb/tidylog/workflows/R-CMD-check/badge.svg)](https://github.com/elbersb/tidylog/actions)
-[![Coverage status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://codecov.io/github/elbersb/tidylog?branch=master)
+[![Coverage status](https://codecov.io/gh/elbersb/tidylog/branch/master/graph/badge.svg)](https://app.codecov.io/github/elbersb/tidylog?branch=master)
 
 The goal of tidylog is to provide feedback about dplyr and tidyr operations. It provides simple wrapper functions for almost all dplyr and tidyr functions, such as `filter`, `mutate`, `select`, `full_join`, and `group_by`.
 

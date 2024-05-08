@@ -107,7 +107,7 @@ b <- data.frame(x = c(1, 2, 2, 4), z = 1:4)
 
 test_that("univariate inner join has all columns, repeated matching rows", {
     msg <- capture_messages({
-        j <- tidylog::inner_join(a, b, "x")
+        j <- tidylog::inner_join(a, b, "x", relationship = "many-to-many")
     })
 
     # one row from x not included
@@ -139,7 +139,7 @@ test_that("univariate semi join has x columns, matching rows", {
 
 test_that("univariate full join has all columns, all rows", {
     msg <- capture_messages({
-        j <- tidylog::full_join(a, b, "x")
+        j <- tidylog::full_join(a, b, "x", relationship = "many-to-many")
     })
 
     # one row from x included
@@ -155,7 +155,7 @@ test_that("univariate full join has all columns, all rows", {
 
 test_that("univariate left join has all columns, all rows", {
     msg <- capture_messages({
-        j <- tidylog::left_join(a, b, "x")
+        j <- tidylog::left_join(a, b, "x", relationship = "many-to-many")
     })
 
     # one row from x included
@@ -171,7 +171,7 @@ test_that("univariate left join has all columns, all rows", {
 
 test_that("univariate right join has all columns, all rows", {
     msg <- capture_messages({
-        j <- tidylog::right_join(a, b, "x")
+        j <- tidylog::right_join(a, b, "x", relationship = "many-to-many")
     })
 
     # one row from x not included

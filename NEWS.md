@@ -1,4 +1,4 @@
-# 1.0.2.9000
+# 1.1.0
 
 - switch to Github Actions for CI
 - units package now supported (#51)
