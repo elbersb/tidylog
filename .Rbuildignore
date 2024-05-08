@@ -13,3 +13,4 @@
 ^log.txt$
 ^generate_docs.R$
 ^\.github$
+^CRAN-SUBMISSION$
