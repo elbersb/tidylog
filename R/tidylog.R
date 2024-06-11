@@ -29,12 +29,11 @@ percent <- function(n, total) {
     }
 }
 
-#' @import clisymbols
 format_list <- function(items) {
     if (length(items) <= 5) {
         paste0(items, collapse = ", ")
     } else {
-        paste0(c(items[1:5], clisymbols::symbol$ellipsis), collapse = ", ")
+        paste0(c(items[1:5], cli::symbol$ellipsis), collapse = ", ")
     }
 }
 
