@@ -10,7 +10,7 @@ Authors@R: c(
     )
 Description: Provides feedback about 'dplyr' and 'tidyr' operations.
 License: MIT + file LICENSE
-Imports: dplyr, tidyr, glue, clisymbols, rlang (>= 0.4.3)
+Imports: dplyr, tidyr, glue, cli, rlang (>= 0.4.3)
 Suggests:
     testthat,
     units,

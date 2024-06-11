@@ -1,5 +1,7 @@
 # tidylog (development version)
 
+- use cli instead of clisymbols
+
 # 1.1.0
 
 - switch to Github Actions for CI
