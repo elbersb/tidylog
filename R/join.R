@@ -41,7 +41,7 @@ semi_join <- function(x, y, by = NULL, ...) {
 }
 
 log_join <- function(x, y, by, .fun, .funname, .name_x, .name_y, ...) {
-    newdata <- .fun(x, y, by, ...)
+    newdata <- .fun(x, y, by = by, ...)
     if (!"data.frame" %in% class(x) | !should_display()) {
         return(newdata)
     }
