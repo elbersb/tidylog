@@ -37,7 +37,7 @@ that prints information about the operation
 }"
 
 tidylog_env <- environment(tidylog::tidylog)
-html_links <- tools::findHTMLlinks(level = 0:5)
+html_links <- tools::findHTMLlinks(pkgDir = "", level = 0:5)
 
 for (f in functions) {
     if (f %in% functions_dplyr) {

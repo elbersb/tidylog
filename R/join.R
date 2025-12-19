@@ -1,43 +1,43 @@
 #' @export
 inner_join <- function(x, y, by = NULL, ...) {
     log_join(x, y, by,
-        .fun = dplyr::inner_join, .funname = "inner_join",
-        .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
+             .fun = dplyr::inner_join, .funname = "inner_join",
+             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
 }
 
 #' @export
 full_join <- function(x, y, by = NULL, ...) {
     log_join(x, y, by,
-        .fun = dplyr::full_join, .funname = "full_join",
-        .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
+             .fun = dplyr::full_join, .funname = "full_join",
+             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
 }
 
 #' @export
 left_join <- function(x, y, by = NULL, ...) {
     log_join(x, y, by,
-        .fun = dplyr::left_join, .funname = "left_join",
-        .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
+             .fun = dplyr::left_join, .funname = "left_join",
+             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
 }
 
 #' @export
 right_join <- function(x, y, by = NULL, ...) {
     log_join(x, y, by,
-        .fun = dplyr::right_join, .funname = "right_join",
-        .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
+             .fun = dplyr::right_join, .funname = "right_join",
+             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
 }
 
 #' @export
 anti_join <- function(x, y, by = NULL, ...) {
     log_join(x, y, by,
-        .fun = dplyr::anti_join, .funname = "anti_join",
-        .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
+             .fun = dplyr::anti_join, .funname = "anti_join",
+             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
 }
 
 #' @export
 semi_join <- function(x, y, by = NULL, ...) {
     log_join(x, y, by,
-        .fun = dplyr::semi_join, .funname = "semi_join",
-        .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
+             .fun = dplyr::semi_join, .funname = "semi_join",
+             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
 }
 
 log_join <- function(x, y, by, .fun, .funname, .name_x, .name_y, ...) {
@@ -52,27 +52,27 @@ log_join <- function(x, y, by, .fun, .funname, .name_x, .name_y, ...) {
         display(glue::glue("{.funname}: added no columns"))
     } else {
         display(glue::glue("{.funname}: ",
-            "added {plural(length(cols), 'column')} ({format_list(cols)})"))
+                           "added {plural(length(cols), 'column')} ({format_list(cols)})"))
     }
 
-    # figure out matched in rows
-    if ("dplyr_join_by" %in% class(by)) {
-        if (all(by$condition == "==")) {
-            keys <- by
-        } else {
-            return(newdata)
-        }
-
-    } else {
+    # figure out matched in rows.
+    if (!"dplyr_join_by" %in% class(by)) {
         keys <- suppressMessages(dplyr::common_by(by = by, x = x, y = y))
+    } else if(all(by$condition == "==")) {
+        keys <- by
+    } else {
+        # If using `join_by()` with more complex logic than `==`, only report
+        # the change in row number from the input `x`.
+        display_changed_rows(x, newdata, .funname)
+        return(newdata)
     }
     cols_x <- x[, keys$x, drop = FALSE]
     cols_y <- y[, keys$y, drop = FALSE]
 
     only_in_x <- suppressMessages(dplyr::anti_join(cols_x, cols_y,
-                                                  by = stats::setNames(keys$y, keys$x)))
+                                                   by = stats::setNames(keys$y, keys$x)))
     only_in_y <- suppressMessages(dplyr::anti_join(cols_y, cols_x,
-                                                  by = stats::setNames(keys$x, keys$y)))
+                                                   by = stats::setNames(keys$x, keys$y)))
 
     stats <- list(
         only_in_x = nrow(only_in_x),

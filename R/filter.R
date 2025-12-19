@@ -97,29 +97,8 @@ drop_na <- function(data, ...) {
 
 log_filter <- function(.data, .fun, .funname, ...) {
     newdata <- .fun(.data, ...)
-    if (!"data.frame" %in% class(.data) | !should_display()) {
-        return(newdata)
-    }
-
-    if (dplyr::is.grouped_df(newdata) == TRUE) {
-        group_status <- " (grouped)"
-        groups_diff <- dplyr::n_groups(.data) - dplyr::n_groups(newdata)
-        group_desc <- glue::glue(" (removed {plural(groups_diff, 'group')}, {plural(dplyr::n_groups(newdata), 'group')} remaining)")
-    } else {
-        group_status <- ""
-        group_desc <- ""
-    }
-
-    n <- nrow(.data) - nrow(newdata)
-    if (n == 0) {
-        display(glue::glue("{.funname}{group_status}: no rows removed"))
-    } else if (n == nrow(.data)) {
-        display(glue::glue("{.funname}{group_status}: removed all rows (100%)"))
-    } else {
-        total <- nrow(.data)
-        display(glue::glue("{.funname}{group_status}: ",
-            "removed {plural(n, 'row')} ",
-            "({percent(n, {total})}), {plural(nrow(newdata), 'row')} remaining{group_desc}"))
-    }
+    display_changed_rows(.data, newdata, .funname)
     newdata
 }
+
+
