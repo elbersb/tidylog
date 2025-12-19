@@ -1,6 +1,7 @@
 # tidylog (development version)
 
 - use cli instead of clisymbols
+- dplyr: use of join_by syntax with comparisons other than `==` now reports changed row counts.
 
 # 1.1.0
 
