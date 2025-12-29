@@ -267,3 +267,98 @@ test_that("correct alignment -- long df name", {
     expect_equal(length(get_indices(msg(full_join))), 1)
     expect_equal(length(get_indices(msg(anti_join))), 1)
 })
+
+test_that("join_by with `==` generates same messages as standard `by`", {
+    expect_equal(
+        capture_messages(inner_join(dplyr::band_members, dplyr::band_instruments,
+                                    by = "name")),
+        capture_messages(inner_join(dplyr::band_members, dplyr::band_instruments,
+                                    by = join_by(name))),
+    )
+    expect_equal(
+        capture_messages(semi_join(dplyr::band_members, dplyr::band_instruments,
+                                   by = "name")),
+        capture_messages(semi_join(dplyr::band_members, dplyr::band_instruments,
+                                   by = join_by(name))),
+    )
+    expect_equal(
+        capture_messages(left_join(dplyr::band_members, dplyr::band_instruments,
+                                   by = "name")),
+        capture_messages(left_join(dplyr::band_members, dplyr::band_instruments,
+                                   by = join_by(name))),
+    )
+    expect_equal(
+        capture_messages(right_join(dplyr::band_members, dplyr::band_instruments,
+                                    by = "name")),
+        capture_messages(right_join(dplyr::band_members, dplyr::band_instruments,
+                                    by = join_by(name))),
+    )
+    expect_equal(
+        capture_messages(full_join(dplyr::band_members, dplyr::band_instruments,
+                                   by = "name")),
+        capture_messages(full_join(dplyr::band_members, dplyr::band_instruments,
+                                   by = join_by(name))),
+    )
+    expect_equal(
+        capture_messages(anti_join(dplyr::band_members, dplyr::band_instruments,
+                                   by = "name")),
+        capture_messages(anti_join(dplyr::band_members, dplyr::band_instruments,
+                                   by = join_by(name))),
+    )
+
+})
+
+
+test_that("join_by with >= succeeds despite not giving full message", {
+    band_members_with_birth <- dplyr::mutate(dplyr::band_members,
+                                             birth_year = c(1943, 1940, 1942))
+    band_instruments_with_death <- dplyr::mutate(dplyr::band_instruments,
+                                                 death_year = c(NA, 1980, NA))
+
+    # ---- semi_join ----
+    expect_silent({
+        dpout <- dplyr::semi_join(
+            band_members_with_birth,
+            band_instruments_with_death,
+            by = dplyr::join_by(name, birth_year < death_year)
+        )
+    })
+
+    msgs <- capture_messages({
+        tlout <- semi_join(
+            band_members_with_birth,
+            band_instruments_with_death,
+            by = dplyr::join_by(name, birth_year < death_year)
+        )
+    })
+    expect_equal(dpout, tlout)
+
+    # Expect a columns message and a rows message.
+    expect_equal(length(msgs), 2)
+    expect_equal(msgs[1], "semi_join: added no columns")
+    expect_equal(msgs[2], "semi_join: removed 2 rows (67%), one row remaining")
+
+
+    # ---- anti_join ----
+    expect_silent({
+        dpout <- dplyr::anti_join(
+            band_members_with_birth,
+            band_instruments_with_death,
+            by = dplyr::join_by(name, birth_year < death_year)
+        )
+    })
+
+    msgs <- capture_messages({
+        tlout <- anti_join(
+            band_members_with_birth,
+            band_instruments_with_death,
+            by = dplyr::join_by(name, birth_year < death_year)
+        )
+    })
+    expect_equal(dpout, tlout)
+
+    # Expect a columns message and a rows message.
+    expect_equal(length(msgs), 2)
+    expect_equal(msgs[1], "anti_join: added no columns")
+    expect_equal(msgs[2], "anti_join: removed one row (33%), 2 rows remaining")
+})

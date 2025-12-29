@@ -23,5 +23,5 @@ Suggests:
 Encoding: UTF-8
 URL: https://github.com/elbersb/tidylog/
 BugReports: https://github.com/elbersb/tidylog/issues
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 VignetteBuilder: knitr
