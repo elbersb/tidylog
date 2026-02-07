@@ -1,7 +1,8 @@
 # tidylog (development version)
 
 - use cli instead of clisymbols
-- dplyr: use of join_by syntax with comparisons other than `==` now reports changed row counts.
+- dplyr: use of join_by syntax with comparisons other than `==` now reports changed row counts (#74).
+- auto-completion of tidylog wrappers shows the underlying wrapped function arguments (#56).
 
 # 1.1.0
 
