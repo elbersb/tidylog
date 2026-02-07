@@ -1,5 +1,7 @@
 #' Update the function signature for tidylog wrappers
 #'
+#' @param envir Environment in which to update the formals.
+#'
 #' @description
 #' After calling this function, the function signature for tidylog wrappers is
 #' updated to the original function that it wraps. This improves tab
