@@ -4,7 +4,7 @@
 \alias{update_tidylog_formals}
 \title{Update the function signature for tidylog wrappers}
 \usage{
-update_tidylog_formals()
+update_tidylog_formals(envir = parent.frame())
 }
 \description{
 After calling this function, the function signature for tidylog wrappers is

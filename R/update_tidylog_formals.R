@@ -4,8 +4,9 @@
 #' After calling this function, the function signature for tidylog wrappers is
 #' updated to the original function that it wraps. This improves tab
 #' auto-completion, at the expense of some traceability.
-update_tidylog_formals <- function() {
-    envir <- globalenv()
+#'
+#' @export
+update_tidylog_formals <- function(envir = parent.frame()) {
 
     #----- filter.R -----
     formals(filter, envir) <- formals(dplyr::filter)
