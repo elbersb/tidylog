@@ -1,7 +1,7 @@
 Package: tidylog
 Type: Package
 Title: Logging for 'dplyr' and 'tidyr' Functions
-Version: 1.1.0.9000
+Version: 1.2.0
 Authors@R: c(
     person("Benjamin", "Elbers", email = "elbersb@gmail.com",
     role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5392-3448")),
@@ -19,9 +19,11 @@ Suggests:
     forcats,
     knitr,
     rmarkdown,
-    bench
+    bench,
+    purrr
 Encoding: UTF-8
 URL: https://github.com/elbersb/tidylog/
 BugReports: https://github.com/elbersb/tidylog/issues
 RoxygenNote: 7.3.3
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
