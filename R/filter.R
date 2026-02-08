@@ -96,6 +96,7 @@ drop_na <- function(data, ...) {
 }
 
 display_slice_ties <- function(.olddata, .newdata, .funname, ...) {
+    # We must use enquos to account for the NSE of variable names.
     dots <- rlang::enquos(...)
 
     # The default is `with_ties=TRUE`, so we only check for explicit FALSE.
