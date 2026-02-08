@@ -1,3 +1,4 @@
+# Logger for functions that summarize data, such as dplyr::summarize.
 log_summarize <- function(.data, .fun, .funname, ...) {
     newdata <- .fun(.data, ...)
 

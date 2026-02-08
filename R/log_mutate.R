@@ -1,4 +1,4 @@
-
+# Logger for functions that change column data, such as dplyr::mutate.
 log_mutate <- function(.data, .fun, .funname, ...) {
     cols <- names(.data)
     newdata <- .fun(.data, ...)

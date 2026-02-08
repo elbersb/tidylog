@@ -28,7 +28,7 @@ generate_wrapper <- function(full_fn_name, logger_name) {
     if (logger_name == "log_join") {
         body <- glue("
             .call <- match.call(definition = {pkg}::{fn}, expand.dots = TRUE)
-            .call[[1]] <- quote({logger_name})
+            .call[[1]] <- {logger_name}
             .call$.fun <- quote({pkg}::{fn})
             .call$.funname <- '{fn}'
             .call$.name_x <- deparse1(substitute(x))
@@ -44,7 +44,7 @@ generate_wrapper <- function(full_fn_name, logger_name) {
         body <- glue("
             .call <- match.call(definition = {pkg}::{fn}, expand.dots = TRUE)
             names(.call)[names(.call) == '{first_arg}'] <- '.data'
-            .call[[1]] <- quote({logger_name})
+            .call[[1]] <- {logger_name}
             .call$.fun <- quote({pkg}::{fn})
             .call$.funname <- '{fn}'
             eval(.call, envir = parent.frame())"
@@ -53,6 +53,28 @@ generate_wrapper <- function(full_fn_name, logger_name) {
 
     # 3. Final Assembly
     # ----------------------------------------------------------------------------
+    # Account for default argument values that come from other packages
+    generate_imports <- function(args_text) {
+        tags <- c()
+
+        if (grepl("deprecated\\(", args_text)) {
+            # Even if used in dplyr, importing from lifecycle is more robust
+            tags <- c(tags, "#' @importFrom lifecycle deprecated")
+        }
+        if (grepl("everything\\(", args_text)) {
+            tags <- c(tags, "#' @importFrom tidyselect everything")
+        }
+        if (grepl("group_by_drop_default\\(", args_text)) {
+            tags <- c(tags, "#' @importFrom dplyr group_by_drop_default")
+        }
+
+        if (length(tags) == 0) return("#'")
+        return(paste(tags, collapse = "\n"))
+    }
+
+    import_tags <- generate_imports(args_text)
+
+
     # Note: Escape function braces with {{ }}
     glue("
 #' Wrapper around {pkg}::{fn} that prints information about the operation.
@@ -62,6 +84,7 @@ generate_wrapper <- function(full_fn_name, logger_name) {
 #'
 #' @inherit {pkg}::{fn} return
 #' @inheritParams {pkg}::{fn}
+{import_tags}
 #'
 #' @seealso [{pkg}::{fn}()]
 #'
@@ -86,7 +109,10 @@ header <- paste0(
     "# Generated at: ", Sys.time(), "\n\n"
 )
 
-writeLines(c(header, all_code), "R/generated_wrappers.R")
+# Account for the quoted name and value in pivot_wider.
+globals_block <- "utils::globalVariables(c('name', 'value'))"
+
+writeLines(c(header, all_code, globals_block), "R/generated_wrappers.R")
 
 # 5. Update documentation
 # ------------------------------------------------------------------------------

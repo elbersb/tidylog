@@ -1,3 +1,4 @@
+# Logger for functions that change column names, such as dplyr::rename.
 log_rename <- function(.data, .fun, .funname, ...) {
     cols <- names(.data)
     newdata <- .fun(.data, ...)

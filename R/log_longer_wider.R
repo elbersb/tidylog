@@ -1,4 +1,4 @@
-
+# Logger for functions that reshape the data frame, such as tidyr::pivot_wider.
 log_longer_wider <- function(.data, .fun, .funname, ...) {
     newdata <- .fun(.data, ...)
 

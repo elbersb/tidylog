@@ -14,3 +14,5 @@
 ^generate_docs.R$
 ^\.github$
 ^CRAN-SUBMISSION$
+^doc$
+^Meta$

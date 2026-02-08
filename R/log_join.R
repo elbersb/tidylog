@@ -1,4 +1,6 @@
-
+# Logging of functions that join 2 data frames.
+#
+# Note: this logger has a unique signature, different than all the other loggers.
 log_join <- function(x, y, by = NULL, .fun, .funname, .name_x, .name_y, ...) {
     newdata <- .fun(x, y, by = by, ...)
     if (!"data.frame" %in% class(x) | !should_display()) {

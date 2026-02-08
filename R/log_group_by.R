@@ -1,4 +1,4 @@
-
+# Logging of functions that affect grouping, such as dplyr::group_by.
 log_group_by <- function(.data, .fun, .funname, ...) {
     newdata <- .fun(.data, ...)
     if (!"data.frame" %in% class(.data) | !should_display()) {

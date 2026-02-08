@@ -1,3 +1,4 @@
+# Logger for functions that change column selection, such as dplyr::select.
 log_select <- function(.data, .fun, .funname, ...) {
     cols <- names(.data)
     newdata <- .fun(.data, ...)
