@@ -1,46 +1,7 @@
-#' @export
-inner_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by,
-             .fun = dplyr::inner_join, .funname = "inner_join",
-             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
-}
-
-#' @export
-full_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by,
-             .fun = dplyr::full_join, .funname = "full_join",
-             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
-}
-
-#' @export
-left_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by,
-             .fun = dplyr::left_join, .funname = "left_join",
-             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
-}
-
-#' @export
-right_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by,
-             .fun = dplyr::right_join, .funname = "right_join",
-             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
-}
-
-#' @export
-anti_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by,
-             .fun = dplyr::anti_join, .funname = "anti_join",
-             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
-}
-
-#' @export
-semi_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by,
-             .fun = dplyr::semi_join, .funname = "semi_join",
-             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
-}
-
-log_join <- function(x, y, by, .fun, .funname, .name_x, .name_y, ...) {
+# Logging of functions that join 2 data frames.
+#
+# Note: this logger has a unique signature, different than all the other loggers.
+log_join <- function(x, y, by = NULL, .fun, .funname, .name_x, .name_y, ...) {
     newdata <- .fun(x, y, by = by, ...)
     if (!"data.frame" %in% class(x) | !should_display()) {
         return(newdata)
