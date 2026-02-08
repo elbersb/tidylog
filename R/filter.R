@@ -104,8 +104,8 @@ display_slice_ties <- function(.olddata, .newdata, .funname, ...) {
 
     # Use explicit grouping when evaluating by= grouping.
     if(!is.null(dots$by)) {
-        .olddata <- dplyr::group_by(.olddata, !!!dots$by)
-        .newdata <- dplyr::group_by(.newdata, !!!dots$by)
+        .olddata <- dplyr::group_by(.olddata, dplyr::across(!!dots$by))
+        .newdata <- dplyr::group_by(.newdata, dplyr::across(!!dots$by))
     }
 
     # slice_min/max don't change number of groups.

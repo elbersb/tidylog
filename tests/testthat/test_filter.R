@@ -257,3 +257,15 @@ test_that("slice_max with ties", {
                       message = ungrouped_msg)
 
 })
+
+test_that("slice_min/max with_ties=TRUE and multiple groups", {
+    expect_message(
+        tidylog::slice_min(mtcars, carb, by=c(am, gear), n=1),
+        ".*slice_min: 7 rows are ties \\(across 4 groups\\)"
+    )
+
+    expect_message(
+        tidylog::slice_max(mtcars, carb, by=c(am, gear), n=1),
+        ".*slice_max: 6 rows are ties \\(across 3 groups\\)"
+    )
+})
