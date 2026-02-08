@@ -37,9 +37,9 @@ generate_wrapper <- function(full_fn_name, logger_name) {
         )
     }
     else {
-        # Rename the first formals argument to .data so that the single-input
-        # loggers (with first argument `.data`) can be used with any
-        # single-input dplyr/tidyr function regardless of the first arg name.
+        # Ensure the first formals argument is called `.data` so that the
+        # single-input loggers (with first argument `.data`) can be used with
+        # any single-input dplyr/tidyr function regardless of the first arg name.
         first_arg <- names(fmls)[1]
         body <- glue("
             .call <- match.call(definition = {pkg}::{fn}, expand.dots = TRUE)

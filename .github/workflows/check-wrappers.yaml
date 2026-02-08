@@ -38,11 +38,15 @@ jobs:
 
       - name: Check for changes
         run: |
-          if [ -n "$(git status --porcelain R/generated_wrappers.R)" ]; then
-            echo "Error: R/generated_wrappers.R is out of sync with data-raw/wrapper_mapping.R."
-            echo "Please run 'source(\"data-raw/generate_wrappers.R\")' locally and commit the changes."
-            git diff R/generated_wrappers.R
+          # Check for any modified or untracked generated files
+          CHANGES=$(git status --porcelain R/z_generated_*.R)
+
+          if [ -n "$CHANGES" ]; then
+            echo "Error: The following generated files are out of sync:"
+            echo "$CHANGES"
+            echo "Please run 'source(\"data-raw/generate_wrappers.R\")' locally and commit."
+            git diff R/z_generated_*.R
             exit 1
           else
-            echo "R/generated_wrappers.R is in sync."
+            echo "All generated files are in sync."
           fi
