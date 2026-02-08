@@ -95,10 +95,60 @@ drop_na <- function(data, ...) {
     log_filter(data, .fun = tidyr::drop_na, .funname = "drop_na", ...)
 }
 
+display_slice_ties <- function(.olddata, .newdata, .funname, ...) {
+    dots <- rlang::enquos(...)
+
+    # The default is `with_ties=TRUE`, so we only check for explicit FALSE.
+    if(isFALSE(dots$with_ties)) return()
+
+    # Use explicit grouping when evaluating by= grouping.
+    if(!is.null(dots$by)) {
+        .olddata <- dplyr::group_by(.olddata, !!!dots$by)
+        .newdata <- dplyr::group_by(.newdata, !!!dots$by)
+    }
+
+    # slice_min/max don't change number of groups.
+    n_groups <- dplyr::n_groups(.newdata)
+    old_group_sizes <- dplyr::group_size(.olddata)
+    new_group_sizes <- dplyr::group_size(.newdata)
+
+    # Determine the expected final n based on group sizes and arguments provided
+    n <- rlang::eval_tidy(dots$n)
+    prop <- rlang::eval_tidy(dots$prop)
+    # When neither n or prop are provided both are
+    if(is.null(n) && is.null(prop)) {
+        expected_n <- rep(1, n_groups)
+    } else if(!is.null(prop)) {
+        expected_n <- as.integer(old_group_sizes * prop) |>
+            pmin(old_group_sizes)  # Ensure no more than whole group.
+    } else {
+        expected_n <- rep(n, n_groups)
+    }
+
+    group_size_diff <- new_group_sizes - expected_n
+    total_diff <- sum(group_size_diff)
+    num_groups_with_ties <- sum(group_size_diff > 0)
+    if(num_groups_with_ties > 0) {
+        group_suffix <- if(num_groups_with_ties == 1) {
+            ""
+        } else {
+            glue::glue(" (across {num_groups})",
+                       num_groups=plural(num_groups_with_ties, "group"))
+        }
+
+        display(glue::glue(
+            "{.funname}: {total_diff} rows are ties{group_suffix}"
+        ))
+    }
+}
+
 log_filter <- function(.data, .fun, .funname, ...) {
     newdata <- .fun(.data, ...)
     display_changed_rows(.data, newdata, .funname)
+
+    if(.funname %in% c("slice_min", "slice_max")) {
+        display_slice_ties(.data, newdata, .funname, ...)
+    }
+
     newdata
 }
-
-
