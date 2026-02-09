@@ -188,15 +188,15 @@ test_that("filter on grouped data", {
     }, "removed one group, 2 groups remaining")
 })
 
+build_ties_msg <- function(nties, ngroups) {
+    group_suffix <- if(ngroups == 1) "" else glue::glue(" \\(across {ngroups} groups\\)")
+    glue::glue(".*{nties} rows are ties{group_suffix}")
+}
+
 test_that("slice_min with ties", {
 
-    build_msg <- function(nties, ngroups) {
-        group_suffix <- if(ngroups == 1) "" else glue::glue(" \\(across {ngroups} groups\\)")
-        glue::glue(".*slice_min: {nties} rows are ties{group_suffix}")
-    }
-
-    grouped_n_msg <- build_msg(6, 3)  # n=1
-    grouped_prop_msg <- build_msg(3, 2)  # prop=0.2
+    grouped_n_msg <- build_ties_msg(6, 3)  # n=1
+    grouped_prop_msg <- build_ties_msg(3, 2)  # prop=0.2
 
     # Grouped explicitly
     gb <- dplyr::group_by(mtcars, gear)
@@ -214,7 +214,7 @@ test_that("slice_min with ties", {
                       message = grouped_n_msg)
 
     # Ungrouped
-    ungrouped_msg <- ".*slice_min: 6 rows are ties"
+    ungrouped_msg <- ".*6 rows are ties"
     expect_message(tidylog::slice_min(mtcars, carb), ungrouped_msg)
     expect_message(tidylog::slice_min(mtcars, carb, n=1), ungrouped_msg)
     expect_message(tidylog::slice_min(mtcars, carb, prop=0.04), ungrouped_msg)
@@ -225,13 +225,8 @@ test_that("slice_min with ties", {
 
 test_that("slice_max with ties", {
 
-    build_msg <- function(nties, ngroups) {
-        group_suffix <- if(ngroups == 1) "" else glue::glue(" \\(across {ngroups} groups\\)")
-        glue::glue(".*slice_max: {nties} rows are ties{group_suffix}")
-    }
-
-    grouped_n_msg <- build_msg(7, 2)
-    grouped_prop_msg <- build_msg(4, 2)
+    grouped_n_msg <- build_ties_msg(7, 2)
+    grouped_prop_msg <- build_ties_msg(4, 2)
 
     # Grouped explicitly
     gb <- dplyr::group_by(mtcars, gear)
@@ -249,7 +244,7 @@ test_that("slice_max with ties", {
                       message = grouped_n_msg)
 
     # Ungrouped
-    ungrouped_msg <- ".*slice_max: 13 rows are ties"
+    ungrouped_msg <- ".*13 rows are ties"
     expect_message(tidylog::slice_max(mtcars, vs), ungrouped_msg)
     expect_message(tidylog::slice_max(mtcars, vs, n=1), ungrouped_msg)
     expect_message(tidylog::slice_max(mtcars, vs, prop=0.04), ungrouped_msg)
@@ -261,11 +256,11 @@ test_that("slice_max with ties", {
 test_that("slice_min/max with_ties=TRUE and multiple groups", {
     expect_message(
         tidylog::slice_min(mtcars, carb, by=c(am, gear), n=1),
-        ".*slice_min: 7 rows are ties \\(across 4 groups\\)"
+        ".*7 rows are ties \\(across 4 groups\\)"
     )
 
     expect_message(
         tidylog::slice_max(mtcars, carb, by=c(am, gear), n=1),
-        ".*slice_max: 6 rows are ties \\(across 3 groups\\)"
+        ".*6 rows are ties \\(across 3 groups\\)"
     )
 })

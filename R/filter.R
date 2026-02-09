@@ -129,18 +129,21 @@ display_slice_ties <- function(.olddata, .newdata, .funname, ...) {
     group_size_diff <- new_group_sizes - expected_n
     total_diff <- sum(group_size_diff)
     num_groups_with_ties <- sum(group_size_diff > 0)
-    if(num_groups_with_ties > 0) {
-        group_suffix <- if(num_groups_with_ties == 1) {
-            ""
-        } else {
-            glue::glue(" (across {num_groups})",
-                       num_groups=plural(num_groups_with_ties, "group"))
-        }
-
-        display(glue::glue(
-            "{.funname}: {total_diff} rows are ties{group_suffix}"
-        ))
+    if (num_groups_with_ties == 0) {
+        return()
     }
+
+    group_suffix <- if(num_groups_with_ties == 1) {
+        ""
+    } else {
+        glue::glue(" (across {num_groups})",
+                   num_groups=plural(num_groups_with_ties, "group"))
+    }
+    funname_prefix <- format_funname_prefix(.funname, .newdata)
+    ws_pre <- paste0(rep(" ", nchar(funname_prefix)), collapse = "")
+    display(glue::glue(
+        "{ws_pre}{total_diff} rows are ties{group_suffix}"
+    ))
 }
 
 log_filter <- function(.data, .fun, .funname, ...) {
