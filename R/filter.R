@@ -102,6 +102,9 @@ display_slice_ties <- function(.olddata, .newdata, .funname, ...) {
     # The default is `with_ties=TRUE`, so we only check for explicit FALSE.
     if(isFALSE(dots$with_ties)) return()
 
+    # Evaluate funname_prefix before converting .newdata to explicit grouping.
+    funname_prefix <- format_funname_prefix(.funname, .newdata)
+
     # Use explicit grouping when evaluating by= grouping.
     if(!is.null(dots$by)) {
         .olddata <- dplyr::group_by(.olddata, dplyr::across(!!dots$by))
@@ -139,7 +142,6 @@ display_slice_ties <- function(.olddata, .newdata, .funname, ...) {
         glue::glue(" (across {num_groups})",
                    num_groups=plural(num_groups_with_ties, "group"))
     }
-    funname_prefix <- format_funname_prefix(.funname, .newdata)
     ws_pre <- paste0(rep(" ", nchar(funname_prefix)), collapse = "")
     display(glue::glue(
         "{ws_pre}{total_diff} rows are ties{group_suffix}"
