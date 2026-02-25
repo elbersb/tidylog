@@ -188,79 +188,103 @@ test_that("filter on grouped data", {
     }, "removed one group, 2 groups remaining")
 })
 
-build_ties_msg <- function(nties, ngroups) {
-    group_suffix <- if(ngroups == 1) "" else glue::glue(" \\(across {ngroups} groups\\)")
-    glue::glue(".*{nties} rows are ties{group_suffix}")
+
+build_ties_msg <- function(func, data, ...) {
+    # func should be one of dplyr::slice_min or dplyr::slice_max
+
+    n_with_ties <- nrow(func(data, ..., with_ties = TRUE))
+    n_without_ties <- nrow(func(data, ..., with_ties = FALSE))
+    nties <- n_with_ties - n_without_ties
+
+    glue::glue(".*with_ties\\: {nties} rows are ties")
 }
+
 
 test_that("slice_min with ties", {
 
-    grouped_n_msg <- build_ties_msg(6, 3)  # n=1
-    grouped_prop_msg <- build_ties_msg(3, 2)  # prop=0.2
+    build_msg <- function(data, ...) {
+        build_ties_msg(dplyr::slice_min, data, ...)
+    }
 
     # Grouped explicitly
     gb <- dplyr::group_by(mtcars, gear)
-    expect_message(tidylog::slice_min(gb, carb), grouped_n_msg)
-    expect_message(tidylog::slice_min(gb, carb, n=1), grouped_n_msg)
-    expect_message(tidylog::slice_min(gb, carb, prop=0.2), grouped_prop_msg)
+    expect_message(tidylog::slice_min(gb, carb),
+                   build_msg(gb, carb))
+    expect_message(tidylog::slice_min(gb, carb, n=1),
+                   build_msg(gb, carb, n=1))
+    expect_message(tidylog::slice_min(gb, carb, prop=0.2),
+                   build_msg(gb, carb, prop=0.2))
     expect_no_message(tidylog::slice_min(gb, carb, with_ties = FALSE),
-                      message = grouped_n_msg)
+                      message = build_msg(gb, carb))
 
     # Grouped using by=
-    expect_message(tidylog::slice_min(mtcars, carb, by=gear), grouped_n_msg)
-    expect_message(tidylog::slice_min(mtcars, carb, by=gear, n=1), grouped_n_msg)
-    expect_message(tidylog::slice_min(mtcars, carb, by=gear, prop=0.2), grouped_prop_msg)
-    expect_no_message(tidylog::slice_min(mtcars, carb, by=gear, with_ties = FALSE),
-                      message = grouped_n_msg)
+    expect_message(tidylog::slice_min(mtcars, carb, by=gear),
+                   build_msg(mtcars, carb, by=gear))
+    expect_message(tidylog::slice_min(mtcars, carb, n=1, by=gear),
+                   build_msg(mtcars, carb, n=1, by=gear))
+    expect_message(tidylog::slice_min(mtcars, carb, prop=0.2, by=gear),
+                   build_msg(mtcars, carb, prop=0.2, by=gear))
+    expect_no_message(tidylog::slice_min(mtcars, carb, with_ties = FALSE, by=gear),
+                      message = build_msg(mtcars, carb, by=gear))
 
     # Ungrouped
-    ungrouped_msg <- ".*6 rows are ties"
-    expect_message(tidylog::slice_min(mtcars, carb), ungrouped_msg)
-    expect_message(tidylog::slice_min(mtcars, carb, n=1), ungrouped_msg)
-    expect_message(tidylog::slice_min(mtcars, carb, prop=0.04), ungrouped_msg)
+    expect_message(tidylog::slice_min(mtcars, carb),
+                   build_msg(mtcars, carb))
+    expect_message(tidylog::slice_min(mtcars, carb, n=1),
+                   build_msg(mtcars, carb, n=1))
+    expect_message(tidylog::slice_min(mtcars, carb, prop=0.2),
+                   build_msg(mtcars, carb, prop=0.2))
     expect_no_message(tidylog::slice_min(mtcars, carb, with_ties = FALSE),
-                      message = ungrouped_msg)
-
+                      message = build_msg(mtcars, carb))
 })
 
 test_that("slice_max with ties", {
 
-    grouped_n_msg <- build_ties_msg(7, 2)
-    grouped_prop_msg <- build_ties_msg(4, 2)
+    build_msg <- function(data, ...) {
+        build_ties_msg(dplyr::slice_max, data, ...)
+    }
 
     # Grouped explicitly
     gb <- dplyr::group_by(mtcars, gear)
-    expect_message(tidylog::slice_max(gb, carb), grouped_n_msg)
-    expect_message(tidylog::slice_max(gb, carb, n=1), grouped_n_msg)
-    expect_message(tidylog::slice_max(gb, carb, prop=0.2), grouped_prop_msg)
+    expect_message(tidylog::slice_max(gb, carb),
+                   build_msg(gb, carb))
+    expect_message(tidylog::slice_max(gb, carb, n=1),
+                   build_msg(gb, carb, n=1))
+    expect_message(tidylog::slice_max(gb, carb, prop=0.2),
+                   build_msg(gb, carb, prop=0.2))
     expect_no_message(tidylog::slice_max(gb, carb, with_ties = FALSE),
-                      message = grouped_n_msg)
+                      message = build_msg(gb, carb))
 
     # Grouped using by=
-    expect_message(tidylog::slice_max(mtcars, carb, by=gear), grouped_n_msg)
-    expect_message(tidylog::slice_max(mtcars, carb, by=gear, n=1), grouped_n_msg)
-    expect_message(tidylog::slice_max(mtcars, carb, by=gear, prop=0.2), grouped_prop_msg)
-    expect_no_message(tidylog::slice_max(mtcars, carb, by=gear, with_ties = FALSE),
-                      message = grouped_n_msg)
+    expect_message(tidylog::slice_max(mtcars, carb, by=gear),
+                   build_msg(mtcars, carb, by=gear))
+    expect_message(tidylog::slice_max(mtcars, carb, n=1, by=gear),
+                   build_msg(mtcars, carb, n=1, by=gear))
+    expect_message(tidylog::slice_max(mtcars, carb, prop=0.2, by=gear),
+                   build_msg(mtcars, carb, prop=0.2, by=gear))
+    expect_no_message(tidylog::slice_max(mtcars, carb, with_ties = FALSE, by=gear),
+                      message = build_msg(mtcars, carb, by=gear))
 
     # Ungrouped
-    ungrouped_msg <- ".*13 rows are ties"
-    expect_message(tidylog::slice_max(mtcars, vs), ungrouped_msg)
-    expect_message(tidylog::slice_max(mtcars, vs, n=1), ungrouped_msg)
-    expect_message(tidylog::slice_max(mtcars, vs, prop=0.04), ungrouped_msg)
+    expect_message(tidylog::slice_max(mtcars, vs),
+                   build_msg(mtcars, vs))
+    expect_message(tidylog::slice_max(mtcars, vs, n=1),
+                   build_msg(mtcars, vs, n=1))
+    expect_message(tidylog::slice_max(mtcars, vs, prop=0.2),
+                   build_msg(mtcars, vs, prop=0.2))
     expect_no_message(tidylog::slice_max(mtcars, vs, with_ties = FALSE),
-                      message = ungrouped_msg)
+                      message = build_msg(mtcars, vs))
 
 })
 
 test_that("slice_min/max with_ties=TRUE and multiple groups", {
     expect_message(
         tidylog::slice_min(mtcars, carb, by=c(am, gear), n=1),
-        ".*7 rows are ties \\(across 4 groups\\)"
+        build_ties_msg(dplyr::slice_min, mtcars, carb, by=c(am, gear), n=1)
     )
 
     expect_message(
         tidylog::slice_max(mtcars, carb, by=c(am, gear), n=1),
-        ".*6 rows are ties \\(across 3 groups\\)"
+        build_ties_msg(dplyr::slice_max, mtcars, carb, by=c(am, gear), n=1)
     )
 })

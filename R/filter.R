@@ -99,53 +99,48 @@ display_slice_ties <- function(.olddata, .newdata, .funname, ...) {
     # We must use enquos to account for the NSE of variable names.
     dots <- rlang::enquos(...)
 
-    # The default is `with_ties=TRUE`, so we only check for explicit FALSE.
+    # If with_ties is explicitly FALSE, don't add any logging.
+    # (The unspecified default is `with_ties=TRUE`.)
     if(isFALSE(dots$with_ties)) return()
 
     # Evaluate funname_prefix before converting .newdata to explicit grouping.
     funname_prefix <- format_funname_prefix(.funname, .newdata)
+    ws_pre <- paste0(rep(" ", nchar(funname_prefix)), collapse = "")
+    with_ties_prefix <- "with_ties: "
 
-    # Use explicit grouping when evaluating by= grouping.
+    # Use explicit grouping when evaluating `by=` grouping.
     if(!is.null(dots$by)) {
         .olddata <- dplyr::group_by(.olddata, dplyr::across(!!dots$by))
-        .newdata <- dplyr::group_by(.newdata, dplyr::across(!!dots$by))
     }
 
-    # slice_min/max don't change number of groups.
-    n_groups <- dplyr::n_groups(.newdata)
+    # slice_min/max don't change number of groups from olddata to newdata.
+    n_groups <- dplyr::n_groups(.olddata)
     old_group_sizes <- dplyr::group_size(.olddata)
-    new_group_sizes <- dplyr::group_size(.newdata)
 
     # Determine the expected final n based on group sizes and arguments provided
     n <- rlang::eval_tidy(dots$n)
     prop <- rlang::eval_tidy(dots$prop)
     # When neither n or prop are provided both are
     if(is.null(n) && is.null(prop)) {
-        expected_n <- rep(1, n_groups)
+        expected_n <- n_groups
     } else if(!is.null(prop)) {
         expected_n <- as.integer(old_group_sizes * prop) |>
-            pmin(old_group_sizes)  # Ensure no more than whole group.
+            pmin(old_group_sizes) |>   # Ensure no more than whole group.
+            sum()
     } else {
-        expected_n <- rep(n, n_groups)
+        expected_n <- n * n_groups
     }
 
-    group_size_diff <- new_group_sizes - expected_n
-    total_diff <- sum(group_size_diff)
-    num_groups_with_ties <- sum(group_size_diff > 0)
-    if (num_groups_with_ties == 0) {
-        return()
+    total_diff <- nrow(.newdata) - expected_n
+
+    # Only display something if ties are found.
+    if (total_diff > 0)
+    {
+        display(glue::glue(
+            "{ws_pre}{with_ties_prefix}{total_diff} rows are ties"
+        ))
     }
 
-    group_suffix <- if(num_groups_with_ties == 1) {
-        ""
-    } else {
-        glue::glue(" (across {num_groups})",
-                   num_groups=plural(num_groups_with_ties, "group"))
-    }
-    ws_pre <- paste0(rep(" ", nchar(funname_prefix)), collapse = "")
-    display(glue::glue(
-        "{ws_pre}{total_diff} rows are ties{group_suffix}"
-    ))
 }
 
 log_filter <- function(.data, .fun, .funname, ...) {
