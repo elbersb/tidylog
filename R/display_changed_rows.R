@@ -1,3 +1,14 @@
+# Formats `.funname` with "(grouped)" if appropriate.
+format_funname_prefix <- function(.funname, .newdata) {
+    if(dplyr::is.grouped_df(.newdata) == TRUE) {
+        prefix <- paste0(.funname, " (grouped)")
+    } else {
+        prefix <- .funname
+    }
+
+    paste0(prefix, ": ")
+}
+
 #' Displays messages related to changing row number.
 #'
 #' @description Unlike `log_...()` functions, this assumes the data manipulation
@@ -13,24 +24,23 @@ display_changed_rows <- function(.olddata, .newdata, .funname) {
         return()
     }
 
+    funname_prefix <- format_funname_prefix(.funname, .newdata)
+
     if (dplyr::is.grouped_df(.newdata) == TRUE) {
-        group_status <- " (grouped)"
         groups_diff <- dplyr::n_groups(.olddata) - dplyr::n_groups(.newdata)
         group_desc <- glue::glue(" (removed {plural(groups_diff, 'group')}, {plural(dplyr::n_groups(.newdata), 'group')} remaining)")
     } else {
-        group_status <- ""
         group_desc <- ""
     }
 
     n <- nrow(.olddata) - nrow(.newdata)
     if (n == 0) {
-        display(glue::glue("{.funname}{group_status}: no rows removed"))
+        display(glue::glue("{funname_prefix}no rows removed"))
     } else if (n == nrow(.olddata)) {
-        display(glue::glue("{.funname}{group_status}: removed all rows (100%)"))
+        display(glue::glue("{funname_prefix}removed all rows (100%)"))
     } else {
         total <- nrow(.olddata)
-        display(glue::glue("{.funname}{group_status}: ",
-                           "removed {plural(n, 'row')} ",
+        display(glue::glue("{funname_prefix}removed {plural(n, 'row')} ",
                            "({percent(n, {total})}), {plural(nrow(.newdata), 'row')} remaining{group_desc}"))
     }
 }
