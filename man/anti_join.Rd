@@ -2,9 +2,9 @@
 % Please edit documentation in R/z_generated_log_join.R
 \name{anti_join}
 \alias{anti_join}
-\title{Wrapper around dplyr::anti_join that prints information about the operation.}
+\title{Wrapper around dplyr::anti_join that prints information about the operation}
 \usage{
-anti_join(x, y, by = NULL, copy = FALSE, ...)
+anti_join(x, y, by = NULL, ...)
 }
 \arguments{
 \item{x, y}{A pair of data frames, data frame extensions (e.g. a tibble), or
@@ -40,24 +40,26 @@ use a named character vector like \code{by = c("x_a" = "y_a", "x_b" = "y_b")}.
 To perform a cross-join, generating all combinations of \code{x} and \code{y}, see
 \code{\link[dplyr:cross_join]{cross_join()}}.}
 
-\item{copy}{If \code{x} and \code{y} are not from the same data source,
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:filter-joins]{dplyr::anti_join}}
+  \describe{
+    \item{\code{x,y}}{A pair of data frames, data frame extensions (e.g. a tibble), or
+lazy data frames (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
+more details.}
+    \item{\code{copy}}{If \code{x} and \code{y} are not from the same data source,
 and \code{copy} is \code{TRUE}, then \code{y} will be copied into the
 same src as \code{x}.  This allows you to join tables across srcs, but
 it is a potentially expensive operation so you must opt into it.}
-
-\item{...}{Other parameters passed onto methods.}
+  }}
 }
 \value{
-An object of the same type as \code{x}. The output has the following properties:
-\itemize{
-\item Rows are a subset of the input, but appear in the same order.
-\item Columns are not modified.
-\item Data frame attributes are preserved.
-\item Groups are taken from \code{x}. The number of groups may be reduced.
-}
+See \code{\link[dplyr:filter-joins]{dplyr::anti_join()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:filter-joins]{dplyr::anti_join()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:filter-joins]{dplyr::anti_join()}}

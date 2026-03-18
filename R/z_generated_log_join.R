@@ -5,141 +5,135 @@ log_join
 
 
 
-#' Wrapper around dplyr::inner_join that prints information about the operation.
+
+#' Wrapper around dplyr::inner_join that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::inner_join()] that prints information about the operation.
 #'
-#' @inherit dplyr::inner_join return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::inner_join
+#' @inheritDotParams dplyr::inner_join
 #'
-#'
+#' @return See [dplyr::inner_join()]
 #' @seealso [dplyr::inner_join()]
-#'
 #' @export
-inner_join <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL) {
-	.call <- match.call(definition = dplyr::inner_join, expand.dots = TRUE)
-	.call[[1]] <- log_join
-	.call$.fun <- quote(dplyr::inner_join)
-	.call$.funname <- 'inner_join'
-	.call$.name_x <- deparse1(substitute(x))
-	.call$.name_y <- deparse1(substitute(y))
-	eval(.call, envir = parent.frame())
+inner_join <- function(x, y, by = NULL, ...) {
+	result <- dplyr::inner_join(x, y, by = by, ...)
+	log_join(x, y, by, result, "inner_join")
+	result
 }
 
 
-#' Wrapper around dplyr::full_join that prints information about the operation.
+
+#' Wrapper around dplyr::full_join that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::full_join()] that prints information about the operation.
 #'
-#' @inherit dplyr::full_join return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::full_join
+#' @inheritDotParams dplyr::full_join
 #'
-#'
+#' @return See [dplyr::full_join()]
 #' @seealso [dplyr::full_join()]
-#'
 #' @export
-full_join <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL) {
-	.call <- match.call(definition = dplyr::full_join, expand.dots = TRUE)
-	.call[[1]] <- log_join
-	.call$.fun <- quote(dplyr::full_join)
-	.call$.funname <- 'full_join'
-	.call$.name_x <- deparse1(substitute(x))
-	.call$.name_y <- deparse1(substitute(y))
-	eval(.call, envir = parent.frame())
+full_join <- function(x, y, by = NULL, ...) {
+	result <- dplyr::full_join(x, y, by = by, ...)
+	log_join(x, y, by, result, "full_join")
+	result
 }
 
 
-#' Wrapper around dplyr::left_join that prints information about the operation.
+
+#' Wrapper around dplyr::left_join that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::left_join()] that prints information about the operation.
 #'
-#' @inherit dplyr::left_join return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::left_join
+#' @inheritDotParams dplyr::left_join
 #'
-#'
+#' @return See [dplyr::left_join()]
 #' @seealso [dplyr::left_join()]
-#'
 #' @export
-left_join <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL) {
-	.call <- match.call(definition = dplyr::left_join, expand.dots = TRUE)
-	.call[[1]] <- log_join
-	.call$.fun <- quote(dplyr::left_join)
-	.call$.funname <- 'left_join'
-	.call$.name_x <- deparse1(substitute(x))
-	.call$.name_y <- deparse1(substitute(y))
-	eval(.call, envir = parent.frame())
+left_join <- function(x, y, by = NULL, ...) {
+	result <- dplyr::left_join(x, y, by = by, ...)
+	log_join(x, y, by, result, "left_join")
+	result
 }
 
 
-#' Wrapper around dplyr::right_join that prints information about the operation.
+
+#' Wrapper around dplyr::right_join that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::right_join()] that prints information about the operation.
 #'
-#' @inherit dplyr::right_join return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::right_join
+#' @inheritDotParams dplyr::right_join
 #'
-#'
+#' @return See [dplyr::right_join()]
 #' @seealso [dplyr::right_join()]
-#'
 #' @export
-right_join <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL) {
-	.call <- match.call(definition = dplyr::right_join, expand.dots = TRUE)
-	.call[[1]] <- log_join
-	.call$.fun <- quote(dplyr::right_join)
-	.call$.funname <- 'right_join'
-	.call$.name_x <- deparse1(substitute(x))
-	.call$.name_y <- deparse1(substitute(y))
-	eval(.call, envir = parent.frame())
+right_join <- function(x, y, by = NULL, ...) {
+	result <- dplyr::right_join(x, y, by = by, ...)
+	log_join(x, y, by, result, "right_join")
+	result
 }
 
 
-#' Wrapper around dplyr::anti_join that prints information about the operation.
+
+#' Wrapper around dplyr::anti_join that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::anti_join()] that prints information about the operation.
 #'
-#' @inherit dplyr::anti_join return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::anti_join
+#' @inheritDotParams dplyr::anti_join
 #'
-#'
+#' @return See [dplyr::anti_join()]
 #' @seealso [dplyr::anti_join()]
-#'
 #' @export
-anti_join <- function(x, y, by = NULL, copy = FALSE, ...) {
-	.call <- match.call(definition = dplyr::anti_join, expand.dots = TRUE)
-	.call[[1]] <- log_join
-	.call$.fun <- quote(dplyr::anti_join)
-	.call$.funname <- 'anti_join'
-	.call$.name_x <- deparse1(substitute(x))
-	.call$.name_y <- deparse1(substitute(y))
-	eval(.call, envir = parent.frame())
+anti_join <- function(x, y, by = NULL, ...) {
+	result <- dplyr::anti_join(x, y, by = by, ...)
+	log_join(x, y, by, result, "anti_join")
+	result
 }
 
 
-#' Wrapper around dplyr::semi_join that prints information about the operation.
+
+#' Wrapper around dplyr::semi_join that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::semi_join()] that prints information about the operation.
 #'
-#' @inherit dplyr::semi_join return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::semi_join
+#' @inheritDotParams dplyr::semi_join
 #'
-#'
+#' @return See [dplyr::semi_join()]
 #' @seealso [dplyr::semi_join()]
-#'
 #' @export
-semi_join <- function(x, y, by = NULL, copy = FALSE, ...) {
-	.call <- match.call(definition = dplyr::semi_join, expand.dots = TRUE)
-	.call[[1]] <- log_join
-	.call$.fun <- quote(dplyr::semi_join)
-	.call$.funname <- 'semi_join'
-	.call$.name_x <- deparse1(substitute(x))
-	.call$.name_y <- deparse1(substitute(y))
-	eval(.call, envir = parent.frame())
+semi_join <- function(x, y, by = NULL, ...) {
+	result <- dplyr::semi_join(x, y, by = by, ...)
+	log_join(x, y, by, result, "semi_join")
+	result
 }
 
 

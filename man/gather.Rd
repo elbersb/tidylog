@@ -2,22 +2,17 @@
 % Please edit documentation in R/z_generated_log_longer_wider.R
 \name{gather}
 \alias{gather}
-\title{Wrapper around tidyr::gather that prints information about the operation.}
+\title{Wrapper around tidyr::gather that prints information about the operation}
 \usage{
-gather(
-  data,
-  key = "key",
-  value = "value",
-  ...,
-  na.rm = FALSE,
-  convert = FALSE,
-  factor_key = FALSE
-)
+gather(data, ...)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{key, value}{Names of new key and value columns, as strings or
+\item{...}{
+  Arguments passed on to \code{\link[tidyr:gather]{tidyr::gather}}
+  \describe{
+    \item{\code{key,value}}{Names of new key and value columns, as strings or
 symbols.
 
 This argument is passed by expression and supports
@@ -26,26 +21,24 @@ and symbols). The name is captured from the expression with
 \code{\link[rlang:defusing-advanced]{rlang::ensym()}} (note that this kind of interface where
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).}
-
-\item{...}{A selection of columns. If empty, all variables are
-selected. You can supply bare variable names, select all
-variables between x and z with \code{x:z}, exclude y with \code{-y}. For
-more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation. See also
-the section on selection rules below.}
-
-\item{na.rm}{If \code{TRUE}, will remove rows from output where the
+    \item{\code{na.rm}}{If \code{TRUE}, will remove rows from output where the
 value column is \code{NA}.}
-
-\item{convert}{If \code{TRUE} will automatically run
+    \item{\code{convert}}{If \code{TRUE} will automatically run
 \code{\link[=type.convert]{type.convert()}} on the key column. This is useful if the column
 types are actually numeric, integer, or logical.}
-
-\item{factor_key}{If \code{FALSE}, the default, the key values will be
+    \item{\code{factor_key}}{If \code{FALSE}, the default, the key values will be
 stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
+  }}
+}
+\value{
+See \code{\link[tidyr:gather]{tidyr::gather()}}
 }
 \description{
 Wrapper around \code{\link[tidyr:gather]{tidyr::gather()}} that prints information about the operation.
+}
+\details{
+Documentation generated from tidyr version 1.3.2.
 }
 \seealso{
 \code{\link[tidyr:gather]{tidyr::gather()}}

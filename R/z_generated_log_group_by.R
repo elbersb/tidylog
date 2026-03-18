@@ -5,113 +5,113 @@ log_group_by
 
 
 
-#' Wrapper around dplyr::group_by that prints information about the operation.
+
+#' Wrapper around dplyr::group_by that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::group_by()] that prints information about the operation.
 #'
-#' @inherit dplyr::group_by return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::group_by
-#' @importFrom dplyr group_by_drop_default
+#' @inheritDotParams dplyr::group_by
 #'
+#' @return See [dplyr::group_by()]
 #' @seealso [dplyr::group_by()]
-#'
 #' @export
-group_by <- function(.data, ..., .add = FALSE, .drop = group_by_drop_default(.data)) {
-	.call <- match.call(definition = dplyr::group_by, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_group_by
-	.call$.fun <- quote(dplyr::group_by)
-	.call$.funname <- 'group_by'
-	eval(.call, envir = parent.frame())
+group_by <- function(.data, ...) {
+	result <- dplyr::group_by(.data, ...)
+	log_group_by(.data, result, "group_by")
+	result
 }
 
 
-#' Wrapper around dplyr::group_by_all that prints information about the operation.
+
+#' Wrapper around dplyr::group_by_all that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::group_by_all()] that prints information about the operation.
 #'
-#' @inherit dplyr::group_by_all return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::group_by_all
-#' @importFrom dplyr group_by_drop_default
+#' @inheritDotParams dplyr::group_by_all
 #'
+#' @return See [dplyr::group_by_all()]
 #' @seealso [dplyr::group_by_all()]
-#'
 #' @export
-group_by_all <- function(.tbl, .funs = list(), ..., .add = FALSE, .drop = group_by_drop_default(.tbl)) {
-	.call <- match.call(definition = dplyr::group_by_all, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_group_by
-	.call$.fun <- quote(dplyr::group_by_all)
-	.call$.funname <- 'group_by_all'
-	eval(.call, envir = parent.frame())
+group_by_all <- function(.tbl, ...) {
+	result <- dplyr::group_by_all(.tbl, ...)
+	log_group_by(.tbl, result, "group_by_all")
+	result
 }
 
 
-#' Wrapper around dplyr::group_by_at that prints information about the operation.
+
+#' Wrapper around dplyr::group_by_at that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::group_by_at()] that prints information about the operation.
 #'
-#' @inherit dplyr::group_by_at return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::group_by_at
-#' @importFrom dplyr group_by_drop_default
+#' @inheritDotParams dplyr::group_by_at
 #'
+#' @return See [dplyr::group_by_at()]
 #' @seealso [dplyr::group_by_at()]
-#'
 #' @export
-group_by_at <- function(.tbl, .vars, .funs = list(), ..., .add = FALSE, .drop = group_by_drop_default(.tbl)) {
-	.call <- match.call(definition = dplyr::group_by_at, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_group_by
-	.call$.fun <- quote(dplyr::group_by_at)
-	.call$.funname <- 'group_by_at'
-	eval(.call, envir = parent.frame())
+group_by_at <- function(.tbl, ...) {
+	result <- dplyr::group_by_at(.tbl, ...)
+	log_group_by(.tbl, result, "group_by_at")
+	result
 }
 
 
-#' Wrapper around dplyr::group_by_if that prints information about the operation.
+
+#' Wrapper around dplyr::group_by_if that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::group_by_if()] that prints information about the operation.
 #'
-#' @inherit dplyr::group_by_if return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::group_by_if
-#' @importFrom dplyr group_by_drop_default
+#' @inheritDotParams dplyr::group_by_if
 #'
+#' @return See [dplyr::group_by_if()]
 #' @seealso [dplyr::group_by_if()]
-#'
 #' @export
-group_by_if <- function(.tbl, .predicate, .funs = list(), ..., .add = FALSE, .drop = group_by_drop_default(.tbl)) {
-	.call <- match.call(definition = dplyr::group_by_if, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_group_by
-	.call$.fun <- quote(dplyr::group_by_if)
-	.call$.funname <- 'group_by_if'
-	eval(.call, envir = parent.frame())
+group_by_if <- function(.tbl, ...) {
+	result <- dplyr::group_by_if(.tbl, ...)
+	log_group_by(.tbl, result, "group_by_if")
+	result
 }
 
 
-#' Wrapper around dplyr::ungroup that prints information about the operation.
+
+#' Wrapper around dplyr::ungroup that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::ungroup()] that prints information about the operation.
 #'
-#' @inherit dplyr::ungroup return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::ungroup
+#' @inheritDotParams dplyr::ungroup
 #'
-#'
+#' @return See [dplyr::ungroup()]
 #' @seealso [dplyr::ungroup()]
-#'
 #' @export
 ungroup <- function(x, ...) {
-	.call <- match.call(definition = dplyr::ungroup, expand.dots = TRUE)
-	names(.call)[names(.call) == 'x'] <- '.data'
-	.call[[1]] <- log_group_by
-	.call$.fun <- quote(dplyr::ungroup)
-	.call$.funname <- 'ungroup'
-	eval(.call, envir = parent.frame())
+	result <- dplyr::ungroup(x, ...)
+	log_group_by(x, result, "ungroup")
+	result
 }
 
 

@@ -5,157 +5,157 @@ log_longer_wider
 
 
 
-#' Wrapper around tidyr::pivot_longer that prints information about the operation.
+
+#' Wrapper around tidyr::pivot_longer that prints information about the operation
 #'
 #' @description
 #' Wrapper around [tidyr::pivot_longer()] that prints information about the operation.
 #'
-#' @inherit tidyr::pivot_longer return
+#' @details
+#' Documentation generated from tidyr version 1.3.2.
+#'
 #' @inheritParams tidyr::pivot_longer
+#' @inheritDotParams tidyr::pivot_longer
 #'
-#'
+#' @return See [tidyr::pivot_longer()]
 #' @seealso [tidyr::pivot_longer()]
-#'
 #' @export
-pivot_longer <- function(data, cols, ..., cols_vary = "fastest", names_to = "name", names_prefix = NULL, names_sep = NULL, names_pattern = NULL, names_ptypes = NULL, names_transform = NULL, names_repair = "check_unique", values_to = "value", values_drop_na = FALSE, values_ptypes = NULL, values_transform = NULL) {
-	.call <- match.call(definition = tidyr::pivot_longer, expand.dots = TRUE)
-	names(.call)[names(.call) == 'data'] <- '.data'
-	.call[[1]] <- log_longer_wider
-	.call$.fun <- quote(tidyr::pivot_longer)
-	.call$.funname <- 'pivot_longer'
-	eval(.call, envir = parent.frame())
+pivot_longer <- function(data, ...) {
+	result <- tidyr::pivot_longer(data, ...)
+	log_longer_wider(data, result, "pivot_longer")
+	result
 }
 
 
-#' Wrapper around tidyr::pivot_wider that prints information about the operation.
+
+#' Wrapper around tidyr::pivot_wider that prints information about the operation
 #'
 #' @description
 #' Wrapper around [tidyr::pivot_wider()] that prints information about the operation.
 #'
-#' @inherit tidyr::pivot_wider return
+#' @details
+#' Documentation generated from tidyr version 1.3.2.
+#'
 #' @inheritParams tidyr::pivot_wider
+#' @inheritDotParams tidyr::pivot_wider
 #'
-#'
+#' @return See [tidyr::pivot_wider()]
 #' @seealso [tidyr::pivot_wider()]
-#'
 #' @export
-pivot_wider <- function(data, ..., id_cols = NULL, id_expand = FALSE, names_from = name, names_prefix = "", names_sep = "_", names_glue = NULL, names_sort = FALSE, names_vary = "fastest", names_expand = FALSE, names_repair = "check_unique", values_from = value, values_fill = NULL, values_fn = NULL, unused_fn = NULL) {
-	.call <- match.call(definition = tidyr::pivot_wider, expand.dots = TRUE)
-	names(.call)[names(.call) == 'data'] <- '.data'
-	.call[[1]] <- log_longer_wider
-	.call$.fun <- quote(tidyr::pivot_wider)
-	.call$.funname <- 'pivot_wider'
-	eval(.call, envir = parent.frame())
+pivot_wider <- function(data, ...) {
+	result <- tidyr::pivot_wider(data, ...)
+	log_longer_wider(data, result, "pivot_wider")
+	result
 }
 
 
-#' Wrapper around tidyr::gather that prints information about the operation.
+
+#' Wrapper around tidyr::gather that prints information about the operation
 #'
 #' @description
 #' Wrapper around [tidyr::gather()] that prints information about the operation.
 #'
-#' @inherit tidyr::gather return
+#' @details
+#' Documentation generated from tidyr version 1.3.2.
+#'
 #' @inheritParams tidyr::gather
+#' @inheritDotParams tidyr::gather
 #'
-#'
+#' @return See [tidyr::gather()]
 #' @seealso [tidyr::gather()]
-#'
 #' @export
-gather <- function(data, key = "key", value = "value", ..., na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
-	.call <- match.call(definition = tidyr::gather, expand.dots = TRUE)
-	names(.call)[names(.call) == 'data'] <- '.data'
-	.call[[1]] <- log_longer_wider
-	.call$.fun <- quote(tidyr::gather)
-	.call$.funname <- 'gather'
-	eval(.call, envir = parent.frame())
+gather <- function(data, ...) {
+	result <- tidyr::gather(data, ...)
+	log_longer_wider(data, result, "gather")
+	result
 }
 
 
-#' Wrapper around tidyr::spread that prints information about the operation.
+
+#' Wrapper around tidyr::spread that prints information about the operation
 #'
 #' @description
 #' Wrapper around [tidyr::spread()] that prints information about the operation.
 #'
-#' @inherit tidyr::spread return
+#' @details
+#' Documentation generated from tidyr version 1.3.2.
+#'
 #' @inheritParams tidyr::spread
+#' @inheritDotParams tidyr::spread
 #'
-#'
+#' @return See [tidyr::spread()]
 #' @seealso [tidyr::spread()]
-#'
 #' @export
-spread <- function(data, key, value, fill = NA, convert = FALSE, drop = TRUE, sep = NULL) {
-	.call <- match.call(definition = tidyr::spread, expand.dots = TRUE)
-	names(.call)[names(.call) == 'data'] <- '.data'
-	.call[[1]] <- log_longer_wider
-	.call$.fun <- quote(tidyr::spread)
-	.call$.funname <- 'spread'
-	eval(.call, envir = parent.frame())
+spread <- function(data, ...) {
+	result <- tidyr::spread(data, ...)
+	log_longer_wider(data, result, "spread")
+	result
 }
 
 
-#' Wrapper around tidyr::separate_wider_delim that prints information about the operation.
+
+#' Wrapper around tidyr::separate_wider_delim that prints information about the operation
 #'
 #' @description
 #' Wrapper around [tidyr::separate_wider_delim()] that prints information about the operation.
 #'
-#' @inherit tidyr::separate_wider_delim return
+#' @details
+#' Documentation generated from tidyr version 1.3.2.
+#'
 #' @inheritParams tidyr::separate_wider_delim
+#' @inheritDotParams tidyr::separate_wider_delim
 #'
-#'
+#' @return See [tidyr::separate_wider_delim()]
 #' @seealso [tidyr::separate_wider_delim()]
-#'
 #' @export
-separate_wider_delim <- function(data, cols, delim, ..., names = NULL, names_sep = NULL, names_repair = "check_unique", too_few = c("error", "debug", "align_start", "align_end"), too_many = c("error", "debug", "drop", "merge"), cols_remove = TRUE) {
-	.call <- match.call(definition = tidyr::separate_wider_delim, expand.dots = TRUE)
-	names(.call)[names(.call) == 'data'] <- '.data'
-	.call[[1]] <- log_longer_wider
-	.call$.fun <- quote(tidyr::separate_wider_delim)
-	.call$.funname <- 'separate_wider_delim'
-	eval(.call, envir = parent.frame())
+separate_wider_delim <- function(data, ...) {
+	result <- tidyr::separate_wider_delim(data, ...)
+	log_longer_wider(data, result, "separate_wider_delim")
+	result
 }
 
 
-#' Wrapper around tidyr::separate_wider_position that prints information about the operation.
+
+#' Wrapper around tidyr::separate_wider_position that prints information about the operation
 #'
 #' @description
 #' Wrapper around [tidyr::separate_wider_position()] that prints information about the operation.
 #'
-#' @inherit tidyr::separate_wider_position return
+#' @details
+#' Documentation generated from tidyr version 1.3.2.
+#'
 #' @inheritParams tidyr::separate_wider_position
+#' @inheritDotParams tidyr::separate_wider_position
 #'
-#'
+#' @return See [tidyr::separate_wider_position()]
 #' @seealso [tidyr::separate_wider_position()]
-#'
 #' @export
-separate_wider_position <- function(data, cols, widths, ..., names_sep = NULL, names_repair = "check_unique", too_few = c("error", "debug", "align_start"), too_many = c("error", "debug", "drop"), cols_remove = TRUE) {
-	.call <- match.call(definition = tidyr::separate_wider_position, expand.dots = TRUE)
-	names(.call)[names(.call) == 'data'] <- '.data'
-	.call[[1]] <- log_longer_wider
-	.call$.fun <- quote(tidyr::separate_wider_position)
-	.call$.funname <- 'separate_wider_position'
-	eval(.call, envir = parent.frame())
+separate_wider_position <- function(data, ...) {
+	result <- tidyr::separate_wider_position(data, ...)
+	log_longer_wider(data, result, "separate_wider_position")
+	result
 }
 
 
-#' Wrapper around tidyr::separate_wider_regex that prints information about the operation.
+
+#' Wrapper around tidyr::separate_wider_regex that prints information about the operation
 #'
 #' @description
 #' Wrapper around [tidyr::separate_wider_regex()] that prints information about the operation.
 #'
-#' @inherit tidyr::separate_wider_regex return
+#' @details
+#' Documentation generated from tidyr version 1.3.2.
+#'
 #' @inheritParams tidyr::separate_wider_regex
+#' @inheritDotParams tidyr::separate_wider_regex
 #'
-#'
+#' @return See [tidyr::separate_wider_regex()]
 #' @seealso [tidyr::separate_wider_regex()]
-#'
 #' @export
-separate_wider_regex <- function(data, cols, patterns, ..., names_sep = NULL, names_repair = "check_unique", too_few = c("error", "debug", "align_start"), cols_remove = TRUE) {
-	.call <- match.call(definition = tidyr::separate_wider_regex, expand.dots = TRUE)
-	names(.call)[names(.call) == 'data'] <- '.data'
-	.call[[1]] <- log_longer_wider
-	.call$.fun <- quote(tidyr::separate_wider_regex)
-	.call$.funname <- 'separate_wider_regex'
-	eval(.call, envir = parent.frame())
+separate_wider_regex <- function(data, ...) {
+	result <- tidyr::separate_wider_regex(data, ...)
+	log_longer_wider(data, result, "separate_wider_regex")
+	result
 }
 
 

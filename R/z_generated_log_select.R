@@ -5,113 +5,113 @@ log_select
 
 
 
-#' Wrapper around dplyr::select that prints information about the operation.
+
+#' Wrapper around dplyr::select that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::select()] that prints information about the operation.
 #'
-#' @inherit dplyr::select return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::select
+#' @inheritDotParams dplyr::select
 #'
-#'
+#' @return See [dplyr::select()]
 #' @seealso [dplyr::select()]
-#'
 #' @export
 select <- function(.data, ...) {
-	.call <- match.call(definition = dplyr::select, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_select
-	.call$.fun <- quote(dplyr::select)
-	.call$.funname <- 'select'
-	eval(.call, envir = parent.frame())
+	result <- dplyr::select(.data, ...)
+	log_select(.data, result, "select")
+	result
 }
 
 
-#' Wrapper around dplyr::select_all that prints information about the operation.
+
+#' Wrapper around dplyr::select_all that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::select_all()] that prints information about the operation.
 #'
-#' @inherit dplyr::select_all return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::select_all
+#' @inheritDotParams dplyr::select_all
 #'
-#'
+#' @return See [dplyr::select_all()]
 #' @seealso [dplyr::select_all()]
-#'
 #' @export
-select_all <- function(.tbl, .funs = list(), ...) {
-	.call <- match.call(definition = dplyr::select_all, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_select
-	.call$.fun <- quote(dplyr::select_all)
-	.call$.funname <- 'select_all'
-	eval(.call, envir = parent.frame())
+select_all <- function(.tbl, ...) {
+	result <- dplyr::select_all(.tbl, ...)
+	log_select(.tbl, result, "select_all")
+	result
 }
 
 
-#' Wrapper around dplyr::select_if that prints information about the operation.
+
+#' Wrapper around dplyr::select_if that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::select_if()] that prints information about the operation.
 #'
-#' @inherit dplyr::select_if return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::select_if
+#' @inheritDotParams dplyr::select_if
 #'
-#'
+#' @return See [dplyr::select_if()]
 #' @seealso [dplyr::select_if()]
-#'
 #' @export
-select_if <- function(.tbl, .predicate, .funs = list(), ...) {
-	.call <- match.call(definition = dplyr::select_if, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_select
-	.call$.fun <- quote(dplyr::select_if)
-	.call$.funname <- 'select_if'
-	eval(.call, envir = parent.frame())
+select_if <- function(.tbl, ...) {
+	result <- dplyr::select_if(.tbl, ...)
+	log_select(.tbl, result, "select_if")
+	result
 }
 
 
-#' Wrapper around dplyr::select_at that prints information about the operation.
+
+#' Wrapper around dplyr::select_at that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::select_at()] that prints information about the operation.
 #'
-#' @inherit dplyr::select_at return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::select_at
+#' @inheritDotParams dplyr::select_at
 #'
-#'
+#' @return See [dplyr::select_at()]
 #' @seealso [dplyr::select_at()]
-#'
 #' @export
-select_at <- function(.tbl, .vars, .funs = list(), ...) {
-	.call <- match.call(definition = dplyr::select_at, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_select
-	.call$.fun <- quote(dplyr::select_at)
-	.call$.funname <- 'select_at'
-	eval(.call, envir = parent.frame())
+select_at <- function(.tbl, ...) {
+	result <- dplyr::select_at(.tbl, ...)
+	log_select(.tbl, result, "select_at")
+	result
 }
 
 
-#' Wrapper around dplyr::relocate that prints information about the operation.
+
+#' Wrapper around dplyr::relocate that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::relocate()] that prints information about the operation.
 #'
-#' @inherit dplyr::relocate return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::relocate
+#' @inheritDotParams dplyr::relocate
 #'
-#'
+#' @return See [dplyr::relocate()]
 #' @seealso [dplyr::relocate()]
-#'
 #' @export
-relocate <- function(.data, ..., .before = NULL, .after = NULL) {
-	.call <- match.call(definition = dplyr::relocate, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_select
-	.call$.fun <- quote(dplyr::relocate)
-	.call$.funname <- 'relocate'
-	eval(.call, envir = parent.frame())
+relocate <- function(.data, ...) {
+	result <- dplyr::relocate(.data, ...)
+	log_select(.data, result, "relocate")
+	result
 }
 
 

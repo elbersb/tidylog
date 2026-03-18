@@ -5,267 +5,267 @@ log_mutate
 
 
 
-#' Wrapper around dplyr::mutate that prints information about the operation.
+
+#' Wrapper around dplyr::mutate that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::mutate()] that prints information about the operation.
 #'
-#' @inherit dplyr::mutate return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::mutate
+#' @inheritDotParams dplyr::mutate
 #'
-#'
+#' @return See [dplyr::mutate()]
 #' @seealso [dplyr::mutate()]
-#'
 #' @export
 mutate <- function(.data, ...) {
-	.call <- match.call(definition = dplyr::mutate, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_mutate
-	.call$.fun <- quote(dplyr::mutate)
-	.call$.funname <- 'mutate'
-	eval(.call, envir = parent.frame())
+	result <- dplyr::mutate(.data, ...)
+	log_mutate(.data, result, "mutate")
+	result
 }
 
 
-#' Wrapper around dplyr::mutate_all that prints information about the operation.
+
+#' Wrapper around dplyr::mutate_all that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::mutate_all()] that prints information about the operation.
 #'
-#' @inherit dplyr::mutate_all return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::mutate_all
+#' @inheritDotParams dplyr::mutate_all
 #'
-#'
+#' @return See [dplyr::mutate_all()]
 #' @seealso [dplyr::mutate_all()]
-#'
 #' @export
-mutate_all <- function(.tbl, .funs, ...) {
-	.call <- match.call(definition = dplyr::mutate_all, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_mutate
-	.call$.fun <- quote(dplyr::mutate_all)
-	.call$.funname <- 'mutate_all'
-	eval(.call, envir = parent.frame())
+mutate_all <- function(.tbl, ...) {
+	result <- dplyr::mutate_all(.tbl, ...)
+	log_mutate(.tbl, result, "mutate_all")
+	result
 }
 
 
-#' Wrapper around dplyr::mutate_if that prints information about the operation.
+
+#' Wrapper around dplyr::mutate_if that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::mutate_if()] that prints information about the operation.
 #'
-#' @inherit dplyr::mutate_if return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::mutate_if
+#' @inheritDotParams dplyr::mutate_if
 #'
-#'
+#' @return See [dplyr::mutate_if()]
 #' @seealso [dplyr::mutate_if()]
-#'
 #' @export
-mutate_if <- function(.tbl, .predicate, .funs, ...) {
-	.call <- match.call(definition = dplyr::mutate_if, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_mutate
-	.call$.fun <- quote(dplyr::mutate_if)
-	.call$.funname <- 'mutate_if'
-	eval(.call, envir = parent.frame())
+mutate_if <- function(.tbl, ...) {
+	result <- dplyr::mutate_if(.tbl, ...)
+	log_mutate(.tbl, result, "mutate_if")
+	result
 }
 
 
-#' Wrapper around dplyr::mutate_at that prints information about the operation.
+
+#' Wrapper around dplyr::mutate_at that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::mutate_at()] that prints information about the operation.
 #'
-#' @inherit dplyr::mutate_at return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::mutate_at
+#' @inheritDotParams dplyr::mutate_at
 #'
-#'
+#' @return See [dplyr::mutate_at()]
 #' @seealso [dplyr::mutate_at()]
-#'
 #' @export
-mutate_at <- function(.tbl, .vars, .funs, ..., .cols = NULL) {
-	.call <- match.call(definition = dplyr::mutate_at, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_mutate
-	.call$.fun <- quote(dplyr::mutate_at)
-	.call$.funname <- 'mutate_at'
-	eval(.call, envir = parent.frame())
+mutate_at <- function(.tbl, ...) {
+	result <- dplyr::mutate_at(.tbl, ...)
+	log_mutate(.tbl, result, "mutate_at")
+	result
 }
 
 
-#' Wrapper around dplyr::transmute that prints information about the operation.
+
+#' Wrapper around dplyr::transmute that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::transmute()] that prints information about the operation.
 #'
-#' @inherit dplyr::transmute return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::transmute
+#' @inheritDotParams dplyr::transmute
 #'
-#'
+#' @return See [dplyr::transmute()]
 #' @seealso [dplyr::transmute()]
-#'
 #' @export
 transmute <- function(.data, ...) {
-	.call <- match.call(definition = dplyr::transmute, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_mutate
-	.call$.fun <- quote(dplyr::transmute)
-	.call$.funname <- 'transmute'
-	eval(.call, envir = parent.frame())
+	result <- dplyr::transmute(.data, ...)
+	log_mutate(.data, result, "transmute")
+	result
 }
 
 
-#' Wrapper around dplyr::transmute_all that prints information about the operation.
+
+#' Wrapper around dplyr::transmute_all that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::transmute_all()] that prints information about the operation.
 #'
-#' @inherit dplyr::transmute_all return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::transmute_all
+#' @inheritDotParams dplyr::transmute_all
 #'
-#'
+#' @return See [dplyr::transmute_all()]
 #' @seealso [dplyr::transmute_all()]
-#'
 #' @export
-transmute_all <- function(.tbl, .funs, ...) {
-	.call <- match.call(definition = dplyr::transmute_all, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_mutate
-	.call$.fun <- quote(dplyr::transmute_all)
-	.call$.funname <- 'transmute_all'
-	eval(.call, envir = parent.frame())
+transmute_all <- function(.tbl, ...) {
+	result <- dplyr::transmute_all(.tbl, ...)
+	log_mutate(.tbl, result, "transmute_all")
+	result
 }
 
 
-#' Wrapper around dplyr::transmute_if that prints information about the operation.
+
+#' Wrapper around dplyr::transmute_if that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::transmute_if()] that prints information about the operation.
 #'
-#' @inherit dplyr::transmute_if return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::transmute_if
+#' @inheritDotParams dplyr::transmute_if
 #'
-#'
+#' @return See [dplyr::transmute_if()]
 #' @seealso [dplyr::transmute_if()]
-#'
 #' @export
-transmute_if <- function(.tbl, .predicate, .funs, ...) {
-	.call <- match.call(definition = dplyr::transmute_if, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_mutate
-	.call$.fun <- quote(dplyr::transmute_if)
-	.call$.funname <- 'transmute_if'
-	eval(.call, envir = parent.frame())
+transmute_if <- function(.tbl, ...) {
+	result <- dplyr::transmute_if(.tbl, ...)
+	log_mutate(.tbl, result, "transmute_if")
+	result
 }
 
 
-#' Wrapper around dplyr::transmute_at that prints information about the operation.
+
+#' Wrapper around dplyr::transmute_at that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::transmute_at()] that prints information about the operation.
 #'
-#' @inherit dplyr::transmute_at return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::transmute_at
+#' @inheritDotParams dplyr::transmute_at
 #'
-#'
+#' @return See [dplyr::transmute_at()]
 #' @seealso [dplyr::transmute_at()]
-#'
 #' @export
-transmute_at <- function(.tbl, .vars, .funs, ..., .cols = NULL) {
-	.call <- match.call(definition = dplyr::transmute_at, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_mutate
-	.call$.fun <- quote(dplyr::transmute_at)
-	.call$.funname <- 'transmute_at'
-	eval(.call, envir = parent.frame())
+transmute_at <- function(.tbl, ...) {
+	result <- dplyr::transmute_at(.tbl, ...)
+	log_mutate(.tbl, result, "transmute_at")
+	result
 }
 
 
-#' Wrapper around dplyr::add_tally that prints information about the operation.
+
+#' Wrapper around dplyr::add_tally that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::add_tally()] that prints information about the operation.
 #'
-#' @inherit dplyr::add_tally return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::add_tally
+#' @inheritDotParams dplyr::add_tally
 #'
-#'
+#' @return See [dplyr::add_tally()]
 #' @seealso [dplyr::add_tally()]
-#'
 #' @export
-add_tally <- function(x, wt = NULL, sort = FALSE, name = NULL) {
-	.call <- match.call(definition = dplyr::add_tally, expand.dots = TRUE)
-	names(.call)[names(.call) == 'x'] <- '.data'
-	.call[[1]] <- log_mutate
-	.call$.fun <- quote(dplyr::add_tally)
-	.call$.funname <- 'add_tally'
-	eval(.call, envir = parent.frame())
+add_tally <- function(x, ...) {
+	result <- dplyr::add_tally(x, ...)
+	log_mutate(x, result, "add_tally")
+	result
 }
 
 
-#' Wrapper around dplyr::add_count that prints information about the operation.
+
+#' Wrapper around dplyr::add_count that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::add_count()] that prints information about the operation.
 #'
-#' @inherit dplyr::add_count return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::add_count
-#' @importFrom lifecycle deprecated
+#' @inheritDotParams dplyr::add_count
 #'
+#' @return See [dplyr::add_count()]
 #' @seealso [dplyr::add_count()]
-#'
 #' @export
-add_count <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop = deprecated()) {
-	.call <- match.call(definition = dplyr::add_count, expand.dots = TRUE)
-	names(.call)[names(.call) == 'x'] <- '.data'
-	.call[[1]] <- log_mutate
-	.call$.fun <- quote(dplyr::add_count)
-	.call$.funname <- 'add_count'
-	eval(.call, envir = parent.frame())
+add_count <- function(x, ...) {
+	result <- dplyr::add_count(x, ...)
+	log_mutate(x, result, "add_count")
+	result
 }
 
 
-#' Wrapper around tidyr::replace_na that prints information about the operation.
+
+#' Wrapper around tidyr::replace_na that prints information about the operation
 #'
 #' @description
 #' Wrapper around [tidyr::replace_na()] that prints information about the operation.
 #'
-#' @inherit tidyr::replace_na return
+#' @details
+#' Documentation generated from tidyr version 1.3.2.
+#'
 #' @inheritParams tidyr::replace_na
+#' @inheritDotParams tidyr::replace_na
 #'
-#'
+#' @return See [tidyr::replace_na()]
 #' @seealso [tidyr::replace_na()]
-#'
 #' @export
-replace_na <- function(data, replace, ...) {
-	.call <- match.call(definition = tidyr::replace_na, expand.dots = TRUE)
-	names(.call)[names(.call) == 'data'] <- '.data'
-	.call[[1]] <- log_mutate
-	.call$.fun <- quote(tidyr::replace_na)
-	.call$.funname <- 'replace_na'
-	eval(.call, envir = parent.frame())
+replace_na <- function(data, ...) {
+	result <- tidyr::replace_na(data, ...)
+	log_mutate(data, result, "replace_na")
+	result
 }
 
 
-#' Wrapper around tidyr::fill that prints information about the operation.
+
+#' Wrapper around tidyr::fill that prints information about the operation
 #'
 #' @description
 #' Wrapper around [tidyr::fill()] that prints information about the operation.
 #'
-#' @inherit tidyr::fill return
+#' @details
+#' Documentation generated from tidyr version 1.3.2.
+#'
 #' @inheritParams tidyr::fill
+#' @inheritDotParams tidyr::fill
 #'
-#'
+#' @return See [tidyr::fill()]
 #' @seealso [tidyr::fill()]
-#'
 #' @export
-fill <- function(data, ..., .by = NULL, .direction = c("down", "up", "downup", "updown")) {
-	.call <- match.call(definition = tidyr::fill, expand.dots = TRUE)
-	names(.call)[names(.call) == 'data'] <- '.data'
-	.call[[1]] <- log_mutate
-	.call$.fun <- quote(tidyr::fill)
-	.call$.funname <- 'fill'
-	eval(.call, envir = parent.frame())
+fill <- function(data, ...) {
+	result <- tidyr::fill(data, ...)
+	log_mutate(data, result, "fill")
+	result
 }
 
 

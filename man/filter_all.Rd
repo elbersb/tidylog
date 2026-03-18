@@ -2,25 +2,34 @@
 % Please edit documentation in R/z_generated_log_filter.R
 \name{filter_all}
 \alias{filter_all}
-\title{Wrapper around dplyr::filter_all that prints information about the operation.}
+\title{Wrapper around dplyr::filter_all that prints information about the operation}
 \usage{
-filter_all(.tbl, .vars_predicate, .preserve = FALSE)
+filter_all(.tbl, ...)
 }
 \arguments{
 \item{.tbl}{A \code{tbl} object.}
 
-\item{.vars_predicate}{A quoted predicate expression as returned by
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:filter_all]{dplyr::filter_all}}
+  \describe{
+    \item{\code{.vars_predicate}}{A quoted predicate expression as returned by
 \code{\link[dplyr:all_vars]{all_vars()}} or \code{\link[dplyr:any_vars]{any_vars()}}.
 
 Can also be a function or purrr-like formula. In this case, the
 intersection of the results is taken by default and there's
 currently no way to request the union.}
-
-\item{.preserve}{when \code{FALSE} (the default), the grouping structure
+    \item{\code{.preserve}}{when \code{FALSE} (the default), the grouping structure
 is recalculated based on the resulting data, otherwise it is kept as is.}
+  }}
+}
+\value{
+See \code{\link[dplyr:filter_all]{dplyr::filter_all()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:filter_all]{dplyr::filter_all()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:filter_all]{dplyr::filter_all()}}

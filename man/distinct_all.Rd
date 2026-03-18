@@ -2,24 +2,30 @@
 % Please edit documentation in R/z_generated_log_filter.R
 \name{distinct_all}
 \alias{distinct_all}
-\title{Wrapper around dplyr::distinct_all that prints information about the operation.}
+\title{Wrapper around dplyr::distinct_all that prints information about the operation}
 \usage{
-distinct_all(.tbl, .funs = list(), ..., .keep_all = FALSE)
+distinct_all(.tbl, ...)
 }
 \arguments{
 \item{.tbl}{A \code{tbl} object.}
 
-\item{.funs}{A function \code{fun}, a quosure style lambda \code{~ fun(.)} or a list of either form.}
-
-\item{...}{Additional arguments for the function calls in
-\code{.funs}. These are evaluated only once, with \link[rlang:dyn-dots]{tidy dots} support.}
-
-\item{.keep_all}{If \code{TRUE}, keep all variables in \code{.data}.
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:distinct_all]{dplyr::distinct_all}}
+  \describe{
+    \item{\code{.funs}}{A function \code{fun}, a quosure style lambda \code{~ fun(.)} or a list of either form.}
+    \item{\code{.keep_all}}{If \code{TRUE}, keep all variables in \code{.data}.
 If a combination of \code{...} is not distinct, this keeps the
 first row of values.}
+  }}
+}
+\value{
+See \code{\link[dplyr:distinct_all]{dplyr::distinct_all()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:distinct_all]{dplyr::distinct_all()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:distinct_all]{dplyr::distinct_all()}}

@@ -2,37 +2,31 @@
 % Please edit documentation in R/z_generated_log_filter.R
 \name{distinct}
 \alias{distinct}
-\title{Wrapper around dplyr::distinct that prints information about the operation.}
+\title{Wrapper around dplyr::distinct that prints information about the operation}
 \usage{
-distinct(.data, ..., .keep_all = FALSE)
+distinct(.data, ...)
 }
 \arguments{
 \item{.data}{A data frame, data frame extension (e.g. a tibble), or a
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{...}{<\code{\link[rlang:args_data_masking]{data-masking}}> Optional variables to
-use when determining uniqueness. If there are multiple rows for a given
-combination of inputs, only the first row will be preserved. If omitted,
-will use all variables in the data frame.}
-
-\item{.keep_all}{If \code{TRUE}, keep all variables in \code{.data}.
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:distinct]{dplyr::distinct}}
+  \describe{
+    \item{\code{.keep_all}}{If \code{TRUE}, keep all variables in \code{.data}.
 If a combination of \code{...} is not distinct, this keeps the
 first row of values.}
+  }}
 }
 \value{
-An object of the same type as \code{.data}. The output has the following
-properties:
-\itemize{
-\item Rows are a subset of the input but appear in the same order.
-\item Columns are not modified if \code{...} is empty or \code{.keep_all} is \code{TRUE}.
-Otherwise, \code{distinct()} first calls \code{mutate()} to create new columns.
-\item Groups are not modified.
-\item Data frame attributes are preserved.
-}
+See \code{\link[dplyr:distinct]{dplyr::distinct()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:distinct]{dplyr::distinct()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:distinct]{dplyr::distinct()}}

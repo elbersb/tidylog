@@ -2,31 +2,32 @@
 % Please edit documentation in R/z_generated_log_mutate.R
 \name{mutate_if}
 \alias{mutate_if}
-\title{Wrapper around dplyr::mutate_if that prints information about the operation.}
+\title{Wrapper around dplyr::mutate_if that prints information about the operation}
 \usage{
-mutate_if(.tbl, .predicate, .funs, ...)
+mutate_if(.tbl, ...)
 }
 \arguments{
 \item{.tbl}{A \code{tbl} object.}
 
-\item{.predicate}{A predicate function to be applied to the columns
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:mutate_all]{dplyr::mutate_if}}
+  \describe{
+    \item{\code{.funs}}{A function \code{fun}, a quosure style lambda \code{~ fun(.)} or a list of either form.}
+    \item{\code{.predicate}}{A predicate function to be applied to the columns
 or a logical vector. The variables for which \code{.predicate} is or
 returns \code{TRUE} are selected. This argument is passed to
 \code{\link[rlang:as_function]{rlang::as_function()}} and thus supports quosure-style lambda
 functions and strings representing function names.}
-
-\item{.funs}{A function \code{fun}, a quosure style lambda \code{~ fun(.)} or a list of either form.}
-
-\item{...}{Additional arguments for the function calls in
-\code{.funs}. These are evaluated only once, with \link[rlang:dyn-dots]{tidy dots} support.}
+  }}
 }
 \value{
-A data frame. By default, the newly created columns have the shortest
-names needed to uniquely identify the output. To force inclusion of a name,
-even when not needed, name the input (see examples for details).
+See \code{\link[dplyr:mutate_all]{dplyr::mutate_if()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:mutate_all]{dplyr::mutate_if()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:mutate_all]{dplyr::mutate_if()}}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/z_generated_log_mutate.R
 \name{mutate}
 \alias{mutate}
-\title{Wrapper around dplyr::mutate that prints information about the operation.}
+\title{Wrapper around dplyr::mutate that prints information about the operation}
 \usage{
 mutate(.data, ...)
 }
@@ -11,35 +11,20 @@ mutate(.data, ...)
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{...}{<\code{\link[rlang:args_data_masking]{data-masking}}> Name-value pairs.
-The name gives the name of the column in the output.
-
-The value can be:
-\itemize{
-\item A vector of length 1, which will be recycled to the correct length.
-\item A vector the same length as the current group (or the whole data frame
-if ungrouped).
-\item \code{NULL}, to remove the column.
-\item A data frame or tibble, to create multiple columns in the output.
-}}
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:mutate]{dplyr::mutate}}
+  \describe{
+    \item{\code{}}{}
+  }}
 }
 \value{
-An object of the same type as \code{.data}. The output has the following
-properties:
-\itemize{
-\item Columns from \code{.data} will be preserved according to the \code{.keep} argument.
-\item Existing columns that are modified by \code{...} will always be returned in
-their original location.
-\item New columns created through \code{...} will be placed according to the
-\code{.before} and \code{.after} arguments.
-\item The number of rows is not affected.
-\item Columns given the value \code{NULL} will be removed.
-\item Groups will be recomputed if a grouping variable is mutated.
-\item Data frame attributes are preserved.
-}
+See \code{\link[dplyr:mutate]{dplyr::mutate()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:mutate]{dplyr::mutate()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:mutate]{dplyr::mutate()}}

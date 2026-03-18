@@ -2,20 +2,27 @@
 % Please edit documentation in R/z_generated_log_select.R
 \name{select_all}
 \alias{select_all}
-\title{Wrapper around dplyr::select_all that prints information about the operation.}
+\title{Wrapper around dplyr::select_all that prints information about the operation}
 \usage{
-select_all(.tbl, .funs = list(), ...)
+select_all(.tbl, ...)
 }
 \arguments{
 \item{.tbl}{A \code{tbl} object.}
 
-\item{.funs}{A function \code{fun}, a purrr style lambda \code{~ fun(.)} or a list of either form.}
-
-\item{...}{Additional arguments for the function calls in
-\code{.funs}. These are evaluated only once, with \link[rlang:dyn-dots]{tidy dots} support.}
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:select_all]{dplyr::select_all}}
+  \describe{
+    \item{\code{.funs}}{A function \code{fun}, a purrr style lambda \code{~ fun(.)} or a list of either form.}
+  }}
+}
+\value{
+See \code{\link[dplyr:select_all]{dplyr::select_all()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:select_all]{dplyr::select_all()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:select_all]{dplyr::select_all()}}

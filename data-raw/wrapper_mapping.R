@@ -1,7 +1,9 @@
 library(glue)
 library(purrr)
 
-wrapper_mapping <- list(
+# Regular wrappers: function(.data, ...)
+# Logger signature: logger(.olddata, .newdata, "function_name")
+regular_wrappers <- list(
     log_filter = c(
         "dplyr::filter", "dplyr::filter_all", "dplyr::filter_if", "dplyr::filter_at",
         "dplyr::distinct", "dplyr::distinct_all", "dplyr::distinct_if", "dplyr::distinct_at",
@@ -12,14 +14,6 @@ wrapper_mapping <- list(
         "dplyr::slice_min", "dplyr::slice_max",
         "dplyr::slice_sample",
         "tidyr::drop_na"
-    ),
-    log_join = c(
-        "dplyr::inner_join",
-        "dplyr::full_join",
-        "dplyr::left_join",
-        "dplyr::right_join",
-        "dplyr::anti_join",
-        "dplyr::semi_join"
     ),
 
     log_mutate = c(
@@ -46,10 +40,14 @@ wrapper_mapping <- list(
 
     log_group_by = c(
         "dplyr::group_by", "dplyr::group_by_all", "dplyr::group_by_at", "dplyr::group_by_if",
-        "dplyr::ungroup"),
-    log_rename   = c(
+        "dplyr::ungroup"
+    ),
+    
+    log_rename = c(
         "dplyr::rename", "dplyr::rename_all", "dplyr::rename_if", "dplyr::rename_at",
-        "dplyr::rename_with"),
+        "dplyr::rename_with"
+    ),
+    
     log_longer_wider = c(
         "tidyr::pivot_longer",
         "tidyr::pivot_wider",
@@ -57,18 +55,30 @@ wrapper_mapping <- list(
         "tidyr::spread",
         "tidyr::separate_wider_delim",
         "tidyr::separate_wider_position",
-        "tidyr::separate_wider_regex")
+        "tidyr::separate_wider_regex"
+    )
+)
+
+# Join wrappers: function(x, y, by = NULL, ...)
+# Logger signature: logger(x, y, by, .newdata, "function_name")
+join_wrappers <- list(
+    log_join = c(
+        "dplyr::inner_join",
+        "dplyr::full_join",
+        "dplyr::left_join",
+        "dplyr::right_join",
+        "dplyr::anti_join",
+        "dplyr::semi_join"
+    )
 )
 
 get_fn_parts <- function(full_fn_name) {
     strsplit(full_fn_name, "::")[[1]]
 }
 
-# 2. Validation Step (Catch typos here)
-# ------------------------------------------------------------------------------
-# This loop ensures every function exists before we even try to generate code.
+# Validation: Ensure all functions exist
 walk(
-    unlist(wrapper_mapping),
+    c(unlist(regular_wrappers), unlist(join_wrappers)),
     function(full_name) {
         parts <- get_fn_parts(full_name)
         if (!exists(parts[2], where = asNamespace(parts[1]), mode = "function")) {

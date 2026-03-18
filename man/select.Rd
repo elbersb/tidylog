@@ -2,7 +2,7 @@
 % Please edit documentation in R/z_generated_log_select.R
 \name{select}
 \alias{select}
-\title{Wrapper around dplyr::select that prints information about the operation.}
+\title{Wrapper around dplyr::select that prints information about the operation}
 \usage{
 select(.data, ...)
 }
@@ -11,24 +11,20 @@ select(.data, ...)
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{...}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> One or more unquoted
-expressions separated by commas. Variable names can be used as if they
-were positions in the data frame, so expressions like \code{x:y} can
-be used to select a range of variables.}
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:select]{dplyr::select}}
+  \describe{
+    \item{\code{}}{}
+  }}
 }
 \value{
-An object of the same type as \code{.data}. The output has the following
-properties:
-\itemize{
-\item Rows are not affected.
-\item Output columns are a subset of input columns, potentially with a different
-order. Columns will be renamed if \code{new_name = old_name} form is used.
-\item Data frame attributes are preserved.
-\item Groups are maintained; you can't select off grouping variables.
-}
+See \code{\link[dplyr:select]{dplyr::select()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:select]{dplyr::select()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:select]{dplyr::select()}}

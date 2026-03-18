@@ -2,29 +2,22 @@
 % Please edit documentation in R/z_generated_log_summarize.R
 \name{summarise}
 \alias{summarise}
-\title{Wrapper around dplyr::summarise that prints information about the operation.}
+\title{Wrapper around dplyr::summarise that prints information about the operation}
 \usage{
-summarise(.data, ..., .by = NULL, .groups = NULL)
+summarise(.data, ...)
 }
 \arguments{
 \item{.data}{A data frame, data frame extension (e.g. a tibble), or a
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{...}{<\code{\link[rlang:args_data_masking]{data-masking}}> Name-value pairs of
-summary functions. The name will be the name of the variable in the result.
-
-The value can be:
-\itemize{
-\item A vector of length 1, e.g. \code{min(x)}, \code{n()}, or \code{sum(is.na(y))}.
-\item A data frame with 1 row, to add multiple columns from a single expression.
-}}
-
-\item{.by}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Optionally, a selection of columns to
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:summarise]{dplyr::summarise}}
+  \describe{
+    \item{\code{.by}}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Optionally, a selection of columns to
 group by for just this operation, functioning as an alternative to \code{\link[dplyr:group_by]{group_by()}}. For
 details and examples, see \link[dplyr:dplyr_by]{?dplyr_by}.}
-
-\item{.groups}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} Grouping structure of the
+    \item{\code{.groups}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} Grouping structure of the
 result.
 \itemize{
 \item \code{"drop_last"}: drops the last level of grouping. This was the
@@ -39,21 +32,16 @@ data frame, and \code{"keep"} for a rowwise data frame. In addition, a message
 informs you of how the result will be grouped unless the result is
 ungrouped, the option \code{"dplyr.summarise.inform"} is set to \code{FALSE}, or when
 \code{summarise()} is called from a function in a package.}
+  }}
 }
 \value{
-An object \emph{usually} of the same type as \code{.data}.
-\itemize{
-\item The rows come from the underlying \code{\link[dplyr:group_keys]{group_keys()}}.
-\item The columns are a combination of the grouping keys and the summary
-expressions that you provide.
-\item The grouping structure is controlled by the \verb{.groups=} argument, the
-output may be another \link[dplyr]{grouped_df}, a \link[dplyr]{tibble} or a \link[dplyr]{rowwise} data frame.
-\item Data frame attributes are \strong{not} preserved, because \code{summarise()}
-fundamentally creates a new data frame.
-}
+See \code{\link[dplyr:summarise]{dplyr::summarise()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:summarise]{dplyr::summarise()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:summarise]{dplyr::summarise()}}

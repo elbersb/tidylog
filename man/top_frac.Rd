@@ -2,24 +2,33 @@
 % Please edit documentation in R/z_generated_log_filter.R
 \name{top_frac}
 \alias{top_frac}
-\title{Wrapper around dplyr::top_frac that prints information about the operation.}
+\title{Wrapper around dplyr::top_frac that prints information about the operation}
 \usage{
-top_frac(x, n, wt)
+top_frac(x, ...)
 }
 \arguments{
 \item{x}{A data frame.}
 
-\item{n}{Number of rows to return for \code{top_n()}, fraction of rows to
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:top_n]{dplyr::top_frac}}
+  \describe{
+    \item{\code{n}}{Number of rows to return for \code{top_n()}, fraction of rows to
 return for \code{top_frac()}. If \code{n} is positive, selects the top rows.
 If negative, selects the bottom rows.
 If \code{x} is grouped, this is the number (or fraction) of rows per group.
 Will include more rows if there are ties.}
-
-\item{wt}{(Optional). The variable to use for ordering. If not
+    \item{\code{wt}}{(Optional). The variable to use for ordering. If not
 specified, defaults to the last variable in the tbl.}
+  }}
+}
+\value{
+See \code{\link[dplyr:top_n]{dplyr::top_frac()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:top_n]{dplyr::top_frac()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:top_n]{dplyr::top_frac()}}

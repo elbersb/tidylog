@@ -2,26 +2,32 @@
 % Please edit documentation in R/z_generated_log_summarize.R
 \name{uncount}
 \alias{uncount}
-\title{Wrapper around tidyr::uncount that prints information about the operation.}
+\title{Wrapper around tidyr::uncount that prints information about the operation}
 \usage{
-uncount(data, weights, ..., .remove = TRUE, .id = NULL)
+uncount(data, ...)
 }
 \arguments{
 \item{data}{A data frame, tibble, or grouped tibble.}
 
-\item{weights}{A vector of weights. Evaluated in the context of \code{data};
+\item{...}{
+  Arguments passed on to \code{\link[tidyr:uncount]{tidyr::uncount}}
+  \describe{
+    \item{\code{weights}}{A vector of weights. Evaluated in the context of \code{data};
 supports quasiquotation.}
-
-\item{...}{Additional arguments passed on to methods.}
-
-\item{.remove}{If \code{TRUE}, and \code{weights} is the name of a column in \code{data},
+    \item{\code{.remove}}{If \code{TRUE}, and \code{weights} is the name of a column in \code{data},
 then this column is removed.}
-
-\item{.id}{Supply a string to create a new variable which gives a unique
+    \item{\code{.id}}{Supply a string to create a new variable which gives a unique
 identifier for each created row.}
+  }}
+}
+\value{
+See \code{\link[tidyr:uncount]{tidyr::uncount()}}
 }
 \description{
 Wrapper around \code{\link[tidyr:uncount]{tidyr::uncount()}} that prints information about the operation.
+}
+\details{
+Documentation generated from tidyr version 1.3.2.
 }
 \seealso{
 \code{\link[tidyr:uncount]{tidyr::uncount()}}

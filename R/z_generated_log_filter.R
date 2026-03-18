@@ -5,421 +5,421 @@ log_filter
 
 
 
-#' Wrapper around dplyr::filter that prints information about the operation.
+
+#' Wrapper around dplyr::filter that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::filter()] that prints information about the operation.
 #'
-#' @inherit dplyr::filter return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::filter
+#' @inheritDotParams dplyr::filter
 #'
-#'
+#' @return See [dplyr::filter()]
 #' @seealso [dplyr::filter()]
-#'
 #' @export
-filter <- function(.data, ..., .by = NULL, .preserve = FALSE) {
-	.call <- match.call(definition = dplyr::filter, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::filter)
-	.call$.funname <- 'filter'
-	eval(.call, envir = parent.frame())
+filter <- function(.data, ...) {
+	result <- dplyr::filter(.data, ...)
+	log_filter(.data, result, "filter")
+	result
 }
 
 
-#' Wrapper around dplyr::filter_all that prints information about the operation.
+
+#' Wrapper around dplyr::filter_all that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::filter_all()] that prints information about the operation.
 #'
-#' @inherit dplyr::filter_all return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::filter_all
+#' @inheritDotParams dplyr::filter_all
 #'
-#'
+#' @return See [dplyr::filter_all()]
 #' @seealso [dplyr::filter_all()]
-#'
 #' @export
-filter_all <- function(.tbl, .vars_predicate, .preserve = FALSE) {
-	.call <- match.call(definition = dplyr::filter_all, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::filter_all)
-	.call$.funname <- 'filter_all'
-	eval(.call, envir = parent.frame())
+filter_all <- function(.tbl, ...) {
+	result <- dplyr::filter_all(.tbl, ...)
+	log_filter(.tbl, result, "filter_all")
+	result
 }
 
 
-#' Wrapper around dplyr::filter_if that prints information about the operation.
+
+#' Wrapper around dplyr::filter_if that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::filter_if()] that prints information about the operation.
 #'
-#' @inherit dplyr::filter_if return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::filter_if
+#' @inheritDotParams dplyr::filter_if
 #'
-#'
+#' @return See [dplyr::filter_if()]
 #' @seealso [dplyr::filter_if()]
-#'
 #' @export
-filter_if <- function(.tbl, .predicate, .vars_predicate, .preserve = FALSE) {
-	.call <- match.call(definition = dplyr::filter_if, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::filter_if)
-	.call$.funname <- 'filter_if'
-	eval(.call, envir = parent.frame())
+filter_if <- function(.tbl, ...) {
+	result <- dplyr::filter_if(.tbl, ...)
+	log_filter(.tbl, result, "filter_if")
+	result
 }
 
 
-#' Wrapper around dplyr::filter_at that prints information about the operation.
+
+#' Wrapper around dplyr::filter_at that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::filter_at()] that prints information about the operation.
 #'
-#' @inherit dplyr::filter_at return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::filter_at
+#' @inheritDotParams dplyr::filter_at
 #'
-#'
+#' @return See [dplyr::filter_at()]
 #' @seealso [dplyr::filter_at()]
-#'
 #' @export
-filter_at <- function(.tbl, .vars, .vars_predicate, .preserve = FALSE) {
-	.call <- match.call(definition = dplyr::filter_at, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::filter_at)
-	.call$.funname <- 'filter_at'
-	eval(.call, envir = parent.frame())
+filter_at <- function(.tbl, ...) {
+	result <- dplyr::filter_at(.tbl, ...)
+	log_filter(.tbl, result, "filter_at")
+	result
 }
 
 
-#' Wrapper around dplyr::distinct that prints information about the operation.
+
+#' Wrapper around dplyr::distinct that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::distinct()] that prints information about the operation.
 #'
-#' @inherit dplyr::distinct return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::distinct
+#' @inheritDotParams dplyr::distinct
 #'
-#'
+#' @return See [dplyr::distinct()]
 #' @seealso [dplyr::distinct()]
-#'
 #' @export
-distinct <- function(.data, ..., .keep_all = FALSE) {
-	.call <- match.call(definition = dplyr::distinct, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::distinct)
-	.call$.funname <- 'distinct'
-	eval(.call, envir = parent.frame())
+distinct <- function(.data, ...) {
+	result <- dplyr::distinct(.data, ...)
+	log_filter(.data, result, "distinct")
+	result
 }
 
 
-#' Wrapper around dplyr::distinct_all that prints information about the operation.
+
+#' Wrapper around dplyr::distinct_all that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::distinct_all()] that prints information about the operation.
 #'
-#' @inherit dplyr::distinct_all return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::distinct_all
+#' @inheritDotParams dplyr::distinct_all
 #'
-#'
+#' @return See [dplyr::distinct_all()]
 #' @seealso [dplyr::distinct_all()]
-#'
 #' @export
-distinct_all <- function(.tbl, .funs = list(), ..., .keep_all = FALSE) {
-	.call <- match.call(definition = dplyr::distinct_all, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::distinct_all)
-	.call$.funname <- 'distinct_all'
-	eval(.call, envir = parent.frame())
+distinct_all <- function(.tbl, ...) {
+	result <- dplyr::distinct_all(.tbl, ...)
+	log_filter(.tbl, result, "distinct_all")
+	result
 }
 
 
-#' Wrapper around dplyr::distinct_if that prints information about the operation.
+
+#' Wrapper around dplyr::distinct_if that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::distinct_if()] that prints information about the operation.
 #'
-#' @inherit dplyr::distinct_if return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::distinct_if
+#' @inheritDotParams dplyr::distinct_if
 #'
-#'
+#' @return See [dplyr::distinct_if()]
 #' @seealso [dplyr::distinct_if()]
-#'
 #' @export
-distinct_if <- function(.tbl, .predicate, .funs = list(), ..., .keep_all = FALSE) {
-	.call <- match.call(definition = dplyr::distinct_if, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::distinct_if)
-	.call$.funname <- 'distinct_if'
-	eval(.call, envir = parent.frame())
+distinct_if <- function(.tbl, ...) {
+	result <- dplyr::distinct_if(.tbl, ...)
+	log_filter(.tbl, result, "distinct_if")
+	result
 }
 
 
-#' Wrapper around dplyr::distinct_at that prints information about the operation.
+
+#' Wrapper around dplyr::distinct_at that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::distinct_at()] that prints information about the operation.
 #'
-#' @inherit dplyr::distinct_at return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::distinct_at
+#' @inheritDotParams dplyr::distinct_at
 #'
-#'
+#' @return See [dplyr::distinct_at()]
 #' @seealso [dplyr::distinct_at()]
-#'
 #' @export
-distinct_at <- function(.tbl, .vars, .funs = list(), ..., .keep_all = FALSE) {
-	.call <- match.call(definition = dplyr::distinct_at, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::distinct_at)
-	.call$.funname <- 'distinct_at'
-	eval(.call, envir = parent.frame())
+distinct_at <- function(.tbl, ...) {
+	result <- dplyr::distinct_at(.tbl, ...)
+	log_filter(.tbl, result, "distinct_at")
+	result
 }
 
 
-#' Wrapper around dplyr::top_n that prints information about the operation.
+
+#' Wrapper around dplyr::top_n that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::top_n()] that prints information about the operation.
 #'
-#' @inherit dplyr::top_n return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::top_n
+#' @inheritDotParams dplyr::top_n
 #'
-#'
+#' @return See [dplyr::top_n()]
 #' @seealso [dplyr::top_n()]
-#'
 #' @export
-top_n <- function(x, n, wt) {
-	.call <- match.call(definition = dplyr::top_n, expand.dots = TRUE)
-	names(.call)[names(.call) == 'x'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::top_n)
-	.call$.funname <- 'top_n'
-	eval(.call, envir = parent.frame())
+top_n <- function(x, ...) {
+	result <- dplyr::top_n(x, ...)
+	log_filter(x, result, "top_n")
+	result
 }
 
 
-#' Wrapper around dplyr::top_frac that prints information about the operation.
+
+#' Wrapper around dplyr::top_frac that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::top_frac()] that prints information about the operation.
 #'
-#' @inherit dplyr::top_frac return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::top_frac
+#' @inheritDotParams dplyr::top_frac
 #'
-#'
+#' @return See [dplyr::top_frac()]
 #' @seealso [dplyr::top_frac()]
-#'
 #' @export
-top_frac <- function(x, n, wt) {
-	.call <- match.call(definition = dplyr::top_frac, expand.dots = TRUE)
-	names(.call)[names(.call) == 'x'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::top_frac)
-	.call$.funname <- 'top_frac'
-	eval(.call, envir = parent.frame())
+top_frac <- function(x, ...) {
+	result <- dplyr::top_frac(x, ...)
+	log_filter(x, result, "top_frac")
+	result
 }
 
 
-#' Wrapper around dplyr::sample_n that prints information about the operation.
+
+#' Wrapper around dplyr::sample_n that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::sample_n()] that prints information about the operation.
 #'
-#' @inherit dplyr::sample_n return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::sample_n
+#' @inheritDotParams dplyr::sample_n
 #'
-#'
+#' @return See [dplyr::sample_n()]
 #' @seealso [dplyr::sample_n()]
-#'
 #' @export
-sample_n <- function(tbl, size, replace = FALSE, weight = NULL, .env = NULL, ...) {
-	.call <- match.call(definition = dplyr::sample_n, expand.dots = TRUE)
-	names(.call)[names(.call) == 'tbl'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::sample_n)
-	.call$.funname <- 'sample_n'
-	eval(.call, envir = parent.frame())
+sample_n <- function(tbl, ...) {
+	result <- dplyr::sample_n(tbl, ...)
+	log_filter(tbl, result, "sample_n")
+	result
 }
 
 
-#' Wrapper around dplyr::sample_frac that prints information about the operation.
+
+#' Wrapper around dplyr::sample_frac that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::sample_frac()] that prints information about the operation.
 #'
-#' @inherit dplyr::sample_frac return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::sample_frac
+#' @inheritDotParams dplyr::sample_frac
 #'
-#'
+#' @return See [dplyr::sample_frac()]
 #' @seealso [dplyr::sample_frac()]
-#'
 #' @export
-sample_frac <- function(tbl, size = 1, replace = FALSE, weight = NULL, .env = NULL, ...) {
-	.call <- match.call(definition = dplyr::sample_frac, expand.dots = TRUE)
-	names(.call)[names(.call) == 'tbl'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::sample_frac)
-	.call$.funname <- 'sample_frac'
-	eval(.call, envir = parent.frame())
+sample_frac <- function(tbl, ...) {
+	result <- dplyr::sample_frac(tbl, ...)
+	log_filter(tbl, result, "sample_frac")
+	result
 }
 
 
-#' Wrapper around dplyr::slice that prints information about the operation.
+
+#' Wrapper around dplyr::slice that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::slice()] that prints information about the operation.
 #'
-#' @inherit dplyr::slice return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::slice
+#' @inheritDotParams dplyr::slice
 #'
-#'
+#' @return See [dplyr::slice()]
 #' @seealso [dplyr::slice()]
-#'
 #' @export
-slice <- function(.data, ..., .by = NULL, .preserve = FALSE) {
-	.call <- match.call(definition = dplyr::slice, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::slice)
-	.call$.funname <- 'slice'
-	eval(.call, envir = parent.frame())
+slice <- function(.data, ...) {
+	result <- dplyr::slice(.data, ...)
+	log_filter(.data, result, "slice")
+	result
 }
 
 
-#' Wrapper around dplyr::slice_head that prints information about the operation.
+
+#' Wrapper around dplyr::slice_head that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::slice_head()] that prints information about the operation.
 #'
-#' @inherit dplyr::slice_head return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::slice_head
+#' @inheritDotParams dplyr::slice_head
 #'
-#'
+#' @return See [dplyr::slice_head()]
 #' @seealso [dplyr::slice_head()]
-#'
 #' @export
-slice_head <- function(.data, ..., n, prop, by = NULL) {
-	.call <- match.call(definition = dplyr::slice_head, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::slice_head)
-	.call$.funname <- 'slice_head'
-	eval(.call, envir = parent.frame())
+slice_head <- function(.data, ...) {
+	result <- dplyr::slice_head(.data, ...)
+	log_filter(.data, result, "slice_head")
+	result
 }
 
 
-#' Wrapper around dplyr::slice_tail that prints information about the operation.
+
+#' Wrapper around dplyr::slice_tail that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::slice_tail()] that prints information about the operation.
 #'
-#' @inherit dplyr::slice_tail return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::slice_tail
+#' @inheritDotParams dplyr::slice_tail
 #'
-#'
+#' @return See [dplyr::slice_tail()]
 #' @seealso [dplyr::slice_tail()]
-#'
 #' @export
-slice_tail <- function(.data, ..., n, prop, by = NULL) {
-	.call <- match.call(definition = dplyr::slice_tail, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::slice_tail)
-	.call$.funname <- 'slice_tail'
-	eval(.call, envir = parent.frame())
+slice_tail <- function(.data, ...) {
+	result <- dplyr::slice_tail(.data, ...)
+	log_filter(.data, result, "slice_tail")
+	result
 }
 
 
-#' Wrapper around dplyr::slice_min that prints information about the operation.
+
+#' Wrapper around dplyr::slice_min that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::slice_min()] that prints information about the operation.
 #'
-#' @inherit dplyr::slice_min return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::slice_min
+#' @inheritDotParams dplyr::slice_min
 #'
-#'
+#' @return See [dplyr::slice_min()]
 #' @seealso [dplyr::slice_min()]
-#'
 #' @export
-slice_min <- function(.data, order_by, ..., n, prop, by = NULL, with_ties = TRUE, na_rm = FALSE) {
-	.call <- match.call(definition = dplyr::slice_min, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::slice_min)
-	.call$.funname <- 'slice_min'
-	eval(.call, envir = parent.frame())
+slice_min <- function(.data, ...) {
+	result <- dplyr::slice_min(.data, ...)
+	log_filter(.data, result, "slice_min")
+	result
 }
 
 
-#' Wrapper around dplyr::slice_max that prints information about the operation.
+
+#' Wrapper around dplyr::slice_max that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::slice_max()] that prints information about the operation.
 #'
-#' @inherit dplyr::slice_max return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::slice_max
+#' @inheritDotParams dplyr::slice_max
 #'
-#'
+#' @return See [dplyr::slice_max()]
 #' @seealso [dplyr::slice_max()]
-#'
 #' @export
-slice_max <- function(.data, order_by, ..., n, prop, by = NULL, with_ties = TRUE, na_rm = FALSE) {
-	.call <- match.call(definition = dplyr::slice_max, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::slice_max)
-	.call$.funname <- 'slice_max'
-	eval(.call, envir = parent.frame())
+slice_max <- function(.data, ...) {
+	result <- dplyr::slice_max(.data, ...)
+	log_filter(.data, result, "slice_max")
+	result
 }
 
 
-#' Wrapper around dplyr::slice_sample that prints information about the operation.
+
+#' Wrapper around dplyr::slice_sample that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::slice_sample()] that prints information about the operation.
 #'
-#' @inherit dplyr::slice_sample return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::slice_sample
+#' @inheritDotParams dplyr::slice_sample
 #'
-#'
+#' @return See [dplyr::slice_sample()]
 #' @seealso [dplyr::slice_sample()]
-#'
 #' @export
-slice_sample <- function(.data, ..., n, prop, by = NULL, weight_by = NULL, replace = FALSE) {
-	.call <- match.call(definition = dplyr::slice_sample, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(dplyr::slice_sample)
-	.call$.funname <- 'slice_sample'
-	eval(.call, envir = parent.frame())
+slice_sample <- function(.data, ...) {
+	result <- dplyr::slice_sample(.data, ...)
+	log_filter(.data, result, "slice_sample")
+	result
 }
 
 
-#' Wrapper around tidyr::drop_na that prints information about the operation.
+
+#' Wrapper around tidyr::drop_na that prints information about the operation
 #'
 #' @description
 #' Wrapper around [tidyr::drop_na()] that prints information about the operation.
 #'
-#' @inherit tidyr::drop_na return
+#' @details
+#' Documentation generated from tidyr version 1.3.2.
+#'
 #' @inheritParams tidyr::drop_na
+#' @inheritDotParams tidyr::drop_na
 #'
-#'
+#' @return See [tidyr::drop_na()]
 #' @seealso [tidyr::drop_na()]
-#'
 #' @export
 drop_na <- function(data, ...) {
-	.call <- match.call(definition = tidyr::drop_na, expand.dots = TRUE)
-	names(.call)[names(.call) == 'data'] <- '.data'
-	.call[[1]] <- log_filter
-	.call$.fun <- quote(tidyr::drop_na)
-	.call$.funname <- 'drop_na'
-	eval(.call, envir = parent.frame())
+	result <- tidyr::drop_na(data, ...)
+	log_filter(data, result, "drop_na")
+	result
 }
 
 

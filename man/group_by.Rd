@@ -2,37 +2,34 @@
 % Please edit documentation in R/z_generated_log_group_by.R
 \name{group_by}
 \alias{group_by}
-\title{Wrapper around dplyr::group_by that prints information about the operation.}
+\title{Wrapper around dplyr::group_by that prints information about the operation}
 \usage{
-group_by(.data, ..., .add = FALSE, .drop = group_by_drop_default(.data))
+group_by(.data, ...)
 }
 \arguments{
 \item{.data}{A data frame, data frame extension (e.g. a tibble), or a
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{...}{<\code{\link[rlang:args_data_masking]{data-masking}}> In \code{group_by()},
-variables or computations to group by. Computations are always done on the
-ungrouped data frame. To perform computations on the grouped data, you need
-to use a separate \code{mutate()} step before the \code{group_by()}.
-Computations are not allowed in \code{nest_by()}.
-In \code{ungroup()}, variables to remove from the grouping.}
-
-\item{.add}{When \code{FALSE}, the default, \code{group_by()} will
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:group_by]{dplyr::group_by}}
+  \describe{
+    \item{\code{.add}}{When \code{FALSE}, the default, \code{group_by()} will
 override existing groups. To add to the existing groups, use
 \code{.add = TRUE}.}
-
-\item{.drop}{Drop groups formed by factor levels that don't appear in the
+    \item{\code{.drop}}{Drop groups formed by factor levels that don't appear in the
 data? The default is \code{TRUE} except when \code{.data} has been previously
 grouped with \code{.drop = FALSE}. See \code{\link[dplyr:group_by_drop_default]{group_by_drop_default()}} for details.}
+  }}
 }
 \value{
-A grouped data frame with class \code{\link[dplyr]{grouped_df}},
-unless the combination of \code{...} and \code{add} yields a empty set of
-grouping columns, in which case a tibble will be returned.
+See \code{\link[dplyr:group_by]{dplyr::group_by()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:group_by]{dplyr::group_by()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:group_by]{dplyr::group_by()}}

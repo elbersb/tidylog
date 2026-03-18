@@ -2,38 +2,19 @@
 % Please edit documentation in R/z_generated_log_filter.R
 \name{slice_min}
 \alias{slice_min}
-\title{Wrapper around dplyr::slice_min that prints information about the operation.}
+\title{Wrapper around dplyr::slice_min that prints information about the operation}
 \usage{
-slice_min(
-  .data,
-  order_by,
-  ...,
-  n,
-  prop,
-  by = NULL,
-  with_ties = TRUE,
-  na_rm = FALSE
-)
+slice_min(.data, ...)
 }
 \arguments{
 \item{.data}{A data frame, data frame extension (e.g. a tibble), or a
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{order_by}{<\code{\link[rlang:args_data_masking]{data-masking}}> Variable or
-function of variables to order by. To order by multiple variables, wrap
-them in a data frame or tibble.}
-
-\item{...}{For \code{slice()}: <\code{\link[rlang:args_data_masking]{data-masking}}>
-Integer row values.
-
-Provide either positive values to keep, or negative values to drop.
-The values provided must be either all positive or all negative.
-Indices beyond the number of rows in the input are silently ignored.
-
-For \verb{slice_*()}, these arguments are passed on to methods.}
-
-\item{n, prop}{Provide either \code{n}, the number of rows, or \code{prop}, the
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:slice]{dplyr::slice_min}}
+  \describe{
+    \item{\code{n,prop}}{Provide either \code{n}, the number of rows, or \code{prop}, the
 proportion of rows to select. If neither are supplied, \code{n = 1} will be
 used. If \code{n} is greater than the number of rows in the group
 (or \code{prop > 1}), the result will be silently truncated to the group size.
@@ -43,32 +24,26 @@ rows.
 A negative value of \code{n} or \code{prop} will be subtracted from the group
 size. For example, \code{n = -2} with a group of 5 rows will select 5 - 2 = 3
 rows; \code{prop = -0.25} with 8 rows will select 8 * (1 - 0.25) = 6 rows.}
-
-\item{by}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Optionally, a selection of columns to
-group by for just this operation, functioning as an alternative to \code{\link[dplyr:group_by]{group_by()}}. For
-details and examples, see \link[dplyr:dplyr_by]{?dplyr_by}.}
-
-\item{with_ties}{Should ties be kept together? The default, \code{TRUE},
+    \item{\code{order_by}}{<\code{\link[rlang:args_data_masking]{data-masking}}> Variable or
+function of variables to order by. To order by multiple variables, wrap
+them in a data frame or tibble.}
+    \item{\code{with_ties}}{Should ties be kept together? The default, \code{TRUE},
 may return more rows than you request. Use \code{FALSE} to ignore ties,
 and return the first \code{n} rows.}
-
-\item{na_rm}{Should missing values in \code{order_by} be removed from the result?
+    \item{\code{na_rm}}{Should missing values in \code{order_by} be removed from the result?
 If \code{FALSE}, \code{NA} values are sorted to the end (like in \code{\link[dplyr:arrange]{arrange()}}), so
 they will only be included if there are insufficient non-missing values to
 reach \code{n}/\code{prop}.}
+  }}
 }
 \value{
-An object of the same type as \code{.data}. The output has the following
-properties:
-\itemize{
-\item Each row may appear 0, 1, or many times in the output.
-\item Columns are not modified.
-\item Groups are not modified.
-\item Data frame attributes are preserved.
-}
+See \code{\link[dplyr:slice]{dplyr::slice_min()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:slice]{dplyr::slice_min()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:slice]{dplyr::slice_min()}}

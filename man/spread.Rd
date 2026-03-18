@@ -2,37 +2,43 @@
 % Please edit documentation in R/z_generated_log_longer_wider.R
 \name{spread}
 \alias{spread}
-\title{Wrapper around tidyr::spread that prints information about the operation.}
+\title{Wrapper around tidyr::spread that prints information about the operation}
 \usage{
-spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE, sep = NULL)
+spread(data, ...)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{key, value}{<\code{\link[tidyr:tidyr_tidy_select]{tidy-select}}> Columns to use
+\item{...}{
+  Arguments passed on to \code{\link[tidyr:spread]{tidyr::spread}}
+  \describe{
+    \item{\code{key,value}}{<\code{\link[tidyr:tidyr_tidy_select]{tidy-select}}> Columns to use
 for \code{key} and \code{value}.}
-
-\item{fill}{If set, missing values will be replaced with this value. Note
+    \item{\code{fill}}{If set, missing values will be replaced with this value. Note
 that there are two types of missingness in the input: explicit missing
 values (i.e. \code{NA}), and implicit missings, rows that simply aren't
 present. Both types of missing value will be replaced by \code{fill}.}
-
-\item{convert}{If \code{TRUE}, \code{\link[=type.convert]{type.convert()}} with \code{asis =
+    \item{\code{convert}}{If \code{TRUE}, \code{\link[=type.convert]{type.convert()}} with \code{asis =
   TRUE} will be run on each of the new columns. This is useful if the value
 column was a mix of variables that was coerced to a string. If the class of
 the value column was factor or date, note that will not be true of the new
 columns that are produced, which are coerced to character before type
 conversion.}
-
-\item{drop}{If \code{FALSE}, will keep factor levels that don't appear in the
+    \item{\code{drop}}{If \code{FALSE}, will keep factor levels that don't appear in the
 data, filling in missing combinations with \code{fill}.}
-
-\item{sep}{If \code{NULL}, the column names will be taken from the values of
+    \item{\code{sep}}{If \code{NULL}, the column names will be taken from the values of
 \code{key} variable. If non-\code{NULL}, the column names will be given
 by \code{"<key_name><sep><key_value>"}.}
+  }}
+}
+\value{
+See \code{\link[tidyr:spread]{tidyr::spread()}}
 }
 \description{
 Wrapper around \code{\link[tidyr:spread]{tidyr::spread()}} that prints information about the operation.
+}
+\details{
+Documentation generated from tidyr version 1.3.2.
 }
 \seealso{
 \code{\link[tidyr:spread]{tidyr::spread()}}

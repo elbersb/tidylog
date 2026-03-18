@@ -5,113 +5,113 @@ log_rename
 
 
 
-#' Wrapper around dplyr::rename that prints information about the operation.
+
+#' Wrapper around dplyr::rename that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::rename()] that prints information about the operation.
 #'
-#' @inherit dplyr::rename return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::rename
+#' @inheritDotParams dplyr::rename
 #'
-#'
+#' @return See [dplyr::rename()]
 #' @seealso [dplyr::rename()]
-#'
 #' @export
 rename <- function(.data, ...) {
-	.call <- match.call(definition = dplyr::rename, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_rename
-	.call$.fun <- quote(dplyr::rename)
-	.call$.funname <- 'rename'
-	eval(.call, envir = parent.frame())
+	result <- dplyr::rename(.data, ...)
+	log_rename(.data, result, "rename")
+	result
 }
 
 
-#' Wrapper around dplyr::rename_all that prints information about the operation.
+
+#' Wrapper around dplyr::rename_all that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::rename_all()] that prints information about the operation.
 #'
-#' @inherit dplyr::rename_all return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::rename_all
+#' @inheritDotParams dplyr::rename_all
 #'
-#'
+#' @return See [dplyr::rename_all()]
 #' @seealso [dplyr::rename_all()]
-#'
 #' @export
-rename_all <- function(.tbl, .funs = list(), ...) {
-	.call <- match.call(definition = dplyr::rename_all, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_rename
-	.call$.fun <- quote(dplyr::rename_all)
-	.call$.funname <- 'rename_all'
-	eval(.call, envir = parent.frame())
+rename_all <- function(.tbl, ...) {
+	result <- dplyr::rename_all(.tbl, ...)
+	log_rename(.tbl, result, "rename_all")
+	result
 }
 
 
-#' Wrapper around dplyr::rename_if that prints information about the operation.
+
+#' Wrapper around dplyr::rename_if that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::rename_if()] that prints information about the operation.
 #'
-#' @inherit dplyr::rename_if return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::rename_if
+#' @inheritDotParams dplyr::rename_if
 #'
-#'
+#' @return See [dplyr::rename_if()]
 #' @seealso [dplyr::rename_if()]
-#'
 #' @export
-rename_if <- function(.tbl, .predicate, .funs = list(), ...) {
-	.call <- match.call(definition = dplyr::rename_if, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_rename
-	.call$.fun <- quote(dplyr::rename_if)
-	.call$.funname <- 'rename_if'
-	eval(.call, envir = parent.frame())
+rename_if <- function(.tbl, ...) {
+	result <- dplyr::rename_if(.tbl, ...)
+	log_rename(.tbl, result, "rename_if")
+	result
 }
 
 
-#' Wrapper around dplyr::rename_at that prints information about the operation.
+
+#' Wrapper around dplyr::rename_at that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::rename_at()] that prints information about the operation.
 #'
-#' @inherit dplyr::rename_at return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::rename_at
+#' @inheritDotParams dplyr::rename_at
 #'
-#'
+#' @return See [dplyr::rename_at()]
 #' @seealso [dplyr::rename_at()]
-#'
 #' @export
-rename_at <- function(.tbl, .vars, .funs = list(), ...) {
-	.call <- match.call(definition = dplyr::rename_at, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_rename
-	.call$.fun <- quote(dplyr::rename_at)
-	.call$.funname <- 'rename_at'
-	eval(.call, envir = parent.frame())
+rename_at <- function(.tbl, ...) {
+	result <- dplyr::rename_at(.tbl, ...)
+	log_rename(.tbl, result, "rename_at")
+	result
 }
 
 
-#' Wrapper around dplyr::rename_with that prints information about the operation.
+
+#' Wrapper around dplyr::rename_with that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::rename_with()] that prints information about the operation.
 #'
-#' @inherit dplyr::rename_with return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::rename_with
-#' @importFrom tidyselect everything
+#' @inheritDotParams dplyr::rename_with
 #'
+#' @return See [dplyr::rename_with()]
 #' @seealso [dplyr::rename_with()]
-#'
 #' @export
-rename_with <- function(.data, .fn, .cols = everything(), ...) {
-	.call <- match.call(definition = dplyr::rename_with, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_rename
-	.call$.fun <- quote(dplyr::rename_with)
-	.call$.funname <- 'rename_with'
-	eval(.call, envir = parent.frame())
+rename_with <- function(.data, ...) {
+	result <- dplyr::rename_with(.data, ...)
+	log_rename(.data, result, "rename_with")
+	result
 }
 
 

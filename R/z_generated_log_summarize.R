@@ -5,245 +5,245 @@ log_summarize
 
 
 
-#' Wrapper around dplyr::summarize that prints information about the operation.
+
+#' Wrapper around dplyr::summarize that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::summarize()] that prints information about the operation.
 #'
-#' @inherit dplyr::summarize return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::summarize
+#' @inheritDotParams dplyr::summarize
 #'
-#'
+#' @return See [dplyr::summarize()]
 #' @seealso [dplyr::summarize()]
-#'
 #' @export
-summarize <- function(.data, ..., .by = NULL, .groups = NULL) {
-	.call <- match.call(definition = dplyr::summarize, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_summarize
-	.call$.fun <- quote(dplyr::summarize)
-	.call$.funname <- 'summarize'
-	eval(.call, envir = parent.frame())
+summarize <- function(.data, ...) {
+	result <- dplyr::summarize(.data, ...)
+	log_summarize(.data, result, "summarize")
+	result
 }
 
 
-#' Wrapper around dplyr::summarize_all that prints information about the operation.
+
+#' Wrapper around dplyr::summarize_all that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::summarize_all()] that prints information about the operation.
 #'
-#' @inherit dplyr::summarize_all return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::summarize_all
+#' @inheritDotParams dplyr::summarize_all
 #'
-#'
+#' @return See [dplyr::summarize_all()]
 #' @seealso [dplyr::summarize_all()]
-#'
 #' @export
-summarize_all <- function(.tbl, .funs, ...) {
-	.call <- match.call(definition = dplyr::summarize_all, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_summarize
-	.call$.fun <- quote(dplyr::summarize_all)
-	.call$.funname <- 'summarize_all'
-	eval(.call, envir = parent.frame())
+summarize_all <- function(.tbl, ...) {
+	result <- dplyr::summarize_all(.tbl, ...)
+	log_summarize(.tbl, result, "summarize_all")
+	result
 }
 
 
-#' Wrapper around dplyr::summarize_at that prints information about the operation.
+
+#' Wrapper around dplyr::summarize_at that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::summarize_at()] that prints information about the operation.
 #'
-#' @inherit dplyr::summarize_at return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::summarize_at
+#' @inheritDotParams dplyr::summarize_at
 #'
-#'
+#' @return See [dplyr::summarize_at()]
 #' @seealso [dplyr::summarize_at()]
-#'
 #' @export
-summarize_at <- function(.tbl, .vars, .funs, ..., .cols = NULL) {
-	.call <- match.call(definition = dplyr::summarize_at, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_summarize
-	.call$.fun <- quote(dplyr::summarize_at)
-	.call$.funname <- 'summarize_at'
-	eval(.call, envir = parent.frame())
+summarize_at <- function(.tbl, ...) {
+	result <- dplyr::summarize_at(.tbl, ...)
+	log_summarize(.tbl, result, "summarize_at")
+	result
 }
 
 
-#' Wrapper around dplyr::summarize_if that prints information about the operation.
+
+#' Wrapper around dplyr::summarize_if that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::summarize_if()] that prints information about the operation.
 #'
-#' @inherit dplyr::summarize_if return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::summarize_if
+#' @inheritDotParams dplyr::summarize_if
 #'
-#'
+#' @return See [dplyr::summarize_if()]
 #' @seealso [dplyr::summarize_if()]
-#'
 #' @export
-summarize_if <- function(.tbl, .predicate, .funs, ...) {
-	.call <- match.call(definition = dplyr::summarize_if, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_summarize
-	.call$.fun <- quote(dplyr::summarize_if)
-	.call$.funname <- 'summarize_if'
-	eval(.call, envir = parent.frame())
+summarize_if <- function(.tbl, ...) {
+	result <- dplyr::summarize_if(.tbl, ...)
+	log_summarize(.tbl, result, "summarize_if")
+	result
 }
 
 
-#' Wrapper around dplyr::summarise that prints information about the operation.
+
+#' Wrapper around dplyr::summarise that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::summarise()] that prints information about the operation.
 #'
-#' @inherit dplyr::summarise return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::summarise
+#' @inheritDotParams dplyr::summarise
 #'
-#'
+#' @return See [dplyr::summarise()]
 #' @seealso [dplyr::summarise()]
-#'
 #' @export
-summarise <- function(.data, ..., .by = NULL, .groups = NULL) {
-	.call <- match.call(definition = dplyr::summarise, expand.dots = TRUE)
-	names(.call)[names(.call) == '.data'] <- '.data'
-	.call[[1]] <- log_summarize
-	.call$.fun <- quote(dplyr::summarise)
-	.call$.funname <- 'summarise'
-	eval(.call, envir = parent.frame())
+summarise <- function(.data, ...) {
+	result <- dplyr::summarise(.data, ...)
+	log_summarize(.data, result, "summarise")
+	result
 }
 
 
-#' Wrapper around dplyr::summarise_all that prints information about the operation.
+
+#' Wrapper around dplyr::summarise_all that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::summarise_all()] that prints information about the operation.
 #'
-#' @inherit dplyr::summarise_all return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::summarise_all
+#' @inheritDotParams dplyr::summarise_all
 #'
-#'
+#' @return See [dplyr::summarise_all()]
 #' @seealso [dplyr::summarise_all()]
-#'
 #' @export
-summarise_all <- function(.tbl, .funs, ...) {
-	.call <- match.call(definition = dplyr::summarise_all, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_summarize
-	.call$.fun <- quote(dplyr::summarise_all)
-	.call$.funname <- 'summarise_all'
-	eval(.call, envir = parent.frame())
+summarise_all <- function(.tbl, ...) {
+	result <- dplyr::summarise_all(.tbl, ...)
+	log_summarize(.tbl, result, "summarise_all")
+	result
 }
 
 
-#' Wrapper around dplyr::summarise_at that prints information about the operation.
+
+#' Wrapper around dplyr::summarise_at that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::summarise_at()] that prints information about the operation.
 #'
-#' @inherit dplyr::summarise_at return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::summarise_at
+#' @inheritDotParams dplyr::summarise_at
 #'
-#'
+#' @return See [dplyr::summarise_at()]
 #' @seealso [dplyr::summarise_at()]
-#'
 #' @export
-summarise_at <- function(.tbl, .vars, .funs, ..., .cols = NULL) {
-	.call <- match.call(definition = dplyr::summarise_at, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_summarize
-	.call$.fun <- quote(dplyr::summarise_at)
-	.call$.funname <- 'summarise_at'
-	eval(.call, envir = parent.frame())
+summarise_at <- function(.tbl, ...) {
+	result <- dplyr::summarise_at(.tbl, ...)
+	log_summarize(.tbl, result, "summarise_at")
+	result
 }
 
 
-#' Wrapper around dplyr::summarise_if that prints information about the operation.
+
+#' Wrapper around dplyr::summarise_if that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::summarise_if()] that prints information about the operation.
 #'
-#' @inherit dplyr::summarise_if return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::summarise_if
+#' @inheritDotParams dplyr::summarise_if
 #'
-#'
+#' @return See [dplyr::summarise_if()]
 #' @seealso [dplyr::summarise_if()]
-#'
 #' @export
-summarise_if <- function(.tbl, .predicate, .funs, ...) {
-	.call <- match.call(definition = dplyr::summarise_if, expand.dots = TRUE)
-	names(.call)[names(.call) == '.tbl'] <- '.data'
-	.call[[1]] <- log_summarize
-	.call$.fun <- quote(dplyr::summarise_if)
-	.call$.funname <- 'summarise_if'
-	eval(.call, envir = parent.frame())
+summarise_if <- function(.tbl, ...) {
+	result <- dplyr::summarise_if(.tbl, ...)
+	log_summarize(.tbl, result, "summarise_if")
+	result
 }
 
 
-#' Wrapper around dplyr::tally that prints information about the operation.
+
+#' Wrapper around dplyr::tally that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::tally()] that prints information about the operation.
 #'
-#' @inherit dplyr::tally return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::tally
+#' @inheritDotParams dplyr::tally
 #'
-#'
+#' @return See [dplyr::tally()]
 #' @seealso [dplyr::tally()]
-#'
 #' @export
-tally <- function(x, wt = NULL, sort = FALSE, name = NULL) {
-	.call <- match.call(definition = dplyr::tally, expand.dots = TRUE)
-	names(.call)[names(.call) == 'x'] <- '.data'
-	.call[[1]] <- log_summarize
-	.call$.fun <- quote(dplyr::tally)
-	.call$.funname <- 'tally'
-	eval(.call, envir = parent.frame())
+tally <- function(x, ...) {
+	result <- dplyr::tally(x, ...)
+	log_summarize(x, result, "tally")
+	result
 }
 
 
-#' Wrapper around dplyr::count that prints information about the operation.
+
+#' Wrapper around dplyr::count that prints information about the operation
 #'
 #' @description
 #' Wrapper around [dplyr::count()] that prints information about the operation.
 #'
-#' @inherit dplyr::count return
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
 #' @inheritParams dplyr::count
+#' @inheritDotParams dplyr::count
 #'
-#'
+#' @return See [dplyr::count()]
 #' @seealso [dplyr::count()]
-#'
 #' @export
-count <- function(x, ..., wt = NULL, sort = FALSE, name = NULL) {
-	.call <- match.call(definition = dplyr::count, expand.dots = TRUE)
-	names(.call)[names(.call) == 'x'] <- '.data'
-	.call[[1]] <- log_summarize
-	.call$.fun <- quote(dplyr::count)
-	.call$.funname <- 'count'
-	eval(.call, envir = parent.frame())
+count <- function(x, ...) {
+	result <- dplyr::count(x, ...)
+	log_summarize(x, result, "count")
+	result
 }
 
 
-#' Wrapper around tidyr::uncount that prints information about the operation.
+
+#' Wrapper around tidyr::uncount that prints information about the operation
 #'
 #' @description
 #' Wrapper around [tidyr::uncount()] that prints information about the operation.
 #'
-#' @inherit tidyr::uncount return
+#' @details
+#' Documentation generated from tidyr version 1.3.2.
+#'
 #' @inheritParams tidyr::uncount
+#' @inheritDotParams tidyr::uncount
 #'
-#'
+#' @return See [tidyr::uncount()]
 #' @seealso [tidyr::uncount()]
-#'
 #' @export
-uncount <- function(data, weights, ..., .remove = TRUE, .id = NULL) {
-	.call <- match.call(definition = tidyr::uncount, expand.dots = TRUE)
-	names(.call)[names(.call) == 'data'] <- '.data'
-	.call[[1]] <- log_summarize
-	.call$.fun <- quote(tidyr::uncount)
-	.call$.funname <- 'uncount'
-	eval(.call, envir = parent.frame())
+uncount <- function(data, ...) {
+	result <- tidyr::uncount(data, ...)
+	log_summarize(data, result, "uncount")
+	result
 }
 
 

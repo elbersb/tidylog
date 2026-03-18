@@ -2,27 +2,34 @@
 % Please edit documentation in R/z_generated_log_mutate.R
 \name{fill}
 \alias{fill}
-\title{Wrapper around tidyr::fill that prints information about the operation.}
+\title{Wrapper around tidyr::fill that prints information about the operation}
 \usage{
-fill(data, ..., .by = NULL, .direction = c("down", "up", "downup", "updown"))
+fill(data, ...)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{<\code{\link[tidyr:tidyr_tidy_select]{tidy-select}}> Columns to fill.}
-
-\item{.by}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\item{...}{
+  Arguments passed on to \code{\link[tidyr:fill]{tidyr::fill}}
+  \describe{
+    \item{\code{.by}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 <\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Optionally, a selection of columns to
 group by for just this operation, functioning as an alternative to \code{\link[dplyr:group_by]{group_by()}}. For
 details and examples, see \link[dplyr:dplyr_by]{?dplyr_by}.}
-
-\item{.direction}{Direction in which to fill missing values. Currently
+    \item{\code{.direction}}{Direction in which to fill missing values. Currently
 either "down" (the default), "up", "downup" (i.e. first down and then up)
 or "updown" (first up and then down).}
+  }}
+}
+\value{
+See \code{\link[tidyr:fill]{tidyr::fill()}}
 }
 \description{
 Wrapper around \code{\link[tidyr:fill]{tidyr::fill()}} that prints information about the operation.
+}
+\details{
+Documentation generated from tidyr version 1.3.2.
 }
 \seealso{
 \code{\link[tidyr:fill]{tidyr::fill()}}

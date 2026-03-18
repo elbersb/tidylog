@@ -2,18 +2,27 @@
 % Please edit documentation in R/z_generated_log_filter.R
 \name{drop_na}
 \alias{drop_na}
-\title{Wrapper around tidyr::drop_na that prints information about the operation.}
+\title{Wrapper around tidyr::drop_na that prints information about the operation}
 \usage{
 drop_na(data, ...)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{<\code{\link[tidyr:tidyr_tidy_select]{tidy-select}}> Columns to inspect for
-missing values. If empty, all columns are used.}
+\item{...}{
+  Arguments passed on to \code{\link[tidyr:drop_na]{tidyr::drop_na}}
+  \describe{
+    \item{\code{}}{}
+  }}
+}
+\value{
+See \code{\link[tidyr:drop_na]{tidyr::drop_na()}}
 }
 \description{
 Wrapper around \code{\link[tidyr:drop_na]{tidyr::drop_na()}} that prints information about the operation.
+}
+\details{
+Documentation generated from tidyr version 1.3.2.
 }
 \seealso{
 \code{\link[tidyr:drop_na]{tidyr::drop_na()}}

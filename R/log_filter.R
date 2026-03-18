@@ -46,13 +46,10 @@ display_slice_ties <- function(.olddata, .newdata, .funname, ...) {
 
 }
 
-log_filter <- function(.data, .fun, .funname, ...) {
-    newdata <- .fun(.data, ...)
-    display_changed_rows(.data, newdata, .funname)
+log_filter <- function(.olddata, .newdata, .funname, ...) {
+    display_changed_rows(.olddata, .newdata, .funname)
 
-    if(.funname %in% c("slice_min", "slice_max")) {
-        display_slice_ties(.data, newdata, .funname, ...)
+    if (.funname %in% c("slice_min", "slice_max")) {
+        display_slice_ties(.olddata, .newdata, .funname, ...)
     }
-
-    newdata
 }

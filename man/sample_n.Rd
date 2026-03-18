@@ -2,30 +2,35 @@
 % Please edit documentation in R/z_generated_log_filter.R
 \name{sample_n}
 \alias{sample_n}
-\title{Wrapper around dplyr::sample_n that prints information about the operation.}
+\title{Wrapper around dplyr::sample_n that prints information about the operation}
 \usage{
-sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL, ...)
+sample_n(tbl, ...)
 }
 \arguments{
 \item{tbl}{A data.frame.}
 
-\item{size}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}>
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:sample_n]{dplyr::sample_n}}
+  \describe{
+    \item{\code{size}}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}>
 For \code{sample_n()}, the number of rows to select.
 For \code{sample_frac()}, the fraction of rows to select.
 If \code{tbl} is grouped, \code{size} applies to each group.}
-
-\item{replace}{Sample with or without replacement?}
-
-\item{weight}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Sampling weights.
+    \item{\code{replace}}{Sample with or without replacement?}
+    \item{\code{weight}}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Sampling weights.
 This must evaluate to a vector of non-negative numbers the same length as
 the input. Weights are automatically standardised to sum to 1.}
-
-\item{.env}{DEPRECATED.}
-
-\item{...}{ignored}
+    \item{\code{.env}}{DEPRECATED.}
+  }}
+}
+\value{
+See \code{\link[dplyr:sample_n]{dplyr::sample_n()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:sample_n]{dplyr::sample_n()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:sample_n]{dplyr::sample_n()}}

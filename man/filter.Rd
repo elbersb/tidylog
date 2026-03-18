@@ -2,41 +2,33 @@
 % Please edit documentation in R/z_generated_log_filter.R
 \name{filter}
 \alias{filter}
-\title{Wrapper around dplyr::filter that prints information about the operation.}
+\title{Wrapper around dplyr::filter that prints information about the operation}
 \usage{
-filter(.data, ..., .by = NULL, .preserve = FALSE)
+filter(.data, ...)
 }
 \arguments{
 \item{.data}{A data frame, data frame extension (e.g. a tibble), or a
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{...}{<\code{\link[rlang:args_data_masking]{data-masking}}> Expressions that
-return a logical vector, defined in terms of the variables in \code{.data}. If
-multiple expressions are included, they are combined with the \code{&} operator.
-To combine expressions using \code{|} instead, wrap them in \code{\link[dplyr:when_any]{when_any()}}. Only
-rows for which all expressions evaluate to \code{TRUE} are kept (for \code{filter()})
-or dropped (for \code{filter_out()}).}
-
-\item{.by}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Optionally, a selection of columns to
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:filter]{dplyr::filter}}
+  \describe{
+    \item{\code{.by}}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Optionally, a selection of columns to
 group by for just this operation, functioning as an alternative to \code{\link[dplyr:group_by]{group_by()}}. For
 details and examples, see \link[dplyr:dplyr_by]{?dplyr_by}.}
-
-\item{.preserve}{Relevant when the \code{.data} input is grouped. If \code{.preserve = FALSE} (the default), the grouping structure is recalculated based on the
+    \item{\code{.preserve}}{Relevant when the \code{.data} input is grouped. If \code{.preserve = FALSE} (the default), the grouping structure is recalculated based on the
 resulting data, otherwise the grouping is kept as is.}
+  }}
 }
 \value{
-An object of the same type as \code{.data}. The output has the following
-properties:
-\itemize{
-\item Rows are a subset of the input, but appear in the same order.
-\item Columns are not modified.
-\item The number of groups may be reduced (if \code{.preserve} is not \code{TRUE}).
-\item Data frame attributes are preserved.
-}
+See \code{\link[dplyr:filter]{dplyr::filter()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:filter]{dplyr::filter()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:filter]{dplyr::filter()}}

@@ -2,38 +2,39 @@
 % Please edit documentation in R/z_generated_log_summarize.R
 \name{count}
 \alias{count}
-\title{Wrapper around dplyr::count that prints information about the operation.}
+\title{Wrapper around dplyr::count that prints information about the operation}
 \usage{
-count(x, ..., wt = NULL, sort = FALSE, name = NULL)
+count(x, ...)
 }
 \arguments{
 \item{x}{A data frame, data frame extension (e.g. a tibble), or a
 lazy data frame (e.g. from dbplyr or dtplyr).}
 
-\item{...}{<\code{\link[rlang:args_data_masking]{data-masking}}> Variables to group
-by.}
-
-\item{wt}{<\code{\link[rlang:args_data_masking]{data-masking}}> Frequency weights.
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:count]{dplyr::count}}
+  \describe{
+    \item{\code{wt}}{<\code{\link[rlang:args_data_masking]{data-masking}}> Frequency weights.
 Can be \code{NULL} or a variable:
 \itemize{
 \item If \code{NULL} (the default), counts the number of rows in each group.
 \item If a variable, computes \code{sum(wt)} for each group.
 }}
-
-\item{sort}{If \code{TRUE}, will show the largest groups at the top.}
-
-\item{name}{The name of the new column in the output.
+    \item{\code{sort}}{If \code{TRUE}, will show the largest groups at the top.}
+    \item{\code{name}}{The name of the new column in the output.
 
 If omitted, it will default to \code{n}. If there's already a column called \code{n},
 it will use \code{nn}. If there's a column called \code{n} and \code{nn}, it'll use
 \code{nnn}, and so on, adding \code{n}s until it gets a new name.}
+  }}
 }
 \value{
-An object of the same type as \code{.data}. \code{count()} and \code{add_count()}
-group transiently, so the output has the same groups as the input.
+See \code{\link[dplyr:count]{dplyr::count()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:count]{dplyr::count()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:count]{dplyr::count()}}

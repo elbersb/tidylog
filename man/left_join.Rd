@@ -2,17 +2,9 @@
 % Please edit documentation in R/z_generated_log_join.R
 \name{left_join}
 \alias{left_join}
-\title{Wrapper around dplyr::left_join that prints information about the operation.}
+\title{Wrapper around dplyr::left_join that prints information about the operation}
 \usage{
-left_join(
-  x,
-  y,
-  by = NULL,
-  copy = FALSE,
-  suffix = c(".x", ".y"),
-  ...,
-  keep = NULL
-)
+left_join(x, y, by = NULL, ...)
 }
 \arguments{
 \item{x, y}{A pair of data frames, data frame extensions (e.g. a tibble), or
@@ -48,18 +40,20 @@ use a named character vector like \code{by = c("x_a" = "y_a", "x_b" = "y_b")}.
 To perform a cross-join, generating all combinations of \code{x} and \code{y}, see
 \code{\link[dplyr:cross_join]{cross_join()}}.}
 
-\item{copy}{If \code{x} and \code{y} are not from the same data source,
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:mutate-joins]{dplyr::left_join}}
+  \describe{
+    \item{\code{x,y}}{A pair of data frames, data frame extensions (e.g. a tibble), or
+lazy data frames (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
+more details.}
+    \item{\code{copy}}{If \code{x} and \code{y} are not from the same data source,
 and \code{copy} is \code{TRUE}, then \code{y} will be copied into the
 same src as \code{x}.  This allows you to join tables across srcs, but
 it is a potentially expensive operation so you must opt into it.}
-
-\item{suffix}{If there are non-joined duplicate variables in \code{x} and
+    \item{\code{suffix}}{If there are non-joined duplicate variables in \code{x} and
 \code{y}, these suffixes will be added to the output to disambiguate them.
 Should be a character vector of length 2.}
-
-\item{...}{Other parameters passed onto methods.}
-
-\item{keep}{Should the join keys from both \code{x} and \code{y} be preserved in the
+    \item{\code{keep}}{Should the join keys from both \code{x} and \code{y} be preserved in the
 output?
 \itemize{
 \item If \code{NULL}, the default, joins on equality retain only the keys from \code{x},
@@ -70,30 +64,16 @@ the data in key columns corresponding to rows that only exist in \code{y} are
 merged into the key columns from \code{x}. Can't be used when joining on
 inequality conditions.
 }}
+  }}
 }
 \value{
-An object of the same type as \code{x} (including the same groups). The order of
-the rows and columns of \code{x} is preserved as much as possible. The output has
-the following properties:
-\itemize{
-\item The rows are affect by the join type.
-\itemize{
-\item \code{inner_join()} returns matched \code{x} rows.
-\item \code{left_join()} returns all \code{x} rows.
-\item \code{right_join()}  returns matched of \code{x} rows, followed by unmatched \code{y} rows.
-\item \code{full_join()}  returns all \code{x} rows, followed by unmatched \code{y} rows.
-}
-\item Output columns include all columns from \code{x} and all non-key columns from
-\code{y}. If \code{keep = TRUE}, the key columns from \code{y} are included as well.
-\item If non-key columns in \code{x} and \code{y} have the same name, \code{suffix}es are added
-to disambiguate. If \code{keep = TRUE} and key columns in \code{x} and \code{y} have
-the same name, \code{suffix}es are added to disambiguate these as well.
-\item If \code{keep = FALSE}, output columns included in \code{by} are coerced to their
-common type between \code{x} and \code{y}.
-}
+See \code{\link[dplyr:mutate-joins]{dplyr::left_join()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:mutate-joins]{dplyr::left_join()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:mutate-joins]{dplyr::left_join()}}

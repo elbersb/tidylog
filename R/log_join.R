@@ -1,14 +1,13 @@
 # Logging of functions that join 2 data frames.
 #
 # Note: this logger has a unique signature, different than all the other loggers.
-log_join <- function(x, y, by = NULL, .fun, .funname, .name_x, .name_y, ...) {
-    newdata <- .fun(x, y, by = by, ...)
+log_join <- function(x, y, by = NULL, .newdata, .funname, ...) {
     if (!"data.frame" %in% class(x) | !should_display()) {
-        return(newdata)
+        return()
     }
 
     # columns
-    cols <- setdiff(names(newdata), names(x))
+    cols <- setdiff(names(.newdata), names(x))
     if (length(cols) == 0) {
         display(glue::glue("{.funname}: added no columns"))
     } else {
@@ -24,8 +23,8 @@ log_join <- function(x, y, by = NULL, .fun, .funname, .name_x, .name_y, ...) {
     } else {
         # If using `join_by()` with more complex logic than `==`, only report
         # the change in row number from the input `x`.
-        display_changed_rows(x, newdata, .funname)
-        return(newdata)
+        display_changed_rows(x, .newdata, .funname)
+        return()
     }
     cols_x <- x[, keys$x, drop = FALSE]
     cols_y <- y[, keys$y, drop = FALSE]
@@ -38,7 +37,7 @@ log_join <- function(x, y, by = NULL, .fun, .funname, .name_x, .name_y, ...) {
     stats <- list(
         only_in_x = nrow(only_in_x),
         only_in_y = nrow(only_in_y),
-        total = nrow(newdata)
+        total = nrow(.newdata)
     )
 
     # figure out matched & duplicates
@@ -75,12 +74,12 @@ log_join <- function(x, y, by = NULL, .fun, .funname, .name_x, .name_y, ...) {
     stats_str <- lapply(stats, function(x) formatC(x, big.mark = ","))
     max_n <- max(sapply(stats_str, nchar))
     stats_str <- lapply(stats_str, function(x) format(x, justify = "right", width = max_n))
-    # data set names
-    .name_x <- ifelse(.name_x == ".", "x", shorten(.name_x))
-    .name_y <- ifelse(.name_y == ".", "y", shorten(.name_y))
-    names_length <- max(nchar(.name_x), nchar(.name_y))
-    .name_x <- format(.name_x, justify = "left", width = names_length)
-    .name_y <- format(.name_y, justify = "left", width = names_length)
+    
+    # Use fixed names
+    .name_x <- "x"
+    .name_y <- "y"
+    names_length <- 1
+    
     # white space
     ws_pre <- paste0(rep(" ", nchar(.funname)), collapse = "")
     ws_post <- paste0(rep(" ", names_length), collapse = "")
@@ -102,6 +101,4 @@ log_join <- function(x, y, by = NULL, .fun, .funname, .name_x, .name_y, ...) {
     }
     display(glue::glue("{ws_pre}  >{ws_post}               ={paste0(rep('=', max_n), collapse = '')}="))
     display(glue::glue("{ws_pre}  > rows total{ws_post}     {stats_str$total}"))
-
-    newdata
 }

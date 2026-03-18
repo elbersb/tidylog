@@ -2,25 +2,19 @@
 % Please edit documentation in R/z_generated_log_filter.R
 \name{slice_sample}
 \alias{slice_sample}
-\title{Wrapper around dplyr::slice_sample that prints information about the operation.}
+\title{Wrapper around dplyr::slice_sample that prints information about the operation}
 \usage{
-slice_sample(.data, ..., n, prop, by = NULL, weight_by = NULL, replace = FALSE)
+slice_sample(.data, ...)
 }
 \arguments{
 \item{.data}{A data frame, data frame extension (e.g. a tibble), or a
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{...}{For \code{slice()}: <\code{\link[rlang:args_data_masking]{data-masking}}>
-Integer row values.
-
-Provide either positive values to keep, or negative values to drop.
-The values provided must be either all positive or all negative.
-Indices beyond the number of rows in the input are silently ignored.
-
-For \verb{slice_*()}, these arguments are passed on to methods.}
-
-\item{n, prop}{Provide either \code{n}, the number of rows, or \code{prop}, the
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:slice]{dplyr::slice_sample}}
+  \describe{
+    \item{\code{n,prop}}{Provide either \code{n}, the number of rows, or \code{prop}, the
 proportion of rows to select. If neither are supplied, \code{n = 1} will be
 used. If \code{n} is greater than the number of rows in the group
 (or \code{prop > 1}), the result will be silently truncated to the group size.
@@ -30,32 +24,23 @@ rows.
 A negative value of \code{n} or \code{prop} will be subtracted from the group
 size. For example, \code{n = -2} with a group of 5 rows will select 5 - 2 = 3
 rows; \code{prop = -0.25} with 8 rows will select 8 * (1 - 0.25) = 6 rows.}
-
-\item{by}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Optionally, a selection of columns to
-group by for just this operation, functioning as an alternative to \code{\link[dplyr:group_by]{group_by()}}. For
-details and examples, see \link[dplyr:dplyr_by]{?dplyr_by}.}
-
-\item{weight_by}{<\code{\link[rlang:args_data_masking]{data-masking}}> Sampling
+    \item{\code{weight_by}}{<\code{\link[rlang:args_data_masking]{data-masking}}> Sampling
 weights. This must evaluate to a vector of non-negative numbers the same
 length as the input. Weights are automatically standardised to sum to 1.
 See the \code{Details} section for more technical details regarding these
 weights.}
-
-\item{replace}{Should sampling be performed with (\code{TRUE}) or without
+    \item{\code{replace}}{Should sampling be performed with (\code{TRUE}) or without
 (\code{FALSE}, the default) replacement.}
+  }}
 }
 \value{
-An object of the same type as \code{.data}. The output has the following
-properties:
-\itemize{
-\item Each row may appear 0, 1, or many times in the output.
-\item Columns are not modified.
-\item Groups are not modified.
-\item Data frame attributes are preserved.
-}
+See \code{\link[dplyr:slice]{dplyr::slice_sample()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:slice]{dplyr::slice_sample()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:slice]{dplyr::slice_sample()}}

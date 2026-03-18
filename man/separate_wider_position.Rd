@@ -2,40 +2,25 @@
 % Please edit documentation in R/z_generated_log_longer_wider.R
 \name{separate_wider_position}
 \alias{separate_wider_position}
-\title{Wrapper around tidyr::separate_wider_position that prints information about the operation.}
+\title{Wrapper around tidyr::separate_wider_position that prints information about the operation}
 \usage{
-separate_wider_position(
-  data,
-  cols,
-  widths,
-  ...,
-  names_sep = NULL,
-  names_repair = "check_unique",
-  too_few = c("error", "debug", "align_start"),
-  too_many = c("error", "debug", "drop"),
-  cols_remove = TRUE
-)
+separate_wider_position(data, ...)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{<\code{\link[tidyr:tidyr_tidy_select]{tidy-select}}> Columns to separate.}
-
-\item{widths}{A named numeric vector where the names become column names,
-and the values specify the column width. Unnamed components will match,
-but not be included in the output.}
-
-\item{...}{These dots are for future extensions and must be empty.}
-
-\item{names_sep}{If supplied, output names will be composed
+\item{...}{
+  Arguments passed on to \code{\link[tidyr:separate_wider_delim]{tidyr::separate_wider_position}}
+  \describe{
+    \item{\code{cols}}{<\code{\link[tidyr:tidyr_tidy_select]{tidy-select}}> Columns to separate.}
+    \item{\code{names_sep}}{If supplied, output names will be composed
 of the input column name followed by the separator followed by the
 new column name. Required when \code{cols} selects multiple columns.
 
 For \code{separate_wider_delim()} you can specify instead of \code{names}, in which
 case the names will be generated from the source column name, \code{names_sep},
 and a numeric suffix.}
-
-\item{names_repair}{Used to check that output data frame has valid
+    \item{\code{names_repair}}{Used to check that output data frame has valid
 names. Must be one of the following options:
 \itemize{
 \item \verb{"minimal}": no name repair or checks, beyond basic existence,
@@ -49,8 +34,7 @@ names. Must be one of the following options:
 
 See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on these terms and the
 strategies used to enforce them.}
-
-\item{too_few}{What should happen if a value separates into too few
+    \item{\code{too_few}}{What should happen if a value separates into too few
 pieces?
 \itemize{
 \item \code{"error"}, the default, will throw an error.
@@ -63,8 +47,7 @@ to pad to the correct length.
 \item \code{"align_end"} (\code{separate_wider_delim()} only) aligns the ends of short
 matches, adding \code{NA} at the start to pad to the correct length.
 }}
-
-\item{too_many}{What should happen if a value separates into too many
+    \item{\code{too_many}}{What should happen if a value separates into too many
 pieces?
 \itemize{
 \item \code{"error"}, the default, will throw an error.
@@ -74,36 +57,21 @@ locate and resolve the underlying problem.
 \item \code{"merge"} (\code{separate_wider_delim()} only) will merge together any
 additional pieces.
 }}
-
-\item{cols_remove}{Should the input \code{cols} be removed from the output?
+    \item{\code{cols_remove}}{Should the input \code{cols} be removed from the output?
 Always \code{FALSE} if \code{too_few} or \code{too_many} are set to \code{"debug"}.}
+    \item{\code{widths}}{A named numeric vector where the names become column names,
+and the values specify the column width. Unnamed components will match,
+but not be included in the output.}
+  }}
 }
 \value{
-A data frame based on \code{data}. It has the same rows, but different
-columns:
-\itemize{
-\item The primary purpose of the functions are to create new columns from
-components of the string.
-For \code{separate_wider_delim()} the names of new columns come from \code{names}.
-For \code{separate_wider_position()} the names come from the names of \code{widths}.
-For \code{separate_wider_regex()} the names come from the names of
-\code{patterns}.
-\item If \code{too_few} or \code{too_many} is \code{"debug"}, the output will contain additional
-columns useful for debugging:
-\itemize{
-\item \verb{{col}_ok}: a logical vector which tells you if the input was ok or
-not. Use to quickly find the problematic rows.
-\item \verb{{col}_remainder}: any text remaining after separation.
-\item \verb{{col}_pieces}, \verb{{col}_width}, \verb{{col}_matches}: number of pieces,
-number of characters, and number of matches for \code{separate_wider_delim()},
-\code{separate_wider_position()} and \code{separate_regexp_wider()} respectively.
-}
-\item If \code{cols_remove = TRUE} (the default), the input \code{cols} will be removed
-from the output.
-}
+See \code{\link[tidyr:separate_wider_delim]{tidyr::separate_wider_position()}}
 }
 \description{
 Wrapper around \code{\link[tidyr:separate_wider_delim]{tidyr::separate_wider_position()}} that prints information about the operation.
+}
+\details{
+Documentation generated from tidyr version 1.3.2.
 }
 \seealso{
 \code{\link[tidyr:separate_wider_delim]{tidyr::separate_wider_position()}}

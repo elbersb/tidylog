@@ -2,14 +2,17 @@
 % Please edit documentation in R/z_generated_log_mutate.R
 \name{replace_na}
 \alias{replace_na}
-\title{Wrapper around tidyr::replace_na that prints information about the operation.}
+\title{Wrapper around tidyr::replace_na that prints information about the operation}
 \usage{
-replace_na(data, replace, ...)
+replace_na(data, ...)
 }
 \arguments{
 \item{data}{A data frame or vector.}
 
-\item{replace}{If \code{data} is a data frame, \code{replace} takes a named list of
+\item{...}{
+  Arguments passed on to \code{\link[tidyr:replace_na]{tidyr::replace_na}}
+  \describe{
+    \item{\code{replace}}{If \code{data} is a data frame, \code{replace} takes a named list of
 values, with one value for each column that has missing values to be
 replaced. Each value in \code{replace} will be cast to the type of the column
 in \code{data} that it being used as a replacement in.
@@ -17,14 +20,16 @@ in \code{data} that it being used as a replacement in.
 If \code{data} is a vector, \code{replace} takes a single value. This single value
 replaces all of the missing values in the vector. \code{replace} will be cast
 to the type of \code{data}.}
-
-\item{...}{Additional arguments for methods. Currently unused.}
+  }}
 }
 \value{
-\code{replace_na()} returns an object with the same type as \code{data}.
+See \code{\link[tidyr:replace_na]{tidyr::replace_na()}}
 }
 \description{
 Wrapper around \code{\link[tidyr:replace_na]{tidyr::replace_na()}} that prints information about the operation.
+}
+\details{
+Documentation generated from tidyr version 1.3.2.
 }
 \seealso{
 \code{\link[tidyr:replace_na]{tidyr::replace_na()}}

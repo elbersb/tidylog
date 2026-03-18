@@ -2,7 +2,7 @@
 % Please edit documentation in R/z_generated_log_rename.R
 \name{rename}
 \alias{rename}
-\title{Wrapper around dplyr::rename that prints information about the operation.}
+\title{Wrapper around dplyr::rename that prints information about the operation}
 \usage{
 rename(.data, ...)
 }
@@ -11,23 +11,20 @@ rename(.data, ...)
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{...}{For \code{rename()}: <\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Use
-\code{new_name = old_name} to rename selected variables.
-
-For \code{rename_with()}: additional arguments passed onto \code{.fn}.}
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:rename]{dplyr::rename}}
+  \describe{
+    \item{\code{}}{}
+  }}
 }
 \value{
-An object of the same type as \code{.data}. The output has the following
-properties:
-\itemize{
-\item Rows are not affected.
-\item Column names are changed; column order is preserved.
-\item Data frame attributes are preserved.
-\item Groups are updated to reflect new names.
-}
+See \code{\link[dplyr:rename]{dplyr::rename()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:rename]{dplyr::rename()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:rename]{dplyr::rename()}}

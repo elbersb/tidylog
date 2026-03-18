@@ -1,15 +1,14 @@
 # Logger for functions that change column selection, such as dplyr::select.
-log_select <- function(.data, .fun, .funname, ...) {
-    cols <- names(.data)
-    newdata <- .fun(.data, ...)
-    if (!"data.frame" %in% class(.data) | !should_display()) {
-        return(newdata)
+log_select <- function(.olddata, .newdata, .funname, ...) {
+    cols <- names(.olddata)
+    if (!"data.frame" %in% class(.olddata) | !should_display()) {
+        return()
     }
 
-    dropped_vars <- setdiff(cols, names(newdata))
-    renamed_vars <- setdiff(names(newdata), cols)
+    dropped_vars <- setdiff(cols, names(.newdata))
+    renamed_vars <- setdiff(names(.newdata), cols)
 
-    if (ncol(newdata) == 0) {
+    if (ncol(.newdata) == 0) {
         display(glue::glue("{.funname}: dropped all variables"))
     } else if (length(renamed_vars) > 0 & length(renamed_vars) == length(dropped_vars)) {
         # renamed only
@@ -28,13 +27,11 @@ log_select <- function(.data, .fun, .funname, ...) {
                            " ({format_list(dropped_vars)})"))
     } else {
         # no dropped, no removed
-        if (all(names(newdata) == cols)) {
+        if (all(names(.newdata) == cols)) {
             display(glue::glue("{.funname}: no changes"))
         } else {
             display(glue::glue("{.funname}: columns reordered",
-                               " ({format_list(names(newdata))})"))
+                               " ({format_list(names(.newdata))})"))
         }
     }
-
-    newdata
 }

@@ -3,128 +3,115 @@ library(tidyr)
 library(purrr)
 library(glue)
 
-source("data-raw/wrapper_mapping.R", local=TRUE)
+source("data-raw/wrapper_mapping.R", local = TRUE)
 
-# 1. Wrapper Generator
-# ------------------------------------------------------------------------------
-generate_wrapper <- function(full_fn_name, logger_name) {
-    parts <- strsplit(full_fn_name, "::")[[1]]
-    pkg   <- parts[1]
-    fn    <- parts[2]
+# Generated file naming convention
+GENERATED_FILE_PREFIX <- "z_generated_"
 
-    orig_fn <- getExportedValue(pkg, fn)
-    fmls    <- formals(orig_fn)
+# Build the file path for a generated wrapper file
+build_file_path <- function(logger) {
+    paste0("R/", GENERATED_FILE_PREFIX, logger, ".R")
+}
 
-    # Construct arguments text using imap and pipe
-    args_text <- imap_chr(fmls, function(val, name) {
-        if (is.symbol(val) && as.character(val) == "") return(name)
-        paste0(name, " = ", deparse1(val))
-    }) |> paste(collapse = ", ")
+# Clean up old generated files before creating new ones
+old_generated_files <- list.files("R", pattern = paste0("^", GENERATED_FILE_PREFIX, ".*\\.R$"), full.names = TRUE)
+if (length(old_generated_files) > 0) {
+    file.remove(old_generated_files)
+    message("Removed ", length(old_generated_files), " old generated file(s)")
+}
 
-    # 2. Define the Body Strings
-    # ----------------------------------------------------------------------------
-    # Use of log_join requires special handling because it takes .name_x and
-    # .name_y arguments.
-    if (logger_name == "log_join") {
-        body <- glue("
-            .call <- match.call(definition = {pkg}::{fn}, expand.dots = TRUE)
-            .call[[1]] <- {logger_name}
-            .call$.fun <- quote({pkg}::{fn})
-            .call$.funname <- '{fn}'
-            .call$.name_x <- deparse1(substitute(x))
-            .call$.name_y <- deparse1(substitute(y))
-            eval(.call, envir = parent.frame())"
-        )
-    }
-    else {
-        # Ensure the first formals argument is called `.data` so that the
-        # single-input loggers (with first argument `.data`) can be used with
-        # any single-input dplyr/tidyr function regardless of the first arg name.
-        first_arg <- names(fmls)[1]
-        body <- glue("
-            .call <- match.call(definition = {pkg}::{fn}, expand.dots = TRUE)
-            names(.call)[names(.call) == '{first_arg}'] <- '.data'
-            .call[[1]] <- {logger_name}
-            .call$.fun <- quote({pkg}::{fn})
-            .call$.funname <- '{fn}'
-            eval(.call, envir = parent.frame())"
-        )
-    }
-
-    # 3. Final Assembly
-    # ----------------------------------------------------------------------------
-    # Account for default argument values that come from other packages
-    generate_imports <- function(args_text) {
-        tags <- c()
-
-        if (grepl("deprecated\\(", args_text)) {
-            # Even if used in dplyr, importing from lifecycle is more robust
-            tags <- c(tags, "#' @importFrom lifecycle deprecated")
-        }
-        if (grepl("everything\\(", args_text)) {
-            tags <- c(tags, "#' @importFrom tidyselect everything")
-        }
-        if (grepl("group_by_drop_default\\(", args_text)) {
-            tags <- c(tags, "#' @importFrom dplyr group_by_drop_default")
-        }
-
-        if (length(tags) == 0) return("#'")
-        return(paste(tags, collapse = "\n"))
-    }
-
-    import_tags <- generate_imports(args_text)
-
-
-    # Note: Escape function braces with {{ }}
+# Shared roxygen documentation template
+generate_roxygen_header <- function(pkg, fn) {
+    pkg_version <- as.character(packageVersion(pkg))
+    
     glue("
-#' Wrapper around {pkg}::{fn} that prints information about the operation.
+#' Wrapper around {pkg}::{fn} that prints information about the operation
 #'
 #' @description
 #' Wrapper around [{pkg}::{fn}()] that prints information about the operation.
 #'
-#' @inherit {pkg}::{fn} return
+#' @details
+#' Documentation generated from {pkg} version {pkg_version}.
+#'
 #' @inheritParams {pkg}::{fn}
-{import_tags}
+#' @inheritDotParams {pkg}::{fn}
 #'
+#' @return See [{pkg}::{fn}()]
 #' @seealso [{pkg}::{fn}()]
-#'
-#' @export
-{fn} <- function({args_text}) {{
-{formatted_body}
-}}
-",
-         # Format the function body with tabs for readability.
-         formatted_body = paste0("\t", gsub("\n", "\n\t", body)),
-         .trim = FALSE)
+#' @export", .trim = FALSE)
 }
 
-# 4. Save to Disk
-# ------------------------------------------------------------------------------
-# Generate and write one file per logger.
+# Generate wrapper for regular functions: function(.data, ...)
+generate_regular_wrapper <- function(full_fn_name, logger_name) {
+    parts <- strsplit(full_fn_name, "::")[[1]]
+    pkg   <- parts[1]
+    fn    <- parts[2]
+    
+    # Get first argument name from original function
+    orig_fn <- getExportedValue(pkg, fn)
+    first_arg <- names(formals(orig_fn))[1]
+    
+    roxygen <- generate_roxygen_header(pkg, fn)
+    
+    glue("
+{roxygen}
+{fn} <- function({first_arg}, ...) {{
+\tresult <- {pkg}::{fn}({first_arg}, ...)
+\t{logger_name}({first_arg}, result, \"{fn}\")
+\tresult
+}}
+", .trim = FALSE)
+}
+
+# Generate wrapper for join functions: function(x, y, by = NULL, ...)
+generate_join_wrapper <- function(full_fn_name, logger_name) {
+    parts <- strsplit(full_fn_name, "::")[[1]]
+    pkg   <- parts[1]
+    fn    <- parts[2]
+    
+    roxygen <- generate_roxygen_header(pkg, fn)
+    
+    glue("
+{roxygen}
+{fn} <- function(x, y, by = NULL, ...) {{
+\tresult <- {pkg}::{fn}(x, y, by = by, ...)
+\t{logger_name}(x, y, by, result, \"{fn}\")
+\tresult
+}}
+", .trim = FALSE)
+}
+
+# Save to disk
 header_base <- "# Generated by data-raw/generate_wrappers.R: do not edit by hand\n"
-iwalk(wrapper_mapping, function(fns, logger) {
-    file_path <- paste0("R/z_generated_", logger, ".R")
 
-    # Generate code for this specific group
-    code_blocks <- map_chr(fns, ~generate_wrapper(.x, logger))
+# Map of logger names to global variable declarations
+globals_map <- list(
+    log_longer_wider = "\nutils::globalVariables(c('name', 'value'))\n"
+)
 
-    # Add the global variables for specific files (like pivot_longer/wider)
-    globals <- ""
-    if (logger == "log_longer_wider") {
-        globals <- "\nutils::globalVariables(c('name', 'value'))\n"
-    }
+# Helper function to generate and write wrapper files
+generate_and_write <- function(wrappers, generator) {
+    iwalk(wrappers, function(fns, logger) {
+        file_path <- build_file_path(logger)
+        
+        code_blocks <- map_chr(fns, ~generator(.x, logger))
+        
+        # Add global variables if defined for this logger
+        globals <- globals_map[[logger]] %||% ""
+        
+        writeLines(
+            c(header_base, "# Logger category: ", logger, "\n",
+              code_blocks,
+              globals),
+            file_path
+        )
+        message("Generated: ", file_path)
+    })
+}
 
-    writeLines(
-        c(header_base, "# Logger category: ", logger, "\n",
-          code_blocks,
-          globals),
-        file_path
-    )
-    message("Generated: ", file_path)
-})
+# Generate all wrappers
+generate_and_write(regular_wrappers, generate_regular_wrapper)
+generate_and_write(join_wrappers, generate_join_wrapper)
 
-
-
-# 5. Update documentation
-# ------------------------------------------------------------------------------
+# Update documentation
 devtools::document()

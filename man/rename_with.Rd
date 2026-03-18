@@ -2,38 +2,32 @@
 % Please edit documentation in R/z_generated_log_rename.R
 \name{rename_with}
 \alias{rename_with}
-\title{Wrapper around dplyr::rename_with that prints information about the operation.}
+\title{Wrapper around dplyr::rename_with that prints information about the operation}
 \usage{
-rename_with(.data, .fn, .cols = everything(), ...)
+rename_with(.data, ...)
 }
 \arguments{
 \item{.data}{A data frame, data frame extension (e.g. a tibble), or a
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{.fn}{A function used to transform the selected \code{.cols}. Should
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:rename]{dplyr::rename_with}}
+  \describe{
+    \item{\code{.fn}}{A function used to transform the selected \code{.cols}. Should
 return a character vector the same length as the input.}
-
-\item{.cols}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Columns to rename;
+    \item{\code{.cols}}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Columns to rename;
 defaults to all columns.}
-
-\item{...}{For \code{rename()}: <\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Use
-\code{new_name = old_name} to rename selected variables.
-
-For \code{rename_with()}: additional arguments passed onto \code{.fn}.}
+  }}
 }
 \value{
-An object of the same type as \code{.data}. The output has the following
-properties:
-\itemize{
-\item Rows are not affected.
-\item Column names are changed; column order is preserved.
-\item Data frame attributes are preserved.
-\item Groups are updated to reflect new names.
-}
+See \code{\link[dplyr:rename]{dplyr::rename_with()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:rename]{dplyr::rename_with()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:rename]{dplyr::rename_with()}}

@@ -2,31 +2,39 @@
 % Please edit documentation in R/z_generated_log_filter.R
 \name{filter_if}
 \alias{filter_if}
-\title{Wrapper around dplyr::filter_if that prints information about the operation.}
+\title{Wrapper around dplyr::filter_if that prints information about the operation}
 \usage{
-filter_if(.tbl, .predicate, .vars_predicate, .preserve = FALSE)
+filter_if(.tbl, ...)
 }
 \arguments{
 \item{.tbl}{A \code{tbl} object.}
 
-\item{.predicate}{A predicate function to be applied to the columns
-or a logical vector. The variables for which \code{.predicate} is or
-returns \code{TRUE} are selected. This argument is passed to
-\code{\link[rlang:as_function]{rlang::as_function()}} and thus supports quosure-style lambda
-functions and strings representing function names.}
-
-\item{.vars_predicate}{A quoted predicate expression as returned by
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:filter_all]{dplyr::filter_if}}
+  \describe{
+    \item{\code{.vars_predicate}}{A quoted predicate expression as returned by
 \code{\link[dplyr:all_vars]{all_vars()}} or \code{\link[dplyr:any_vars]{any_vars()}}.
 
 Can also be a function or purrr-like formula. In this case, the
 intersection of the results is taken by default and there's
 currently no way to request the union.}
-
-\item{.preserve}{when \code{FALSE} (the default), the grouping structure
+    \item{\code{.preserve}}{when \code{FALSE} (the default), the grouping structure
 is recalculated based on the resulting data, otherwise it is kept as is.}
+    \item{\code{.predicate}}{A predicate function to be applied to the columns
+or a logical vector. The variables for which \code{.predicate} is or
+returns \code{TRUE} are selected. This argument is passed to
+\code{\link[rlang:as_function]{rlang::as_function()}} and thus supports quosure-style lambda
+functions and strings representing function names.}
+  }}
+}
+\value{
+See \code{\link[dplyr:filter_all]{dplyr::filter_if()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:filter_all]{dplyr::filter_if()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:filter_all]{dplyr::filter_if()}}

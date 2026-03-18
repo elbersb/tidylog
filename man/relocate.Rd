@@ -2,34 +2,31 @@
 % Please edit documentation in R/z_generated_log_select.R
 \name{relocate}
 \alias{relocate}
-\title{Wrapper around dplyr::relocate that prints information about the operation.}
+\title{Wrapper around dplyr::relocate that prints information about the operation}
 \usage{
-relocate(.data, ..., .before = NULL, .after = NULL)
+relocate(.data, ...)
 }
 \arguments{
 \item{.data}{A data frame, data frame extension (e.g. a tibble), or a
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{...}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Columns to move.}
-
-\item{.before, .after}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Destination of
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:relocate]{dplyr::relocate}}
+  \describe{
+    \item{\code{.before,.after}}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Destination of
 columns selected by \code{...}. Supplying neither will move columns to the
 left-hand side; specifying both is an error.}
+  }}
 }
 \value{
-An object of the same type as \code{.data}. The output has the following
-properties:
-\itemize{
-\item Rows are not affected.
-\item The same columns appear in the output, but (usually) in a different place
-and possibly renamed.
-\item Data frame attributes are preserved.
-\item Groups are not affected.
-}
+See \code{\link[dplyr:relocate]{dplyr::relocate()}}
 }
 \description{
 Wrapper around \code{\link[dplyr:relocate]{dplyr::relocate()}} that prints information about the operation.
+}
+\details{
+Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
 \code{\link[dplyr:relocate]{dplyr::relocate()}}
