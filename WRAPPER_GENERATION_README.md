@@ -79,8 +79,10 @@ log_select(.olddata, .newdata, .funname, ...)
 
 ### Join Logger
 ```r
-log_join(x, y, by, .newdata, .funname, ...)
+log_join(x, y, by, .newdata, .funname, .name_x, .name_y, ...)
 ```
+
+The join logger is a special case that merges 2 data sets, and relies on all three of `x`, `y`, and `by` to determine its logging. As such, it captures the variable names from the join operation to display more informative messages (e.g., "rows only in mtcars" instead of "rows only in x").
 
 The `...` parameter is preserved for special cases (e.g., `slice_min`/`slice_max` need to inspect `with_ties` argument).
 

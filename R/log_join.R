@@ -1,7 +1,7 @@
 # Logging of functions that join 2 data frames.
 #
 # Note: this logger has a unique signature, different than all the other loggers.
-log_join <- function(x, y, by = NULL, .newdata, .funname, ...) {
+log_join <- function(x, y, by = NULL, .newdata, .funname, .name_x, .name_y, ...) {
     if (!"data.frame" %in% class(x) | !should_display()) {
         return()
     }
@@ -75,10 +75,8 @@ log_join <- function(x, y, by = NULL, .newdata, .funname, ...) {
     max_n <- max(sapply(stats_str, nchar))
     stats_str <- lapply(stats_str, function(x) format(x, justify = "right", width = max_n))
     
-    # Use fixed names
-    .name_x <- "x"
-    .name_y <- "y"
-    names_length <- 1
+    # Calculate whitespace based on provided names
+    names_length <- max(nchar(.name_x), nchar(.name_y))
     
     # white space
     ws_pre <- paste0(rep(" ", nchar(.funname)), collapse = "")
