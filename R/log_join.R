@@ -74,10 +74,12 @@ log_join <- function(x, y, by = NULL, .newdata, .funname, .name_x, .name_y, ...)
     stats_str <- lapply(stats, function(x) formatC(x, big.mark = ","))
     max_n <- max(sapply(stats_str, nchar))
     stats_str <- lapply(stats_str, function(x) format(x, justify = "right", width = max_n))
-    
-    # Calculate whitespace based on provided names
+    # data set names
+    .name_x <- ifelse(.name_x == ".", "x", shorten(.name_x))
+    .name_y <- ifelse(.name_y == ".", "y", shorten(.name_y))
     names_length <- max(nchar(.name_x), nchar(.name_y))
-    
+    .name_x <- format(.name_x, justify = "left", width = names_length)
+    .name_y <- format(.name_y, justify = "left", width = names_length)
     # white space
     ws_pre <- paste0(rep(" ", nchar(.funname)), collapse = "")
     ws_post <- paste0(rep(" ", names_length), collapse = "")
