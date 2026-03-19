@@ -23,7 +23,7 @@ if (length(old_generated_files) > 0) {
 # Shared roxygen documentation template
 generate_roxygen_header <- function(pkg, fn) {
     pkg_version <- as.character(packageVersion(pkg))
-    
+
     glue("
 #' Wrapper around {pkg}::{fn} that prints information about the operation
 #'
@@ -44,13 +44,13 @@ generate_roxygen_header <- function(pkg, fn) {
 # Generate wrapper for regular functions: function(.data, ...)
 generate_regular_wrapper <- function(full_fn_name, logger_name) {
     parts <- parse_function_name(full_fn_name)
-    
+
     # Get first argument name from original function
     orig_fn <- getExportedValue(parts$pkg, parts$fn)
     first_arg <- names(formals(orig_fn))[1]
-    
+
     roxygen <- generate_roxygen_header(parts$pkg, parts$fn)
-    
+
     glue("
 {roxygen}
 {parts$fn} <- function({first_arg}, ...) {{
@@ -64,15 +64,15 @@ generate_regular_wrapper <- function(full_fn_name, logger_name) {
 # Generate wrapper for join functions: function(x, y, by = NULL, ...)
 generate_join_wrapper <- function(full_fn_name, logger_name) {
     parts <- parse_function_name(full_fn_name)
-    
+
     roxygen <- generate_roxygen_header(parts$pkg, parts$fn)
-    
+
     glue("
 {roxygen}
 {parts$fn} <- function(x, y, by = NULL, ...) {{
 \tresult <- {parts$pkg}::{parts$fn}(x, y, by = by, ...)
-\t{logger_name}(x, y, by, result, \"{parts$fn}\", 
-\t              .name_x = deparse1(substitute(x)), 
+\t{logger_name}(x, y, by, result, \"{parts$fn}\",
+\t              .name_x = deparse1(substitute(x)),
 \t              .name_y = deparse1(substitute(y)), ...)
 \tresult
 }}
@@ -91,14 +91,15 @@ globals_map <- list(
 generate_and_write <- function(wrappers, generator) {
     iwalk(wrappers, function(fns, logger) {
         file_path <- build_file_path(logger)
-        
+
         code_blocks <- map_chr(fns, ~generator(.x, logger))
-        
+
         # Add global variables if defined for this logger
         globals <- globals_map[[logger]] %||% ""
-        
+
         writeLines(
-            c(header_base, "# Logger category: ", logger, "\n",
+            c(header_base,
+              glue("# Logger category: {logger}\n"),
               code_blocks,
               globals),
             file_path
