@@ -22,7 +22,7 @@ log_select
 #' @export
 select <- function(.data, ...) {
 	result <- dplyr::select(.data, ...)
-	log_select(.data, result, "select")
+	log_select(.data, result, "select", ...)
 	result
 }
 
@@ -44,7 +44,7 @@ select <- function(.data, ...) {
 #' @export
 select_all <- function(.tbl, ...) {
 	result <- dplyr::select_all(.tbl, ...)
-	log_select(.tbl, result, "select_all")
+	log_select(.tbl, result, "select_all", ...)
 	result
 }
 
@@ -66,7 +66,7 @@ select_all <- function(.tbl, ...) {
 #' @export
 select_if <- function(.tbl, ...) {
 	result <- dplyr::select_if(.tbl, ...)
-	log_select(.tbl, result, "select_if")
+	log_select(.tbl, result, "select_if", ...)
 	result
 }
 
@@ -88,7 +88,7 @@ select_if <- function(.tbl, ...) {
 #' @export
 select_at <- function(.tbl, ...) {
 	result <- dplyr::select_at(.tbl, ...)
-	log_select(.tbl, result, "select_at")
+	log_select(.tbl, result, "select_at", ...)
 	result
 }
 
@@ -110,7 +110,7 @@ select_at <- function(.tbl, ...) {
 #' @export
 relocate <- function(.data, ...) {
 	result <- dplyr::relocate(.data, ...)
-	log_select(.data, result, "relocate")
+	log_select(.data, result, "relocate", ...)
 	result
 }
 

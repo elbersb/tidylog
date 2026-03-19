@@ -22,7 +22,7 @@ log_summarize
 #' @export
 summarize <- function(.data, ...) {
 	result <- dplyr::summarize(.data, ...)
-	log_summarize(.data, result, "summarize")
+	log_summarize(.data, result, "summarize", ...)
 	result
 }
 
@@ -44,7 +44,7 @@ summarize <- function(.data, ...) {
 #' @export
 summarize_all <- function(.tbl, ...) {
 	result <- dplyr::summarize_all(.tbl, ...)
-	log_summarize(.tbl, result, "summarize_all")
+	log_summarize(.tbl, result, "summarize_all", ...)
 	result
 }
 
@@ -66,7 +66,7 @@ summarize_all <- function(.tbl, ...) {
 #' @export
 summarize_at <- function(.tbl, ...) {
 	result <- dplyr::summarize_at(.tbl, ...)
-	log_summarize(.tbl, result, "summarize_at")
+	log_summarize(.tbl, result, "summarize_at", ...)
 	result
 }
 
@@ -88,7 +88,7 @@ summarize_at <- function(.tbl, ...) {
 #' @export
 summarize_if <- function(.tbl, ...) {
 	result <- dplyr::summarize_if(.tbl, ...)
-	log_summarize(.tbl, result, "summarize_if")
+	log_summarize(.tbl, result, "summarize_if", ...)
 	result
 }
 
@@ -110,7 +110,7 @@ summarize_if <- function(.tbl, ...) {
 #' @export
 summarise <- function(.data, ...) {
 	result <- dplyr::summarise(.data, ...)
-	log_summarize(.data, result, "summarise")
+	log_summarize(.data, result, "summarise", ...)
 	result
 }
 
@@ -132,7 +132,7 @@ summarise <- function(.data, ...) {
 #' @export
 summarise_all <- function(.tbl, ...) {
 	result <- dplyr::summarise_all(.tbl, ...)
-	log_summarize(.tbl, result, "summarise_all")
+	log_summarize(.tbl, result, "summarise_all", ...)
 	result
 }
 
@@ -154,7 +154,7 @@ summarise_all <- function(.tbl, ...) {
 #' @export
 summarise_at <- function(.tbl, ...) {
 	result <- dplyr::summarise_at(.tbl, ...)
-	log_summarize(.tbl, result, "summarise_at")
+	log_summarize(.tbl, result, "summarise_at", ...)
 	result
 }
 
@@ -176,7 +176,7 @@ summarise_at <- function(.tbl, ...) {
 #' @export
 summarise_if <- function(.tbl, ...) {
 	result <- dplyr::summarise_if(.tbl, ...)
-	log_summarize(.tbl, result, "summarise_if")
+	log_summarize(.tbl, result, "summarise_if", ...)
 	result
 }
 
@@ -198,7 +198,7 @@ summarise_if <- function(.tbl, ...) {
 #' @export
 tally <- function(x, ...) {
 	result <- dplyr::tally(x, ...)
-	log_summarize(x, result, "tally")
+	log_summarize(x, result, "tally", ...)
 	result
 }
 
@@ -220,7 +220,7 @@ tally <- function(x, ...) {
 #' @export
 count <- function(x, ...) {
 	result <- dplyr::count(x, ...)
-	log_summarize(x, result, "count")
+	log_summarize(x, result, "count", ...)
 	result
 }
 
@@ -242,7 +242,7 @@ count <- function(x, ...) {
 #' @export
 uncount <- function(data, ...) {
 	result <- tidyr::uncount(data, ...)
-	log_summarize(data, result, "uncount")
+	log_summarize(data, result, "uncount", ...)
 	result
 }
 

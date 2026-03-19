@@ -22,7 +22,7 @@ log_longer_wider
 #' @export
 pivot_longer <- function(data, ...) {
 	result <- tidyr::pivot_longer(data, ...)
-	log_longer_wider(data, result, "pivot_longer")
+	log_longer_wider(data, result, "pivot_longer", ...)
 	result
 }
 
@@ -44,7 +44,7 @@ pivot_longer <- function(data, ...) {
 #' @export
 pivot_wider <- function(data, ...) {
 	result <- tidyr::pivot_wider(data, ...)
-	log_longer_wider(data, result, "pivot_wider")
+	log_longer_wider(data, result, "pivot_wider", ...)
 	result
 }
 
@@ -66,7 +66,7 @@ pivot_wider <- function(data, ...) {
 #' @export
 gather <- function(data, ...) {
 	result <- tidyr::gather(data, ...)
-	log_longer_wider(data, result, "gather")
+	log_longer_wider(data, result, "gather", ...)
 	result
 }
 
@@ -88,7 +88,7 @@ gather <- function(data, ...) {
 #' @export
 spread <- function(data, ...) {
 	result <- tidyr::spread(data, ...)
-	log_longer_wider(data, result, "spread")
+	log_longer_wider(data, result, "spread", ...)
 	result
 }
 
@@ -110,7 +110,7 @@ spread <- function(data, ...) {
 #' @export
 separate_wider_delim <- function(data, ...) {
 	result <- tidyr::separate_wider_delim(data, ...)
-	log_longer_wider(data, result, "separate_wider_delim")
+	log_longer_wider(data, result, "separate_wider_delim", ...)
 	result
 }
 
@@ -132,7 +132,7 @@ separate_wider_delim <- function(data, ...) {
 #' @export
 separate_wider_position <- function(data, ...) {
 	result <- tidyr::separate_wider_position(data, ...)
-	log_longer_wider(data, result, "separate_wider_position")
+	log_longer_wider(data, result, "separate_wider_position", ...)
 	result
 }
 
@@ -154,7 +154,7 @@ separate_wider_position <- function(data, ...) {
 #' @export
 separate_wider_regex <- function(data, ...) {
 	result <- tidyr::separate_wider_regex(data, ...)
-	log_longer_wider(data, result, "separate_wider_regex")
+	log_longer_wider(data, result, "separate_wider_regex", ...)
 	result
 }
 

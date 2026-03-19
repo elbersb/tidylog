@@ -60,7 +60,7 @@ regular_wrappers <- list(
 )
 
 # Join wrappers: function(x, y, by = NULL, ...)
-# Logger signature: logger(x, y, by, .newdata, "function_name")
+# Logger signature: logger(x, y, by, .newdata, "function_name", .name_x, .name_y, ...)
 join_wrappers <- list(
     log_join = c(
         "dplyr::inner_join",

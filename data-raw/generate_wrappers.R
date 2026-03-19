@@ -57,7 +57,7 @@ generate_regular_wrapper <- function(full_fn_name, logger_name) {
 {roxygen}
 {fn} <- function({first_arg}, ...) {{
 \tresult <- {pkg}::{fn}({first_arg}, ...)
-\t{logger_name}({first_arg}, result, \"{fn}\")
+\t{logger_name}({first_arg}, result, \"{fn}\", ...)
 \tresult
 }}
 ", .trim = FALSE)
@@ -75,7 +75,9 @@ generate_join_wrapper <- function(full_fn_name, logger_name) {
 {roxygen}
 {fn} <- function(x, y, by = NULL, ...) {{
 \tresult <- {pkg}::{fn}(x, y, by = by, ...)
-\t{logger_name}(x, y, by, result, \"{fn}\")
+\t{logger_name}(x, y, by, result, \"{fn}\", 
+\t              .name_x = deparse1(substitute(x)), 
+\t              .name_y = deparse1(substitute(y)), ...)
 \tresult
 }}
 ", .trim = FALSE)

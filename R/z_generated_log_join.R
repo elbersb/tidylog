@@ -22,7 +22,9 @@ log_join
 #' @export
 inner_join <- function(x, y, by = NULL, ...) {
 	result <- dplyr::inner_join(x, y, by = by, ...)
-	log_join(x, y, by, result, "inner_join")
+	log_join(x, y, by, result, "inner_join", 
+	              .name_x = deparse1(substitute(x)), 
+	              .name_y = deparse1(substitute(y)), ...)
 	result
 }
 
@@ -44,7 +46,9 @@ inner_join <- function(x, y, by = NULL, ...) {
 #' @export
 full_join <- function(x, y, by = NULL, ...) {
 	result <- dplyr::full_join(x, y, by = by, ...)
-	log_join(x, y, by, result, "full_join")
+	log_join(x, y, by, result, "full_join", 
+	              .name_x = deparse1(substitute(x)), 
+	              .name_y = deparse1(substitute(y)), ...)
 	result
 }
 
@@ -66,7 +70,9 @@ full_join <- function(x, y, by = NULL, ...) {
 #' @export
 left_join <- function(x, y, by = NULL, ...) {
 	result <- dplyr::left_join(x, y, by = by, ...)
-	log_join(x, y, by, result, "left_join")
+	log_join(x, y, by, result, "left_join", 
+	              .name_x = deparse1(substitute(x)), 
+	              .name_y = deparse1(substitute(y)), ...)
 	result
 }
 
@@ -88,7 +94,9 @@ left_join <- function(x, y, by = NULL, ...) {
 #' @export
 right_join <- function(x, y, by = NULL, ...) {
 	result <- dplyr::right_join(x, y, by = by, ...)
-	log_join(x, y, by, result, "right_join")
+	log_join(x, y, by, result, "right_join", 
+	              .name_x = deparse1(substitute(x)), 
+	              .name_y = deparse1(substitute(y)), ...)
 	result
 }
 
@@ -110,7 +118,9 @@ right_join <- function(x, y, by = NULL, ...) {
 #' @export
 anti_join <- function(x, y, by = NULL, ...) {
 	result <- dplyr::anti_join(x, y, by = by, ...)
-	log_join(x, y, by, result, "anti_join")
+	log_join(x, y, by, result, "anti_join", 
+	              .name_x = deparse1(substitute(x)), 
+	              .name_y = deparse1(substitute(y)), ...)
 	result
 }
 
@@ -132,7 +142,9 @@ anti_join <- function(x, y, by = NULL, ...) {
 #' @export
 semi_join <- function(x, y, by = NULL, ...) {
 	result <- dplyr::semi_join(x, y, by = by, ...)
-	log_join(x, y, by, result, "semi_join")
+	log_join(x, y, by, result, "semi_join", 
+	              .name_x = deparse1(substitute(x)), 
+	              .name_y = deparse1(substitute(y)), ...)
 	result
 }
 

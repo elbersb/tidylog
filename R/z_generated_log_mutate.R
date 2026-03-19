@@ -22,7 +22,7 @@ log_mutate
 #' @export
 mutate <- function(.data, ...) {
 	result <- dplyr::mutate(.data, ...)
-	log_mutate(.data, result, "mutate")
+	log_mutate(.data, result, "mutate", ...)
 	result
 }
 
@@ -44,7 +44,7 @@ mutate <- function(.data, ...) {
 #' @export
 mutate_all <- function(.tbl, ...) {
 	result <- dplyr::mutate_all(.tbl, ...)
-	log_mutate(.tbl, result, "mutate_all")
+	log_mutate(.tbl, result, "mutate_all", ...)
 	result
 }
 
@@ -66,7 +66,7 @@ mutate_all <- function(.tbl, ...) {
 #' @export
 mutate_if <- function(.tbl, ...) {
 	result <- dplyr::mutate_if(.tbl, ...)
-	log_mutate(.tbl, result, "mutate_if")
+	log_mutate(.tbl, result, "mutate_if", ...)
 	result
 }
 
@@ -88,7 +88,7 @@ mutate_if <- function(.tbl, ...) {
 #' @export
 mutate_at <- function(.tbl, ...) {
 	result <- dplyr::mutate_at(.tbl, ...)
-	log_mutate(.tbl, result, "mutate_at")
+	log_mutate(.tbl, result, "mutate_at", ...)
 	result
 }
 
@@ -110,7 +110,7 @@ mutate_at <- function(.tbl, ...) {
 #' @export
 transmute <- function(.data, ...) {
 	result <- dplyr::transmute(.data, ...)
-	log_mutate(.data, result, "transmute")
+	log_mutate(.data, result, "transmute", ...)
 	result
 }
 
@@ -132,7 +132,7 @@ transmute <- function(.data, ...) {
 #' @export
 transmute_all <- function(.tbl, ...) {
 	result <- dplyr::transmute_all(.tbl, ...)
-	log_mutate(.tbl, result, "transmute_all")
+	log_mutate(.tbl, result, "transmute_all", ...)
 	result
 }
 
@@ -154,7 +154,7 @@ transmute_all <- function(.tbl, ...) {
 #' @export
 transmute_if <- function(.tbl, ...) {
 	result <- dplyr::transmute_if(.tbl, ...)
-	log_mutate(.tbl, result, "transmute_if")
+	log_mutate(.tbl, result, "transmute_if", ...)
 	result
 }
 
@@ -176,7 +176,7 @@ transmute_if <- function(.tbl, ...) {
 #' @export
 transmute_at <- function(.tbl, ...) {
 	result <- dplyr::transmute_at(.tbl, ...)
-	log_mutate(.tbl, result, "transmute_at")
+	log_mutate(.tbl, result, "transmute_at", ...)
 	result
 }
 
@@ -198,7 +198,7 @@ transmute_at <- function(.tbl, ...) {
 #' @export
 add_tally <- function(x, ...) {
 	result <- dplyr::add_tally(x, ...)
-	log_mutate(x, result, "add_tally")
+	log_mutate(x, result, "add_tally", ...)
 	result
 }
 
@@ -220,7 +220,7 @@ add_tally <- function(x, ...) {
 #' @export
 add_count <- function(x, ...) {
 	result <- dplyr::add_count(x, ...)
-	log_mutate(x, result, "add_count")
+	log_mutate(x, result, "add_count", ...)
 	result
 }
 
@@ -242,7 +242,7 @@ add_count <- function(x, ...) {
 #' @export
 replace_na <- function(data, ...) {
 	result <- tidyr::replace_na(data, ...)
-	log_mutate(data, result, "replace_na")
+	log_mutate(data, result, "replace_na", ...)
 	result
 }
 
@@ -264,7 +264,7 @@ replace_na <- function(data, ...) {
 #' @export
 fill <- function(data, ...) {
 	result <- tidyr::fill(data, ...)
-	log_mutate(data, result, "fill")
+	log_mutate(data, result, "fill", ...)
 	result
 }
 

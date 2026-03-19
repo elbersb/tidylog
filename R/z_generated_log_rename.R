@@ -22,7 +22,7 @@ log_rename
 #' @export
 rename <- function(.data, ...) {
 	result <- dplyr::rename(.data, ...)
-	log_rename(.data, result, "rename")
+	log_rename(.data, result, "rename", ...)
 	result
 }
 
@@ -44,7 +44,7 @@ rename <- function(.data, ...) {
 #' @export
 rename_all <- function(.tbl, ...) {
 	result <- dplyr::rename_all(.tbl, ...)
-	log_rename(.tbl, result, "rename_all")
+	log_rename(.tbl, result, "rename_all", ...)
 	result
 }
 
@@ -66,7 +66,7 @@ rename_all <- function(.tbl, ...) {
 #' @export
 rename_if <- function(.tbl, ...) {
 	result <- dplyr::rename_if(.tbl, ...)
-	log_rename(.tbl, result, "rename_if")
+	log_rename(.tbl, result, "rename_if", ...)
 	result
 }
 
@@ -88,7 +88,7 @@ rename_if <- function(.tbl, ...) {
 #' @export
 rename_at <- function(.tbl, ...) {
 	result <- dplyr::rename_at(.tbl, ...)
-	log_rename(.tbl, result, "rename_at")
+	log_rename(.tbl, result, "rename_at", ...)
 	result
 }
 
@@ -110,7 +110,7 @@ rename_at <- function(.tbl, ...) {
 #' @export
 rename_with <- function(.data, ...) {
 	result <- dplyr::rename_with(.data, ...)
-	log_rename(.data, result, "rename_with")
+	log_rename(.data, result, "rename_with", ...)
 	result
 }
 

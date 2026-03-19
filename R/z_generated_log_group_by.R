@@ -22,7 +22,7 @@ log_group_by
 #' @export
 group_by <- function(.data, ...) {
 	result <- dplyr::group_by(.data, ...)
-	log_group_by(.data, result, "group_by")
+	log_group_by(.data, result, "group_by", ...)
 	result
 }
 
@@ -44,7 +44,7 @@ group_by <- function(.data, ...) {
 #' @export
 group_by_all <- function(.tbl, ...) {
 	result <- dplyr::group_by_all(.tbl, ...)
-	log_group_by(.tbl, result, "group_by_all")
+	log_group_by(.tbl, result, "group_by_all", ...)
 	result
 }
 
@@ -66,7 +66,7 @@ group_by_all <- function(.tbl, ...) {
 #' @export
 group_by_at <- function(.tbl, ...) {
 	result <- dplyr::group_by_at(.tbl, ...)
-	log_group_by(.tbl, result, "group_by_at")
+	log_group_by(.tbl, result, "group_by_at", ...)
 	result
 }
 
@@ -88,7 +88,7 @@ group_by_at <- function(.tbl, ...) {
 #' @export
 group_by_if <- function(.tbl, ...) {
 	result <- dplyr::group_by_if(.tbl, ...)
-	log_group_by(.tbl, result, "group_by_if")
+	log_group_by(.tbl, result, "group_by_if", ...)
 	result
 }
 
@@ -110,7 +110,7 @@ group_by_if <- function(.tbl, ...) {
 #' @export
 ungroup <- function(x, ...) {
 	result <- dplyr::ungroup(x, ...)
-	log_group_by(x, result, "ungroup")
+	log_group_by(x, result, "ungroup", ...)
 	result
 }
 

@@ -22,7 +22,7 @@ log_filter
 #' @export
 filter <- function(.data, ...) {
 	result <- dplyr::filter(.data, ...)
-	log_filter(.data, result, "filter")
+	log_filter(.data, result, "filter", ...)
 	result
 }
 
@@ -44,7 +44,7 @@ filter <- function(.data, ...) {
 #' @export
 filter_all <- function(.tbl, ...) {
 	result <- dplyr::filter_all(.tbl, ...)
-	log_filter(.tbl, result, "filter_all")
+	log_filter(.tbl, result, "filter_all", ...)
 	result
 }
 
@@ -66,7 +66,7 @@ filter_all <- function(.tbl, ...) {
 #' @export
 filter_if <- function(.tbl, ...) {
 	result <- dplyr::filter_if(.tbl, ...)
-	log_filter(.tbl, result, "filter_if")
+	log_filter(.tbl, result, "filter_if", ...)
 	result
 }
 
@@ -88,7 +88,7 @@ filter_if <- function(.tbl, ...) {
 #' @export
 filter_at <- function(.tbl, ...) {
 	result <- dplyr::filter_at(.tbl, ...)
-	log_filter(.tbl, result, "filter_at")
+	log_filter(.tbl, result, "filter_at", ...)
 	result
 }
 
@@ -110,7 +110,7 @@ filter_at <- function(.tbl, ...) {
 #' @export
 distinct <- function(.data, ...) {
 	result <- dplyr::distinct(.data, ...)
-	log_filter(.data, result, "distinct")
+	log_filter(.data, result, "distinct", ...)
 	result
 }
 
@@ -132,7 +132,7 @@ distinct <- function(.data, ...) {
 #' @export
 distinct_all <- function(.tbl, ...) {
 	result <- dplyr::distinct_all(.tbl, ...)
-	log_filter(.tbl, result, "distinct_all")
+	log_filter(.tbl, result, "distinct_all", ...)
 	result
 }
 
@@ -154,7 +154,7 @@ distinct_all <- function(.tbl, ...) {
 #' @export
 distinct_if <- function(.tbl, ...) {
 	result <- dplyr::distinct_if(.tbl, ...)
-	log_filter(.tbl, result, "distinct_if")
+	log_filter(.tbl, result, "distinct_if", ...)
 	result
 }
 
@@ -176,7 +176,7 @@ distinct_if <- function(.tbl, ...) {
 #' @export
 distinct_at <- function(.tbl, ...) {
 	result <- dplyr::distinct_at(.tbl, ...)
-	log_filter(.tbl, result, "distinct_at")
+	log_filter(.tbl, result, "distinct_at", ...)
 	result
 }
 
@@ -198,7 +198,7 @@ distinct_at <- function(.tbl, ...) {
 #' @export
 top_n <- function(x, ...) {
 	result <- dplyr::top_n(x, ...)
-	log_filter(x, result, "top_n")
+	log_filter(x, result, "top_n", ...)
 	result
 }
 
@@ -220,7 +220,7 @@ top_n <- function(x, ...) {
 #' @export
 top_frac <- function(x, ...) {
 	result <- dplyr::top_frac(x, ...)
-	log_filter(x, result, "top_frac")
+	log_filter(x, result, "top_frac", ...)
 	result
 }
 
@@ -242,7 +242,7 @@ top_frac <- function(x, ...) {
 #' @export
 sample_n <- function(tbl, ...) {
 	result <- dplyr::sample_n(tbl, ...)
-	log_filter(tbl, result, "sample_n")
+	log_filter(tbl, result, "sample_n", ...)
 	result
 }
 
@@ -264,7 +264,7 @@ sample_n <- function(tbl, ...) {
 #' @export
 sample_frac <- function(tbl, ...) {
 	result <- dplyr::sample_frac(tbl, ...)
-	log_filter(tbl, result, "sample_frac")
+	log_filter(tbl, result, "sample_frac", ...)
 	result
 }
 
@@ -286,7 +286,7 @@ sample_frac <- function(tbl, ...) {
 #' @export
 slice <- function(.data, ...) {
 	result <- dplyr::slice(.data, ...)
-	log_filter(.data, result, "slice")
+	log_filter(.data, result, "slice", ...)
 	result
 }
 
@@ -308,7 +308,7 @@ slice <- function(.data, ...) {
 #' @export
 slice_head <- function(.data, ...) {
 	result <- dplyr::slice_head(.data, ...)
-	log_filter(.data, result, "slice_head")
+	log_filter(.data, result, "slice_head", ...)
 	result
 }
 
@@ -330,7 +330,7 @@ slice_head <- function(.data, ...) {
 #' @export
 slice_tail <- function(.data, ...) {
 	result <- dplyr::slice_tail(.data, ...)
-	log_filter(.data, result, "slice_tail")
+	log_filter(.data, result, "slice_tail", ...)
 	result
 }
 
@@ -352,7 +352,7 @@ slice_tail <- function(.data, ...) {
 #' @export
 slice_min <- function(.data, ...) {
 	result <- dplyr::slice_min(.data, ...)
-	log_filter(.data, result, "slice_min")
+	log_filter(.data, result, "slice_min", ...)
 	result
 }
 
@@ -374,7 +374,7 @@ slice_min <- function(.data, ...) {
 #' @export
 slice_max <- function(.data, ...) {
 	result <- dplyr::slice_max(.data, ...)
-	log_filter(.data, result, "slice_max")
+	log_filter(.data, result, "slice_max", ...)
 	result
 }
 
@@ -396,7 +396,7 @@ slice_max <- function(.data, ...) {
 #' @export
 slice_sample <- function(.data, ...) {
 	result <- dplyr::slice_sample(.data, ...)
-	log_filter(.data, result, "slice_sample")
+	log_filter(.data, result, "slice_sample", ...)
 	result
 }
 
@@ -418,7 +418,7 @@ slice_sample <- function(.data, ...) {
 #' @export
 drop_na <- function(data, ...) {
 	result <- tidyr::drop_na(data, ...)
-	log_filter(data, result, "drop_na")
+	log_filter(data, result, "drop_na", ...)
 	result
 }
 
