@@ -1,91 +1,220 @@
 # Contributing to tidylog
 
-Thank you for your interest in contributing to `tidylog`! 
+Thank you for your interest in contributing to tidylog!
 
-As of version 1.2.0, we use a code generation system for the wrappers to keep 
-the package consistent and easy to maintain. This ensures that we always match 
-the signatures, default arguments, and documentation of the underlying `dplyr` 
-and `tidyr` functions without manual copy-pasting.
+This document explains how tidylog's wrapper generation system works and how to contribute new functions or modify existing ones.
 
 ---
 
-## The Wrapper Architecture
+## Architecture Overview
 
-The package architecture is split into two parts: 
+Tidylog wraps dplyr/tidyr functions to add logging. The wrapper generation system uses a build-time approach where:
 
-1. The **Loggers**, defined in `R/log_XXX.R` files which contain the logic for what to report,
-2. The **Wrappers** which provide the user-facing interface. 
-  These are built dynamically into `R/z_generated_XXX.R` files (which should never be edited directly)
-  based on 2 separated steps, the configuration and the engine:
-    1.  **Configuration: `data-raw/wrapper_mapping.R`**. 
-        This file defines the `wrapper_mapping` list, which maps specific loggers to vectors of function names.
-    2.  **Engine: `data-raw/generate_wrappers.R`**. 
-        This script sources the mapping and writes the standardized R code to `R/generated_wrappers.R`.
+1. **Wrappers execute functions** - Simple wrapper functions call the underlying dplyr/tidyr function
+2. **Loggers perform logging** - Separate logger functions analyze and display the results
+3. **Generated at build time** - All wrappers are created by running `data-raw/generate_wrappers.R`
+4. **Committed to git** - Generated files in `R/z_generated_*.R` are version controlled
 
+### Key Components
+
+**Loggers** (`R/log_*.R`):
+- Internal functions that perform the actual logging
+- Signatures: `log_filter(.olddata, .newdata, .funname, ...)` for regular functions
+- Special case: `log_join(x, y, by, .newdata, .funname, .name_x, .name_y, ...)` for joins
+
+**Wrappers** (`R/z_generated_*.R`):
+- User-facing functions with simple signatures: `function(.data, ...)` or `function(x, y, by = NULL, ...)`
+- Auto-generated - **never edit these files manually**
+- Use `@inheritParams` and `@inheritDotParams` for documentation and RStudio autocomplete
+
+**Configuration** (`data-raw/wrapper_mapping.R`):
+- Maps functions to their loggers
+- Two lists: `regular_wrappers` and `join_wrappers`
+
+**Generator** (`data-raw/generate_wrappers.R`):
+- Creates all wrapper files from the mapping
+- Removes old generated files before creating new ones
+- Runs `devtools::document()` to update documentation
 
 ---
 
 ## How to Add a New Function
 
-If you want to add support for a new function (e.g., a new verb from `dplyr` or `tidyr`), follow these steps:
-
 ### 1. Update the Mapping
-Open `data-raw/wrapper_mapping.R` and add the full namespace-prefixed function name (as a string) to the appropriate logger category.
+
+Add the function to the appropriate list in `data-raw/wrapper_mapping.R`:
 
 ```r
-wrapper_mapping <- list(
-  log_mutate = c(
-    "dplyr::mutate",
-    "dplyr::mutate_all",
-    "dplyr::new_function"  # Add your function here
-  ),
-  ...
+regular_wrappers <- list(
+    log_filter = c(
+        "dplyr::filter",
+        "dplyr::distinct",
+        "dplyr::new_function"  # Add here
+    ),
+    ...
 )
 ```
 
-### 2. Run the Generator
+### 2. Regenerate Wrappers
 
-From the package root, run the generation script to update the source code:
+From the package root:
 
 ```r
 source("data-raw/generate_wrappers.R")
 ```
 
-The engine will:
+This will:
+- Delete all existing `R/z_generated_*.R` files
+- Generate new wrapper files
+- Update documentation via `devtools::document()`
 
-1. **Validate**: Throw an error if the function name has a typo or the package isn't installed.
-2. **Inspect Formals**: Automatically extract the correct arguments and defaults using `formals()`.
-3. **Standardize**: Use `match.call()` to ensure that regardless of the argument order used by the user, 
-    the primary data is correctly mapped to `.data` for the logger.
-4. **Update Documentation**: Calls `devtools::document()`.
+### 3. Test and Commit
 
-### 3. Update and run test
-
-Add tests for the new function and run all tests in the package.
 ```r
+devtools::test()
+```
+
+Commit the modified/new `R/z_generated_*.R` file(s).
+
+---
+
+## How to Add a New Logger Category
+
+If you need a new type of logging (beyond filter, mutate, select, etc.):
+
+### 1. Create the Logger Function
+
+Create `R/log_<category>.R`:
+
+```r
+log_<category> <- function(.olddata, .newdata, .funname, ...) {
+    if (!"data.frame" %in% class(.olddata) | !should_display()) {
+        return()
+    }
+    
+    # Your logging logic here
+    display(glue::glue("{.funname}: your message"))
+}
+```
+
+### 2. Add to Mapping
+
+In `data-raw/wrapper_mapping.R`:
+
+```r
+regular_wrappers <- list(
+    log_<category> = c("pkg::function1", "pkg::function2"),
+    ...
+)
+```
+
+### 3. Regenerate and Test
+
+```r
+source("data-raw/generate_wrappers.R")
 devtools::test()
 ```
 
 ---
 
+## How Generated Wrappers Work
+
+### Example: dplyr::filter
+
+```r
+#' Wrapper around dplyr::filter that prints information about the operation
+#'
+#' @description
+#' Wrapper around [dplyr::filter()] that prints information about the operation.
+#'
+#' @details
+#' Documentation generated from dplyr version 1.2.0.
+#'
+#' @inheritParams dplyr::filter
+#' @inheritDotParams dplyr::filter
+#'
+#' @return See [dplyr::filter()]
+#' @seealso [dplyr::filter()]
+#' @export
+filter <- function(.data, ...) {
+    result <- dplyr::filter(.data, ...)
+    log_filter(.olddata = .data, .newdata = result, .funname = "filter", ...)
+    result
+}
+```
+
+### How Autocomplete Works
+
+The `@inheritDotParams` roxygen tag enables RStudio autocomplete by inheriting parameter documentation from dplyr/tidyr. This requires RStudio PR #17149 or later.
+
+Documentation is generated from the dplyr/tidyr version installed at build time (noted in `@details`).
+
+---
+
+## Logger Function Signatures
+
+### Regular Loggers
+```r
+log_filter(.olddata, .newdata, .funname, ...)
+log_mutate(.olddata, .newdata, .funname, ...)
+log_select(.olddata, .newdata, .funname, ...)
+# etc.
+```
+
+### Join Logger (Special Case)
+```r
+log_join(x, y, by, .newdata, .funname, .name_x, .name_y, ...)
+```
+
+The join logger merges 2 data sets and relies on all three of `x`, `y`, and `by` to determine its logging. It captures variable names to display informative messages (e.g., "rows only in mtcars" instead of "rows only in x").
+
+The `...` parameter is preserved for special cases (e.g., `slice_min`/`slice_max` need to inspect the `with_ties` argument).
+
+---
+
+## File Naming Convention
+
+Generated files are named `R/z_generated_<logger_name>.R` (e.g., `R/z_generated_log_filter.R`).
+
+The `z_generated_` prefix serves two purposes:
+1. **Load order**: The `z_` prefix ensures files load after logger function definitions
+2. **Tracking**: The `generated_` portion clearly identifies programmatically generated files
+
+---
+
 ## Important Guidelines
 
-> [!WARNING] 
+> [!WARNING]
+> **Never edit `R/z_generated_*.R` files manually**
 >
-> **Do not edit `R/z_generated_XXX.R` files manually**
-> 
-> These files are automatically generated. Any manual changes will be overwritten 
-> the next time the generator script is run. Always make your changes in 
-> `data-raw/wrapper_mapping.R`.
+> These files are automatically generated. Any manual changes will be overwritten the next time the generator script runs. Always make changes in `data-raw/wrapper_mapping.R` or `data-raw/generate_wrappers.R`.
 
-### Logger Signatures
-If you are creating a new logger function, ensure it follows these naming conventions for arguments:
+### Modifying Generator Logic
 
-* **Standard Loggers**: Should accept `.data`, `.fun`, and `.funname`.
-* **Join Loggers**: Should accept `x`, `y`, `by`, `.fun`, `.funname`, `.name_x`, and `.name_y`.
+If you need to change how wrappers are generated:
 
-### Documentation Inheritance
-We use Roxygen2's `@inherit` and `@inheritParams` tags in the generator to automatically generate documentation. 
-This ensures that when a user looks at `?tidylog::filter`, for example, 
-they see the exact same parameter descriptions as `?dplyr::filter`, 
-plus a note that the function is a `tidylog` wrapper.
+1. Edit `generate_regular_wrapper()` or `generate_join_wrapper()` in `data-raw/generate_wrappers.R`
+2. Regenerate all wrappers: `source("data-raw/generate_wrappers.R")`
+3. Review the git diff to ensure changes are correct
+4. Commit all modified `R/z_generated_*.R` files
+
+### CI Check
+
+The `.github/workflows/check-wrappers.yaml` workflow ensures generated files stay in sync with the generator code. If it fails, run `source("data-raw/generate_wrappers.R")` locally and commit the changes.
+
+---
+
+## Benefits of This Approach
+
+- **Autocomplete works**: RStudio provides parameter suggestions
+- **Simple wrappers**: No complex signature matching required
+- **Backward compatible**: Works with any dplyr/tidyr version
+- **Inspectable**: Generated code is visible in git
+- **Clean separation**: Wrappers execute, loggers log
+- **Easy maintenance**: Regenerate all wrappers with one command
+
+---
+
+## Questions?
+
+If you have questions or run into issues, please open an issue on GitHub. We're happy to help!
