@@ -43,21 +43,19 @@ generate_roxygen_header <- function(pkg, fn) {
 
 # Generate wrapper for regular functions: function(.data, ...)
 generate_regular_wrapper <- function(full_fn_name, logger_name) {
-    parts <- strsplit(full_fn_name, "::")[[1]]
-    pkg   <- parts[1]
-    fn    <- parts[2]
+    parts <- parse_function_name(full_fn_name)
     
     # Get first argument name from original function
-    orig_fn <- getExportedValue(pkg, fn)
+    orig_fn <- getExportedValue(parts$pkg, parts$fn)
     first_arg <- names(formals(orig_fn))[1]
     
-    roxygen <- generate_roxygen_header(pkg, fn)
+    roxygen <- generate_roxygen_header(parts$pkg, parts$fn)
     
     glue("
 {roxygen}
-{fn} <- function({first_arg}, ...) {{
-\tresult <- {pkg}::{fn}({first_arg}, ...)
-\t{logger_name}({first_arg}, result, \"{fn}\", ...)
+{parts$fn} <- function({first_arg}, ...) {{
+\tresult <- {parts$pkg}::{parts$fn}({first_arg}, ...)
+\t{logger_name}({first_arg}, result, \"{parts$fn}\", ...)
 \tresult
 }}
 ", .trim = FALSE)
@@ -65,17 +63,15 @@ generate_regular_wrapper <- function(full_fn_name, logger_name) {
 
 # Generate wrapper for join functions: function(x, y, by = NULL, ...)
 generate_join_wrapper <- function(full_fn_name, logger_name) {
-    parts <- strsplit(full_fn_name, "::")[[1]]
-    pkg   <- parts[1]
-    fn    <- parts[2]
+    parts <- parse_function_name(full_fn_name)
     
-    roxygen <- generate_roxygen_header(pkg, fn)
+    roxygen <- generate_roxygen_header(parts$pkg, parts$fn)
     
     glue("
 {roxygen}
-{fn} <- function(x, y, by = NULL, ...) {{
-\tresult <- {pkg}::{fn}(x, y, by = by, ...)
-\t{logger_name}(x, y, by, result, \"{fn}\", 
+{parts$fn} <- function(x, y, by = NULL, ...) {{
+\tresult <- {parts$pkg}::{parts$fn}(x, y, by = by, ...)
+\t{logger_name}(x, y, by, result, \"{parts$fn}\", 
 \t              .name_x = deparse1(substitute(x)), 
 \t              .name_y = deparse1(substitute(y)), ...)
 \tresult

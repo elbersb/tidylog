@@ -42,12 +42,12 @@ regular_wrappers <- list(
         "dplyr::group_by", "dplyr::group_by_all", "dplyr::group_by_at", "dplyr::group_by_if",
         "dplyr::ungroup"
     ),
-    
+
     log_rename = c(
         "dplyr::rename", "dplyr::rename_all", "dplyr::rename_if", "dplyr::rename_at",
         "dplyr::rename_with"
     ),
-    
+
     log_longer_wider = c(
         "tidyr::pivot_longer",
         "tidyr::pivot_wider",
@@ -72,16 +72,19 @@ join_wrappers <- list(
     )
 )
 
-get_fn_parts <- function(full_fn_name) {
-    strsplit(full_fn_name, "::")[[1]]
+# Helper to parse "package::function" into named components
+# Also used by generate_wrappers.R (which sources this file)
+parse_function_name <- function(full_name) {
+    parts <- strsplit(full_name, "::")[[1]]
+    list(pkg = parts[1], fn = parts[2])
 }
 
 # Validation: Ensure all functions exist
 walk(
     c(unlist(regular_wrappers), unlist(join_wrappers)),
     function(full_name) {
-        parts <- get_fn_parts(full_name)
-        if (!exists(parts[2], where = asNamespace(parts[1]), mode = "function")) {
+        parts <- parse_function_name(full_name)
+        if (!exists(parts$fn, where = asNamespace(parts$pkg), mode = "function")) {
             stop(glue("Typo detected: '{full_name}' does not exist!"))
         }
     }
