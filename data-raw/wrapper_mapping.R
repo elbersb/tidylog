@@ -42,12 +42,12 @@ regular_wrappers <- list(
         "dplyr::group_by", "dplyr::group_by_all", "dplyr::group_by_at", "dplyr::group_by_if",
         "dplyr::ungroup"
     ),
-
+    
     log_rename = c(
         "dplyr::rename", "dplyr::rename_all", "dplyr::rename_if", "dplyr::rename_at",
         "dplyr::rename_with"
     ),
-
+    
     log_longer_wider = c(
         "tidyr::pivot_longer",
         "tidyr::pivot_wider",
