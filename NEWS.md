@@ -3,6 +3,8 @@
 - use cli instead of clisymbols
 - dplyr: use of join_by syntax with comparisons other than `==` now reports changed row counts (#74).
 - slice_min/max now report number of ties (#66)
+- All tidylog wrappers are now built dynamically to simplify building
+documentation using roxygen2 and @inheritDotParams to support auto-completion (#56). 
 
 # 1.1.0
 

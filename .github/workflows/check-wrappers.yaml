@@ -1,0 +1,52 @@
+name: Check Generated Wrappers
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  check-sync:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::dplyr
+            any::tidyr
+            any::purrr
+            any::glue
+            any::devtools
+
+      - name: Regenerate wrappers
+        run: |
+          source("data-raw/generate_wrappers.R")
+        shell: Rscript {0}
+
+      - name: Check for changes
+        run: |
+          # Check for any modified or untracked generated files
+          CHANGES=$(git status --porcelain R/z_generated_*.R)
+
+          if [ -n "$CHANGES" ]; then
+            echo "Error: The following generated files are out of sync:"
+            echo "$CHANGES"
+            echo "Please run 'source(\"data-raw/generate_wrappers.R\")' locally and commit."
+            git diff R/z_generated_*.R
+            exit 1
+          else
+            echo "All generated files are in sync."
+          fi

@@ -1,82 +1,22 @@
-#' @export
-mutate <- function(.data, ...) {
-    log_mutate(.data, .fun = dplyr::mutate, .funname = "mutate", ...)
-}
+# Logger for functions that change column data, such as dplyr::mutate.
+log_mutate <- function(.olddata, .newdata, .funname, ...) {
+    cols <- names(.olddata)
 
-#' @export
-mutate_all <- function(.tbl, ...) {
-    log_mutate(.tbl, .fun = dplyr::mutate_all, .funname = "mutate_all", ...)
-}
-
-#' @export
-mutate_if <- function(.tbl, ...) {
-    log_mutate(.tbl, .fun = dplyr::mutate_if, .funname = "mutate_if", ...)
-}
-
-#' @export
-mutate_at <- function(.tbl, ...) {
-    log_mutate(.tbl, .fun = dplyr::mutate_at, .funname = "mutate_at", ...)
-}
-
-#' @export
-transmute <- function(.data, ...) {
-    log_mutate(.data, .fun = dplyr::transmute, .funname = "transmute", ...)
-}
-
-#' @export
-transmute_all <- function(.tbl, ...) {
-    log_mutate(.tbl, .fun = dplyr::transmute_all, .funname = "transmute_all", ...)
-}
-
-#' @export
-transmute_if <- function(.tbl, ...) {
-    log_mutate(.tbl, .fun = dplyr::transmute_if, .funname = "transmute_if", ...)
-}
-
-#' @export
-transmute_at <- function(.tbl, ...) {
-    log_mutate(.tbl, .fun = dplyr::transmute_at, .funname = "transmute_at", ...)
-}
-
-#' @export
-add_tally <- function(x, ...) {
-    log_mutate(x, .fun = dplyr::add_tally, .funname = "add_tally", ...)
-}
-
-#' @export
-add_count <- function(x, ...) {
-    log_mutate(x, .fun = dplyr::add_count, .funname = "add_count", ...)
-}
-
-#' @export
-replace_na <- function(data, ...) {
-    log_mutate(data, .fun = tidyr::replace_na, .funname = "replace_na", ...)
-}
-
-#' @export
-fill <- function(data, ...) {
-    log_mutate(data, .fun = tidyr::fill, .funname = "fill", ...)
-}
-
-log_mutate <- function(.data, .fun, .funname, ...) {
-    cols <- names(.data)
-    newdata <- .fun(.data, ...)
-
-    if (!"data.frame" %in% class(.data) | !should_display()) {
-        return(newdata)
+    if (!"data.frame" %in% class(.olddata) | !should_display()) {
+        return()
     }
 
     # add group status
-    prefix <- ifelse(dplyr::is.grouped_df(newdata),
+    prefix <- ifelse(dplyr::is.grouped_df(.newdata),
         glue::glue("{.funname} (grouped):"),
         glue::glue("{.funname}:"))
 
     if (grepl("transmute", .funname)) {
-        dropped_vars <- setdiff(names(.data), names(newdata))
+        dropped_vars <- setdiff(names(.olddata), names(.newdata))
         n <- length(dropped_vars)
-        if (ncol(newdata) == 0) {
+        if (ncol(.newdata) == 0) {
             display(glue::glue("{prefix} dropped all variables"))
-            return(newdata)
+            return()
         } else if (length(dropped_vars) > 0) {
             display(glue::glue("{prefix} dropped {plural(n, 'variable')}",
                            " ({format_list(dropped_vars)})"))
@@ -87,7 +27,7 @@ log_mutate <- function(.data, .fun, .funname, ...) {
 
     has_changed <- FALSE
 
-    dropped_vars <- setdiff(cols, names(newdata))
+    dropped_vars <- setdiff(cols, names(.newdata))
     if (length(dropped_vars) > 0) {
         # dropped only
         display(glue::glue("{.funname}: dropped {plural(length(dropped_vars), 'variable')}",
@@ -95,25 +35,25 @@ log_mutate <- function(.data, .fun, .funname, ...) {
         has_changed = TRUE
     }
 
-    for (var in names(newdata)) {
+    for (var in names(.newdata)) {
         # new var
         if (!var %in% cols) {
             has_changed <- TRUE
-            n <- length(unique(newdata[[var]]))
-            p_na <- percent(sum(is.na(newdata[[var]])), length(newdata[[var]]))
-            display(glue::glue("{prefix} new variable '{var}' ({get_type(newdata[[var]])}) ",
+            n <- length(unique(.newdata[[var]]))
+            p_na <- percent(sum(is.na(.newdata[[var]])), length(.newdata[[var]]))
+            display(glue::glue("{prefix} new variable '{var}' ({get_type(.newdata[[var]])}) ",
                 "with {plural(n, 'value', 'unique ')} and {p_na} NA"))
             # replace by spaces
             prefix <- paste0(rep(" ", nchar(prefix)), collapse = "")
         } else {
             # existing var
             # use identical to account for missing values - this is fast
-            if (identical(newdata[[var]], .data[[var]])) {
+            if (identical(.newdata[[var]], .olddata[[var]])) {
                 next
             }
             has_changed <- TRUE
-            old <- .data[[var]]
-            new <- newdata[[var]]
+            old <- .olddata[[var]]
+            new <- .newdata[[var]]
             typeold <- get_type(old)
             typenew <- get_type(new)
 
@@ -167,5 +107,4 @@ log_mutate <- function(.data, .fun, .funname, ...) {
     if (!has_changed) {
         display(glue::glue("{prefix} no changes"))
     }
-    newdata
 }

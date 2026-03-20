@@ -7,3 +7,5 @@ log.txt
 CRAN-RELEASE
 .DS_Store
 inst/doc
+/doc/
+/Meta/
