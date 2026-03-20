@@ -11,11 +11,17 @@ transmute(.data, ...)
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{...}{
-  Arguments passed on to \code{\link[dplyr:transmute]{dplyr::transmute}}
-  \describe{
-    \item{\code{}}{}
-  }}
+\item{...}{<\code{\link[rlang:args_data_masking]{data-masking}}> Name-value pairs.
+The name gives the name of the column in the output.
+
+The value can be:
+\itemize{
+\item A vector of length 1, which will be recycled to the correct length.
+\item A vector the same length as the current group (or the whole data frame
+if ungrouped).
+\item \code{NULL}, to remove the column.
+\item A data frame or tibble, to create multiple columns in the output.
+}}
 }
 \value{
 See \code{\link[dplyr:transmute]{dplyr::transmute()}}

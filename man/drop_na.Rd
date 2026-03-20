@@ -9,11 +9,8 @@ drop_na(data, ...)
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{
-  Arguments passed on to \code{\link[tidyr:drop_na]{tidyr::drop_na}}
-  \describe{
-    \item{\code{}}{}
-  }}
+\item{...}{<\code{\link[tidyr:tidyr_tidy_select]{tidy-select}}> Columns to inspect for
+missing values. If empty, all columns are used.}
 }
 \value{
 See \code{\link[tidyr:drop_na]{tidyr::drop_na()}}

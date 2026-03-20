@@ -11,11 +11,10 @@ rename(.data, ...)
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{...}{
-  Arguments passed on to \code{\link[dplyr:rename]{dplyr::rename}}
-  \describe{
-    \item{\code{}}{}
-  }}
+\item{...}{For \code{rename()}: <\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Use
+\code{new_name = old_name} to rename selected variables.
+
+For \code{rename_with()}: additional arguments passed onto \code{.fn}.}
 }
 \value{
 See \code{\link[dplyr:rename]{dplyr::rename()}}

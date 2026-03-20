@@ -12,7 +12,7 @@
 #' Documentation generated from dplyr version 1.2.0.
 #'
 #' @inheritParams dplyr::rename
-#' @inheritDotParams dplyr::rename
+#' 
 #'
 #' @return See [dplyr::rename()]
 #' @seealso [dplyr::rename()]

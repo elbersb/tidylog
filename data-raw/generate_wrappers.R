@@ -21,9 +21,23 @@ if (length(old_generated_files) > 0) {
 }
 
 # Shared roxygen documentation template
-generate_roxygen_header <- function(pkg, fn) {
+generate_roxygen_header <- function(pkg, fn, wrapper_params = ".data") {
     pkg_version <- as.character(packageVersion(pkg))
-    
+
+    # Check if function has parameters beyond those in our wrapper signature
+    orig_fn <- getExportedValue(pkg, fn)
+    fn_params <- names(formals(orig_fn))
+    # Exclude both wrapper params and ... from the check
+    additional_params <- setdiff(fn_params, c(wrapper_params, "..."))
+    has_dot_params <- length(additional_params) > 0
+
+    # Build inheritDotParams line conditionally
+    inherit_dot_params <- if (has_dot_params) {
+        glue("@inheritDotParams {pkg}::{fn}")
+    } else {
+        ""
+    }
+
     glue("
 #' Wrapper around {pkg}::{fn} that prints information about the operation
 #'
@@ -34,7 +48,7 @@ generate_roxygen_header <- function(pkg, fn) {
 #' Documentation generated from {pkg} version {pkg_version}.
 #'
 #' @inheritParams {pkg}::{fn}
-#' @inheritDotParams {pkg}::{fn}
+#' {inherit_dot_params}
 #'
 #' @return See [{pkg}::{fn}()]
 #' @seealso [{pkg}::{fn}()]
@@ -44,13 +58,13 @@ generate_roxygen_header <- function(pkg, fn) {
 # Generate wrapper for regular functions: function(.data, ...)
 generate_regular_wrapper <- function(full_fn_name, logger_name) {
     parts <- parse_function_name(full_fn_name)
-    
+
     # Get first argument name from original function
     orig_fn <- getExportedValue(parts$pkg, parts$fn)
     first_arg <- names(formals(orig_fn))[1]
-    
-    roxygen <- generate_roxygen_header(parts$pkg, parts$fn)
-    
+
+    roxygen <- generate_roxygen_header(parts$pkg, parts$fn, wrapper_params = first_arg)
+
     glue("
 {roxygen}
 {parts$fn} <- function({first_arg}, ...) {{
@@ -64,9 +78,9 @@ generate_regular_wrapper <- function(full_fn_name, logger_name) {
 # Generate wrapper for join functions: function(x, y, by = NULL, ...)
 generate_join_wrapper <- function(full_fn_name, logger_name) {
     parts <- parse_function_name(full_fn_name)
-    
-    roxygen <- generate_roxygen_header(parts$pkg, parts$fn)
-    
+
+    roxygen <- generate_roxygen_header(parts$pkg, parts$fn, wrapper_params = c("x", "y", "by"))
+
     glue("
 {roxygen}
 {parts$fn} <- function(x, y, by = NULL, ...) {{
@@ -91,12 +105,12 @@ globals_map <- list(
 generate_and_write <- function(wrappers, generator) {
     iwalk(wrappers, function(fns, logger) {
         file_path <- build_file_path(logger)
-        
+
         code_blocks <- map_chr(fns, ~generator(.x, logger))
-        
+
         # Add global variables if defined for this logger
         globals <- globals_map[[logger]] %||% ""
-        
+
         writeLines(
             c(header_base,
               glue("# Logger category: {logger}\n"),

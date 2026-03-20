@@ -100,7 +100,7 @@ group_by_if <- function(.tbl, ...) {
 #' Documentation generated from dplyr version 1.2.0.
 #'
 #' @inheritParams dplyr::ungroup
-#' @inheritDotParams dplyr::ungroup
+#' 
 #'
 #' @return See [dplyr::ungroup()]
 #' @seealso [dplyr::ungroup()]

@@ -9,11 +9,12 @@ ungroup(x, ...)
 \arguments{
 \item{x}{A \code{\link[dplyr:tbl]{tbl()}}}
 
-\item{...}{
-  Arguments passed on to \code{\link[dplyr:group_by]{dplyr::ungroup}}
-  \describe{
-    \item{\code{}}{}
-  }}
+\item{...}{<\code{\link[rlang:args_data_masking]{data-masking}}> In \code{group_by()},
+variables or computations to group by. Computations are always done on the
+ungrouped data frame. To perform computations on the grouped data, you need
+to use a separate \code{mutate()} step before the \code{group_by()}.
+Computations are not allowed in \code{nest_by()}.
+In \code{ungroup()}, variables to remove from the grouping.}
 }
 \value{
 See \code{\link[dplyr:group_by]{dplyr::ungroup()}}

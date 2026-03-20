@@ -408,7 +408,7 @@ slice_sample <- function(.data, ...) {
 #' Documentation generated from tidyr version 1.3.2.
 #'
 #' @inheritParams tidyr::drop_na
-#' @inheritDotParams tidyr::drop_na
+#' 
 #'
 #' @return See [tidyr::drop_na()]
 #' @seealso [tidyr::drop_na()]

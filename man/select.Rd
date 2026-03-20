@@ -11,11 +11,10 @@ select(.data, ...)
 lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
-\item{...}{
-  Arguments passed on to \code{\link[dplyr:select]{dplyr::select}}
-  \describe{
-    \item{\code{}}{}
-  }}
+\item{...}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> One or more unquoted
+expressions separated by commas. Variable names can be used as if they
+were positions in the data frame, so expressions like \code{x:y} can
+be used to select a range of variables.}
 }
 \value{
 See \code{\link[dplyr:select]{dplyr::select()}}

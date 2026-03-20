@@ -12,7 +12,7 @@
 #' Documentation generated from dplyr version 1.2.0.
 #'
 #' @inheritParams dplyr::select
-#' @inheritDotParams dplyr::select
+#' 
 #'
 #' @return See [dplyr::select()]
 #' @seealso [dplyr::select()]
