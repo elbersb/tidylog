@@ -21,6 +21,11 @@ filter_at <- function(.tbl, ...) {
 }
 
 #' @export
+filter_out <- function(.data, ...) {
+    log_filter(.data, .fun = dplyr::filter_out, .funname = "filter_out", ...)
+}
+
+#' @export
 distinct <- function(.data, ...) {
     log_filter(.data, .fun = dplyr::distinct, .funname = "distinct", ...)
 }

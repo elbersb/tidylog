@@ -3,6 +3,7 @@
 - use cli instead of clisymbols
 - dplyr: use of join_by syntax with comparisons other than `==` now reports changed row counts (#74).
 - slice_min/max now report number of ties (#66)
+- filter_out function added (#79)
 
 # 1.1.0
 

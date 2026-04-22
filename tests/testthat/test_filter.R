@@ -24,6 +24,13 @@ test_that("filter", {
     })
 })
 
+test_that("filter_out", {
+    expect_message({
+        out <- tidylog::filter_out(mtcars, cyl==6L & gear==4L)
+    })
+    expect_equal(out, dplyr::filter_out(mtcars, cyl==6L & gear==4L))
+})
+
 test_that("distinct", {
     expect_message({
         out <- tidylog::distinct(mtcars, mpg)
