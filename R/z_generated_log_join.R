@@ -9,7 +9,7 @@
 #' Wrapper around [dplyr::inner_join()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::inner_join
 #' @inheritDotParams dplyr::inner_join
@@ -33,7 +33,7 @@ inner_join <- function(x, y, by = NULL, ...) {
 #' Wrapper around [dplyr::full_join()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::full_join
 #' @inheritDotParams dplyr::full_join
@@ -57,7 +57,7 @@ full_join <- function(x, y, by = NULL, ...) {
 #' Wrapper around [dplyr::left_join()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::left_join
 #' @inheritDotParams dplyr::left_join
@@ -81,7 +81,7 @@ left_join <- function(x, y, by = NULL, ...) {
 #' Wrapper around [dplyr::right_join()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::right_join
 #' @inheritDotParams dplyr::right_join
@@ -105,7 +105,7 @@ right_join <- function(x, y, by = NULL, ...) {
 #' Wrapper around [dplyr::anti_join()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::anti_join
 #' @inheritDotParams dplyr::anti_join
@@ -129,7 +129,7 @@ anti_join <- function(x, y, by = NULL, ...) {
 #' Wrapper around [dplyr::semi_join()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::semi_join
 #' @inheritDotParams dplyr::semi_join

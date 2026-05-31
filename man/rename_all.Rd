@@ -30,7 +30,7 @@ See \code{\link[dplyr:rename_all]{dplyr::rename_all()}}
 Wrapper around \code{\link[dplyr:rename_all]{dplyr::rename_all()}} that prints information about the operation.
 }
 \details{
-Documentation generated from dplyr version 1.2.0.
+Documentation generated from dplyr version 1.2.1.
 }
 \seealso{
 \code{\link[dplyr:rename_all]{dplyr::rename_all()}}

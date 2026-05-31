@@ -9,7 +9,7 @@
 #' Wrapper around [dplyr::select()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::select
 #' 
@@ -31,7 +31,7 @@ select <- function(.data, ...) {
 #' Wrapper around [dplyr::select_all()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::select_all
 #' @inheritDotParams dplyr::select_all
@@ -53,7 +53,7 @@ select_all <- function(.tbl, ...) {
 #' Wrapper around [dplyr::select_if()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::select_if
 #' @inheritDotParams dplyr::select_if
@@ -75,7 +75,7 @@ select_if <- function(.tbl, ...) {
 #' Wrapper around [dplyr::select_at()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::select_at
 #' @inheritDotParams dplyr::select_at
@@ -97,7 +97,7 @@ select_at <- function(.tbl, ...) {
 #' Wrapper around [dplyr::relocate()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::relocate
 #' @inheritDotParams dplyr::relocate

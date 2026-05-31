@@ -9,7 +9,7 @@
 #' Wrapper around [dplyr::rename()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::rename
 #' @inheritDotParams dplyr::rename
@@ -31,7 +31,7 @@ rename <- function(.data, ...) {
 #' Wrapper around [dplyr::rename_all()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::rename_all
 #' @inheritDotParams dplyr::rename_all
@@ -53,7 +53,7 @@ rename_all <- function(.tbl, ...) {
 #' Wrapper around [dplyr::rename_if()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::rename_if
 #' @inheritDotParams dplyr::rename_if
@@ -75,7 +75,7 @@ rename_if <- function(.tbl, ...) {
 #' Wrapper around [dplyr::rename_at()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::rename_at
 #' @inheritDotParams dplyr::rename_at
@@ -97,7 +97,7 @@ rename_at <- function(.tbl, ...) {
 #' Wrapper around [dplyr::rename_with()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::rename_with
 #' @inheritDotParams dplyr::rename_with

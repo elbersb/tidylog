@@ -9,7 +9,7 @@
 #' Wrapper around [dplyr::summarize()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::summarize
 #' @inheritDotParams dplyr::summarize
@@ -31,7 +31,7 @@ summarize <- function(.data, ...) {
 #' Wrapper around [dplyr::summarize_all()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::summarize_all
 #' @inheritDotParams dplyr::summarize_all
@@ -53,7 +53,7 @@ summarize_all <- function(.tbl, ...) {
 #' Wrapper around [dplyr::summarize_at()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::summarize_at
 #' @inheritDotParams dplyr::summarize_at
@@ -75,7 +75,7 @@ summarize_at <- function(.tbl, ...) {
 #' Wrapper around [dplyr::summarize_if()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::summarize_if
 #' @inheritDotParams dplyr::summarize_if
@@ -97,7 +97,7 @@ summarize_if <- function(.tbl, ...) {
 #' Wrapper around [dplyr::summarise()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::summarise
 #' @inheritDotParams dplyr::summarise
@@ -119,7 +119,7 @@ summarise <- function(.data, ...) {
 #' Wrapper around [dplyr::summarise_all()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::summarise_all
 #' @inheritDotParams dplyr::summarise_all
@@ -141,7 +141,7 @@ summarise_all <- function(.tbl, ...) {
 #' Wrapper around [dplyr::summarise_at()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::summarise_at
 #' @inheritDotParams dplyr::summarise_at
@@ -163,7 +163,7 @@ summarise_at <- function(.tbl, ...) {
 #' Wrapper around [dplyr::summarise_if()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::summarise_if
 #' @inheritDotParams dplyr::summarise_if
@@ -185,7 +185,7 @@ summarise_if <- function(.tbl, ...) {
 #' Wrapper around [dplyr::tally()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::tally
 #' @inheritDotParams dplyr::tally
@@ -207,7 +207,7 @@ tally <- function(x, ...) {
 #' Wrapper around [dplyr::count()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::count
 #' @inheritDotParams dplyr::count

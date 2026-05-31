@@ -42,7 +42,7 @@ See \code{\link[dplyr:add_tally]{dplyr::add_tally()}}
 Wrapper around \code{\link[dplyr:add_tally]{dplyr::add_tally()}} that prints information about the operation.
 }
 \details{
-Documentation generated from dplyr version 1.2.0.
+Documentation generated from dplyr version 1.2.1.
 }
 \seealso{
 \code{\link[dplyr:add_tally]{dplyr::add_tally()}}

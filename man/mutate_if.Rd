@@ -32,7 +32,7 @@ See \code{\link[dplyr:mutate_if]{dplyr::mutate_if()}}
 Wrapper around \code{\link[dplyr:mutate_if]{dplyr::mutate_if()}} that prints information about the operation.
 }
 \details{
-Documentation generated from dplyr version 1.2.0.
+Documentation generated from dplyr version 1.2.1.
 }
 \seealso{
 \code{\link[dplyr:mutate_if]{dplyr::mutate_if()}}

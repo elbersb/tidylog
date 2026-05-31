@@ -27,7 +27,7 @@ See \code{\link[dplyr:rename_with]{dplyr::rename_with()}}
 Wrapper around \code{\link[dplyr:rename_with]{dplyr::rename_with()}} that prints information about the operation.
 }
 \details{
-Documentation generated from dplyr version 1.2.0.
+Documentation generated from dplyr version 1.2.1.
 }
 \seealso{
 \code{\link[dplyr:rename_with]{dplyr::rename_with()}}

@@ -33,7 +33,7 @@ See \code{\link[dplyr:distinct_if]{dplyr::distinct_if()}}
 Wrapper around \code{\link[dplyr:distinct_if]{dplyr::distinct_if()}} that prints information about the operation.
 }
 \details{
-Documentation generated from dplyr version 1.2.0.
+Documentation generated from dplyr version 1.2.1.
 }
 \seealso{
 \code{\link[dplyr:distinct_if]{dplyr::distinct_if()}}

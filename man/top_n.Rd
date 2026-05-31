@@ -28,7 +28,7 @@ See \code{\link[dplyr:top_n]{dplyr::top_n()}}
 Wrapper around \code{\link[dplyr:top_n]{dplyr::top_n()}} that prints information about the operation.
 }
 \details{
-Documentation generated from dplyr version 1.2.0.
+Documentation generated from dplyr version 1.2.1.
 }
 \seealso{
 \code{\link[dplyr:top_n]{dplyr::top_n()}}

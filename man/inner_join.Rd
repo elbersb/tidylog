@@ -140,7 +140,7 @@ See \code{\link[dplyr:inner_join]{dplyr::inner_join()}}
 Wrapper around \code{\link[dplyr:inner_join]{dplyr::inner_join()}} that prints information about the operation.
 }
 \details{
-Documentation generated from dplyr version 1.2.0.
+Documentation generated from dplyr version 1.2.1.
 }
 \seealso{
 \code{\link[dplyr:inner_join]{dplyr::inner_join()}}

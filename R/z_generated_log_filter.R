@@ -9,7 +9,7 @@
 #' Wrapper around [dplyr::filter()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::filter
 #' @inheritDotParams dplyr::filter
@@ -31,7 +31,7 @@ filter <- function(.data, ...) {
 #' Wrapper around [dplyr::filter_all()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::filter_all
 #' @inheritDotParams dplyr::filter_all
@@ -53,7 +53,7 @@ filter_all <- function(.tbl, ...) {
 #' Wrapper around [dplyr::filter_if()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::filter_if
 #' @inheritDotParams dplyr::filter_if
@@ -75,7 +75,7 @@ filter_if <- function(.tbl, ...) {
 #' Wrapper around [dplyr::filter_at()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::filter_at
 #' @inheritDotParams dplyr::filter_at
@@ -97,7 +97,7 @@ filter_at <- function(.tbl, ...) {
 #' Wrapper around [dplyr::distinct()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::distinct
 #' @inheritDotParams dplyr::distinct
@@ -119,7 +119,7 @@ distinct <- function(.data, ...) {
 #' Wrapper around [dplyr::distinct_all()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::distinct_all
 #' @inheritDotParams dplyr::distinct_all
@@ -141,7 +141,7 @@ distinct_all <- function(.tbl, ...) {
 #' Wrapper around [dplyr::distinct_if()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::distinct_if
 #' @inheritDotParams dplyr::distinct_if
@@ -163,7 +163,7 @@ distinct_if <- function(.tbl, ...) {
 #' Wrapper around [dplyr::distinct_at()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::distinct_at
 #' @inheritDotParams dplyr::distinct_at
@@ -185,7 +185,7 @@ distinct_at <- function(.tbl, ...) {
 #' Wrapper around [dplyr::top_n()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::top_n
 #' @inheritDotParams dplyr::top_n
@@ -207,7 +207,7 @@ top_n <- function(x, ...) {
 #' Wrapper around [dplyr::top_frac()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::top_frac
 #' @inheritDotParams dplyr::top_frac
@@ -229,7 +229,7 @@ top_frac <- function(x, ...) {
 #' Wrapper around [dplyr::sample_n()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::sample_n
 #' @inheritDotParams dplyr::sample_n
@@ -251,7 +251,7 @@ sample_n <- function(tbl, ...) {
 #' Wrapper around [dplyr::sample_frac()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::sample_frac
 #' @inheritDotParams dplyr::sample_frac
@@ -273,7 +273,7 @@ sample_frac <- function(tbl, ...) {
 #' Wrapper around [dplyr::slice()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::slice
 #' @inheritDotParams dplyr::slice
@@ -295,7 +295,7 @@ slice <- function(.data, ...) {
 #' Wrapper around [dplyr::slice_head()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::slice_head
 #' @inheritDotParams dplyr::slice_head
@@ -317,7 +317,7 @@ slice_head <- function(.data, ...) {
 #' Wrapper around [dplyr::slice_tail()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::slice_tail
 #' @inheritDotParams dplyr::slice_tail
@@ -339,7 +339,7 @@ slice_tail <- function(.data, ...) {
 #' Wrapper around [dplyr::slice_min()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::slice_min
 #' @inheritDotParams dplyr::slice_min
@@ -361,7 +361,7 @@ slice_min <- function(.data, ...) {
 #' Wrapper around [dplyr::slice_max()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::slice_max
 #' @inheritDotParams dplyr::slice_max
@@ -383,7 +383,7 @@ slice_max <- function(.data, ...) {
 #' Wrapper around [dplyr::slice_sample()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::slice_sample
 #' @inheritDotParams dplyr::slice_sample

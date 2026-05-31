@@ -26,7 +26,7 @@ See \code{\link[dplyr:relocate]{dplyr::relocate()}}
 Wrapper around \code{\link[dplyr:relocate]{dplyr::relocate()}} that prints information about the operation.
 }
 \details{
-Documentation generated from dplyr version 1.2.0.
+Documentation generated from dplyr version 1.2.1.
 }
 \seealso{
 \code{\link[dplyr:relocate]{dplyr::relocate()}}

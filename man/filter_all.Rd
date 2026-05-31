@@ -37,7 +37,7 @@ See \code{\link[dplyr:filter_all]{dplyr::filter_all()}}
 Wrapper around \code{\link[dplyr:filter_all]{dplyr::filter_all()}} that prints information about the operation.
 }
 \details{
-Documentation generated from dplyr version 1.2.0.
+Documentation generated from dplyr version 1.2.1.
 }
 \seealso{
 \code{\link[dplyr:filter_all]{dplyr::filter_all()}}

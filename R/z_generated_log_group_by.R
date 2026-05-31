@@ -9,7 +9,7 @@
 #' Wrapper around [dplyr::group_by()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::group_by
 #' @inheritDotParams dplyr::group_by
@@ -31,7 +31,7 @@ group_by <- function(.data, ...) {
 #' Wrapper around [dplyr::group_by_all()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::group_by_all
 #' @inheritDotParams dplyr::group_by_all
@@ -53,7 +53,7 @@ group_by_all <- function(.tbl, ...) {
 #' Wrapper around [dplyr::group_by_at()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::group_by_at
 #' @inheritDotParams dplyr::group_by_at
@@ -75,7 +75,7 @@ group_by_at <- function(.tbl, ...) {
 #' Wrapper around [dplyr::group_by_if()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::group_by_if
 #' @inheritDotParams dplyr::group_by_if
@@ -97,7 +97,7 @@ group_by_if <- function(.tbl, ...) {
 #' Wrapper around [dplyr::ungroup()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::ungroup
 #' @inheritDotParams dplyr::ungroup

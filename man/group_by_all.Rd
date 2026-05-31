@@ -34,7 +34,7 @@ See \code{\link[dplyr:group_by_all]{dplyr::group_by_all()}}
 Wrapper around \code{\link[dplyr:group_by_all]{dplyr::group_by_all()}} that prints information about the operation.
 }
 \details{
-Documentation generated from dplyr version 1.2.0.
+Documentation generated from dplyr version 1.2.1.
 }
 \seealso{
 \code{\link[dplyr:group_by_all]{dplyr::group_by_all()}}

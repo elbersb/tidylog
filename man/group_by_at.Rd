@@ -34,7 +34,7 @@ See \code{\link[dplyr:group_by_at]{dplyr::group_by_at()}}
 Wrapper around \code{\link[dplyr:group_by_at]{dplyr::group_by_at()}} that prints information about the operation.
 }
 \details{
-Documentation generated from dplyr version 1.2.0.
+Documentation generated from dplyr version 1.2.1.
 }
 \seealso{
 \code{\link[dplyr:group_by_at]{dplyr::group_by_at()}}

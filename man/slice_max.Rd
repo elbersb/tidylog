@@ -55,7 +55,7 @@ See \code{\link[dplyr:slice_max]{dplyr::slice_max()}}
 Wrapper around \code{\link[dplyr:slice_max]{dplyr::slice_max()}} that prints information about the operation.
 }
 \details{
-Documentation generated from dplyr version 1.2.0.
+Documentation generated from dplyr version 1.2.1.
 }
 \seealso{
 \code{\link[dplyr:slice_max]{dplyr::slice_max()}}

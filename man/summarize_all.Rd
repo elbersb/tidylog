@@ -32,7 +32,7 @@ See \code{\link[dplyr:summarize_all]{dplyr::summarize_all()}}
 Wrapper around \code{\link[dplyr:summarize_all]{dplyr::summarize_all()}} that prints information about the operation.
 }
 \details{
-Documentation generated from dplyr version 1.2.0.
+Documentation generated from dplyr version 1.2.1.
 }
 \seealso{
 \code{\link[dplyr:summarize_all]{dplyr::summarize_all()}}

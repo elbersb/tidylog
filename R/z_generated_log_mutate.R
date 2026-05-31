@@ -9,7 +9,7 @@
 #' Wrapper around [dplyr::mutate()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::mutate
 #' @inheritDotParams dplyr::mutate
@@ -31,7 +31,7 @@ mutate <- function(.data, ...) {
 #' Wrapper around [dplyr::mutate_all()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::mutate_all
 #' @inheritDotParams dplyr::mutate_all
@@ -53,7 +53,7 @@ mutate_all <- function(.tbl, ...) {
 #' Wrapper around [dplyr::mutate_if()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::mutate_if
 #' @inheritDotParams dplyr::mutate_if
@@ -75,7 +75,7 @@ mutate_if <- function(.tbl, ...) {
 #' Wrapper around [dplyr::mutate_at()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::mutate_at
 #' @inheritDotParams dplyr::mutate_at
@@ -97,7 +97,7 @@ mutate_at <- function(.tbl, ...) {
 #' Wrapper around [dplyr::transmute()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::transmute
 #' 
@@ -119,7 +119,7 @@ transmute <- function(.data, ...) {
 #' Wrapper around [dplyr::transmute_all()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::transmute_all
 #' @inheritDotParams dplyr::transmute_all
@@ -141,7 +141,7 @@ transmute_all <- function(.tbl, ...) {
 #' Wrapper around [dplyr::transmute_if()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::transmute_if
 #' @inheritDotParams dplyr::transmute_if
@@ -163,7 +163,7 @@ transmute_if <- function(.tbl, ...) {
 #' Wrapper around [dplyr::transmute_at()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::transmute_at
 #' @inheritDotParams dplyr::transmute_at
@@ -185,7 +185,7 @@ transmute_at <- function(.tbl, ...) {
 #' Wrapper around [dplyr::add_tally()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::add_tally
 #' @inheritDotParams dplyr::add_tally
@@ -207,7 +207,7 @@ add_tally <- function(x, ...) {
 #' Wrapper around [dplyr::add_count()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::add_count
 #' @inheritDotParams dplyr::add_count
