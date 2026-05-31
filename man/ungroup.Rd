@@ -9,12 +9,19 @@ ungroup(x, ...)
 \arguments{
 \item{x}{A \code{\link[dplyr:tbl]{tbl()}}}
 
-\item{...}{<\code{\link[rlang:args_data_masking]{data-masking}}> In \code{group_by()},
-variables or computations to group by. Computations are always done on the
-ungrouped data frame. To perform computations on the grouped data, you need
-to use a separate \code{mutate()} step before the \code{group_by()}.
-Computations are not allowed in \code{nest_by()}.
-In \code{ungroup()}, variables to remove from the grouping.}
+\item{...}{
+  Arguments passed on to \code{\link[dplyr:ungroup]{dplyr::ungroup}}
+  \describe{
+    \item{\code{.data}}{A data frame, data frame extension (e.g. a tibble), or a
+lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
+more details.}
+    \item{\code{.add}}{When \code{FALSE}, the default, \code{group_by()} will
+override existing groups. To add to the existing groups, use
+\code{.add = TRUE}.}
+    \item{\code{.drop}}{Drop groups formed by factor levels that don't appear in the
+data? The default is \code{TRUE} except when \code{.data} has been previously
+grouped with \code{.drop = FALSE}. See \code{\link[dplyr:group_by_drop_default]{group_by_drop_default()}} for details.}
+  }}
 }
 \value{
 See \code{\link[dplyr:ungroup]{dplyr::ungroup()}}

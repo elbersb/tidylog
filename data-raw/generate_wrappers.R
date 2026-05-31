@@ -24,11 +24,14 @@ if (length(old_generated_files) > 0) {
 generate_roxygen_header <- function(pkg, fn, wrapper_params = ".data") {
     pkg_version <- as.character(packageVersion(pkg))
 
-    # Check if function has parameters beyond those in our wrapper signature
-    orig_fn <- getExportedValue(pkg, fn)
-    fn_params <- names(formals(orig_fn))
+    # Use documented params rather than formals, matching how roxygen2 works.
+    # This correctly picks up params documented on S3 methods (e.g. .by/.keep
+    # on mutate.data.frame) that don't appear in the generic's formals.
+    rd <- roxygen2:::get_rd_from_help(package = pkg, alias = fn, source = fn)
+    documented_params <- names(roxygen2:::topic_params(rd))
+
     # Exclude both wrapper params and ... from the check
-    additional_params <- setdiff(fn_params, c(wrapper_params, "..."))
+    additional_params <- setdiff(documented_params, c(wrapper_params, "..."))
     has_dot_params <- length(additional_params) > 0
 
     # Build inheritDotParams line conditionally
