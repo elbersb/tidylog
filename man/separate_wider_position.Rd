@@ -10,9 +10,16 @@ separate_wider_position(data, ...)
 \item{data}{A data frame.}
 
 \item{...}{
-  Arguments passed on to \code{\link[tidyr:separate_wider_delim]{tidyr::separate_wider_position}}
+  Arguments passed on to \code{\link[tidyr:separate_wider_position]{tidyr::separate_wider_position}}
   \describe{
     \item{\code{cols}}{<\code{\link[tidyr:tidyr_tidy_select]{tidy-select}}> Columns to separate.}
+    \item{\code{delim}}{For \code{separate_wider_delim()}, a string giving the delimiter
+between values. By default, it is interpreted as a fixed string; use
+\code{\link[stringr:modifiers]{stringr::regex()}} and friends to split in other ways.}
+    \item{\code{names}}{For \code{separate_wider_delim()}, a character vector of output
+column names. Use \code{NA} if there are components that you don't want
+to appear in the output; the number of non-\code{NA} elements determines the
+number of new columns in the result.}
     \item{\code{names_sep}}{If supplied, output names will be composed
 of the input column name followed by the separator followed by the
 new column name. Required when \code{cols} selects multiple columns.
@@ -62,17 +69,20 @@ Always \code{FALSE} if \code{too_few} or \code{too_many} are set to \code{"debug
     \item{\code{widths}}{A named numeric vector where the names become column names,
 and the values specify the column width. Unnamed components will match,
 but not be included in the output.}
+    \item{\code{patterns}}{A named character vector where the names become column names
+and the values are regular expressions that match the contents of the
+vector. Unnamed components will match, but not be included in the output.}
   }}
 }
 \value{
-See \code{\link[tidyr:separate_wider_delim]{tidyr::separate_wider_position()}}
+See \code{\link[tidyr:separate_wider_position]{tidyr::separate_wider_position()}}
 }
 \description{
-Wrapper around \code{\link[tidyr:separate_wider_delim]{tidyr::separate_wider_position()}} that prints information about the operation.
+Wrapper around \code{\link[tidyr:separate_wider_position]{tidyr::separate_wider_position()}} that prints information about the operation.
 }
 \details{
 Documentation generated from tidyr version 1.3.2.
 }
 \seealso{
-\code{\link[tidyr:separate_wider_delim]{tidyr::separate_wider_position()}}
+\code{\link[tidyr:separate_wider_position]{tidyr::separate_wider_position()}}
 }

@@ -41,7 +41,7 @@ To perform a cross-join, generating all combinations of \code{x} and \code{y}, s
 \code{\link[dplyr:cross_join]{cross_join()}}.}
 
 \item{...}{
-  Arguments passed on to \code{\link[dplyr:filter-joins]{dplyr::anti_join}}
+  Arguments passed on to \code{\link[dplyr:anti_join]{dplyr::anti_join}}
   \describe{
     \item{\code{x,y}}{A pair of data frames, data frame extensions (e.g. a tibble), or
 lazy data frames (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
@@ -50,17 +50,25 @@ more details.}
 and \code{copy} is \code{TRUE}, then \code{y} will be copied into the
 same src as \code{x}.  This allows you to join tables across srcs, but
 it is a potentially expensive operation so you must opt into it.}
+    \item{\code{na_matches}}{Should two \code{NA} or two \code{NaN} values match?
+\itemize{
+\item \code{"na"}, the default, treats two \code{NA} or two \code{NaN} values as equal, like
+\code{\%in\%}, \code{\link[=match]{match()}}, and \code{\link[=merge]{merge()}}.
+\item \code{"never"} treats two \code{NA} or two \code{NaN} values as different, and will
+never match them together or to any other values. This is similar to joins
+for database sources and to \code{base::merge(incomparables = NA)}.
+}}
   }}
 }
 \value{
-See \code{\link[dplyr:filter-joins]{dplyr::anti_join()}}
+See \code{\link[dplyr:anti_join]{dplyr::anti_join()}}
 }
 \description{
-Wrapper around \code{\link[dplyr:filter-joins]{dplyr::anti_join()}} that prints information about the operation.
+Wrapper around \code{\link[dplyr:anti_join]{dplyr::anti_join()}} that prints information about the operation.
 }
 \details{
 Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
-\code{\link[dplyr:filter-joins]{dplyr::anti_join()}}
+\code{\link[dplyr:anti_join]{dplyr::anti_join()}}
 }

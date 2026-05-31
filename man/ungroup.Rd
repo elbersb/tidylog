@@ -17,14 +17,14 @@ Computations are not allowed in \code{nest_by()}.
 In \code{ungroup()}, variables to remove from the grouping.}
 }
 \value{
-See \code{\link[dplyr:group_by]{dplyr::ungroup()}}
+See \code{\link[dplyr:ungroup]{dplyr::ungroup()}}
 }
 \description{
-Wrapper around \code{\link[dplyr:group_by]{dplyr::ungroup()}} that prints information about the operation.
+Wrapper around \code{\link[dplyr:ungroup]{dplyr::ungroup()}} that prints information about the operation.
 }
 \details{
 Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
-\code{\link[dplyr:group_by]{dplyr::ungroup()}}
+\code{\link[dplyr:ungroup]{dplyr::ungroup()}}
 }

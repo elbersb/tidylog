@@ -12,7 +12,7 @@ lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
 \item{...}{
-  Arguments passed on to \code{\link[dplyr:rename]{dplyr::rename_with}}
+  Arguments passed on to \code{\link[dplyr:rename_with]{dplyr::rename_with}}
   \describe{
     \item{\code{.fn}}{A function used to transform the selected \code{.cols}. Should
 return a character vector the same length as the input.}
@@ -21,14 +21,14 @@ defaults to all columns.}
   }}
 }
 \value{
-See \code{\link[dplyr:rename]{dplyr::rename_with()}}
+See \code{\link[dplyr:rename_with]{dplyr::rename_with()}}
 }
 \description{
-Wrapper around \code{\link[dplyr:rename]{dplyr::rename_with()}} that prints information about the operation.
+Wrapper around \code{\link[dplyr:rename_with]{dplyr::rename_with()}} that prints information about the operation.
 }
 \details{
 Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
-\code{\link[dplyr:rename]{dplyr::rename_with()}}
+\code{\link[dplyr:rename_with]{dplyr::rename_with()}}
 }

@@ -10,7 +10,7 @@ top_frac(x, ...)
 \item{x}{A data frame.}
 
 \item{...}{
-  Arguments passed on to \code{\link[dplyr:top_n]{dplyr::top_frac}}
+  Arguments passed on to \code{\link[dplyr:top_frac]{dplyr::top_frac}}
   \describe{
     \item{\code{n}}{Number of rows to return for \code{top_n()}, fraction of rows to
 return for \code{top_frac()}. If \code{n} is positive, selects the top rows.
@@ -22,14 +22,14 @@ specified, defaults to the last variable in the tbl.}
   }}
 }
 \value{
-See \code{\link[dplyr:top_n]{dplyr::top_frac()}}
+See \code{\link[dplyr:top_frac]{dplyr::top_frac()}}
 }
 \description{
-Wrapper around \code{\link[dplyr:top_n]{dplyr::top_frac()}} that prints information about the operation.
+Wrapper around \code{\link[dplyr:top_frac]{dplyr::top_frac()}} that prints information about the operation.
 }
 \details{
 Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
-\code{\link[dplyr:top_n]{dplyr::top_frac()}}
+\code{\link[dplyr:top_frac]{dplyr::top_frac()}}
 }

@@ -11,7 +11,7 @@ tally(x, ...)
 lazy data frame (e.g. from dbplyr or dtplyr).}
 
 \item{...}{
-  Arguments passed on to \code{\link[dplyr:count]{dplyr::tally}}
+  Arguments passed on to \code{\link[dplyr:tally]{dplyr::tally}}
   \describe{
     \item{\code{wt}}{<\code{\link[rlang:args_data_masking]{data-masking}}> Frequency weights.
 Can be \code{NULL} or a variable:
@@ -25,17 +25,25 @@ Can be \code{NULL} or a variable:
 If omitted, it will default to \code{n}. If there's already a column called \code{n},
 it will use \code{nn}. If there's a column called \code{n} and \code{nn}, it'll use
 \code{nnn}, and so on, adding \code{n}s until it gets a new name.}
+    \item{\code{.drop}}{Handling of factor levels that don't appear in the data, passed
+on to \code{\link[dplyr:group_by]{group_by()}}.
+
+For \code{count()}: if \code{FALSE} will include counts for empty groups (i.e. for
+levels of factors that don't exist in the data).
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#defunct}{\figure{lifecycle-defunct.svg}{options: alt='[Defunct]'}}}{\strong{[Defunct]}} For \code{add_count()}: defunct since it
+can't actually affect the output.}
   }}
 }
 \value{
-See \code{\link[dplyr:count]{dplyr::tally()}}
+See \code{\link[dplyr:tally]{dplyr::tally()}}
 }
 \description{
-Wrapper around \code{\link[dplyr:count]{dplyr::tally()}} that prints information about the operation.
+Wrapper around \code{\link[dplyr:tally]{dplyr::tally()}} that prints information about the operation.
 }
 \details{
 Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
-\code{\link[dplyr:count]{dplyr::tally()}}
+\code{\link[dplyr:tally]{dplyr::tally()}}
 }

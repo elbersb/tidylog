@@ -12,7 +12,7 @@ lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
 
 \item{...}{
-  Arguments passed on to \code{\link[dplyr:summarise]{dplyr::summarize}}
+  Arguments passed on to \code{\link[dplyr:summarize]{dplyr::summarize}}
   \describe{
     \item{\code{.by}}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Optionally, a selection of columns to
 group by for just this operation, functioning as an alternative to \code{\link[dplyr:group_by]{group_by()}}. For
@@ -35,14 +35,14 @@ ungrouped, the option \code{"dplyr.summarise.inform"} is set to \code{FALSE}, or
   }}
 }
 \value{
-See \code{\link[dplyr:summarise]{dplyr::summarize()}}
+See \code{\link[dplyr:summarize]{dplyr::summarize()}}
 }
 \description{
-Wrapper around \code{\link[dplyr:summarise]{dplyr::summarize()}} that prints information about the operation.
+Wrapper around \code{\link[dplyr:summarize]{dplyr::summarize()}} that prints information about the operation.
 }
 \details{
 Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
-\code{\link[dplyr:summarise]{dplyr::summarize()}}
+\code{\link[dplyr:summarize]{dplyr::summarize()}}
 }

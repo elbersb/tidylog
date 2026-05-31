@@ -14,8 +14,38 @@ more details.}
 \item{...}{
   Arguments passed on to \code{\link[dplyr:slice]{dplyr::slice}}
   \describe{
+    \item{\code{.by,by}}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Optionally, a selection of columns to
+group by for just this operation, functioning as an alternative to \code{\link[dplyr:group_by]{group_by()}}. For
+details and examples, see \link[dplyr:dplyr_by]{?dplyr_by}.}
     \item{\code{.preserve}}{Relevant when the \code{.data} input is grouped. If \code{.preserve = FALSE} (the default), the grouping structure is recalculated based on the
 resulting data, otherwise the grouping is kept as is.}
+    \item{\code{n,prop}}{Provide either \code{n}, the number of rows, or \code{prop}, the
+proportion of rows to select. If neither are supplied, \code{n = 1} will be
+used. If \code{n} is greater than the number of rows in the group
+(or \code{prop > 1}), the result will be silently truncated to the group size.
+\code{prop} will be rounded towards zero to generate an integer number of
+rows.
+
+A negative value of \code{n} or \code{prop} will be subtracted from the group
+size. For example, \code{n = -2} with a group of 5 rows will select 5 - 2 = 3
+rows; \code{prop = -0.25} with 8 rows will select 8 * (1 - 0.25) = 6 rows.}
+    \item{\code{order_by}}{<\code{\link[rlang:args_data_masking]{data-masking}}> Variable or
+function of variables to order by. To order by multiple variables, wrap
+them in a data frame or tibble.}
+    \item{\code{with_ties}}{Should ties be kept together? The default, \code{TRUE},
+may return more rows than you request. Use \code{FALSE} to ignore ties,
+and return the first \code{n} rows.}
+    \item{\code{na_rm}}{Should missing values in \code{order_by} be removed from the result?
+If \code{FALSE}, \code{NA} values are sorted to the end (like in \code{\link[dplyr:arrange]{arrange()}}), so
+they will only be included if there are insufficient non-missing values to
+reach \code{n}/\code{prop}.}
+    \item{\code{weight_by}}{<\code{\link[rlang:args_data_masking]{data-masking}}> Sampling
+weights. This must evaluate to a vector of non-negative numbers the same
+length as the input. Weights are automatically standardised to sum to 1.
+See the \code{Details} section for more technical details regarding these
+weights.}
+    \item{\code{replace}}{Should sampling be performed with (\code{TRUE}) or without
+(\code{FALSE}, the default) replacement.}
   }}
 }
 \value{

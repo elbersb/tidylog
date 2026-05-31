@@ -10,7 +10,7 @@ sample_frac(tbl, ...)
 \item{tbl}{A data.frame.}
 
 \item{...}{
-  Arguments passed on to \code{\link[dplyr:sample_n]{dplyr::sample_frac}}
+  Arguments passed on to \code{\link[dplyr:sample_frac]{dplyr::sample_frac}}
   \describe{
     \item{\code{size}}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}>
 For \code{sample_n()}, the number of rows to select.
@@ -24,14 +24,14 @@ the input. Weights are automatically standardised to sum to 1.}
   }}
 }
 \value{
-See \code{\link[dplyr:sample_n]{dplyr::sample_frac()}}
+See \code{\link[dplyr:sample_frac]{dplyr::sample_frac()}}
 }
 \description{
-Wrapper around \code{\link[dplyr:sample_n]{dplyr::sample_frac()}} that prints information about the operation.
+Wrapper around \code{\link[dplyr:sample_frac]{dplyr::sample_frac()}} that prints information about the operation.
 }
 \details{
 Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
-\code{\link[dplyr:sample_n]{dplyr::sample_frac()}}
+\code{\link[dplyr:sample_frac]{dplyr::sample_frac()}}
 }

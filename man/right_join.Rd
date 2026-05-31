@@ -41,7 +41,7 @@ To perform a cross-join, generating all combinations of \code{x} and \code{y}, s
 \code{\link[dplyr:cross_join]{cross_join()}}.}
 
 \item{...}{
-  Arguments passed on to \code{\link[dplyr:mutate-joins]{dplyr::right_join}}
+  Arguments passed on to \code{\link[dplyr:right_join]{dplyr::right_join}}
   \describe{
     \item{\code{x,y}}{A pair of data frames, data frame extensions (e.g. a tibble), or
 lazy data frames (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
@@ -64,17 +64,84 @@ the data in key columns corresponding to rows that only exist in \code{y} are
 merged into the key columns from \code{x}. Can't be used when joining on
 inequality conditions.
 }}
+    \item{\code{na_matches}}{Should two \code{NA} or two \code{NaN} values match?
+\itemize{
+\item \code{"na"}, the default, treats two \code{NA} or two \code{NaN} values as equal, like
+\code{\%in\%}, \code{\link[=match]{match()}}, and \code{\link[=merge]{merge()}}.
+\item \code{"never"} treats two \code{NA} or two \code{NaN} values as different, and will
+never match them together or to any other values. This is similar to joins
+for database sources and to \code{base::merge(incomparables = NA)}.
+}}
+    \item{\code{multiple}}{Handling of rows in \code{x} with multiple matches in \code{y}.
+For each row of \code{x}:
+\itemize{
+\item \code{"all"}, the default, returns every match detected in \code{y}. This is the
+same behavior as SQL.
+\item \code{"any"} returns one match detected in \code{y}, with no guarantees on which
+match will be returned. It is often faster than \code{"first"} and \code{"last"}
+if you just need to detect if there is at least one match.
+\item \code{"first"} returns the first match detected in \code{y}.
+\item \code{"last"} returns the last match detected in \code{y}.
+}}
+    \item{\code{unmatched}}{How should unmatched keys that would result in dropped rows
+be handled?
+\itemize{
+\item \code{"drop"} drops unmatched keys from the result.
+\item \code{"error"} throws an error if unmatched keys are detected.
+}
+
+\code{unmatched} is intended to protect you from accidentally dropping rows
+during a join. It only checks for unmatched keys in the input that could
+potentially drop rows.
+\itemize{
+\item For left joins, it checks \code{y}.
+\item For right joins, it checks \code{x}.
+\item For inner joins, it checks both \code{x} and \code{y}. In this case, \code{unmatched} is
+also allowed to be a character vector of length 2 to specify the behavior
+for \code{x} and \code{y} independently.
+}}
+    \item{\code{relationship}}{Handling of the expected relationship between the keys of
+\code{x} and \code{y}. If the expectations chosen from the list below are
+invalidated, an error is thrown.
+\itemize{
+\item \code{NULL}, the default, doesn't expect there to be any relationship between
+\code{x} and \code{y}. However, for equality joins it will check for a many-to-many
+relationship (which is typically unexpected) and will warn if one occurs,
+encouraging you to either take a closer look at your inputs or make this
+relationship explicit by specifying \code{"many-to-many"}.
+
+See the \emph{Many-to-many relationships} section for more details.
+\item \code{"one-to-one"} expects:
+\itemize{
+\item Each row in \code{x} matches at most 1 row in \code{y}.
+\item Each row in \code{y} matches at most 1 row in \code{x}.
+}
+\item \code{"one-to-many"} expects:
+\itemize{
+\item Each row in \code{y} matches at most 1 row in \code{x}.
+}
+\item \code{"many-to-one"} expects:
+\itemize{
+\item Each row in \code{x} matches at most 1 row in \code{y}.
+}
+\item \code{"many-to-many"} doesn't perform any relationship checks, but is provided
+to allow you to be explicit about this relationship if you know it
+exists.
+}
+
+\code{relationship} doesn't handle cases where there are zero matches. For that,
+see \code{unmatched}.}
   }}
 }
 \value{
-See \code{\link[dplyr:mutate-joins]{dplyr::right_join()}}
+See \code{\link[dplyr:right_join]{dplyr::right_join()}}
 }
 \description{
-Wrapper around \code{\link[dplyr:mutate-joins]{dplyr::right_join()}} that prints information about the operation.
+Wrapper around \code{\link[dplyr:right_join]{dplyr::right_join()}} that prints information about the operation.
 }
 \details{
 Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
-\code{\link[dplyr:mutate-joins]{dplyr::right_join()}}
+\code{\link[dplyr:right_join]{dplyr::right_join()}}
 }

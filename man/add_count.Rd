@@ -11,7 +11,7 @@ add_count(x, ...)
 lazy data frame (e.g. from dbplyr or dtplyr).}
 
 \item{...}{
-  Arguments passed on to \code{\link[dplyr:count]{dplyr::add_count}}
+  Arguments passed on to \code{\link[dplyr:add_count]{dplyr::add_count}}
   \describe{
     \item{\code{wt}}{<\code{\link[rlang:args_data_masking]{data-masking}}> Frequency weights.
 Can be \code{NULL} or a variable:
@@ -36,14 +36,14 @@ can't actually affect the output.}
   }}
 }
 \value{
-See \code{\link[dplyr:count]{dplyr::add_count()}}
+See \code{\link[dplyr:add_count]{dplyr::add_count()}}
 }
 \description{
-Wrapper around \code{\link[dplyr:count]{dplyr::add_count()}} that prints information about the operation.
+Wrapper around \code{\link[dplyr:add_count]{dplyr::add_count()}} that prints information about the operation.
 }
 \details{
 Documentation generated from dplyr version 1.2.0.
 }
 \seealso{
-\code{\link[dplyr:count]{dplyr::add_count()}}
+\code{\link[dplyr:add_count]{dplyr::add_count()}}
 }

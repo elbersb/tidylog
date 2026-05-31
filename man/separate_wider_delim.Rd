@@ -66,6 +66,12 @@ additional pieces.
 }}
     \item{\code{cols_remove}}{Should the input \code{cols} be removed from the output?
 Always \code{FALSE} if \code{too_few} or \code{too_many} are set to \code{"debug"}.}
+    \item{\code{widths}}{A named numeric vector where the names become column names,
+and the values specify the column width. Unnamed components will match,
+but not be included in the output.}
+    \item{\code{patterns}}{A named character vector where the names become column names
+and the values are regular expressions that match the contents of the
+vector. Unnamed components will match, but not be included in the output.}
   }}
 }
 \value{

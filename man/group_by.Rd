@@ -20,6 +20,7 @@ override existing groups. To add to the existing groups, use
     \item{\code{.drop}}{Drop groups formed by factor levels that don't appear in the
 data? The default is \code{TRUE} except when \code{.data} has been previously
 grouped with \code{.drop = FALSE}. See \code{\link[dplyr:group_by_drop_default]{group_by_drop_default()}} for details.}
+    \item{\code{x}}{A \code{\link[dplyr:tbl]{tbl()}}}
   }}
 }
 \value{
