@@ -54,12 +54,12 @@ have weather information.
 Tidylog can be especially helpful in longer pipes:
 
 ``` r
-summary <- mtcars %>%
-    select(mpg, cyl, hp, am) %>%
-    filter(mpg > 15) %>%
-    mutate(mpg_round = round(mpg)) %>%
-    group_by(cyl, mpg_round, am) %>%
-    tally() %>%
+summary <- mtcars |>
+    select(mpg, cyl, hp, am) |>
+    filter(mpg > 15) |>
+    mutate(mpg_round = round(mpg)) |>
+    group_by(cyl, mpg_round, am) |>
+    tally() |>
     filter(n >= 1)
 #> select: dropped 7 variables (disp, drat, wt, qsec, vs, …)
 #> filter: removed 6 rows (19%), 26 rows remaining
@@ -229,14 +229,14 @@ f <- rename_with(mtcars, toupper)
 ### summarize
 
 ``` r
-a <- mtcars %>%
-    group_by(cyl, carb) %>%
+a <- mtcars |>
+    group_by(cyl, carb) |>
     summarize(total_weight = sum(wt))
 #> group_by: 2 grouping variables (cyl, carb)
 #> summarize: now 9 rows and 3 columns, one group variable remaining (cyl)
 
-b <- iris %>%
-    group_by(Species) %>%
+b <- iris |>
+    group_by(Species) |>
     summarize_all(list(min, max))
 #> group_by: one grouping variable (Species)
 #> summarize_all: now 3 rows and 9 columns, ungrouped
@@ -245,28 +245,28 @@ b <- iris %>%
 ### tally, count, add_tally, add_count
 
 ``` r
-a <- mtcars %>% group_by(gear, carb) %>% tally
+a <- mtcars |> group_by(gear, carb) |> tally()
 #> group_by: 2 grouping variables (gear, carb)
 #> tally: now 11 rows and 3 columns, one group variable remaining (gear)
-b <- mtcars %>% group_by(gear, carb) %>% add_tally()
+b <- mtcars |> group_by(gear, carb) |> add_tally()
 #> group_by: 2 grouping variables (gear, carb)
 #> add_tally (grouped): new variable 'n' (integer) with 5 unique values and 0% NA
 
-c <- mtcars %>% count(gear, carb)
+c <- mtcars |> count(gear, carb)
 #> count: now 11 rows and 3 columns, ungrouped
-d <- mtcars %>% add_count(gear, carb, name = "count")
+d <- mtcars |> add_count(gear, carb, name = "count")
 #> add_count: new variable 'count' (integer) with 5 unique values and 0% NA
 ```
 
 ### pivot_longer, pivot_wider
 
 ``` r
-longer <- mtcars %>%
-    mutate(id = 1:n()) %>%
+longer <- mtcars |>
+    mutate(id = 1:n()) |>
     pivot_longer(-id, names_to = "var", values_to = "value")
 #> mutate: new variable 'id' (integer) with 32 unique values and 0% NA
 #> pivot_longer: reorganized (mpg, cyl, disp, hp, drat, …) into (var, value) [was 32x12, now 352x3]
-wider <- longer %>%
+wider <- longer |>
     pivot_wider(names_from = var, values_from = value)
 #> pivot_wider: reorganized (var, value) into (mpg, cyl, disp, hp, drat, …) [was
 #> 352x3, now 32x12]
