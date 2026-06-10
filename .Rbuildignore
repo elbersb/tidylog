@@ -3,6 +3,7 @@
 ^.*\.rhistory$
 ^\.Rproj\.user$
 ^data-raw$
+^tools$
 ^README\.Rmd$
 ^README-.*\.png$
 ^cran-comments\.md$

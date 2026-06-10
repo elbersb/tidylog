@@ -33,7 +33,7 @@ jobs:
 
       - name: Regenerate wrappers
         run: |
-          source("data-raw/generate_wrappers.R")
+          source("tools/generate_wrappers.R")
         shell: Rscript {0}
 
       - name: Check for changes
@@ -44,7 +44,7 @@ jobs:
           if [ -n "$CHANGES" ]; then
             echo "Error: The following generated files are out of sync:"
             echo "$CHANGES"
-            echo "Please run 'source(\"data-raw/generate_wrappers.R\")' locally and commit."
+            echo "Please run 'source(\"tools/generate_wrappers.R\")' locally and commit."
             git diff R/z_generated_*.R
             exit 1
           else

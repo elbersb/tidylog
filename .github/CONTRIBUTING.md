@@ -12,7 +12,7 @@ Tidylog wraps dplyr/tidyr functions to add logging. The wrapper generation syste
 
 1. **Wrappers execute functions** - Simple wrapper functions call the underlying dplyr/tidyr function
 2. **Loggers perform logging** - Separate logger functions analyze and display the results
-3. **Generated at build time** - All wrappers are created by running `data-raw/generate_wrappers.R`
+3. **Generated at build time** - All wrappers are created by running `tools/generate_wrappers.R`
 4. **Committed to git** - Generated files in `R/z_generated_*.R` are version controlled
 
 ### Key Components
@@ -27,11 +27,11 @@ Tidylog wraps dplyr/tidyr functions to add logging. The wrapper generation syste
 - Auto-generated - **never edit these files manually**
 - Use `@inheritParams` and `@inheritDotParams` for documentation and RStudio autocomplete
 
-**Configuration** (`data-raw/wrapper_mapping.R`):
+**Configuration** (`tools/wrapper_mapping.R`):
 - Maps functions to their loggers
 - Two lists: `regular_wrappers` and `join_wrappers`
 
-**Generator** (`data-raw/generate_wrappers.R`):
+**Generator** (`tools/generate_wrappers.R`):
 - Creates all wrapper files from the mapping
 - Removes old generated files before creating new ones
 - Runs `devtools::document()` to update documentation
@@ -42,7 +42,7 @@ Tidylog wraps dplyr/tidyr functions to add logging. The wrapper generation syste
 
 ### 1. Update the Mapping
 
-Add the function to the appropriate list in `data-raw/wrapper_mapping.R`:
+Add the function to the appropriate list in `tools/wrapper_mapping.R`:
 
 ```r
 regular_wrappers <- list(
@@ -60,7 +60,7 @@ regular_wrappers <- list(
 From the package root:
 
 ```r
-source("data-raw/generate_wrappers.R")
+source("tools/generate_wrappers.R")
 ```
 
 This will:
@@ -99,7 +99,7 @@ log_<category> <- function(.olddata, .newdata, .funname, ...) {
 
 ### 2. Add to Mapping
 
-In `data-raw/wrapper_mapping.R`:
+In `tools/wrapper_mapping.R`:
 
 ```r
 regular_wrappers <- list(
@@ -111,7 +111,7 @@ regular_wrappers <- list(
 ### 3. Regenerate and Test
 
 ```r
-source("data-raw/generate_wrappers.R")
+source("tools/generate_wrappers.R")
 devtools::test()
 ```
 
@@ -187,20 +187,20 @@ The `z_generated_` prefix serves two purposes:
 > [!WARNING]
 > **Never edit `R/z_generated_*.R` files manually**
 >
-> These files are automatically generated. Any manual changes will be overwritten the next time the generator script runs. Always make changes in `data-raw/wrapper_mapping.R` or `data-raw/generate_wrappers.R`.
+> These files are automatically generated. Any manual changes will be overwritten the next time the generator script runs. Always make changes in `tools/wrapper_mapping.R` or `tools/generate_wrappers.R`.
 
 ### Modifying Generator Logic
 
 If you need to change how wrappers are generated:
 
-1. Edit `generate_regular_wrapper()` or `generate_join_wrapper()` in `data-raw/generate_wrappers.R`
-2. Regenerate all wrappers: `source("data-raw/generate_wrappers.R")`
+1. Edit `generate_regular_wrapper()` or `generate_join_wrapper()` in `tools/generate_wrappers.R`
+2. Regenerate all wrappers: `source("tools/generate_wrappers.R")`
 3. Review the git diff to ensure changes are correct
 4. Commit all modified `R/z_generated_*.R` files
 
 ### CI Check
 
-The `.github/workflows/check-wrappers.yaml` workflow ensures generated files stay in sync with the generator code. If it fails, run `source("data-raw/generate_wrappers.R")` locally and commit the changes.
+The `.github/workflows/check-wrappers.yaml` workflow ensures generated files stay in sync with the generator code. If it fails, run `source("tools/generate_wrappers.R")` locally and commit the changes.
 
 ---
 
