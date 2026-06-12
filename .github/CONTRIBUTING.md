@@ -128,7 +128,7 @@ devtools::test()
 #' Wrapper around [dplyr::filter()] that prints information about the operation.
 #'
 #' @details
-#' Documentation generated from dplyr version 1.2.0.
+#' Documentation generated from dplyr version 1.2.1.
 #'
 #' @inheritParams dplyr::filter
 #' @inheritDotParams dplyr::filter
@@ -145,7 +145,8 @@ filter <- function(.data, ...) {
 
 ### How Autocomplete Works
 
-The `@inheritDotParams` roxygen tag enables RStudio autocomplete by inheriting parameter documentation from dplyr/tidyr. This requires RStudio PR #17149 or later.
+The `@inheritDotParams` roxygen tag enables RStudio autocomplete by inheriting parameter documentation from dplyr/tidyr. 
+This leverages the work in PRs rstudio/rstudio#17149, rstudio/rstudio#17243, r-lib/roxygen2#1826, and r-lib/roxygen2#1848.
 
 Documentation is generated from the dplyr/tidyr version installed at build time (noted in `@details`).
 
