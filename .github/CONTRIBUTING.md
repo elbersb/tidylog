@@ -17,7 +17,7 @@ Tidylog wraps dplyr/tidyr functions to add logging. The wrapper generation syste
 
 ### Key Components
 
-**Loggers** (`R/log_*.R`):
+**Loggers** (e.g. `R/filter.R`, `R/group_by.R`, etc.):
 - Internal functions that perform the actual logging
 - Signatures: `log_filter(.olddata, .newdata, .funname, ...)` for regular functions
 - Special case: `log_join(x, y, by, .newdata, .funname, .name_x, .name_y, ...)` for joins
@@ -84,7 +84,7 @@ If you need a new type of logging (beyond filter, mutate, select, etc.):
 
 ### 1. Create the Logger Function
 
-Create `R/log_<category>.R`:
+Create `R/<category>.R`:
 
 ```r
 log_<category> <- function(.olddata, .newdata, .funname, ...) {
