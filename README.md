@@ -331,3 +331,8 @@ for (f in getNamespaceExports("tidylog")) {
     conflicted::conflict_prefer(f, "tidylog", quiet = TRUE)
 }
 ```
+
+## Contributing
+
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines on how to
+add new functions or modify the wrapper generation system.
