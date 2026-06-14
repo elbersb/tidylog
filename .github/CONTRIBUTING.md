@@ -45,7 +45,14 @@ If you need a new type of logging (beyond filter, mutate, select, etc.):
 
 ## Pinned Versions
 
-`WRAPPER_DOC_VERSIONS` in `tools/versions.R` pins the dplyr/tidyr versions used to generate wrapper documentation. This does **not** affect which versions end users can install. If your installed versions don't match, you'll get a clear error — either install the pinned versions or update the constant and commit that change intentionally.
+`WRAPPER_DOC_VERSIONS` in `tools/versions.R` pins the dplyr/tidyr versions used 
+to generate wrapper documentation — this does **not** affect which versions end 
+users can install. 
+
+If your installed versions don't match, you'll get an error. Either install the 
+pinned versions (e.g. `remotes::install_version("dplyr", version = "1.2.1")`),
+or update `WRAPPER_DOC_VERSIONS` and commit that change intentionally as a 
+**separate PR** (version bumps produce large diffs and should be isolated).
 
 ---
 
