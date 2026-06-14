@@ -46,7 +46,7 @@ check_dep_versions <- function() {
         stop(paste0(
             "Version mismatch with pinned versions:\n  ",
             paste(mismatches, collapse = "\n  "),
-            "\nInstall the pinned versions or update WRAPPER_DOC_VERSIONS in tools/generate_wrappers.R."
+            "\nInstall the pinned versions or update WRAPPER_DOC_VERSIONS in tools/versions.R."
         ))
     }
 }
