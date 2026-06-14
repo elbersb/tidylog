@@ -21,13 +21,14 @@ jobs:
         with:
           use-public-rspm: true
 
+      - name: Install base dependencies
+        run: pak::pkg_install(c("purrr", "glue", "devtools", "roxygen2"))
+        shell: Rscript {0}
+
       - name: Install pinned dependencies
         run: |
-          source("tools/generate_wrappers.R", local = TRUE)
-          pak::pkg_install(c(
-            paste0(names(WRAPPER_DOC_VERSIONS), "@", WRAPPER_DOC_VERSIONS),
-            "purrr", "glue", "devtools", "roxygen2"
-          ))
+          source("tools/versions.R", local = TRUE)
+          pak::pkg_install(paste0(names(WRAPPER_DOC_VERSIONS), "@", WRAPPER_DOC_VERSIONS))
         shell: Rscript {0}
 
       - name: Regenerate wrappers

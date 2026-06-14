@@ -28,6 +28,9 @@ devtools::test()
 
 Commit the modified `R/z_generated_*.R` file(s).
 
+> [!WARNING]
+> **Never edit `R/z_generated_*.R` files manually** — they will be overwritten on the next run.
+
 ---
 
 ## How to Add a New Logger Category
@@ -42,7 +45,7 @@ If you need a new type of logging (beyond filter, mutate, select, etc.):
 
 ## Pinned Versions
 
-`WRAPPER_DOC_VERSIONS` in `tools/generate_wrappers.R` pins the dplyr/tidyr versions used to generate wrapper documentation. This does **not** affect which versions end users can install. If your installed versions don't match, you'll get a clear error — either install the pinned versions or update the constant and commit that change intentionally.
+`WRAPPER_DOC_VERSIONS` in `tools/versions.R` pins the dplyr/tidyr versions used to generate wrapper documentation. This does **not** affect which versions end users can install. If your installed versions don't match, you'll get a clear error — either install the pinned versions or update the constant and commit that change intentionally.
 
 ---
 
@@ -50,12 +53,9 @@ If you need a new type of logging (beyond filter, mutate, select, etc.):
 
 Tidylog uses a two-layer system: **loggers** (`R/filter.R`, `R/join.R`, etc.) handle the analysis and display; **wrappers** (`R/z_generated_*.R`) are thin user-facing functions that call the underlying dplyr/tidyr function and pass results to the logger. Wrappers are generated at build time using `@inheritParams`/`@inheritDotParams` for full RStudio autocomplete support.
 
-`tools/generate_wrappers.R` is the entry point (configuration + trigger). `tools/generate_wrappers_impl.R` is the backend — **do not source it directly**.
+`tools/generate_wrappers.R` is the entry point (configuration + trigger). `tools/versions.R` defines the pinned dependency versions. `tools/generate_wrappers_impl.R` is the backend — do not source it directly.
 
 The CI workflow (`.github/workflows/check-wrappers.yaml`) verifies that committed wrappers match the generator output.
-
-> [!WARNING]
-> **Never edit `R/z_generated_*.R` files manually** — they will be overwritten on the next run.
 
 ---
 

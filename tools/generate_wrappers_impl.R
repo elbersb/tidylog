@@ -30,6 +30,7 @@ build_file_path <- function(logger) {
 
 
 # Check that the current versions match the pinned versions before proceeding ---------------
+source("tools/versions.R", local = TRUE)
 
 check_dep_versions <- function() {
     mismatches <- imap_chr(WRAPPER_DOC_VERSIONS, function(pinned, pkg) {
