@@ -21,15 +21,14 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Install dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: |
-            any::dplyr
-            any::tidyr
-            any::purrr
-            any::glue
-            any::devtools
+      - name: Install pinned dependencies
+        run: |
+          source("tools/generate_wrappers.R", local = TRUE)
+          pak::pkg_install(c(
+            paste0(names(WRAPPER_DOC_VERSIONS), "@", WRAPPER_DOC_VERSIONS),
+            "purrr", "glue", "devtools", "roxygen2"
+          ))
+        shell: Rscript {0}
 
       - name: Regenerate wrappers
         run: |

@@ -1,80 +1,32 @@
 # Contributing to tidylog
 
-Thank you for your interest in contributing to tidylog!
-
-This document explains how tidylog's wrapper generation system works and how to contribute new functions or modify existing ones.
+Adding a new dplyr/tidyr function takes about 30 seconds — edit one list, source one file, done.
 
 ---
 
-## Architecture Overview
+## How to Add a Function
 
-Tidylog wraps dplyr/tidyr functions to add logging. The wrapper generation system uses a build-time approach where:
-
-1. **Wrappers execute functions** - Simple wrapper functions call the underlying dplyr/tidyr function
-2. **Loggers perform logging** - Separate logger functions analyze and display the results
-3. **Generated at build time** - All wrappers are created by running `tools/generate_wrappers.R`
-4. **Committed to git** - Generated files in `R/z_generated_*.R` are version controlled
-
-### Key Components
-
-**Loggers** (e.g. `R/filter.R`, `R/group_by.R`, etc.):
-- Internal functions that perform the actual logging
-- Signatures: `log_filter(.olddata, .newdata, .funname, ...)` for regular functions
-- Special case: `log_join(x, y, by, .newdata, .funname, .name_x, .name_y, ...)` for joins
-
-**Wrappers** (`R/z_generated_*.R`):
-- User-facing functions with simple signatures: `function(.data, ...)` or `function(x, y, by = NULL, ...)`
-- Auto-generated - **never edit these files manually**
-- Use `@inheritParams` and `@inheritDotParams` for documentation and RStudio autocomplete
-
-**Configuration** (`tools/wrapper_mapping.R`):
-- Maps functions to their loggers
-- Two lists: `regular_wrappers` and `join_wrappers`
-
-**Generator** (`tools/generate_wrappers.R`):
-- Creates all wrapper files from the mapping
-- Removes old generated files before creating new ones
-- Runs `devtools::document()` to update documentation
-
----
-
-## How to Add a New Function
-
-### 1. Update the Mapping
-
-Add the function to the appropriate list in `tools/wrapper_mapping.R`:
+### 1. Add it to the mapping in `tools/generate_wrappers.R`
 
 ```r
 regular_wrappers <- list(
     log_filter = c(
         "dplyr::filter",
         "dplyr::distinct",
-        "dplyr::new_function"  # Add here
+        "dplyr::new_function"  # <- add here
     ),
     ...
 )
 ```
 
-### 2. Regenerate Wrappers
-
-From the package root:
+### 2. Regenerate and test
 
 ```r
 source("tools/generate_wrappers.R")
-```
-
-This will:
-- Delete all existing `R/z_generated_*.R` files
-- Generate new wrapper files
-- Update documentation via `devtools::document()`
-
-### 3. Test and Commit
-
-```r
 devtools::test()
 ```
 
-Commit the modified/new `R/z_generated_*.R` file(s).
+Commit the modified `R/z_generated_*.R` file(s).
 
 ---
 
@@ -82,140 +34,31 @@ Commit the modified/new `R/z_generated_*.R` file(s).
 
 If you need a new type of logging (beyond filter, mutate, select, etc.):
 
-### 1. Create the Logger Function
-
-Create `R/<category>.R`:
-
-```r
-log_<category> <- function(.olddata, .newdata, .funname, ...) {
-    if (!"data.frame" %in% class(.olddata) | !should_display()) {
-        return()
-    }
-    
-    # Your logging logic here
-    display(glue::glue("{.funname}: your message"))
-}
-```
-
-### 2. Add to Mapping
-
-In `tools/wrapper_mapping.R`:
-
-```r
-regular_wrappers <- list(
-    log_<category> = c("pkg::function1", "pkg::function2"),
-    ...
-)
-```
-
-### 3. Regenerate and Test
-
-```r
-source("tools/generate_wrappers.R")
-devtools::test()
-```
+1. Create `R/<category>.R` with a `log_<category>(.olddata, .newdata, .funname, ...)` function
+2. Add it to `regular_wrappers` (or `join_wrappers`) in `tools/generate_wrappers.R`
+3. Run `source("tools/generate_wrappers.R")` and `devtools::test()`
 
 ---
 
-## How Generated Wrappers Work
+## Pinned Versions
 
-### Example: dplyr::filter
-
-```r
-#' Wrapper around dplyr::filter that prints information about the operation
-#'
-#' @description
-#' Wrapper around [dplyr::filter()] that prints information about the operation.
-#'
-#' @details
-#' Documentation generated from dplyr version 1.2.1.
-#'
-#' @inheritParams dplyr::filter
-#' @inheritDotParams dplyr::filter
-#'
-#' @return See [dplyr::filter()]
-#' @seealso [dplyr::filter()]
-#' @export
-filter <- function(.data, ...) {
-    result <- dplyr::filter(.data, ...)
-    log_filter(.olddata = .data, .newdata = result, .funname = "filter", ...)
-    result
-}
-```
-
-### How Autocomplete Works
-
-The `@inheritDotParams` roxygen tag enables RStudio autocomplete by inheriting parameter documentation from dplyr/tidyr. 
-This leverages the work in PRs rstudio/rstudio#17149, rstudio/rstudio#17243, r-lib/roxygen2#1826, and r-lib/roxygen2#1848.
-
-Documentation is generated from the dplyr/tidyr version installed at build time (noted in `@details`).
+`WRAPPER_DOC_VERSIONS` in `tools/generate_wrappers.R` pins the dplyr/tidyr versions used to generate wrapper documentation. This does **not** affect which versions end users can install. If your installed versions don't match, you'll get a clear error — either install the pinned versions or update the constant and commit that change intentionally.
 
 ---
 
-## Logger Function Signatures
+## Architecture
 
-### Regular Loggers
-```r
-log_filter(.olddata, .newdata, .funname, ...)
-log_mutate(.olddata, .newdata, .funname, ...)
-log_select(.olddata, .newdata, .funname, ...)
-# etc.
-```
+Tidylog uses a two-layer system: **loggers** (`R/filter.R`, `R/join.R`, etc.) handle the analysis and display; **wrappers** (`R/z_generated_*.R`) are thin user-facing functions that call the underlying dplyr/tidyr function and pass results to the logger. Wrappers are generated at build time using `@inheritParams`/`@inheritDotParams` for full RStudio autocomplete support.
 
-### Join Logger (Special Case)
-```r
-log_join(x, y, by, .newdata, .funname, .name_x, .name_y, ...)
-```
+`tools/generate_wrappers.R` is the entry point (configuration + trigger). `tools/generate_wrappers_impl.R` is the backend — **do not source it directly**.
 
-The join logger merges 2 data sets and relies on all three of `x`, `y`, and `by` to determine its logging. It captures variable names to display informative messages (e.g., "rows only in mtcars" instead of "rows only in x").
-
-The `...` parameter is preserved for special cases (e.g., `slice_min`/`slice_max` need to inspect the `with_ties` argument).
-
----
-
-## File Naming Convention
-
-Generated files are named `R/z_generated_<logger_name>.R` (e.g., `R/z_generated_log_filter.R`).
-
-The `z_generated_` prefix serves two purposes:
-1. **Load order**: The `z_` prefix ensures files load after logger function definitions
-2. **Tracking**: The `generated_` portion clearly identifies programmatically generated files
-
----
-
-## Important Guidelines
+The CI workflow (`.github/workflows/check-wrappers.yaml`) verifies that committed wrappers match the generator output.
 
 > [!WARNING]
-> **Never edit `R/z_generated_*.R` files manually**
->
-> These files are automatically generated. Any manual changes will be overwritten the next time the generator script runs. Always make changes in `tools/wrapper_mapping.R` or `tools/generate_wrappers.R`.
-
-### Modifying Generator Logic
-
-If you need to change how wrappers are generated:
-
-1. Edit `generate_regular_wrapper()` or `generate_join_wrapper()` in `tools/generate_wrappers.R`
-2. Regenerate all wrappers: `source("tools/generate_wrappers.R")`
-3. Review the git diff to ensure changes are correct
-4. Commit all modified `R/z_generated_*.R` files
-
-### CI Check
-
-The `.github/workflows/check-wrappers.yaml` workflow ensures generated files stay in sync with the generator code. If it fails, run `source("tools/generate_wrappers.R")` locally and commit the changes.
-
----
-
-## Benefits of This Approach
-
-- **Autocomplete works**: RStudio provides parameter suggestions
-- **Simple wrappers**: No complex signature matching required
-- **Backward compatible**: Works with any dplyr/tidyr version
-- **Inspectable**: Generated code is visible in git
-- **Clean separation**: Wrappers execute, loggers log
-- **Easy maintenance**: Regenerate all wrappers with one command
+> **Never edit `R/z_generated_*.R` files manually** — they will be overwritten on the next run.
 
 ---
 
 ## Questions?
 
-If you have questions or run into issues, please open an issue on GitHub. We're happy to help!
+Open an issue on GitHub — we're happy to help!
