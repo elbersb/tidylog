@@ -22,11 +22,7 @@ jobs:
           use-public-rspm: true
 
       - name: Install base dependencies
-        run: |
-          install.packages(
-            c("remotes", "purrr", "glue", "devtools", "roxygen2"),
-            Ncpus = 2
-          )
+        run: install.packages(c("remotes", "purrr", "glue", "devtools", "roxygen2"))
         shell: Rscript {0}
 
       - name: Install pinned dependencies
