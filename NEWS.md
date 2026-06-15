@@ -5,7 +5,7 @@
 - slice_min/max now report number of ties (#66)
 - All tidylog wrappers are now built dynamically to simplify building
   documentation using roxygen2 and @inheritDotParams to support auto-completion 
-  in RStudio (#56).
+  in RStudio (#56). See CONTRIBUTING.md for more information.
 
 # 1.1.0
 
