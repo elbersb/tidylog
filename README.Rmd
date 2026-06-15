@@ -50,12 +50,12 @@ In this case, we see that 1,556 rows from the `flights` dataset do not have weat
 Tidylog can be especially helpful in longer pipes:
 
 ```{r}
-summary <- mtcars %>%
-    select(mpg, cyl, hp, am) %>%
-    filter(mpg > 15) %>%
-    mutate(mpg_round = round(mpg)) %>%
-    group_by(cyl, mpg_round, am) %>%
-    tally() %>%
+summary <- mtcars |>
+    select(mpg, cyl, hp, am) |>
+    filter(mpg > 15) |>
+    mutate(mpg_round = round(mpg)) |>
+    group_by(cyl, mpg_round, am) |>
+    tally() |>
     filter(n >= 1)
 ```
 Here, it might have been accidental that the last `filter` command had no effect.
@@ -155,32 +155,32 @@ f <- rename_with(mtcars, toupper)
 ### summarize
 
 ```{r}
-a <- mtcars %>%
-    group_by(cyl, carb) %>%
+a <- mtcars |>
+    group_by(cyl, carb) |>
     summarize(total_weight = sum(wt))
 
-b <- iris %>%
-    group_by(Species) %>%
+b <- iris |>
+    group_by(Species) |>
     summarize_all(list(min, max))
 ```
 
 ### tally, count, add_tally, add_count
 
 ```{r}
-a <- mtcars %>% group_by(gear, carb) %>% tally
-b <- mtcars %>% group_by(gear, carb) %>% add_tally()
+a <- mtcars |> group_by(gear, carb) |> tally()
+b <- mtcars |> group_by(gear, carb) |> add_tally()
 
-c <- mtcars %>% count(gear, carb)
-d <- mtcars %>% add_count(gear, carb, name = "count")
+c <- mtcars |> count(gear, carb)
+d <- mtcars |> add_count(gear, carb, name = "count")
 ```
 
 ### pivot_longer, pivot_wider
 
 ```{r}
-longer <- mtcars %>%
-    mutate(id = 1:n()) %>%
+longer <- mtcars |>
+    mutate(id = 1:n()) |>
     pivot_longer(-id, names_to = "var", values_to = "value")
-wider <- longer %>%
+wider <- longer |>
     pivot_wider(names_from = var, values_from = value)
 ```
 
