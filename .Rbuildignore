@@ -3,6 +3,7 @@
 ^.*\.rhistory$
 ^\.Rproj\.user$
 ^data-raw$
+^tools$
 ^README\.Rmd$
 ^README-.*\.png$
 ^cran-comments\.md$
@@ -11,6 +12,7 @@
 ^docs$
 ^\.lintr$
 ^log.txt$
-^generate_docs.R$
 ^\.github$
 ^CRAN-SUBMISSION$
+^doc$
+^Meta$

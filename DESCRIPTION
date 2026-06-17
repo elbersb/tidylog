@@ -10,7 +10,12 @@ Authors@R: c(
     )
 Description: Provides feedback about 'dplyr' and 'tidyr' operations.
 License: MIT + file LICENSE
-Imports: dplyr, tidyr, glue, cli, rlang (>= 0.4.3)
+Imports: 
+    dplyr,
+    tidyr,
+    glue,
+    cli,
+    rlang (>= 0.4.3)
 Suggests:
     testthat,
     units,
@@ -19,9 +24,11 @@ Suggests:
     forcats,
     knitr,
     rmarkdown,
-    bench
+    bench,
+    purrr
 Encoding: UTF-8
 URL: https://github.com/elbersb/tidylog/
 BugReports: https://github.com/elbersb/tidylog/issues
-RoxygenNote: 7.3.3
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.0.0

@@ -14,6 +14,6 @@ display_changed_rows(.olddata, .newdata, .funname)
 \item{.funname}{String: name of function that should be used in messages.}
 }
 \description{
-Unlike `log_...()` functions, this assumes the data manipulation
- is performed elsewhere and only displays messages.
+Unlike \code{log_...()} functions, this assumes the data manipulation
+is performed elsewhere and only displays messages.
 }

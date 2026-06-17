@@ -1,53 +1,13 @@
-#' @export
-inner_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by,
-             .fun = dplyr::inner_join, .funname = "inner_join",
-             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
-}
-
-#' @export
-full_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by,
-             .fun = dplyr::full_join, .funname = "full_join",
-             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
-}
-
-#' @export
-left_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by,
-             .fun = dplyr::left_join, .funname = "left_join",
-             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
-}
-
-#' @export
-right_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by,
-             .fun = dplyr::right_join, .funname = "right_join",
-             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
-}
-
-#' @export
-anti_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by,
-             .fun = dplyr::anti_join, .funname = "anti_join",
-             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
-}
-
-#' @export
-semi_join <- function(x, y, by = NULL, ...) {
-    log_join(x, y, by,
-             .fun = dplyr::semi_join, .funname = "semi_join",
-             .name_x = deparse1(substitute(x)), .name_y = deparse1(substitute(y)), ...)
-}
-
-log_join <- function(x, y, by, .fun, .funname, .name_x, .name_y, ...) {
-    newdata <- .fun(x, y, by = by, ...)
+# Logging of functions that join 2 data frames.
+#
+# Note: this logger has a unique signature, different than all the other loggers.
+log_join <- function(x, y, by = NULL, .newdata, .funname, .name_x, .name_y, ...) {
     if (!"data.frame" %in% class(x) | !should_display()) {
-        return(newdata)
+        return()
     }
 
     # columns
-    cols <- setdiff(names(newdata), names(x))
+    cols <- setdiff(names(.newdata), names(x))
     if (length(cols) == 0) {
         display(glue::glue("{.funname}: added no columns"))
     } else {
@@ -63,8 +23,8 @@ log_join <- function(x, y, by, .fun, .funname, .name_x, .name_y, ...) {
     } else {
         # If using `join_by()` with more complex logic than `==`, only report
         # the change in row number from the input `x`.
-        display_changed_rows(x, newdata, .funname)
-        return(newdata)
+        display_changed_rows(x, .newdata, .funname)
+        return()
     }
     cols_x <- x[, keys$x, drop = FALSE]
     cols_y <- y[, keys$y, drop = FALSE]
@@ -77,7 +37,7 @@ log_join <- function(x, y, by, .fun, .funname, .name_x, .name_y, ...) {
     stats <- list(
         only_in_x = nrow(only_in_x),
         only_in_y = nrow(only_in_y),
-        total = nrow(newdata)
+        total = nrow(.newdata)
     )
 
     # figure out matched & duplicates
@@ -141,6 +101,4 @@ log_join <- function(x, y, by, .fun, .funname, .name_x, .name_y, ...) {
     }
     display(glue::glue("{ws_pre}  >{ws_post}               ={paste0(rep('=', max_n), collapse = '')}="))
     display(glue::glue("{ws_pre}  > rows total{ws_post}     {stats_str$total}"))
-
-    newdata
 }

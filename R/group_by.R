@@ -1,34 +1,9 @@
-#' @export
-group_by <- function(.data, ...) {
-    log_group_by(.data, .fun = dplyr::group_by, .funname = "group_by", ...)
-}
-
-#' @export
-group_by_all <- function(.tbl, ...) {
-    log_group_by(.tbl, .fun = dplyr::group_by_all, .funname = "group_by_all", ...)
-}
-
-#' @export
-group_by_if <- function(.tbl, ...) {
-    log_group_by(.tbl, .fun = dplyr::group_by_if, .funname = "group_by_if", ...)
-}
-
-#' @export
-group_by_at <- function(.tbl, ...) {
-    log_group_by(.tbl, .fun = dplyr::group_by_at, .funname = "group_by_at", ...)
-}
-
-#' @export
-ungroup <- function(x, ...) {
-    log_group_by(x, .fun = dplyr::ungroup, .funname = "ungroup", ...)
-}
-
-log_group_by <- function(.data, .fun, .funname, ...) {
-    newdata <- .fun(.data, ...)
-    if (!"data.frame" %in% class(.data) | !should_display()) {
-        return(newdata)
+# Logging of functions that affect grouping, such as dplyr::group_by.
+log_group_by <- function(.olddata, .newdata, .funname, ...) {
+    if (!"data.frame" %in% class(.olddata) | !should_display()) {
+        return()
     }
-    group_vars <- get_groups(newdata)
+    group_vars <- get_groups(.newdata)
     if (is.null(group_vars)) {
         display(glue::glue("{.funname}: no grouping variables remain"))
     } else {
@@ -36,5 +11,4 @@ log_group_by <- function(.data, .fun, .funname, ...) {
             "{.funname}: {plural(length(group_vars), 'grouping variable')} ",
             "({format_list(group_vars)})"))
     }
-    newdata
 }
