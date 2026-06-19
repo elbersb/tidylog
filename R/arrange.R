@@ -7,7 +7,7 @@ log_arrange <- function(.olddata, .newdata, .funname, ...) {
     # add group status
     is_grouped <- dplyr::is_grouped_df(.olddata)
     grp_prefix <- if (is_grouped) " (grouped)" else ""
-    grp_suffix <- if (is_grouped) " within groups" else ""
+    grp_infix <- if (is_grouped) " within groups" else ""
 
     prefix <- glue::glue("{.funname}{grp_prefix}:")
 
@@ -42,5 +42,5 @@ log_arrange <- function(.olddata, .newdata, .funname, ...) {
     })
     varnames <- unlist(varnames)
 
-    display(glue::glue("{prefix} sorted rows by {format_list(varnames)}{grp_suffix}"))
+    display(glue::glue("{prefix} sorted rows{grp_infix} by {format_list(varnames)}"))
 }
