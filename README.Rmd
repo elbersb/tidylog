@@ -237,4 +237,4 @@ for (f in getNamespaceExports("tidylog")) {
 
 ## Contributing
 
-See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines on how to add new functions or modify the wrapper generation system.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to add new functions or modify the wrapper generation system.
