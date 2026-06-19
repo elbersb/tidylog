@@ -23,7 +23,24 @@ log_arrange <- function(.olddata, .newdata, .funname, ...) {
     to_exclude <- c(".by_group", ".locale")
     vars <- vars[!names(vars) %in% to_exclude]
 
-    cols <- paste0(as.character(vars), collapse=", ")
+    # Expand across(expr) and pick(expr) -> column names resolved against .olddata
+    varnames <- lapply(vars, function(e) {
+        if (!rlang::is_call(e) || !rlang::call_name(e) %in% c("across", "pick"))
+            return(rlang::expr_text(e))
 
-    display(glue::glue("{prefix} arranged rows by {cols}{grp_suffix}"))
+        # Expand `across(...)` and `pick(...)`.
+        # Empty `across()` should be treated as `everything()`, but empty
+        # `pick()` is an error.
+        inner <- if (length(e) < 2 && rlang::call_name(e) == "across") {
+            quote(everything())
+        } else {
+            e[[2]]
+        }
+
+        resolved <- names(tidyselect::eval_select(inner, .olddata))
+        as.character(rlang::syms(resolved))
+    })
+    varnames <- unlist(varnames)
+
+    display(glue::glue("{prefix} sorted rows by {format_list(varnames)}{grp_suffix}"))
 }
