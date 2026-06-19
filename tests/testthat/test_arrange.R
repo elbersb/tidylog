@@ -31,6 +31,6 @@ test_that("arrange", {
     grp_mtcars <- dplyr::group_by(mtcars, cyl)
     f <- function() tidylog::arrange(grp_mtcars, carb, desc(gear), mpg)
     expect_message(out <- f(),
-                   "\\(grouped\\): arranged rows by carb, desc\\(gear\\), mpg \\(within groups\\)")
+                   "\\(grouped\\): arranged rows by carb, desc\\(gear\\), mpg within groups")
     expect_equal(out, dplyr::arrange(grp_mtcars, carb, desc(gear), mpg))
 })
