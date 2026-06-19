@@ -45,7 +45,7 @@ log_arrange <- function(.olddata, .newdata, .funname, ...) {
         vars,
         function(q) process_arrange_var(q, data = .olddata)
     )
-    all_labels <- unlist(lapply(processed, `[[`, "labels"))
+    all_labels <- unique(unlist(lapply(processed, `[[`, "labels")))
     all_cols   <- unique(unlist(lapply(processed, `[[`, "cols")))
 
     display(glue::glue(
@@ -63,8 +63,11 @@ log_arrange <- function(.olddata, .newdata, .funname, ...) {
     if (length(na_cols) > 0) {
         ws_pre <- replace_with_ws(prefix)
 
+        # Add backticks to make syntactic and format into a list.
+        na_cols_list <- format_list(format_syntactic(na_cols))
+
         display(glue::glue(
-            "{ws_pre} some columns contained NAs which sort last ({format_list(na_cols)})"
+            "{ws_pre} some columns contained NAs which sort last ({na_cols_list})"
         ))
     }
 }
@@ -119,18 +122,23 @@ process_across <- function(e, data, env) {
 }
 
 # Process desc() expressions into labels and cols
+# Since desc() takes a data-masking argument, we delegate to process_arrange_var
+# to handle complex inner expressions recursively, e.g. desc(across(...)).
 process_desc <- function(e, data, env) {
-    # desc() uses data-masking, not tidyselect. We only extract the col for NA
-    # checking if it is a bare symbol (e.g., desc(col)). If it is a complex
-    # expression (e.g., desc(col * 2)), we don't track the bare col for NA checks.
     inner <- rlang::call_args(e)[[1]]
-    cols <- if (rlang::is_symbol(inner)) as.character(inner) else character(0)
-    labels <- paste0("desc(", rlang::expr_text(inner), ")")
-    list(labels = labels, cols = cols)
+    inner_q <- rlang::new_quosure(inner, env)
+    inner_processed <- process_arrange_var(inner_q, data)
+    list(
+        labels = paste0("desc(", inner_processed$labels, ")"),
+        cols = inner_processed$cols
+    )
 }
 
-# Returns TRUE if the column name is non-syntactic (needs backticks)
-needs_backticks <- function(x) x != make.names(x)
+# Formats with backticks if non-syntactic.
+format_syntactic <- function(x) {
+    # Use make.names to determine if not syntactic.
+    ifelse(x != make.names(x), glue::glue("`{x}`"), x)
+}
 
 # Returns list(labels = chr vector, cols = chr vector)
 # labels: what to display (preserves desc() wrapper)
@@ -145,8 +153,7 @@ process_arrange_var <- function(q, data) {
     # by enquos() into bare symbols by the time they reach here.
     if (rlang::is_symbol(e)) {
         col <- as.character(e)
-        label <- if (needs_backticks(col)) glue::glue("`{col}`") else col
-        return(list(labels = label, cols = col))
+        return(list(labels = format_syntactic(col), cols = col))
     }
 
     # 2. Edge case non-calls that filtered through here should be listed in

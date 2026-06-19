@@ -1,7 +1,6 @@
 context("test_arrange")
-library("dplyr")
-library("tidyr")
-library("tidylog")
+suppressWarnings(library("dplyr"))
+suppressWarnings(library("tidylog"))
 
 .ellipsis <- cli::symbol$ellipsis
 
@@ -9,52 +8,52 @@ test_that("arrange: basic", {
 
     # empty has no effect and does not error
     f <- function() tidylog::arrange(mtcars)
-    expect_message(out <- f(), "no changes")
+    expect_message(out <- f(), "no changes$")
     expect_equal(out, dplyr::arrange(mtcars))
 
     # no changes because already sorted
     input <- dplyr::arrange(mtcars, carb)
     f <- function() tidylog::arrange(input, carb)
-    expect_message(out <- f(), "no changes")
+    expect_message(out <- f(), "no changes$")
     expect_equal(out, dplyr::arrange(mtcars, carb))
 
     # single column
     f <- function() tidylog::arrange(mtcars, carb)
-    expect_message(out <- f(), "sorted rows by carb")
+    expect_message(out <- f(), "sorted rows by carb$")
     expect_equal(out, dplyr::arrange(mtcars, carb))
 
     # multiple columns
     f <- function() tidylog::arrange(mtcars, carb, gear, mpg)
-    expect_message(out <- f(), "sorted rows by carb, gear, mpg")
+    expect_message(out <- f(), "sorted rows by carb, gear, mpg$")
     expect_equal(out, dplyr::arrange(mtcars, carb, gear, mpg))
 
     # >5 columns only shows the first 5
     f <- function() tidylog::arrange(mtcars, mpg, cyl, disp, hp, drat, wt)
     expect_message(out <- f(),
-                   glue::glue("sorted rows by mpg, cyl, disp, hp, drat, {.ellipsis}"))
+                   glue::glue("sorted rows by mpg, cyl, disp, hp, drat, {.ellipsis}$"))
     expect_equal(out, dplyr::arrange(mtcars, mpg, cyl, disp, hp, drat, wt))
 })
 
-test_that("arrange: desc", {
+test_that("arrange: bare desc", {
 
     # single desc()
     f <- function() tidylog::arrange(mtcars, desc(carb))
-    expect_message(out <- f(), "sorted rows by desc\\(carb\\)")
+    expect_message(out <- f(), "sorted rows by desc\\(carb\\)$")
     expect_equal(out, dplyr::arrange(mtcars, desc(carb)))
 
     # all desc()
     f <- function() tidylog::arrange(mtcars, desc(carb), desc(gear))
-    expect_message(out <- f(), "sorted rows by desc\\(carb\\), desc\\(gear\\)")
+    expect_message(out <- f(), "sorted rows by desc\\(carb\\), desc\\(gear\\)$")
     expect_equal(out, dplyr::arrange(mtcars, desc(carb), desc(gear)))
 
     # mixed bare and desc()
     f <- function() tidylog::arrange(mtcars, carb, desc(gear), mpg)
-    expect_message(out <- f(), "sorted rows by carb, desc\\(gear\\), mpg")
+    expect_message(out <- f(), "sorted rows by carb, desc\\(gear\\), mpg$")
     expect_equal(out, dplyr::arrange(mtcars, carb, desc(gear), mpg))
 
     # namespaced dplyr::desc()
     f <- function() tidylog::arrange(mtcars, dplyr::desc(carb))
-    expect_message(out <- f(), "sorted rows by desc\\(carb\\)")
+    expect_message(out <- f(), "sorted rows by desc\\(carb\\)$")
     expect_equal(out, dplyr::arrange(mtcars, dplyr::desc(carb)))
 })
 
@@ -64,7 +63,7 @@ test_that("arrange: grouped", {
     # grouped sorting
     f <- function() tidylog::arrange(grp_mtcars, carb, desc(gear), mpg)
     expect_message(out <- f(),
-                   "\\(grouped\\): sorted rows within groups by carb, desc\\(gear\\), mpg")
+                   "\\(grouped\\): sorted rows within groups by carb, desc\\(gear\\), mpg$")
     expect_equal(out, dplyr::arrange(grp_mtcars, carb, desc(gear), mpg))
 })
 
@@ -73,12 +72,12 @@ test_that("arrange excludes named arguments", {
 
     # .by_group is excluded from display
     f <- function() tidylog::arrange(grp_mtcars, carb, .by_group = TRUE)
-    expect_message(out <- f(), "sorted rows within groups by carb")
+    expect_message(out <- f(), "sorted rows within groups by carb$")
     expect_equal(out, dplyr::arrange(grp_mtcars, carb, .by_group = TRUE))
 
     # .locale is excluded from display
     f <- function() tidylog::arrange(mtcars, carb, .locale = "en")
-    expect_message(out <- f(), "sorted rows by carb")
+    expect_message(out <- f(), "sorted rows by carb$")
     expect_equal(out, dplyr::arrange(mtcars, carb, .locale = "en"))
 })
 
@@ -87,7 +86,7 @@ test_that("arrange: programmatic", {
     # !!sym() is evaluated to the column name
     col <- "carb"
     f <- function() tidylog::arrange(mtcars, !!sym(col))
-    expect_message(out <- f(), "sorted rows by carb")
+    expect_message(out <- f(), "sorted rows by carb$")
     expect_equal(out, dplyr::arrange(mtcars, !!sym(col)))
 })
 
@@ -96,53 +95,63 @@ test_that("arrange: across", {
     # across(everything())
     f <- function() tidylog::arrange(mtcars, across(everything()))
     expect_message(out <- f(),
-                   glue::glue("sorted rows by mpg, cyl, disp, hp, drat, {.ellipsis}"))
+                   glue::glue("sorted rows by mpg, cyl, disp, hp, drat, {.ellipsis}$"))
     expect_equal(out, dplyr::arrange(mtcars, across(everything())))
 
     # across(starts_with())
     f <- function() tidylog::arrange(mtcars, across(starts_with("c")))
-    expect_message(out <- f(), "sorted rows by cyl, carb")
+    expect_message(out <- f(), "sorted rows by cyl, carb$")
     expect_equal(out, dplyr::arrange(mtcars, across(starts_with("c"))))
 
     # across(all_of())
     cols <- c("carb", "gear")
     f <- function() tidylog::arrange(mtcars, across(all_of(cols)))
-    expect_message(out <- f(), "sorted rows by carb, gear")
+    expect_message(out <- f(), "sorted rows by carb, gear$")
     expect_equal(out, dplyr::arrange(mtcars, across(all_of(cols))))
 
     # across(c(a, b))
     f <- function() tidylog::arrange(mtcars, across(c(carb, gear)))
-    expect_message(out <- f(), "sorted rows by carb, gear")
+    expect_message(out <- f(), "sorted rows by carb, gear$")
     expect_equal(out, dplyr::arrange(mtcars, across(c(carb, gear))))
 
     # across(a:b) unpacks intermediate columns
     f <- function() tidylog::arrange(mtcars, across(cyl:hp))
-    expect_message(out <- f(), "sorted rows by cyl, disp, hp")
+    expect_message(out <- f(), "sorted rows by cyl, disp, hp$")
     expect_equal(out, dplyr::arrange(mtcars, across(cyl:hp)))
 
+    # across(-condition) unpacks inverse correctly
+    f <- function() tidylog::arrange(mtcars, across(-ends_with("p")))
+    expect_message(out <- f(),
+                   glue::glue("sorted rows by mpg, cyl, drat, wt, qsec, {.ellipsis}$"))
+    expect_equal(out, dplyr::arrange(mtcars, across(-ends_with("p"))))
+
     # namespaced across()
-    f <- function() tidylog::arrange(mtcars, dplyr::across(starts_with("c")))
-    expect_message(out <- f(), "sorted rows by cyl, carb")
-    expect_equal(out, dplyr::arrange(mtcars, dplyr::across(starts_with("c"))))
+    f <- function() tidylog::arrange(mtcars, dplyr::across(ends_with("p")))
+    expect_message(out <- f(), "sorted rows by disp, hp$")
+    expect_equal(out, dplyr::arrange(mtcars, dplyr::across(ends_with("p"))))
 
     # across() matching no columns — no changes
     f <- function() tidylog::arrange(mtcars, across(starts_with("zzz")))
-    expect_message(out <- f(), "no changes")
+    expect_message(out <- f(), "no changes$")
     expect_equal(out, dplyr::arrange(mtcars, across(starts_with("zzz"))))
 
     # empty across() treated as everything() and transmits dplyr deprecation warning
     f <- function() tidylog::arrange(mtcars, across())
     expect_warning(
-        expect_message(out <- f(),
-                       glue::glue("sorted rows by mpg, cyl, disp, hp, drat, {.ellipsis}"))
+        expect_message(
+            out <- f(),
+            glue::glue("sorted rows by mpg, cyl, disp, hp, drat, {.ellipsis}$")
+        )
     )
+
+
     suppressWarnings(
         expect_equal(out, dplyr::arrange(mtcars, across()))
     )
 
     # across(c()) — selects nothing, no changes
     f <- function() tidylog::arrange(mtcars, across(c()))
-    expect_message(out <- f(), "no changes")
+    expect_message(out <- f(), "no changes$")
     expect_equal(out, dplyr::arrange(mtcars, across(c())))
 })
 
@@ -150,12 +159,12 @@ test_that("arrange: across with desc", {
 
     # desc as function arg
     f <- function() tidylog::arrange(mtcars, across(starts_with("c"), desc))
-    expect_message(out <- f(), "sorted rows by desc\\(cyl\\), desc\\(carb\\)")
+    expect_message(out <- f(), "sorted rows by desc\\(cyl\\), desc\\(carb\\)$")
     expect_equal(out, dplyr::arrange(mtcars, across(starts_with("c"), desc)))
 
     # namespaced dplyr::desc as function arg
     f <- function() tidylog::arrange(mtcars, across(starts_with("c"), dplyr::desc))
-    expect_message(out <- f(), "sorted rows by desc\\(cyl\\), desc\\(carb\\)")
+    expect_message(out <- f(), "sorted rows by desc\\(cyl\\), desc\\(carb\\)$")
     expect_equal(out, dplyr::arrange(mtcars, across(starts_with("c"), dplyr::desc)))
 })
 
@@ -164,38 +173,38 @@ test_that("arrange: pick", {
     # pick(everything())
     f <- function() tidylog::arrange(mtcars, pick(everything()))
     expect_message(out <- f(),
-                   glue::glue("sorted rows by mpg, cyl, disp, hp, drat, {.ellipsis}"))
+                   glue::glue("sorted rows by mpg, cyl, disp, hp, drat, {.ellipsis}$"))
     expect_equal(out, dplyr::arrange(mtcars, pick(everything())))
 
     # pick(starts_with())
     f <- function() tidylog::arrange(mtcars, pick(starts_with("c")))
-    expect_message(out <- f(), "sorted rows by cyl, carb")
+    expect_message(out <- f(), "sorted rows by cyl, carb$")
     expect_equal(out, dplyr::arrange(mtcars, pick(starts_with("c"))))
 
     # pick(all_of())
     cols <- c("carb", "gear")
     f <- function() tidylog::arrange(mtcars, pick(all_of(cols)))
-    expect_message(out <- f(), "sorted rows by carb, gear")
+    expect_message(out <- f(), "sorted rows by carb, gear$")
     expect_equal(out, dplyr::arrange(mtcars, pick(all_of(cols))))
 
     # pick(a, b) — multiple bare columns
     f <- function() tidylog::arrange(mtcars, pick(carb, gear))
-    expect_message(out <- f(), "sorted rows by carb, gear")
+    expect_message(out <- f(), "sorted rows by carb, gear$")
     expect_equal(out, dplyr::arrange(mtcars, pick(carb, gear)))
 
     # pick(a:b) — range unpacks intermediate columns
     f <- function() tidylog::arrange(mtcars, pick(cyl:hp))
-    expect_message(out <- f(), "sorted rows by cyl, disp, hp")
+    expect_message(out <- f(), "sorted rows by cyl, disp, hp$")
     expect_equal(out, dplyr::arrange(mtcars, pick(cyl:hp)))
 
     # pick(c(a, b))
     f <- function() tidylog::arrange(mtcars, pick(c(carb, gear)))
-    expect_message(out <- f(), "sorted rows by carb, gear")
+    expect_message(out <- f(), "sorted rows by carb, gear$")
     expect_equal(out, dplyr::arrange(mtcars, pick(c(carb, gear))))
 
     # namespaced pick()
     f <- function() tidylog::arrange(mtcars, dplyr::pick(starts_with("c")))
-    expect_message(out <- f(), "sorted rows by cyl, carb")
+    expect_message(out <- f(), "sorted rows by cyl, carb$")
     expect_equal(out, dplyr::arrange(mtcars, dplyr::pick(starts_with("c"))))
 
     # empty pick() errors identically to dplyr
@@ -206,20 +215,37 @@ test_that("arrange: pick", {
 
     # pick(c()) — selects nothing, no changes
     f <- function() tidylog::arrange(mtcars, pick(c()))
-    expect_message(out <- f(), "no changes")
+    expect_message(out <- f(), "no changes$")
     expect_equal(out, dplyr::arrange(mtcars, pick(c())))
 })
 
 test_that("arrange: mixed", {
     # mixed bare columns and across
     f <- function() tidylog::arrange(mtcars, carb, across(starts_with("c")))
-    expect_message(out <- f(), "sorted rows by carb, cyl, carb")
+    expect_message(out <- f(), "sorted rows by carb, cyl$")
     expect_equal(out, dplyr::arrange(mtcars, carb, across(starts_with("c"))))
 
     # mixed bare columns and pick
     f <- function() tidylog::arrange(mtcars, carb, pick(starts_with("c")))
-    expect_message(out <- f(), "sorted rows by carb, cyl, carb")
+    expect_message(out <- f(), "sorted rows by carb, cyl$")
     expect_equal(out, dplyr::arrange(mtcars, carb, pick(starts_with("c"))))
+})
+
+test_that("arrange: complex desc", {
+    # desc(across()) expands and wraps each column in desc()
+    f <- function() tidylog::arrange(mtcars, desc(across(starts_with("c"))))
+    expect_message(out <- f(), "sorted rows by desc\\(cyl\\), desc\\(carb\\)$")
+    expect_equal(out, dplyr::arrange(mtcars, desc(across(starts_with("c")))))
+
+    # desc(pick()) expands and wraps each column in desc()
+    f <- function() tidylog::arrange(mtcars, desc(pick(carb, gear)))
+    expect_message(out <- f(), "sorted rows by desc\\(carb\\), desc\\(gear\\)$")
+    expect_equal(out, dplyr::arrange(mtcars, desc(pick(carb, gear))))
+
+    # desc(col * 2) — complex expression, shown as-is, no NA checking
+    f <- function() tidylog::arrange(mtcars, desc(mpg * 2))
+    expect_message(out <- f(), "sorted rows by desc\\(mpg \\* 2\\)$")
+    expect_equal(out, dplyr::arrange(mtcars, desc(mpg * 2)))
 })
 
 test_that("arrange: NAs", {
@@ -230,52 +256,89 @@ test_that("arrange: NAs", {
 
     # single NA column reported
     f <- function() tidylog::arrange(mtcars_na, carb)
-    expect_message(f(), "sorted rows by carb")
-    expect_message(f(), "some columns contained NAs which sort last \\(carb\\)")
+    expect_messages(out <- f(),
+                    "sorted rows by carb$",
+                    "some columns contained NAs which sort last \\(carb\\)$"
+    )
+    expect_equal(out, dplyr::arrange(mtcars_na, carb))
 
     # multiple NA columns reported
     f <- function() tidylog::arrange(mtcars_na, carb, gear)
-    expect_message(f(), "some columns contained NAs which sort last \\(carb, gear\\)")
+    expect_messages(
+        out <- f(),
+        "sorted rows by carb, gear$",
+        "some columns contained NAs which sort last \\(carb, gear\\)$"
+    )
+    expect_equal(out, dplyr::arrange(mtcars_na, carb, gear))
 
     # NA in desc() column still reported
     f <- function() tidylog::arrange(mtcars_na, desc(carb))
-    expect_message(f(), "some columns contained NAs which sort last \\(carb\\)")
+    expect_messages(
+        out <- f(),
+        "sorted rows by desc\\(carb\\)$",
+        "some columns contained NAs which sort last \\(carb\\)$"
+    )
+    expect_equal(out, dplyr::arrange(mtcars_na, desc(carb)))
 
     # NA in across()-resolved column reported
     f <- function() tidylog::arrange(mtcars_na, across(starts_with("c")))
-    expect_message(f(), "some columns contained NAs which sort last \\(carb\\)")
+    expect_messages(
+        out <- f(),
+        "sorted rows by cyl, carb$",
+        "some columns contained NAs which sort last \\(carb\\)$"
+    )
+    expect_equal(out, dplyr::arrange(mtcars_na, across(starts_with("c"))))
 
     # no NA note when no NAs present
     f <- function() tidylog::arrange(mtcars, carb)
-    expect_message(out <- f(), "sorted rows by carb")
-    expect_no_message(f(), message = "NAs")
+    expect_messages(
+        out <- f(),
+        "sorted rows by carb$",
+        nomatch("NAs")
+    )
+    expect_equal(out, dplyr::arrange(mtcars, carb))
+
 })
 
-
 test_that("arrange: edge cases and complex expressions", {
-    # 1. Complex data-masking: should NOT trigger NA note even with NA
+
     mtcars_na <- mtcars
     mtcars_na$mpg[1] <- NA
 
+    # 1. Complex data-masking: should NOT trigger NA note even with NA
     f <- function() tidylog::arrange(mtcars_na, mpg * 2)
-    expect_message(out <- f(), "sorted rows by mpg \\* 2")
-    expect_no_message(f(), message = "some columns contained NAs")
+    expect_messages(
+        out <- f(),
+        "sorted rows by mpg \\* 2$",
+        nomatch("NAs")
+    )
     expect_equal(out, dplyr::arrange(mtcars_na, mpg * 2))
 
     f <- function() tidylog::arrange(mtcars_na, cyl * hp)
-    expect_message(out <- f(), "sorted rows by cyl \\* hp")
-    expect_no_message(f(), message = "some columns contained NAs")
+    expect_messages(
+        out <- f(),
+        "sorted rows by cyl \\* hp$",
+        nomatch("NAs")
+    )
     expect_equal(out, dplyr::arrange(mtcars_na, cyl * hp))
 
     # 2. .data pronoun
     f <- function() tidylog::arrange(mtcars, .data$carb)
-    expect_message(out <- f(), "sorted rows by .data\\$carb")
+    expect_message(out <- f(), "sorted rows by .data\\$carb$")
     expect_equal(out, dplyr::arrange(mtcars, .data$carb))
 
     # 3. Non-syntactic names
     mtcars_na_space <- dplyr::rename(mtcars_na, "my mpg" = mpg)
     f <- function() tidylog::arrange(mtcars_na_space, cyl, `my mpg`, hp)
-    expect_message(out <- f(), message = "sorted rows by cyl, `my mpg`, hp")
-    expect_message(f(), "some columns contained NAs which sort last \\(my mpg\\)")
+    expect_messages(
+        out <- f(),
+        "sorted rows by cyl, `my mpg`, hp$",
+        "some columns contained NAs which sort last \\(`my mpg`\\)$"
+    )
     expect_equal(out, dplyr::arrange(mtcars_na_space, cyl, `my mpg`, hp))
+
+    # 4. Repeated labels with qualifiers are maintained
+    f <- function() tidylog::arrange(mtcars, carb, desc(carb), carb * 2)
+    expect_message(out <- f(), "sorted rows by carb, desc\\(carb\\), carb \\* 2$")
+    expect_equal(out, dplyr::arrange(mtcars, carb, desc(carb), carb * 2))
 })
