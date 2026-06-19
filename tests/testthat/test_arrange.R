@@ -253,18 +253,19 @@ test_that("arrange: NAs", {
 
 
 test_that("arrange: edge cases and complex expressions", {
-    # 1. Complex data-masking: should NOT trigger NA note even with NAs
-    mtcars_with_nas <- mtcars |>
-        dplyr::mutate(dplyr::across(mpg, \(x) na_if(x, 21.0)))
-    f <- function() tidylog::arrange(mtcars_with_nas, mpg * 2)
+    # 1. Complex data-masking: should NOT trigger NA note even with NA
+    mtcars_na <- mtcars
+    mtcars_na$mpg[1] <- NA
+
+    f <- function() tidylog::arrange(mtcars_na, mpg * 2)
     expect_message(out <- f(), "sorted rows by mpg \\* 2")
     expect_no_message(f(), message = "some columns contained NAs")
-    expect_equal(out, dplyr::arrange(mtcars_with_nas, mpg * 2))
+    expect_equal(out, dplyr::arrange(mtcars_na, mpg * 2))
 
-    f <- function() tidylog::arrange(mtcars_with_nas, cyl * hp)
+    f <- function() tidylog::arrange(mtcars_na, cyl * hp)
     expect_message(out <- f(), "sorted rows by cyl \\* hp")
     expect_no_message(f(), message = "some columns contained NAs")
-    expect_equal(out, dplyr::arrange(mtcars_with_nas, cyl * hp))
+    expect_equal(out, dplyr::arrange(mtcars_na, cyl * hp))
 
     # 2. .data pronoun
     f <- function() tidylog::arrange(mtcars, .data$carb)
@@ -272,10 +273,9 @@ test_that("arrange: edge cases and complex expressions", {
     expect_equal(out, dplyr::arrange(mtcars, .data$carb))
 
     # 3. Non-syntactic names
-    mtcars_with_nas_and_spaces <- mtcars_with_nas |>
-        dplyr::rename("my mpg" = mpg)
-    f <- function() tidylog::arrange(mtcars_with_nas_and_spaces, cyl, `my mpg`, hp)
+    mtcars_na_space <- dplyr::rename(mtcars_na, "my mpg" = mpg)
+    f <- function() tidylog::arrange(mtcars_na_space, cyl, `my mpg`, hp)
     expect_message(out <- f(), message = "sorted rows by cyl, `my mpg`, hp")
     expect_message(f(), "some columns contained NAs which sort last \\(my mpg\\)")
-    expect_equal(out, dplyr::arrange(mtcars_with_nas_and_spaces, cyl, `my mpg`, hp))
+    expect_equal(out, dplyr::arrange(mtcars_na_space, cyl, `my mpg`, hp))
 })
