@@ -18,12 +18,6 @@ format_funname_prefix <- function(.funname, .newdata) {
 #' @param .newdata Data frame after transformation.
 #' @param .funname String: name of function that should be used in messages.
 display_changed_rows <- function(.olddata, .newdata, .funname) {
-    if (!"data.frame" %in% class(.olddata)
-        | !"data.frame" %in% class(.newdata)
-        | !should_display()) {
-        return()
-    }
-
     funname_prefix <- format_funname_prefix(.funname, .newdata)
 
     if (dplyr::is.grouped_df(.newdata) == TRUE) {
