@@ -47,11 +47,6 @@ display_slice_ties <- function(.olddata, .newdata, .funname, ...) {
 }
 
 log_filter <- function(.olddata, .newdata, .funname, ...) {
-    if (!"data.frame" %in% class(.olddata)
-        | !"data.frame" %in% class(.newdata)
-        | !should_display()) {
-        return()
-    }
     display_changed_rows(.olddata, .newdata, .funname)
 
     if (.funname %in% c("slice_min", "slice_max")) {
