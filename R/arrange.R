@@ -162,6 +162,7 @@ process_arrange_var <- function(q, data) {
     if (fn == "desc") return(process_desc(e, data, env))
 
     # 4. Any other data-masking expression (e.g., col * 2, is.na(col))
+    # Show expression as-is with no NA checking: there's no bare column to extract.
     list(labels = rlang::expr_text(e), cols = character(0))
 }
 
