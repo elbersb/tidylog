@@ -37,6 +37,11 @@ format_list <- function(items) {
     }
 }
 
+# Returns whitespace of the same width as x
+replace_with_ws <- function(x) {
+    paste0(rep(" ", nchar(x, type = "width")), collapse = "")
+}
+
 get_type <- function(v) {
     if (is.ordered(v)) {
         "ordered factor"
