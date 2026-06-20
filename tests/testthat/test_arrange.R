@@ -3,6 +3,8 @@ suppressWarnings(library("dplyr"))
 suppressWarnings(library("tidylog"))
 
 .ellipsis <- cli::symbol$ellipsis
+na_marker <- cli::symbol$sup_1
+na_regex <- paste0(na_marker, "contained NAs, which sort to the end$")
 
 test_that("arrange: basic", {
 
@@ -144,7 +146,6 @@ test_that("arrange: across", {
         )
     )
 
-
     suppressWarnings(
         expect_equal(out, dplyr::arrange(mtcars, across()))
     )
@@ -242,7 +243,7 @@ test_that("arrange: complex desc", {
     expect_message(out <- f(), "sorted rows by desc\\(carb\\), desc\\(gear\\)$")
     expect_equal(out, dplyr::arrange(mtcars, desc(pick(carb, gear))))
 
-    # desc(col * 2) — complex expression, shown as-is, no NA checking
+    # desc(col * 2) — complex expression, shown as-is
     f <- function() tidylog::arrange(mtcars, desc(mpg * 2))
     expect_message(out <- f(), "sorted rows by desc\\(mpg \\* 2\\)$")
     expect_equal(out, dplyr::arrange(mtcars, desc(mpg * 2)))
@@ -257,8 +258,8 @@ test_that("arrange: NAs", {
     # single NA column reported
     f <- function() tidylog::arrange(mtcars_na, carb)
     expect_messages(out <- f(),
-                    "sorted rows by carb$",
-                    "some columns contained NAs which sort last \\(carb\\)$"
+                    glue::glue("sorted rows by carb{na_marker}$"),
+                    na_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na, carb))
 
@@ -266,17 +267,26 @@ test_that("arrange: NAs", {
     f <- function() tidylog::arrange(mtcars_na, carb, gear)
     expect_messages(
         out <- f(),
-        "sorted rows by carb, gear$",
-        "some columns contained NAs which sort last \\(carb, gear\\)$"
+        glue::glue("sorted rows by carb{na_marker}, gear{na_marker}$"),
+        na_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na, carb, gear))
+
+    # non-NA columns have no marker
+    f <- function() tidylog::arrange(mtcars_na, carb, gear, cyl)
+    expect_messages(
+        out <- f(),
+        glue::glue("sorted rows by carb{na_marker}, gear{na_marker}, cyl$"),
+        na_regex
+    )
+    expect_equal(out, dplyr::arrange(mtcars_na, carb, gear, cyl))
 
     # NA in desc() column still reported
     f <- function() tidylog::arrange(mtcars_na, desc(carb))
     expect_messages(
         out <- f(),
-        "sorted rows by desc\\(carb\\)$",
-        "some columns contained NAs which sort last \\(carb\\)$"
+        glue::glue("sorted rows by desc\\(carb\\){na_marker}$"),
+        na_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na, desc(carb)))
 
@@ -284,8 +294,8 @@ test_that("arrange: NAs", {
     f <- function() tidylog::arrange(mtcars_na, across(starts_with("c")))
     expect_messages(
         out <- f(),
-        "sorted rows by cyl, carb$",
-        "some columns contained NAs which sort last \\(carb\\)$"
+        glue::glue("sorted rows by cyl, carb{na_marker}$"),
+        na_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na, across(starts_with("c"))))
 
@@ -294,7 +304,7 @@ test_that("arrange: NAs", {
     expect_messages(
         out <- f(),
         "sorted rows by carb$",
-        nomatch("NAs")
+        nomatch(na_regex)
     )
     expect_equal(out, dplyr::arrange(mtcars, carb))
 
@@ -332,8 +342,8 @@ test_that("arrange: edge cases and complex expressions", {
     f <- function() tidylog::arrange(mtcars_na_space, cyl, `my mpg`, hp)
     expect_messages(
         out <- f(),
-        "sorted rows by cyl, `my mpg`, hp$",
-        "some columns contained NAs which sort last \\(`my mpg`\\)$"
+        glue::glue("sorted rows by cyl, `my mpg`{na_marker}, hp$"),
+        na_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na_space, cyl, `my mpg`, hp))
 

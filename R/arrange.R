@@ -14,8 +14,10 @@
 # Programmatic:          arrange(x, !!sym(var))
 #                        arrange(x, across(all_of(vars)))
 #
-# NAs in sorting columns sort last in dplyr; a note is appended when detected.
-# Sorting over grouped dfs is also noted.
+# NAs in sorting columns sort last in dplyr; columns with NAs are marked
+# with a superscript 1 (cli::symbol$sup_1) in the printed list, and a
+# legend line is appended when any are detected. Note: on non-UTF8 terminals,
+# this will show up as a bare 1.
 log_arrange <- function(.olddata, .newdata, .funname, ...) {
     if (!"data.frame" %in% class(.olddata) || !should_display()) {
         return()
@@ -41,33 +43,59 @@ log_arrange <- function(.olddata, .newdata, .funname, ...) {
     to_exclude <- c(".by_group", ".locale")
     vars <- vars[!names(vars) %in% to_exclude]
 
-    processed  <- lapply(
+    processed <- lapply(
         vars,
         function(q) process_arrange_var(q, data = .olddata)
     )
-    all_labels <- unique(unlist(lapply(processed, `[[`, "labels")))
-    all_cols   <- unique(unlist(lapply(processed, `[[`, "cols")))
 
+    # Determine which bare columns (across all processed args) contain NAs,
+    # so we can mark their labels below.
+    all_cols <- unique(unlist(lapply(processed, `[[`, "cols")))
+    valid_cols <- intersect(all_cols, names(.olddata))
+    na_cols <- if (length(valid_cols) > 0) {
+        tryCatch(
+            names(which(vapply(.olddata[valid_cols], anyNA, FUN.VALUE = logical(1)))),
+            error = function(err) character(0)
+        )
+    } else {
+        character(0)
+    }
+
+    # Mark labels whose underlying column has NAs. Within a single processed
+    # entry, labels and cols are positionally aligned (see process_arrange_var
+    # and its helpers), so we zip them per-entry rather than across the
+    # flattened vectors, which may differ in length/order overall.
+    marked <- lapply(processed, function(p) {
+        if (length(p$labels) == length(p$cols) && length(p$cols) > 0) {
+            p$cols %in% na_cols
+        } else {
+            rep(FALSE, length(p$labels))
+        }
+    })
+    all_labels <- unlist(lapply(processed, `[[`, "labels"))
+    all_marked <- unlist(marked)
+
+    # Dedup labels and marks together (as pairs), keeping the first
+    # occurrence of each label. A given bare column always resolves to the
+    # same mark wherever it appears (the mark is keyed off `cols`, not the
+    # entry it came from), so this can't strand a label with conflicting
+    # marks across duplicates.
+    keep <- !duplicated(all_labels)
+    all_labels <- all_labels[keep]
+    all_marked <- all_marked[keep]
+
+    marker <- cli::symbol$sup_1
+
+    all_labels_marked <- format_list(all_labels, with_marker=all_marked,
+                                     marker=marker)
     display(glue::glue(
-        "{prefix} sorted rows{grp_infix} by {format_list(all_labels)}"
+        "{prefix} sorted rows{grp_infix} by {all_labels_marked}"
     ))
 
-    valid_cols <- intersect(all_cols, names(.olddata))
-    if (length(valid_cols) == 0)
-        return()
-
-    na_cols <- tryCatch(
-        names(which(vapply(.olddata[valid_cols], anyNA, FUN.VALUE = logical(1)))),
-        error = function(err) character(0)
-    )
     if (length(na_cols) > 0) {
         ws_pre <- replace_with_ws(prefix)
-
-        # Add backticks to make syntactic and format into a list.
-        na_cols_list <- format_list(format_syntactic(na_cols))
-
         display(glue::glue(
-            "{ws_pre} some columns contained NAs which sort last ({na_cols_list})"
+            "{ws_pre} {marker}contained NAs, which sort to the end"
         ))
     }
 }
@@ -141,8 +169,10 @@ format_syntactic <- function(x) {
 }
 
 # Returns list(labels = chr vector, cols = chr vector)
-# labels: what to display (preserves desc() wrapper)
-# cols:   bare column names for NA checking
+# labels: what to display (preserves desc() wrapper; NA columns get
+#         marked with an asterisk by the caller)
+# cols:   bare column names for NA checking, positionally aligned with
+#         labels whenever both are non-empty
 process_arrange_var <- function(q, data) {
     # Extract the expression and environment
     e <- rlang::quo_get_expr(q)
@@ -172,4 +202,3 @@ process_arrange_var <- function(q, data) {
     # Show expression as-is with no NA checking: there's no bare column to extract.
     list(labels = rlang::expr_text(e), cols = character(0))
 }
-
