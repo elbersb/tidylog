@@ -67,12 +67,9 @@ format_list <- function(items, markers = NULL) {
         return(paste0(decorated_start, collapse = ", "))
     }
 
-    hidden_markers <- if (is.null(markers)) {
-        NULL
-    } else {
-        markers[-seq_len(num_start)]
+    hidden_markers <- if (!is.null(markers)) {
+        sort(unique(markers[-seq_len(num_start)]))
     }
-    hidden_markers <- sort(unique(hidden_markers))
 
     truncation_symbol <- if (length(hidden_markers) > 0) {
         add_marker(cli::symbol$ellipsis, paste0(as.character(hidden_markers), collapse = ""))
