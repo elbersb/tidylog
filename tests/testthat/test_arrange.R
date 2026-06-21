@@ -3,8 +3,14 @@ suppressWarnings(library("dplyr"))
 suppressWarnings(library("tidylog"))
 
 .ellipsis <- cli::symbol$ellipsis
-na_marker <- cli::symbol$sup_1
-na_regex <- paste0(na_marker, "contained NAs, which sort to the end$")
+
+# Column contained NAs
+sup_1 <- cli::symbol$sup_1
+na_regex <- paste0(sup_1, "contains NAs, which sort to the end$")
+
+# Column's NA status is unknown
+sup_2 <- cli::symbol$sup_2
+unknown_regex <- paste0(sup_2, "NA status unknown$")
 
 test_that("arrange: basic", {
 
@@ -245,7 +251,11 @@ test_that("arrange: complex desc", {
 
     # desc(col * 2) — complex expression, shown as-is
     f <- function() tidylog::arrange(mtcars, desc(mpg * 2))
-    expect_message(out <- f(), "sorted rows by desc\\(mpg \\* 2\\)$")
+    expect_messages(
+        out <- f(),
+        glue::glue("sorted rows by desc\\(mpg \\* 2\\){sup_2}$"),
+        unknown_regex
+    )
     expect_equal(out, dplyr::arrange(mtcars, desc(mpg * 2)))
 })
 
@@ -258,7 +268,7 @@ test_that("arrange: NAs", {
     # single NA column reported
     f <- function() tidylog::arrange(mtcars_na, carb)
     expect_messages(out <- f(),
-                    glue::glue("sorted rows by carb{na_marker}$"),
+                    glue::glue("sorted rows by carb{sup_1}$"),
                     na_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na, carb))
@@ -267,7 +277,7 @@ test_that("arrange: NAs", {
     f <- function() tidylog::arrange(mtcars_na, carb, gear)
     expect_messages(
         out <- f(),
-        glue::glue("sorted rows by carb{na_marker}, gear{na_marker}$"),
+        glue::glue("sorted rows by carb{sup_1}, gear{sup_1}$"),
         na_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na, carb, gear))
@@ -276,7 +286,7 @@ test_that("arrange: NAs", {
     f <- function() tidylog::arrange(mtcars_na, carb, gear, cyl)
     expect_messages(
         out <- f(),
-        glue::glue("sorted rows by carb{na_marker}, gear{na_marker}, cyl$"),
+        glue::glue("sorted rows by carb{sup_1}, gear{sup_1}, cyl$"),
         na_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na, carb, gear, cyl))
@@ -285,7 +295,7 @@ test_that("arrange: NAs", {
     f <- function() tidylog::arrange(mtcars_na, desc(carb))
     expect_messages(
         out <- f(),
-        glue::glue("sorted rows by desc\\(carb\\){na_marker}$"),
+        glue::glue("sorted rows by desc\\(carb\\){sup_1}$"),
         na_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na, desc(carb)))
@@ -294,7 +304,7 @@ test_that("arrange: NAs", {
     f <- function() tidylog::arrange(mtcars_na, across(starts_with("c")))
     expect_messages(
         out <- f(),
-        glue::glue("sorted rows by cyl, carb{na_marker}$"),
+        glue::glue("sorted rows by cyl, carb{sup_1}$"),
         na_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na, across(starts_with("c"))))
@@ -319,36 +329,52 @@ test_that("arrange: edge cases and complex expressions", {
     f <- function() tidylog::arrange(mtcars_na, mpg * 2)
     expect_messages(
         out <- f(),
-        "sorted rows by mpg \\* 2$",
-        nomatch("NAs")
+        glue::glue("sorted rows by mpg \\* 2{sup_2}$"),
+        nomatch("NAs"),
+        unknown_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na, mpg * 2))
 
     f <- function() tidylog::arrange(mtcars_na, cyl * hp)
     expect_messages(
         out <- f(),
-        "sorted rows by cyl \\* hp$",
-        nomatch("NAs")
+        glue::glue("sorted rows by cyl \\* hp{sup_2}$"),
+        nomatch("NAs"),
+        unknown_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na, cyl * hp))
 
     # 2. .data pronoun
+    # 2A: without NA
     f <- function() tidylog::arrange(mtcars, .data$carb)
-    expect_message(out <- f(), "sorted rows by .data\\$carb$")
+    expect_message(out <- f(), "sorted rows by carb$")
     expect_equal(out, dplyr::arrange(mtcars, .data$carb))
+
+    # 2B: with NA
+    f <- function() tidylog::arrange(mtcars_na, .data$mpg)
+    expect_messages(
+        out <- f(),
+        glue::glue("sorted rows by mpg{sup_1}$"),
+        na_regex
+    )
+    expect_equal(out, dplyr::arrange(mtcars_na, .data$mpg))
 
     # 3. Non-syntactic names
     mtcars_na_space <- dplyr::rename(mtcars_na, "my mpg" = mpg)
     f <- function() tidylog::arrange(mtcars_na_space, cyl, `my mpg`, hp)
     expect_messages(
         out <- f(),
-        glue::glue("sorted rows by cyl, `my mpg`{na_marker}, hp$"),
+        glue::glue("sorted rows by cyl, `my mpg`{sup_1}, hp$"),
         na_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na_space, cyl, `my mpg`, hp))
 
     # 4. Repeated labels with qualifiers are maintained
     f <- function() tidylog::arrange(mtcars, carb, desc(carb), carb * 2)
-    expect_message(out <- f(), "sorted rows by carb, desc\\(carb\\), carb \\* 2$")
+    expect_messages(
+        out <- f(),
+        glue::glue("sorted rows by carb, desc\\(carb\\), carb \\* 2{sup_2}$"),
+        unknown_regex
+    )
     expect_equal(out, dplyr::arrange(mtcars, carb, desc(carb), carb * 2))
 })

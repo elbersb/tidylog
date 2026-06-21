@@ -2,6 +2,7 @@
 #
 # Bare columns:          arrange(x, col), arrange(x, col1, col2)
 #                        arrange(x, `my col`)
+#                        arrange(x, .data$col)
 # desc():                arrange(x, desc(col)), arrange(x, dplyr::desc(col))
 # across()/pick():       arrange(x, across(everything()))
 #                        arrange(x, across(starts_with("x")))
@@ -14,10 +15,21 @@
 # Programmatic:          arrange(x, !!sym(var))
 #                        arrange(x, across(all_of(vars)))
 #
-# NAs in sorting columns sort last in dplyr; columns with NAs are marked
-# with a superscript 1 (cli::symbol$sup_1) in the printed list, and a
-# legend line is appended when any are detected. Note: on non-UTF8 terminals,
-# this will show up as a bare 1.
+# NAs in sorting columns sort last in dplyr. Two distinct situations are
+# marked in the printed list, each with its own legend line:
+#
+#   - A column known to contain NAs is suffixed with cli::symbol$sup_1.
+#   - A sorting expression whose NA status is unknowable without
+#     evaluating it (e.g. `mpg * 2`, `is.na(cyl)`, `my_func(mpg)`) is
+#     suffixed with cli::symbol$sup_2. Whether NAs propagate through an
+#     arbitrary expression can't be determined from syntax alone
+#     (is.na(col) is never itself NA, while col * 2 propagates col's NAs --
+#     a fixed rule can't distinguish these for arbitrary functions). These
+#     are marked as "may contain NAs" rather than silently treated as
+#     NA-free.
+#
+# Note: on non-UTF8 terminals, cli falls back to plain digits ("1"/"2")
+# for these symbols.
 log_arrange <- function(.olddata, .newdata, .funname, ...) {
     if (!"data.frame" %in% class(.olddata) || !should_display()) {
         return()
@@ -61,41 +73,52 @@ log_arrange <- function(.olddata, .newdata, .funname, ...) {
         character(0)
     }
 
-    # Mark labels whose underlying column has NAs. Within a single processed
-    # entry, labels and cols are positionally aligned (see process_arrange_var
-    # and its helpers), so we zip them per-entry rather than across the
-    # flattened vectors, which may differ in length/order overall.
-    marked <- lapply(processed, function(p) {
-        if (length(p$labels) == length(p$cols) && length(p$cols) > 0) {
-            p$cols %in% na_cols
+    sup_1 <- cli::symbol$sup_1
+    sup_2 <- cli::symbol$sup_2
+
+    # Compute each label's marker per entry:
+    #   - no labels -> no marker
+    #   - no cols to check because the input is complex (e.g. `mpg * 2` or
+    #       `is.na(hp)`) and thus has unknowable NA state -> sup_2
+    #   - otherwise sup_1 if the column has NAs
+    markers_per_entry <- lapply(processed, function(p) {
+        n <- length(p$labels)
+        if (n == 0) {
+            character(0)
+        } else if (length(p$cols) == 0) {
+            rep(sup_2, n)
+        } else if (length(p$cols) != n) {
+            stop("process_arrange_var() invariant violated: cols length doesn't match labels length")
         } else {
-            rep(FALSE, length(p$labels))
+            ifelse(p$cols %in% na_cols, sup_1, NA_character_)
         }
     })
-    all_labels <- unlist(lapply(processed, `[[`, "labels"))
-    all_marked <- unlist(marked)
 
-    # Dedup labels and marks together (as pairs), keeping the first
-    # occurrence of each label. A given bare column always resolves to the
-    # same mark wherever it appears (the mark is keyed off `cols`, not the
-    # entry it came from), so this can't strand a label with conflicting
-    # marks across duplicates.
+    all_labels <- unlist(lapply(processed, `[[`, "labels"))
+    markers <- unlist(markers_per_entry)
+
+    # Dedup labels+markers together, keeping first occurrence. A label's
+    # marker is always the same wherever it recurs, so this is safe.
     keep <- !duplicated(all_labels)
     all_labels <- all_labels[keep]
-    all_marked <- all_marked[keep]
+    markers <- markers[keep]
 
-    marker <- cli::symbol$sup_1
-
-    all_labels_marked <- format_list(all_labels, with_marker=all_marked,
-                                     marker=marker)
+    all_labels_marked <- format_list(all_labels, markers = markers)
     display(glue::glue(
         "{prefix} sorted rows{grp_infix} by {all_labels_marked}"
     ))
 
-    if (length(na_cols) > 0) {
-        ws_pre <- replace_with_ws(prefix)
+    ws_pre <- replace_with_ws(prefix)
+
+    if (sup_1 %in% markers) {
         display(glue::glue(
-            "{ws_pre} {marker}contained NAs, which sort to the end"
+            "{ws_pre} {sup_1}contains NAs, which sort to the end"
+        ))
+    }
+
+    if (sup_2 %in% markers) {
+        display(glue::glue(
+            "{ws_pre} {sup_2}NA status unknown"
         ))
     }
 }
@@ -162,6 +185,18 @@ process_desc <- function(e, data, env) {
     )
 }
 
+# Process use of the `$` operator. If `.data$some_col`, extract the column for
+# NA processing. Otherwise, mark unknown.
+process_dollar <- function(e, data, env) {
+    args <- as.character(rlang::call_args(e))
+    if (args[[1]] == ".data" && args[[2]] %in% colnames(data)) {
+        col <- args[[2]]
+        list(labels = col, cols = col)
+    } else {
+        list(labels = rlang::expr_text(e), cols = character(0))
+    }
+}
+
 # Formats with backticks if non-syntactic.
 format_syntactic <- function(x) {
     # Use make.names to determine if not syntactic.
@@ -169,10 +204,9 @@ format_syntactic <- function(x) {
 }
 
 # Returns list(labels = chr vector, cols = chr vector)
-# labels: what to display (preserves desc() wrapper; NA columns get
-#         marked with an asterisk by the caller)
-# cols:   bare column names for NA checking, positionally aligned with
-#         labels whenever both are non-empty
+# labels: what to display; cols: bare column names for NA checking,
+# aligned with labels when both are non-empty. labels non-empty but cols
+# empty means NA status is unknowable (see log_arrange).
 process_arrange_var <- function(q, data) {
     # Extract the expression and environment
     e <- rlang::quo_get_expr(q)
@@ -186,8 +220,7 @@ process_arrange_var <- function(q, data) {
         return(list(labels = format_syntactic(col), cols = col))
     }
 
-    # 2. Edge case non-calls that filtered through here should be listed in
-    # labels as is, but not evaluated in cols.
+    # 2. Non-calls: list as-is, cols empty (unknowable NA status).
     if (!rlang::is_call(e)) {
         return(list(labels = rlang::expr_text(e), cols = character(0)))
     }
@@ -197,8 +230,9 @@ process_arrange_var <- function(q, data) {
     if (fn == "across") return(process_across(e, data, env))
     if (fn == "pick") return(process_pick(e, data, env))
     if (fn == "desc") return(process_desc(e, data, env))
+    if (fn == "$") return(process_dollar(e, data, env))
 
-    # 4. Any other data-masking expression (e.g., col * 2, is.na(col))
-    # Show expression as-is with no NA checking: there's no bare column to extract.
+    # 4. Any other data-masking expression (e.g. col * 2, is.na(col)):
+    # show as-is, cols empty (NA propagation unknowable without evaluating).
     list(labels = rlang::expr_text(e), cols = character(0))
 }

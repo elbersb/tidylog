@@ -29,39 +29,53 @@ percent <- function(n, total) {
     }
 }
 
-# Renders a list of items as a comma-separated string, truncating to the
-# first 5 with a trailing ellipsis if there are more.
-#
-# with_marker: optional logical vector, same length as items, indicating
-# which items should be suffixed with `marker`. If any truncated item would have
-# been marked, the ellipsis gains the marker.
-format_list <- function(items, with_marker = NULL, marker = cli::symbol$sup_1) {
-    if (!is.null(with_marker)
-        && length(with_marker) != length(items)) {
-        stop("`with_marker` must be the same length as `items`")
+#' Format a list of items as a comma-separated string
+#'
+#' @description
+#' Renders `items` as a comma-separated string, truncating to the first 5
+#' items with a trailing ellipsis if there are more.
+#'
+#' @param items Character vector of items to render.
+#' @param markers Optional vector the same length as `items`, used to
+#'   suffix individual items. `NA` means no marker. May be a factor if
+#'   sort order should differ from plain character sort (e.g. for
+#'   `cli::symbol$sup_0`/`sup_1`) -- `sort()` honors factor levels.
+#'
+#' @details
+#' If a marked item is swallowed by truncation, the ellipsis is suffixed
+#' with the distinct marker(s) found among hidden items, sorted and
+#' concatenated, so a marker is never silently dropped.
+#'
+#' @return A single string.
+format_list <- function(items, markers = NULL) {
+    if (!is.null(markers) && length(markers) != length(items)) {
+        stop("`markers` must be the same length as `items`")
     }
 
-    add_marker <- function(x) paste0(x, marker)
+    add_marker <- function(x, m) paste0(x, m)
 
-    # Show at most only first 5 items.
     num_start <- min(5, length(items))
-    start <- items[1:num_start]
-    with_marker_start <- with_marker[1:num_start]
-    decorated_start <- if (is.null(with_marker)) {
+    start <- items[seq_len(num_start)]
+    decorated_start <- if (is.null(markers)) {
         start
     } else {
-        ifelse(with_marker_start, add_marker(start), start)
+        m_start <- markers[seq_len(num_start)]
+        ifelse(is.na(m_start), start, add_marker(start, m_start))
     }
 
-    # If only <=5 items existed, return the simple comma-formatted list.
-    if (length(items) <= 5)
-        return(paste0(decorated_start, collapse= ", "))
+    if (length(items) <= 5) {
+        return(paste0(decorated_start, collapse = ", "))
+    }
 
-    # If more items existed, truncate with an ellipsis, but also check
-    # if any of the other items are with_marker.
-    hidden_marked <- !is.null(with_marker) && any(with_marker[-(1:5)])
-    truncation_symbol <- if (hidden_marked) {
-        add_marker(cli::symbol$ellipsis)
+    hidden_markers <- if (is.null(markers)) {
+        NULL
+    } else {
+        markers[-seq_len(num_start)]
+    }
+    hidden_markers <- sort(unique(hidden_markers))
+
+    truncation_symbol <- if (length(hidden_markers) > 0) {
+        add_marker(cli::symbol$ellipsis, paste0(as.character(hidden_markers), collapse = ""))
     } else {
         cli::symbol$ellipsis
     }
