@@ -90,7 +90,7 @@ log_arrange <- function(.olddata, .newdata, .funname, ...) {
         } else if (length(p$cols) != n) {
             stop("process_arrange_var() invariant violated: cols length doesn't match labels length")
         } else {
-            ifelse(p$cols %in% na_cols, sup_1, NA_character_)
+            ifelse(p$cols %in% na_cols, sup_1, "")  # "" = no marker
         }
     })
 

@@ -36,10 +36,10 @@ percent <- function(n, total) {
 #' items with a trailing ellipsis if there are more.
 #'
 #' @param items Character vector of items to render.
-#' @param markers Optional vector the same length as `items`, used to
-#'   suffix individual items. `NA` means no marker. May be a factor if
-#'   sort order should differ from plain character sort (e.g. for
-#'   `cli::symbol$sup_0`/`sup_1`) -- `sort()` honors factor levels.
+#' @param markers Optional character vector the same length as `items`,
+#'   used to suffix individual items. Use empty "" if no marker. May be a
+#'   factor if sort order should differ from plain character sort
+#'   -- `sort()` honors factor levels.
 #'
 #' @details
 #' If a marked item is swallowed by truncation, the ellipsis is suffixed
@@ -59,8 +59,7 @@ format_list <- function(items, markers = NULL) {
     decorated_start <- if (is.null(markers)) {
         start
     } else {
-        m_start <- markers[seq_len(num_start)]
-        ifelse(is.na(m_start), start, add_marker(start, m_start))
+        add_marker(start, markers[seq_len(num_start)])
     }
 
     if (length(items) <= 5) {
