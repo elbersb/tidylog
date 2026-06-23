@@ -12,6 +12,9 @@ na_regex <- paste0(sup_1, "contains NAs, which sort to the end$")
 sup_2 <- cli::symbol$sup_2
 unknown_regex <- paste0(sup_2, "NA status unknown$")
 
+# Combined:
+combined_regex <- paste0(sub("\\$", "", na_regex), "; ", unknown_regex)
+
 test_that("arrange: basic", {
 
     # empty has no effect and does not error
@@ -325,12 +328,12 @@ test_that("arrange: edge cases and complex expressions", {
     mtcars_na <- mtcars
     mtcars_na$mpg[1] <- NA
 
-    # 1. Complex data-masking: should NOT trigger NA note even with NA
+    # 1. Complex data-masking: should NOT trigger sup_1 NA note even with NA
     f <- function() tidylog::arrange(mtcars_na, mpg * 2)
     expect_messages(
         out <- f(),
         glue::glue("sorted rows by mpg \\* 2{sup_2}$"),
-        nomatch("NAs"),
+        nomatch(na_regex),
         unknown_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na, mpg * 2))
@@ -339,18 +342,17 @@ test_that("arrange: edge cases and complex expressions", {
     expect_messages(
         out <- f(),
         glue::glue("sorted rows by cyl \\* hp{sup_2}$"),
-        nomatch("NAs"),
+        nomatch(na_regex),
         unknown_regex
     )
     expect_equal(out, dplyr::arrange(mtcars_na, cyl * hp))
 
-    # 2. .data pronoun
-    # 2A: without NA
+    # 2A: .data pronoun without NA
     f <- function() tidylog::arrange(mtcars, .data$carb)
     expect_message(out <- f(), "sorted rows by carb$")
     expect_equal(out, dplyr::arrange(mtcars, .data$carb))
 
-    # 2B: with NA
+    # 2B: .data pronoun with NA
     f <- function() tidylog::arrange(mtcars_na, .data$mpg)
     expect_messages(
         out <- f(),
@@ -378,3 +380,31 @@ test_that("arrange: edge cases and complex expressions", {
     )
     expect_equal(out, dplyr::arrange(mtcars, carb, desc(carb), carb * 2))
 })
+
+test_that("arrange: NA and complex expressions combined", {
+
+    mtcars_na <- mtcars
+    mtcars_na$mpg[1] <- NA
+
+
+    # 1. Present on one line
+    f <- function() tidylog::arrange(mtcars_na, mpg, mpg * 2)
+    expect_messages(
+        out <- f(),
+        glue::glue("sorted rows by mpg{sup_1}, mpg \\* 2{sup_2}$"),
+        combined_regex,
+        nomatch(na_regex)  # Can't find just the NA part anchored to the end
+    )
+    expect_equal(out, dplyr::arrange(mtcars_na, mpg, mpg * 2))
+
+    # 2. The order of the variables does not change the order of the NA message
+    f <- function() tidylog::arrange(mtcars_na, mpg * 2, mpg)
+    expect_messages(
+        out <- f(),
+        glue::glue("sorted rows by mpg \\* 2{sup_2}, mpg{sup_1}$"),
+        combined_regex,
+        nomatch(na_regex)  # Can't find just the NA part anchored to the end
+    )
+    expect_equal(out, dplyr::arrange(mtcars_na, mpg * 2, mpg))
+})
+

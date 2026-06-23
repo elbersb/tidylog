@@ -108,18 +108,15 @@ log_arrange <- function(.olddata, .newdata, .funname, ...) {
         "{prefix} sorted rows{grp_infix} by {all_labels_marked}"
     ))
 
-    ws_pre <- replace_with_ws(prefix)
 
-    if (sup_1 %in% markers) {
-        display(glue::glue(
-            "{ws_pre} {sup_1}contains NAs, which sort to the end"
-        ))
-    }
-
-    if (sup_2 %in% markers) {
-        display(glue::glue(
-            "{ws_pre} {sup_2}NA status unknown"
-        ))
+    # Build a single line with the NA status information.
+    na_status_text <- paste0(c(
+        if (sup_1 %in% markers) glue::glue("{sup_1}contains NAs, which sort to the end"),
+        if (sup_2 %in% markers) glue::glue("{sup_2}NA status unknown")
+    ), collapse = "; ")
+    if(nzchar(na_status_text)) {
+        ws_pre <- replace_with_ws(prefix)
+        display(glue::glue("{ws_pre} {na_status_text}"))
     }
 }
 
