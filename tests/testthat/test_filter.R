@@ -24,6 +24,35 @@ test_that("filter", {
     })
 })
 
+test_that("filter_out", {
+    expect_message({
+        out <- tidylog::filter_out(mtcars, mpg <= 1000)
+    })
+    expect_equal(nrow(out), 0)
+
+    expect_message({
+        out <- tidylog::filter_out(mtcars, mpg >= 1000)
+    })
+    expect_equal(nrow(out), nrow(mtcars))
+
+    expect_message({
+        out <- tidylog::filter_out(mtcars, mpg != 21)
+    })
+    expect_equal(nrow(out), 2)
+
+    # Ensure `filter` and `filter_out` messages are identical for complementary
+    # situations, except the function name.
+    expect_equal(
+        capture_messages(tidylog::filter(mtcars, mpg == 21)),
+        capture_messages(tidylog::filter_out(mtcars, mpg != 21)) |>
+            sub("filter_out", "filter", x = _),
+    )
+
+    expect_silent({
+        out <- dplyr::filter_out(mtcars, mpg == 21)
+    })
+})
+
 test_that("distinct", {
     expect_message({
         out <- tidylog::distinct(mtcars, mpg)
@@ -98,6 +127,11 @@ test_that("distinct: scoped variants", {
 test_that("filter: argument order", {
     expect_message({
         out <- tidylog::filter(mpg == 21, .data = mtcars)
+    })
+    expect_equal(nrow(out), 2)
+
+    expect_message({
+        out <- tidylog::filter_out(mpg != 21, .data = mtcars)
     })
     expect_equal(nrow(out), 2)
 
@@ -183,8 +217,13 @@ test_that("filter on grouped data", {
     expect_message({
         out <- tidylog::filter(gb, am == 0)
     }, "grouped")
+
     expect_message({
         out <- tidylog::filter(gb, am == 0)
+    }, "removed one group, 2 groups remaining")
+
+    expect_message({
+        out <- tidylog::filter_out(gb, am != 0)
     }, "removed one group, 2 groups remaining")
 })
 

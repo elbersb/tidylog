@@ -8,6 +8,7 @@ library(purrr)
 regular_wrappers <- list(
     log_filter = c(
         "dplyr::filter", "dplyr::filter_all", "dplyr::filter_if", "dplyr::filter_at",
+        "dplyr::filter_out",
         "dplyr::distinct", "dplyr::distinct_all", "dplyr::distinct_if", "dplyr::distinct_at",
         "dplyr::top_n", "dplyr::top_frac",
         "dplyr::sample_n", "dplyr::sample_frac",

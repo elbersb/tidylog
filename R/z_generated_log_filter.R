@@ -91,6 +91,28 @@ filter_at <- function(.tbl, ...) {
 
 
 
+#' Wrapper around dplyr::filter_out that prints information about the operation
+#'
+#' @description
+#' Wrapper around [dplyr::filter_out()] that prints information about the operation.
+#'
+#' @details
+#' Documentation generated from dplyr version 1.2.1.
+#'
+#' @inheritParams dplyr::filter_out
+#' @inheritDotParams dplyr::filter_out
+#'
+#' @return See [dplyr::filter_out()]
+#' @seealso [dplyr::filter_out()]
+#' @export
+filter_out <- function(.data, ...) {
+	result <- dplyr::filter_out(.data, ...)
+	log_filter(.data, result, "filter_out", ...)
+	result
+}
+
+
+
 #' Wrapper around dplyr::distinct that prints information about the operation
 #'
 #' @description
