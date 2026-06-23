@@ -175,7 +175,12 @@ process_across <- function(e, data, env) {
 process_desc <- function(e, data, env) {
     inner <- rlang::call_args(e)[[1]]
     inner_q <- rlang::new_quosure(inner, env)
-    inner_processed <- process_arrange_var(inner_q, data)
+    inner_processed <- process_arrange_var(
+        inner_q, data,
+        # Complex statements within desc() do not need to also be backticked,
+        # since they are already wrapped by desc(),
+        # e.g. desc(mpg * 2) NOT desc(`mpg * 2`).
+        wrap_complex_in_backticks=F)
     list(
         labels = paste0("desc(", inner_processed$labels, ")"),
         cols = inner_processed$cols
@@ -195,19 +200,27 @@ process_dollar <- function(e, data, env) {
 }
 
 # Formats with backticks if non-syntactic.
+format_backticks <- function(x) glue::glue("`{x}`")
+
 format_syntactic <- function(x) {
     # Use make.names to determine if not syntactic.
-    ifelse(x != make.names(x), glue::glue("`{x}`"), x)
+    ifelse(x != make.names(x), format_backticks(x), x)
 }
 
 # Returns list(labels = chr vector, cols = chr vector)
 # labels: what to display; cols: bare column names for NA checking,
 # aligned with labels when both are non-empty. labels non-empty but cols
 # empty means NA status is unknowable (see log_arrange).
-process_arrange_var <- function(q, data) {
+process_arrange_var <- function(q, data, wrap_complex_in_backticks=TRUE) {
     # Extract the expression and environment
     e <- rlang::quo_get_expr(q)
     env <- rlang::quo_get_env(q)
+
+    format_complex <- if (wrap_complex_in_backticks) {
+        format_backticks
+    } else {
+        function (x) x
+    }
 
     # 1. Bare symbols (e.g., col)
     # Note: injected symbols like !!sym("var") are automatically evaluated
@@ -217,9 +230,13 @@ process_arrange_var <- function(q, data) {
         return(list(labels = format_syntactic(col), cols = col))
     }
 
-    # 2. Non-calls: list as-is, cols empty (unknowable NA status).
+    # 2. Non-calls: list as-is but format with backticks for clarity.
+    # Leave cols empty since NA status is unknowable.
     if (!rlang::is_call(e)) {
-        return(list(labels = rlang::expr_text(e), cols = character(0)))
+        return(list(
+            labels = format_complex(rlang::expr_text(e)),
+            cols = character(0)
+        ))
     }
 
     # 3. Special cases: across(), pick(), desc()
@@ -230,6 +247,7 @@ process_arrange_var <- function(q, data) {
     if (fn == "$") return(process_dollar(e, data, env))
 
     # 4. Any other data-masking expression (e.g. col * 2, is.na(col)):
-    # show as-is, cols empty (NA propagation unknowable without evaluating).
-    list(labels = rlang::expr_text(e), cols = character(0))
+    # show as-is but with backticks, and leave cols empty (NA propagation is
+    # unknowable without evaluating).
+    list(labels = format_complex(rlang::expr_text(e)), cols = character(0))
 }

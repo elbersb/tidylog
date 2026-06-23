@@ -252,7 +252,7 @@ test_that("arrange: complex desc", {
     expect_message(out <- f(), "sorted rows by desc\\(carb\\), desc\\(gear\\)$")
     expect_equal(out, dplyr::arrange(mtcars, desc(pick(carb, gear))))
 
-    # desc(col * 2) — complex expression, shown as-is
+    # desc(col * 2) — complex expression, shown as-is, without backticking.
     f <- function() tidylog::arrange(mtcars, desc(mpg * 2))
     expect_messages(
         out <- f(),
@@ -328,11 +328,13 @@ test_that("arrange: edge cases and complex expressions", {
     mtcars_na <- mtcars
     mtcars_na$mpg[1] <- NA
 
-    # 1. Complex data-masking: should NOT trigger sup_1 NA note even with NA
+    # 1. Complex data-masking:
+    #   A. Should NOT trigger sup_1 NA note even with NA
+    #   B. Should be back-ticked when not within desc().
     f <- function() tidylog::arrange(mtcars_na, mpg * 2)
     expect_messages(
         out <- f(),
-        glue::glue("sorted rows by mpg \\* 2{sup_2}$"),
+        glue::glue("sorted rows by `mpg \\* 2`{sup_2}$"),
         nomatch(na_regex),
         unknown_regex
     )
@@ -341,7 +343,7 @@ test_that("arrange: edge cases and complex expressions", {
     f <- function() tidylog::arrange(mtcars_na, cyl * hp)
     expect_messages(
         out <- f(),
-        glue::glue("sorted rows by cyl \\* hp{sup_2}$"),
+        glue::glue("sorted rows by `cyl \\* hp`{sup_2}$"),
         nomatch(na_regex),
         unknown_regex
     )
@@ -375,7 +377,7 @@ test_that("arrange: edge cases and complex expressions", {
     f <- function() tidylog::arrange(mtcars, carb, desc(carb), carb * 2)
     expect_messages(
         out <- f(),
-        glue::glue("sorted rows by carb, desc\\(carb\\), carb \\* 2{sup_2}$"),
+        glue::glue("sorted rows by carb, desc\\(carb\\), `carb \\* 2`{sup_2}$"),
         unknown_regex
     )
     expect_equal(out, dplyr::arrange(mtcars, carb, desc(carb), carb * 2))
@@ -391,7 +393,7 @@ test_that("arrange: NA and complex expressions combined", {
     f <- function() tidylog::arrange(mtcars_na, mpg, mpg * 2)
     expect_messages(
         out <- f(),
-        glue::glue("sorted rows by mpg{sup_1}, mpg \\* 2{sup_2}$"),
+        glue::glue("sorted rows by mpg{sup_1}, `mpg \\* 2`{sup_2}$"),
         combined_regex,
         nomatch(na_regex)  # Can't find just the NA part anchored to the end
     )
@@ -401,7 +403,7 @@ test_that("arrange: NA and complex expressions combined", {
     f <- function() tidylog::arrange(mtcars_na, mpg * 2, mpg)
     expect_messages(
         out <- f(),
-        glue::glue("sorted rows by mpg \\* 2{sup_2}, mpg{sup_1}$"),
+        glue::glue("sorted rows by `mpg \\* 2`{sup_2}, mpg{sup_1}$"),
         combined_regex,
         nomatch(na_regex)  # Can't find just the NA part anchored to the end
     )
