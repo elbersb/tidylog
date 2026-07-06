@@ -7,6 +7,7 @@
   documentation using roxygen2 and @inheritDotParams to support auto-completion 
   in RStudio (#56). See CONTRIBUTING.md for more information.
 - dplyr: support for filter_out (#79)
+- dplyr: support for arrange, including unpacking `across()` and `pick()` (#47)
 
 # 1.1.0
 

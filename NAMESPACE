@@ -3,6 +3,7 @@
 export(add_count)
 export(add_tally)
 export(anti_join)
+export(arrange)
 export(count)
 export(distinct)
 export(distinct_all)

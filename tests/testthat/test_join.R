@@ -1,4 +1,4 @@
-context("test_group_by")
+context("test_join")
 library("dplyr")
 library("tidylog")
 

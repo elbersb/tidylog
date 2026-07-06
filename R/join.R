@@ -81,7 +81,7 @@ log_join <- function(x, y, by = NULL, .newdata, .funname, .name_x, .name_y, ...)
     .name_x <- format(.name_x, justify = "left", width = names_length)
     .name_y <- format(.name_y, justify = "left", width = names_length)
     # white space
-    ws_pre <- paste0(rep(" ", nchar(.funname)), collapse = "")
+    ws_pre <- replace_with_ws(.funname)
     ws_post <- paste0(rep(" ", names_length), collapse = "")
 
     if (.funname %in% c("right_join", "inner_join", "semi_join")) {

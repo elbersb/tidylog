@@ -59,6 +59,10 @@ regular_wrappers <- list(
         "tidyr::separate_wider_delim",
         "tidyr::separate_wider_position",
         "tidyr::separate_wider_regex"
+    ),
+
+    log_arrange = c(
+        "dplyr::arrange"
     )
 )
 

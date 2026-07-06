@@ -15,7 +15,8 @@ Imports:
     tidyr,
     glue,
     cli,
-    rlang (>= 0.4.3)
+    rlang (>= 0.4.3),
+    tidyselect
 Suggests:
     testthat,
     units,

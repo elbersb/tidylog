@@ -29,12 +29,59 @@ percent <- function(n, total) {
     }
 }
 
-format_list <- function(items) {
-    if (length(items) <= 5) {
-        paste0(items, collapse = ", ")
-    } else {
-        paste0(c(items[1:5], cli::symbol$ellipsis), collapse = ", ")
+#' Format a list of items as a comma-separated string
+#'
+#' @description
+#' Renders `items` as a comma-separated string, truncating to the first 5
+#' items with a trailing ellipsis if there are more.
+#'
+#' @param items Character vector of items to render.
+#' @param markers Optional character vector the same length as `items`,
+#'   used to suffix individual items. Use empty "" if no marker. May be a
+#'   factor if sort order should differ from plain character sort
+#'   -- `sort()` honors factor levels.
+#'
+#' @details
+#' If a marked item is swallowed by truncation, the ellipsis is suffixed
+#' with the distinct marker(s) found among hidden items, sorted and
+#' concatenated, so a marker is never silently dropped.
+#'
+#' @return A single string.
+format_list <- function(items, markers = NULL) {
+    if (!is.null(markers) && length(markers) != length(items)) {
+        stop("`markers` must be the same length as `items`")
     }
+
+    add_marker <- function(x, m) paste0(x, m)
+
+    num_start <- min(5, length(items))
+    start <- items[seq_len(num_start)]
+    decorated_start <- if (is.null(markers)) {
+        start
+    } else {
+        add_marker(start, markers[seq_len(num_start)])
+    }
+
+    if (length(items) <= 5) {
+        return(paste0(decorated_start, collapse = ", "))
+    }
+
+    hidden_markers <- if (!is.null(markers)) {
+        sort(unique(markers[-seq_len(num_start)]))
+    }
+
+    truncation_symbol <- if (length(hidden_markers) > 0) {
+        add_marker(cli::symbol$ellipsis, paste0(as.character(hidden_markers), collapse = ""))
+    } else {
+        cli::symbol$ellipsis
+    }
+
+    paste0(c(decorated_start, truncation_symbol), collapse = ", ")
+}
+
+# Returns whitespace of the same width as x
+replace_with_ws <- function(x) {
+    paste0(rep(" ", nchar(x, type = "width")), collapse = "")
 }
 
 get_type <- function(v) {
